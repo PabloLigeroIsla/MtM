@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Hospital implements Serializable
 {
 
-	private static final long serialVersionUID = -8534133295501375045L;
+	private static final long serialVersionUID = -6884313047641166417L;
 	
 	private Integer hospital_ID; 
 	private String name;
@@ -15,45 +15,40 @@ public class Hospital implements Serializable
 	//Foreign Key --> NO
 	
 	//Gets and Sets
-	public void setHospital_ID(int hosp_id)
-	{
-		this.hospital_ID = hosp_id;
-	}
-	public void setName(String name2)
-	{
-		this.name = name2;
-	}
-	public void setLocation(String location2)
-	{
-		this.location = location2;
-	}
-	public void setMedical_specialization(String med_esp)
-	{
-		this.medical_specialization = med_esp;
-	}
 	
-	public int getHospital()
+	public Integer getHospital_ID() 
 	{
-		return this.hospital_ID;
+		return hospital_ID;
 	}
+	public void setHospital_ID(Integer hospital_ID) {
+		this.hospital_ID = hospital_ID;
+	}
+
 	public String getName()
 	{
-		return this.name;
+		return name;
 	}
+	public void setName(String name) 
+	{
+		this.name = name;
+	}
+
 	public String getLocation()
 	{
-		return this.location;
+		return location;
 	}
+	public void setLocation(String location)
+	{
+		this.location = location;
+	}
+
 	public String getMedical_specialization()
 	{
-		return this.medical_specialization;
+		return medical_specialization;
 	}
-	
-	@Override
-	public String toString()
+	public void setMedical_specialization(String medical_specialization)
 	{
-		return "Hospital [ hospital_ID = " + hospital_ID +", name =" + name + ", location = "+ 
-				location + ", medical_specialization = "+ medical_specialization + " ]";
+		this.medical_specialization = medical_specialization;
 	}
 	
 	// Constructors
