@@ -59,7 +59,8 @@ public class Order implements Serializable
 		super();
 	}
 	
-	public Order(Integer order_ID, Integer total_amount_instruments, Date order_Date, Date delivery_Date) {
+	public Order(Integer order_ID, Integer total_amount_instruments, Date order_Date, Date delivery_Date) 
+	{
 		super();
 		this.order_ID = order_ID;
 		this.total_amount_instruments = total_amount_instruments;
@@ -69,17 +70,27 @@ public class Order implements Serializable
 	
 	//Methods
 	
-	//hashCode and Equals
+	@Override
+	public String toString() 
+	{
+		return "Order [order_ID=" + order_ID + ", total_amount_instruments=" + total_amount_instruments
+				+ ", order_Date=" + order_Date + ", delivery_Date=" + delivery_Date + "]";
+	}
+	
+	//hashCode and equals
 	
 	@Override
-	public int hashCode() {
+	public int hashCode() 
+	{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((delivery_Date == null) ? 0 : delivery_Date.hashCode());
 		return result;
 	}
+	
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj) 
+	{
 		if (this == obj)
 			return true;
 		if (obj == null)

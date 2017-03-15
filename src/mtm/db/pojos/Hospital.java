@@ -58,7 +58,8 @@ public class Hospital implements Serializable
 		super();
 	}
 	
-	public Hospital(Integer hospital_ID, String name, String location, String medical_specialization) {
+	public Hospital(Integer hospital_ID, String name, String location, String medical_specialization) 
+	{
 		super();
 		this.hospital_ID = hospital_ID;
 		this.name = name;
@@ -69,18 +70,28 @@ public class Hospital implements Serializable
 	
 	// Methods
 	
-	//hashCode and  Equals
+	@Override
+	public String toString() 
+	{
+		return "Hospital [hospital_ID=" + hospital_ID + ", name=" + name + ", location=" + location
+				+ ", medical_specialization=" + medical_specialization + "]";
+	}
+	
+	//hashCode and  equals
 	
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((hospital_ID == null) ? 0 : hospital_ID.hashCode());
 		return result;
 	}
+
 	
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj) 
+	{
 		if (this == obj)
 			return true;
 		if (obj == null)
