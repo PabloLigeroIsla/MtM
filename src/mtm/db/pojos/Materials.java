@@ -7,7 +7,7 @@ public class Materials implements Serializable {
 	private static final long serialVersionUID = -4285912514873004463L;
 	
 	
-	private Integer material_ID;
+	private Integer material_ID; //PRIMARY KEY
 	private String material_provided;
 	private Integer volume;
 	private Integer weight;
