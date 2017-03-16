@@ -4,26 +4,18 @@ import java.io.Serializable;
 
 public class Materials implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -4285912514873004463L;
 	
-	private Integer id;
-	private String type;
+	
+	private Integer material_ID;
+	private String material_provided;
 	private Integer volume;
 	private Integer weight;
+	private String machinery_type;
 	
 	
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
+
+
 	public Integer getVolume() {
 		return volume;
 	}
@@ -42,12 +34,26 @@ public class Materials implements Serializable {
 		super();
 	}
 	
-	public Materials(Integer id, String type, Integer weight, Integer volume){
+	public Materials(Integer material_ID, String material_provided, Integer weight, Integer volume, String machinery_type){
 		super();
-		this.id= id;
-		this.type= type;
+		this.material_ID= material_ID;
+		this.material_provided= material_provided;
 		this.weight = weight;
 		this.volume = volume;
+		this.machinery_type= machinery_type;
+	}
+	
+	public String getMaterial_provided() {
+		return material_provided;
+	}
+	public void setMaterial_provided(String material_provided) {
+		this.material_provided = material_provided;
+	}
+	public Integer getMaterial_ID() {
+		return material_ID;
+	}
+	public void setMaterial_ID(Integer material_ID) {
+		this.material_ID = material_ID;
 	}
 	
 	
@@ -55,11 +61,12 @@ public class Materials implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((material_ID == null) ? 0 : material_ID.hashCode());
 		return result;
 	}
 	@Override
 	public boolean equals(Object obj) {
+
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -67,17 +74,28 @@ public class Materials implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Materials other = (Materials) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (material_ID == null) {
+			if (other.material_ID != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!material_ID.equals(other.material_ID))
 			return false;
 		return true;
 	}
+	
+	
+	
+	public String getMachinery_type() {
+		return machinery_type;
+	}
+	public void setMachinery_type(String machinery_type) {
+		this.machinery_type = machinery_type;
+	}
 	@Override
 	public String toString() {
-		return "Materials [id=" + id + ", type=" + type + ", volume=" + volume + ", weight=" + weight + "]";
+		return "Materials [material_ID=" + material_ID + ", material_provided=" + material_provided + ", volume="
+				+ volume + ", weight=" + weight + ", machinery_type=" + machinery_type + "]";
 	}
+	
 	
 	
 	
