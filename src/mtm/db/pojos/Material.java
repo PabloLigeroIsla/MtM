@@ -2,12 +2,12 @@ package mtm.db.pojos;
 
 import java.io.Serializable;
 
-public class Materials implements Serializable {
+public class Material implements Serializable {
 
 	private static final long serialVersionUID = -4285912514873004463L;
 	
 	
-	private Integer material_ID;
+	private Integer material_ID; //PRIMARY KEY
 	private String material_provided;
 	private Integer volume;
 	private Integer weight;
@@ -30,11 +30,11 @@ public class Materials implements Serializable {
 	}
 	
 	
-	public Materials (){
+	public Material (){
 		super();
 	}
 	
-	public Materials(Integer material_ID, String material_provided, Integer weight, Integer volume, String machinery_type){
+	public Material(Integer material_ID, String material_provided, Integer weight, Integer volume, String machinery_type){
 		super();
 		this.material_ID= material_ID;
 		this.material_provided= material_provided;
@@ -73,7 +73,7 @@ public class Materials implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Materials other = (Materials) obj;
+		Material other = (Material) obj;
 		if (material_ID == null) {
 			if (other.material_ID != null)
 				return false;

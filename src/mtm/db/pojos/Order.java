@@ -7,9 +7,9 @@ import java.util.List;
 
 public class Order implements Serializable
 {
-
-	private static final long serialVersionUID = 4639280265959892880L;
-
+	
+	private static final long serialVersionUID = -6381647183046062039L;
+	
 	private Integer order_ID;
 	private Integer total_amount_instruments;
 	private Date order_Date;
@@ -84,17 +84,48 @@ public class Order implements Serializable
 		this.hospitalList = new ArrayList<Hospital>();
 		this.instrumentList = new ArrayList<Instrument>();
 	}
-	
-	public Order(Integer order_ID, Integer total_amount_instruments, Date order_Date, Date delivery_Date) 
+
+	public Order(Integer order_ID, Integer total_amount_instruments, Date order_Date, Date delivery_Date, List<Hospital> hospitalList, List<Instrument> instrumentList)
 	{
 		super();
 		this.order_ID = order_ID;
 		this.total_amount_instruments = total_amount_instruments;
 		this.order_Date = order_Date;
 		this.delivery_Date = delivery_Date;
+		this.hospitalList = hospitalList;
+		this.instrumentList = instrumentList;
+	}
+	//Methods
+	
+	public void addHospitalList(Hospital hospital)
+	{
+		if(hospitalList.contains(hospital))
+		{
+			this.hospitalList.add(hospital);
+		}
+	}
+	public void addInstrumentList(Instrument instrument)
+	{
+		if(instrumentList.contains(instrument))
+		{
+			this.instrumentList.add(instrument);
+		}
 	}
 	
-	//Methods
+	public void removeHospitalList(Hospital hospital)
+	{
+		if(!hospitalList.contains(hospital))
+		{
+			this.hospitalList.remove(hospital);
+		}
+	}
+	public void removeInstrumentList(Instrument instrument)
+	{
+		if(!instrumentList.contains(instrument))
+		{
+			this.instrumentList.remove(instrument);
+		}
+	}
 	
 	@Override
 	public String toString() 
