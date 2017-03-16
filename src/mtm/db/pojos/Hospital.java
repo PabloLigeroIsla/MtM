@@ -7,7 +7,7 @@ import java.util.List;
 public class Hospital implements Serializable
 {
 
-	private static final long serialVersionUID = -8361495876133650176L;
+	private static final long serialVersionUID = -4907375129925145584L;
 	
 	private Integer hospital_ID; 
 	private String name;
@@ -84,6 +84,22 @@ public class Hospital implements Serializable
 	}
 	// Methods
 	
+	public void addOrder (Order order)
+	{
+		if(!orderList.contains(order))
+		{
+			this.orderList.add(order);
+		}
+	}
+	
+	public void removeOrder (Order order)
+	{
+		if(orderList.contains(order))
+		{
+			this.orderList.remove(order);
+		}
+	}
+	
 	@Override
 	public String toString() 
 	{
@@ -102,7 +118,6 @@ public class Hospital implements Serializable
 		return result;
 	}
 
-	
 	@Override
 	public boolean equals(Object obj) 
 	{
