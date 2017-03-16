@@ -13,7 +13,7 @@ public class Company implements Serializable {
 	private String location;
 	private String company_name;
 	
-	private List<Materials>  materialList;
+	private List<Material>  materialList;
 	
 	public String getResource() {
 		return resource;
@@ -33,10 +33,10 @@ public class Company implements Serializable {
 	public void setCompany_name(String company_name) {
 		this.company_name = company_name;
 	}	
-	public List<Materials> getMaterialList() {
+	public List<Material> getMaterialList() {
 		return materialList;
 	}
-	public void setMaterialList(List<Materials> materialList) {
+	public void setMaterialList(List<Material> materialList) {
 		this.materialList = materialList;
 	}
 	
@@ -45,20 +45,20 @@ public class Company implements Serializable {
 
 	}
 	
-	public Company(String resource, String location, String company_name, List<Materials> materialList){
+	public Company(String resource, String location, String company_name, List<Material> materialList){
 		this.resource= resource;
 		this.location=location;
 		this.company_name=company_name;
 		this.materialList=materialList;
 	}
 	
-	public void addMaterials (Materials material){
+	public void addMaterial (Material material){
 		if(!materialList.contains(material)){
 			this.materialList.add(material);
 		}
 	}
 	
-	public void removeMaterials(Materials material) {
+	public void removeMaterial(Material material) {
 		if (materialList.contains(material)) {
 			this.materialList.remove(material);
 		}
