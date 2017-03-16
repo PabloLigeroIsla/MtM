@@ -18,7 +18,7 @@ public class Order implements Serializable
 	private List <Hospital> hospitalList;
 	private List <Instrument> instrumentList;
 	//Primary Key --> order_ID
-	//Foreign Key --> NO
+	//Foreign Key --> hospitalList,instrumentList
 	
 	// Gets and Sets
 	
