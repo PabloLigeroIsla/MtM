@@ -84,6 +84,22 @@ public class Hospital implements Serializable
 	}
 	// Methods
 	
+	public void addOrder (Order order)
+	{
+		if(!orderList.contains(order))
+		{
+			this.orderList.add(order);
+		}
+	}
+	
+	public void removeOrder (Order order)
+	{
+		if(orderList.contains(order))
+		{
+			this.orderList.remove(order);
+		}
+	}
+	
 	@Override
 	public String toString() 
 	{
@@ -102,7 +118,6 @@ public class Hospital implements Serializable
 		return result;
 	}
 
-	
 	@Override
 	public boolean equals(Object obj) 
 	{

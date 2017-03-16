@@ -84,9 +84,7 @@ public class Order implements Serializable
 		this.hospitalList = new ArrayList<Hospital>();
 		this.instrumentList = new ArrayList<Instrument>();
 	}
-	
-	
-	
+
 	public Order(Integer order_ID, Integer total_amount_instruments, Date order_Date, Date delivery_Date, List<Hospital> hospitalList, List<Instrument> instrumentList)
 	{
 		super();
@@ -98,6 +96,36 @@ public class Order implements Serializable
 		this.instrumentList = instrumentList;
 	}
 	//Methods
+	
+	public void addHospitalList(Hospital hospital)
+	{
+		if(hospitalList.contains(hospital))
+		{
+			this.hospitalList.add(hospital);
+		}
+	}
+	public void addInstrumentList(Instrument instrument)
+	{
+		if(instrumentList.contains(instrument))
+		{
+			this.instrumentList.add(instrument);
+		}
+	}
+	
+	public void removeHospitalList(Hospital hospital)
+	{
+		if(!hospitalList.contains(hospital))
+		{
+			this.hospitalList.remove(hospital);
+		}
+	}
+	public void removeInstrumentList(Instrument instrument)
+	{
+		if(!instrumentList.contains(instrument))
+		{
+			this.instrumentList.remove(instrument);
+		}
+	}
 	
 	@Override
 	public String toString() 
