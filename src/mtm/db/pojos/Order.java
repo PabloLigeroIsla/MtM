@@ -7,8 +7,8 @@ import java.util.List;
 
 public class Order implements Serializable
 {
-
-	private static final long serialVersionUID = 7488575927985965667L;
+	
+	private static final long serialVersionUID = -6381647183046062039L;
 	
 	private Integer order_ID;
 	private Integer total_amount_instruments;

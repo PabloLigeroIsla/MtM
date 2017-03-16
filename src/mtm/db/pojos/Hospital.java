@@ -7,7 +7,7 @@ import java.util.List;
 public class Hospital implements Serializable
 {
 
-	private static final long serialVersionUID = -8361495876133650176L;
+	private static final long serialVersionUID = -4907375129925145584L;
 	
 	private Integer hospital_ID; 
 	private String name;
