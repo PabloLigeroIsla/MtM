@@ -6,7 +6,8 @@ import java.util.List;
 
 public class Company implements Serializable {
 
-	private static final long serialVersionUID = 5399354394170770491L;
+	
+	private static final long serialVersionUID = -8663787080395108472L;
 
 	
 	private String resource; //PRIMARY KEY

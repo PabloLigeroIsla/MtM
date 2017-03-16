@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 public class Material implements Serializable {
 
-	private static final long serialVersionUID = -4285912514873004463L;
-	
+	private static final long serialVersionUID = -5060012550789129173L;
+
 	
 	private Integer material_ID; //PRIMARY KEY
 	private String material_provided;
