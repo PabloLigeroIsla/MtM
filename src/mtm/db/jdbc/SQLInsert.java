@@ -1,6 +1,6 @@
 package mtm.db.jdbc;
 
-public class SQLCreate 
+public class SQLInsert 
 {
 	public static void main()
 	{

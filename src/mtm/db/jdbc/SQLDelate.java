@@ -1,7 +1,8 @@
 package mtm.db.jdbc;
 
-public class SQLCreate 
+public class SQLDelate 
 {
+	
 	public static void main()
 	{
 		
@@ -18,4 +19,5 @@ public class SQLCreate
 		
 		
 	}
+
 }
