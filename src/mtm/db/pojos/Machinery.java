@@ -68,6 +68,7 @@ public class Machinery implements Serializable {
 		this.stateofMachinery = stateofMachinery;
 		this.dateofInstallation = dateofInstallation;
 		this.sizeofMachinery = sizeofMachinery;
+		
 	}
 
 	@Override

@@ -9,6 +9,7 @@ public class Employee implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -3297814757811814786L;
+	
 	private String employee_ID;
 	private String name;
 	private String specializationType;
