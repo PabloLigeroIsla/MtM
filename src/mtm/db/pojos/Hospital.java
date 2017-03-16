@@ -7,7 +7,7 @@ import java.util.List;
 public class Hospital implements Serializable
 {
 
-	private static final long serialVersionUID = -6884313047641166417L;
+	private static final long serialVersionUID = 1367190536405193806L;
 	
 	private Integer hospital_ID; 
 	private String name;
@@ -16,7 +16,7 @@ public class Hospital implements Serializable
 	
 	private List<Order> orderList;
 	//Primary Key --> hospital_ID
-	//Foreign Key --> No
+	//Foreign Key --> orderList
 	
 	//Gets and Sets
 	
