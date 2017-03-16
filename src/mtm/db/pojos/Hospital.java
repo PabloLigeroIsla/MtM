@@ -16,7 +16,7 @@ public class Hospital implements Serializable
 	
 	private List<Order> orderList;
 	//Primary Key --> hospital_ID
-	//Foreign Key --> NO
+	//Foreign Key --> No
 	
 	//Gets and Sets
 	
