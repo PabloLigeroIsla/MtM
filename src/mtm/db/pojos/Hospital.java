@@ -1,6 +1,8 @@
 package mtm.db.pojos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Hospital implements Serializable
 {
@@ -11,8 +13,10 @@ public class Hospital implements Serializable
 	private String name;
 	private String location;
 	private String medical_specialization;
+	
+	private List<Order> orderList;
 	//Primary Key --> hospital_ID
-	//Foreign Key --> NO
+	//Foreign Key --> No
 	
 	//Gets and Sets
 	
@@ -51,11 +55,22 @@ public class Hospital implements Serializable
 		this.medical_specialization = medical_specialization;
 	}
 	
+	public List<Order> getOrderList()
+	{
+		return orderList;
+	}
+	public void setOrderList(List<Order> orderList)
+	{
+		this.orderList = orderList;
+	}
+	
 	// Constructors
+	
 	
 	public Hospital()
 	{
 		super();
+		this.orderList = new ArrayList<Order>();
 	}
 	
 	public Hospital(Integer hospital_ID, String name, String location, String medical_specialization) 

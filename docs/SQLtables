@@ -1,0 +1,156 @@
+CREATE TABLE hospital(
+hospital_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+name TEXT,
+location TEXT,
+medical_specialization TEXT);
+
+INSERT INTO hospital(name,location,medical_specialization) VALUES('Gregorio Marañon','Calle del Dr. Esquerdo, 46, 28007 Madrid','Cardiology');
+INSERT INTO hospital(name,location,medical_specialization) VALUES('La Paz','Paseo de la Castellana, 261, 28046 Madrid','Traumatology');
+INSERT INTO hospital(name,location,medical_specialization) VALUES('Nuestra Señora del Rosario','C/Príncipe de Vergara, 53, 28006 Madrid','General');
+INSERT INTO hospital(name,location,medical_specialization) VALUES('Ramón y Cajal','Ctra. Colmenar Viejo, km. 9,100, 28034 Madrid','Ophthalmology');
+
+
+
+
+CREATE TABLE orders(
+order_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+total_amount_instruments INTEGER,
+order_date DATE,
+delivery_date DATE);
+
+INSERT INTO orders(total_amount_instruments,order_date,delivery_date) VALUES(30,'01/04/2017','10/04/2017');
+INSERT INTO orders(total_amount_instruments,order_date,delivery_date) VALUES(100,'14/03/2017','05/05/2017');
+INSERT INTO orders(total_amount_instruments,order_date,delivery_date) VALUES(200,'21/03/2017','01/04/2017');
+INSERT INTO orders(total_amount_instruments,order_date,delivery_date) VALUES(500,'10/03/2017','15/03/2017');
+
+
+
+
+
+CREATE TABLE hospital_orders(
+hospital_ID INTEGER REFERENCES hospital(hospital_ID),
+order_ID INTEGER REFERENCES orders(order_ID),
+PRIMARY KEY(hospital_ID,order_ID));
+
+INSERT INTO hospital_orders(hospital_ID,order_ID) VALUES(1,1);
+INSERT INTO hospital_orders(hospital_ID,order_ID) VALUES(2,1);
+INSERT INTO hospital_orders(hospital_ID,order_ID) VALUES(1,3);
+INSERT INTO hospital_orders(hospital_ID,order_ID) VALUES(4,2);
+
+
+
+
+CREATE TABLE instrument_orders(
+order_ID INTEGER REFERENCES orders(order_ID),
+instrument_ID INTEGER REFERENCES instrument(instrument_ID),
+amount_order INTEGER,
+PRIMARY KEY(order_ID,instrument_ID));
+
+INSERT INTO instrument_orders(order_ID,instrument_ID,amount_order)VALUES(1,1,10);
+INSERT INTO instrument_orders(order_ID,instrument_ID,amount_order)VALUES(1,3,20);
+INSERT INTO instrument_orders(order_ID,instrument_ID,amount_order)VALUES(3,4,40);
+INSERT INTO instrument_orders(order_ID,instrument_ID,amount_order)VALUES(2,3,50);
+
+
+
+
+CREATE TABLE materials(
+material_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+weight integer NOT NULL,
+volume integer NOT NULL,
+material_provided TEXT REFERENCES COMPANY(material_provided),
+machinery_type TEXT REFERENCES machinery (machinery_type));
+
+INSERT INTO materials(weight,volume,material_provided,machinery_type) VALUES(100,2,'Iron','Laser');
+INSERT INTO materials(weight,volume,material_provided,machinery_type) VALUES(85,5,'Steel','Sterilization');
+INSERT INTO materials(weight,volume,material_provided,machinery_type) VALUES(60,4,'Copper','Grinder');
+INSERT INTO materials(weight,volume,material_provided,machinery_type) VALUES(100,6,'Plastic','Milling Machine');
+
+
+
+
+
+CREATE TABLE company (
+resource TEXT PRIMARY KEY,
+location TEXT,
+company_name TEXT);
+
+INSERT INTO company(resource,location,company_name) VALUES ('iron','Madrid','BF'); 
+INSERT INTO company(resource,location,company_name) VALUES ('copper','Barcelona','C&B');
+INSERT INTO company(resource,location,company_name) VALUES ('gold','Buenos Aires','AAA');
+INSERT INTO company(resource,location,company_name) VALUES ('steel','Shangai','GM');
+
+
+
+
+
+
+CREATE TABLE employee(
+employee_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+name TEXT NOT NULL,
+typeofContract TEXT NOT NULL,
+specializationType TEXT NOT NULL,
+machineryType TEXT,
+FOREIGN KEY (machineryType) REFERENCES machinery(machineryType) );
+
+INSERT INTO employee (name,typeofContract,specializationType,machineryType)VALUES('Charo','Permanent','Laser','Laser');
+INSERT INTO employee (name,typeofContract,specializationType,machineryType)VALUES('Celia','Temporal','Grinder','Sterilization');
+INSERT INTO employee (name,typeofContract,specializationType,machineryType)VALUES('Pablo','Temporal','Laser','Laser');
+INSERT INTO employee (name,typeofContract,specializationType,machineryType)VALUES('Alejandro','Permanent','Grinder','Grinder');
+
+
+
+
+CREATE TABLE machinery(
+machineryType TEXT PRIMARY KEY,
+stateofMachinery TEXT NOT NULL,
+dateofInstallation DATE,
+sizeofMachinery INTEGER);
+
+INSERT INTO machinery (machineryType,stateofMachinery,dateofInstallation,sizeofMachinery)VALUES('Laser','No Working','03/06/2016',8);
+INSERT INTO machinery (machineryType,stateofMachinery,dateofInstallation,sizeofMachinery)VALUES('Sterilization','Working','01/04/2016',15);
+INSERT INTO machinery (machineryType,stateofMachinery,dateofInstallation,sizeofMachinery)VALUES('Grinder',' Working','03/02/2016',12);
+INSERT INTO machinery (machineryType,stateofMachinery,dateofInstallation,sizeofMachinery)VALUES('Milling Machine','Working','21/07/2016',10);
+
+
+
+
+CREATE Table instrumentmachinery(
+instrument_ID INTEGER NOT NULL REFERENCES instrument(instrument_ID),
+machinery_ID INTEGER NOT NULL REFERENCES machinery(machinery_ID),
+timeofMade INTEGER,
+PRIMARY KEY (instrument_ID,machinery_ID));
+
+INSERT INTO instrumentmachinery(instrument_ID,machinery_ID,timeofMade)VALUES(1,1,4);
+INSERT INTO instrumentmachinery(instrument_ID,machinery_ID,timeofMade)VALUES(2,2,16);
+INSERT INTO instrumentmachinery(instrument_ID,machinery_ID,timeofMade)VALUES(2,3,50);
+INSERT INTO instrumentmachinery(instrument_ID,machinery_ID,timeofMade)VALUES(4,4,180);
+
+
+
+
+
+CREATE TABLE instrument(
+instrument_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+model TEXT NOT NULL,
+purpose TEXT NOT NULL,
+amount INTEGER NOT NULL,
+number_Uses INTEGER NOT NULL,
+body_location TEXT NOT NULL,
+price INTEGER NOT NULL,
+warehouse_location TEXT REFERENCES warehouse (warehouse_location));
+
+insert into instrument(model,purpose,amount,number_uses,body_location,price,warehouse_location)values('Version 1', 'Cut',50,500, 'General',12,'Chamberi Street 6, 28002 Madrid');
+insert into instrument(model,purpose,amount,number_uses,body_location,price,warehouse_location) values('Version 2', 'Clean',200,1, 'General',5,'Chamberi Street 6, 28002 Madrid');
+insert into instrument(model,purpose,amount,number_uses,body_location,price,warehouse_location) values('Version 3', 'Absorb',10,100, 'Stomach',200,'Chamberi Street 6, 28002 Madrid');
+insert into instrument(model,purpose,amount,number_uses,body_location,price,warehouse_location) values('Version 4', 'Sew',3000,1, 'General',7,'Chamberi Street 6, 28002 Madrid');
+
+
+
+
+CREATE TABLE warehouse(
+warehouse_location TEXT PRIMARY KEY NOT NULL,
+capacity INTEGER NOT NULL,
+filled_space INTEGER NOT NULL);
+
+insert into warehouse (warehouse_location,capacity,filled_space) values('Chamberi Street 6, 28002 Madrid',600,200);
