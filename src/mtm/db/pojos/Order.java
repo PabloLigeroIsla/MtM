@@ -2,20 +2,44 @@ package mtm.db.pojos;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Order implements Serializable
 {
 
-	private static final long serialVersionUID = -9031849638857899772L;
+	private static final long serialVersionUID = 4639280265959892880L;
 
 	private Integer order_ID;
 	private Integer total_amount_instruments;
 	private Date order_Date;
 	private Date delivery_Date;
+	
+	private List <Hospital> hospitalList;
+	private List <Instrument> instrumentList;
 	//Primary Key --> order_ID
 	//Foreign Key --> NO
 	
 	// Gets and Sets
+	
+	public List<Hospital> getHospitalList() 
+	{
+		return hospitalList;
+	}
+	public void setHospitalList(List<Hospital> hospitalList) 
+	{
+		this.hospitalList = hospitalList;
+	}
+	
+	public List<Instrument> getInstrumentList() 
+	{
+		return instrumentList;
+	}
+	public void setInstrumentList(List<Instrument> instrumentList) 
+	{
+		this.instrumentList = instrumentList;
+	}
+	
 	public Integer getOrder_ID()
 	{
 		return order_ID;
@@ -57,6 +81,8 @@ public class Order implements Serializable
 	public Order()
 	{
 		super();
+		this.hospitalList = new ArrayList<Hospital>();
+		this.instrumentList = new ArrayList<Instrument>();
 	}
 	
 	public Order(Integer order_ID, Integer total_amount_instruments, Date order_Date, Date delivery_Date) 
