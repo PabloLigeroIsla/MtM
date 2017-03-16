@@ -3,6 +3,7 @@ package mtm.db.pojos;
 import java.io.Serializable;
 import java.util.List;
 
+
 public class Company implements Serializable {
 
 	private static final long serialVersionUID = 5399354394170770491L;
@@ -51,7 +52,17 @@ public class Company implements Serializable {
 		this.materialList=materialList;
 	}
 	
+	public void addMaterials (Materials material){
+		if(!materialList.contains(material)){
+			this.materialList.add(material);
+		}
+	}
 	
+	public void removeMaterials(Materials material) {
+		if (materialList.contains(material)) {
+			this.materialList.remove(material);
+		}
+	}
 	
 	@Override
 	public int hashCode() {
