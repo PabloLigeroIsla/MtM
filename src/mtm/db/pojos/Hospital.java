@@ -13,7 +13,7 @@ public class Hospital implements Serializable
 	private String name;
 	private String location;
 	private String medical_specialization;
-	
+	int i;
 	private List<Order> orderList;
 	//Primary Key --> hospital_ID
 	//Foreign Key --> No
