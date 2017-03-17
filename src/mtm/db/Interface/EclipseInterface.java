@@ -1,5 +1,6 @@
 package mtm.db.Interface;
 
+import static mtm.db.Interface.Validator.*;
 
  class EclipseInterface 
 {
@@ -32,7 +33,12 @@ package mtm.db.Interface;
 		int option = 0;
 		try
 		{
-			
+			int numIntro = writeNumber();
+			if((numIntro > numOp) || (numIntro < 0))
+			{	
+				option = -1;
+			}
+		
 		}catch(Exception e)
 		{
 			e.printStackTrace();
