@@ -17,7 +17,7 @@ import static mtm.db.Interface.Validator.*;
 		int numOpciones = 3; //Numero de opciones que podemos seleccionar con esta función
 		imprimirMenu();
 		opcion = selectNumber(numOpciones);
-		System.out.println("Selecciona la Opción que tu Quieras Wapi");
+		
 		return opcion;
 	}
 
@@ -25,7 +25,7 @@ import static mtm.db.Interface.Validator.*;
 	{
 		//Si añades opciones, recuerda mirar elmétodo abrirMenu
 		System.out.println("Opcion 1.- Introduce Valores de Tabla\n"
-				+ "Opción 2.- Borrar Valores de la Tabla");
+				+ "Opción 2.- Borrar Valores de la Tabla\n");
 	}
 	
 	public int selectNumber(int numOp)

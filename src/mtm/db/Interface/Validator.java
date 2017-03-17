@@ -20,7 +20,7 @@ public class Validator
         {
         	 do {
         		    
-                 System.out.println("Introduce a number, anything else");
+                 System.out.println("Introduce a number, anything else Wapi\n");
    
                      stringNumber = c.readLine();
                      if (valNumString(stringNumber)) 
