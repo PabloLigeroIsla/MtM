@@ -12,11 +12,11 @@ public class Validator
 	
 	static BufferedReader c = new BufferedReader(new InputStreamReader(System.in));
 	
-	//Writing Methods
+	// Writing Methods
 	
 	public static int writeNumber() 
 	{
-		//Methos used to write an integer value without conditions (Just to be an Integer)
+		//P Methos used to write an integer value without conditions (Just to be an Integer)
         boolean out = false;
         int answer = 0;
         String stringNumber = "";
@@ -44,17 +44,17 @@ public class Validator
 	
 	public static int writeNumber(int upperlimit)
 	{
-		// Method used to 
+		//P Method used to 
 		int numIntro = -1;
 		try
 		{
 			while((numIntro > upperlimit) || (numIntro < 0))
 			{
-			numIntro = writeNumber();
-			if((numIntro > upperlimit) || (numIntro < 0))//si hay 5 opciones no puedes poner 6
-			{	
-				System.out.println("Out of established limits\n");
-			}
+				numIntro = writeNumber();
+				if((numIntro > upperlimit) || (numIntro < 0))//si hay 5 opciones no puedes poner 6
+				{	
+					System.out.println("Out of established limits\n");
+				}
 			
 			}
 			
@@ -68,12 +68,13 @@ public class Validator
 		return numIntro;
 	}
 	
-	//Validating Methods
+	// Validating Methods
 	
-	public static boolean valNumString(String validar) 
+	public static boolean valNumString(String val) 
+	//Method used to validate if the value val is realy an integer or not
 	{
         try {
-            Integer.parseInt(validar);
+            Integer.parseInt(val);
             return true;
         } catch (NumberFormatException nfe) {
             return false;
@@ -81,5 +82,7 @@ public class Validator
 
     }
 	
-	
+	// More Functions
+
+
 }
