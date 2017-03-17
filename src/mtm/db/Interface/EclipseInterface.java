@@ -6,45 +6,31 @@ import static mtm.db.Interface.Validator.*;
 {
 	public static void main()
 	{
+		int option = openMenu();
+		
 		
 	}
 
 
 
-	public int abrirMenu()
+	public static int openMenu()
 	{
-		int opcion;
-		int numOpciones = 3; //Numero de opciones que podemos seleccionar con esta función
+		int option;
+		int numOptions = 4; //Numero de opciones que podemos seleccionar con esta función
 		imprimirMenu();
-		opcion = selectNumber(numOpciones);
+		option = writeNumber(numOptions);
 		
-		return opcion;
-	}
-
-	public void imprimirMenu()
-	{
-		//Si añades opciones, recuerda mirar elmétodo abrirMenu
-		System.out.println("Opcion 1.- Introduce Valores de Tabla\n"
-				+ "Opción 2.- Borrar Valores de la Tabla\n");
-	}
-	
-	public int selectNumber(int numOp)
-	{
-		int option = 0;
-		try
-		{
-			int numIntro = writeNumber();
-			if((numIntro > numOp) || (numIntro < 0))
-			{	
-				option = -1;
-			}
-		
-		}catch(Exception e)
-		{
-			e.printStackTrace();
-			System.out.println("Error Introducing the values");
-			
-		}
 		return option;
 	}
+
+	public static void imprimirMenu()
+	{
+		//Si añades opciones, recuerda mirar elmétodo abrirMenu
+		System.out.println("Opcion 1.- Crear Tabla\n"
+				+ "Opcion 2.- Borrar Tabla\n"
+				+ "Opcion 3.- Introduce Valores de Tabla\n"
+				+ "Opción 4.- Borrar Valores de la Tabla\n");
+	}
+	
+	
 }
