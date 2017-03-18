@@ -16,13 +16,14 @@ public class Validator
 	
 	public static int writeNumber() 
 	{
-		//P Methos used to write an integer value without conditions (Just to be an Integer)
+		//P Methods used to write an integer value without conditions (Just to be an Integer)
         boolean out = false;
         int answer = 0;
         String stringNumber = "";
         try
         {
-        	 do {
+        	 do 
+        	 {
         		    
                  System.out.println("Introduce a number, anything else Wapi\n");
    
@@ -33,7 +34,7 @@ public class Validator
                          out = true;
                      }
                 
-          } while (!out);//Mientras que no me introduzca un numero, no le dejo salir
+        	 } while (!out);//Mientras que no me introduzca un numero, no le dejo salir
         }catch(IOException ex)
         {
         	 ex.printStackTrace();
@@ -42,31 +43,42 @@ public class Validator
         return answer;
     }
 	
-	public static int writeNumber(int upperlimit)
+	public static int writeNumber(int upperLim)
 	{
-		//P Method used to 
+		//P Method used to set one limit, the upper limit
 		int numIntro = -1;
+		boolean out = false;
+		String stringNumber = "";
 		try
 		{
-			while((numIntro > upperlimit) || (numIntro < 0))
+			while((numIntro > upperLim) || (numIntro < 0))
 			{
-				numIntro = writeNumber();
-				if((numIntro > upperlimit) || (numIntro < 0))//si hay 5 opciones no puedes poner 6
+				 do 
+	        	 {
+	                 System.out.println("Introduce a number, anything else Wapi\n");
+	   
+	                     stringNumber = c.readLine();
+	                     if (valNumString(stringNumber)) 
+	                     {
+	                         numIntro = Integer.parseInt(stringNumber);
+	                         out = true;
+	                     }
+	                
+	        	 } while (!out);//Mientras que no me introduzca un numero, no le dejo salir
+				
+				if((numIntro > upperLim) || (numIntro < 0))//si hay 5 opciones no puedes poner 6
 				{	
 					System.out.println("Out of established limits\n");
 				}
-			
 			}
-			
-		
 		}catch(Exception e)
 		{
 			e.printStackTrace();
 			System.out.println("Error Introducing the values");
-			
 		}
 		return numIntro;
 	}
+	
 	
 	// Validating Methods
 	

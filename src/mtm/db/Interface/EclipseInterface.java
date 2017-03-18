@@ -10,21 +10,31 @@ import mtm.db.jdbc.*;
 {
 	public static void main()
 	{
-		//Start of the db
-		int option = openMenu();
+		int option;
+		do{
+			//Start of the db
+			option = openMenu();
 		
-		switch(option)
-		{
+			switch(option)
+				{
 			
-		case 1:
-		
-		case 2:
-		
-		case 3:
-			
-		case 4:
-		
-		}
+				case 1:
+					
+					waitEnter();
+				case 2:
+					
+					waitEnter();
+				case 3:
+					
+					waitEnter();
+				case 4:
+					
+					waitEnter();
+				case 12:
+					System.out.println("The End");
+					waitEnter();
+				}
+		}while(option!=12);
 	}
 
 
@@ -42,10 +52,11 @@ import mtm.db.jdbc.*;
 	public static void printMenu()
 	{
 		//Si añades opciones, recuerda mirar el metodo abrirMenu
-		System.out.println("Opcion 1.- Create Table\n"
-				+ "Opcion 2.- Drop Table\n"
-				+ "Opcion 3.- Introduce values to a Table\n"
-				+ "Opción 4.- Delete value of a Table\n");
+		System.out.println("Option 1.- Create Tables\n"
+				+ "Option 2.- Drop Table\n"
+				+ "Option 3.- Introduce values to a Table\n"
+				+ "Option 4.- Delete value of a Table\n"
+				+ "Option 12.- Exit");
 	}
 	
 	//Data Base Methods
