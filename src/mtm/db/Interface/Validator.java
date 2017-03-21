@@ -13,7 +13,7 @@ public class Validator
 	static BufferedReader c = new BufferedReader(new InputStreamReader(System.in));
 	
 	// Writing Methods
-	
+	int bb;
 	public static int writeNumber() 
 	{
 		//P Methods used to write an integer value without conditions (Just to be an Integer)
