@@ -13,6 +13,9 @@ public class Validator
 	static BufferedReader c = new BufferedReader(new InputStreamReader(System.in));
 	int b;
 	// Writing Methods
+	int cccc;
+	
+	int aaaaa;
 	
 	public static int writeNumber() 
 	{
