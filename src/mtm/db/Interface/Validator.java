@@ -13,6 +13,7 @@ public class Validator
 	static BufferedReader c = new BufferedReader(new InputStreamReader(System.in));
 	
 	// Writing Methods
+
 	
 	public static int writeNumber() 
 	{
