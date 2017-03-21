@@ -70,6 +70,14 @@ public class Machinery implements Serializable {
 		this.sizeofMachinery = sizeofMachinery;
 		
 	}
+	
+	
+	@Override
+	public String toString() 
+	{
+		return "Machinery [stateofMachinery=" + stateofMachinery + ", dateofInstallation=" 
+	+ dateofInstallation + ", sizeofMachinery=" + sizeofMachinery + "]";
+	}
 
 	@Override
 	public int hashCode() {

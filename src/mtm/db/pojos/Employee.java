@@ -82,6 +82,14 @@ public class Employee implements Serializable {
 	}
 
 	@Override
+	public String toString() 
+	{
+		return "Emplyee [employee_ID=" + employee_ID + ", name=" + name + ", specializationType=" 
+		+ specializationType + ", typeofContract=" + typeofContract + ", machinery=" + machinery + "]";
+	}
+	
+	
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
