@@ -3,6 +3,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import sample.db.pojos.Report;
+
 public class Instrument implements Serializable {
 
 	/**
@@ -22,7 +24,7 @@ public class Instrument implements Serializable {
 		this.warehouse_location = new ArrayList<Warehouse>();
 	}
 		
-	public Instrument(String model, String purpose, Integer amount, Integer number_uses, String body_location) {
+	public Instrument(String model, String purpose, Integer amount, Integer number_uses, String body_location, List<Warehouse> warehouse_location) {
 		super();
 		this.model = model;
 		this.purpose = purpose;
@@ -160,14 +162,14 @@ public class Instrument implements Serializable {
 
 	
 	public void addWarehouse(Warehouse warehouse_location) {
-		if (!((List<Warehouse>) warehouse_location).contains(warehouse_location)) {
+		if (!warehouse_location.contains(warehouse_location)) {
 			this.warehouse_location.add(warehouse_location);
 		}
 	}
 	
 	// Additional method to remove from a list
 	public void removeWarehouse(Warehouse warehouse_location) {
-		if (((List<Warehouse>) warehouse_location).contains(warehouse_location)) {
+		if (warehouse_location.contains(warehouse_location)) {
 			this.warehouse_location.remove(warehouse_location);
 		}
 	}
