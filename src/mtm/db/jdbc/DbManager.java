@@ -9,6 +9,7 @@ public class DbManager {
 	public void createTables()
 	{
 		SQLCreate codeCreate = new SQLCreate();
+		
 	}
 	
 	//Method to Delate
