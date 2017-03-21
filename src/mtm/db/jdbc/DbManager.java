@@ -1,6 +1,11 @@
 package mtm.db.jdbc;
 
-public class DbManager {
+import mtm.db.pojos.*;
+
+
+public class DbManager 
+{
+	// 8 Objects
 	
 	//Different Methods to interact with the dataBase
 	
@@ -19,15 +24,83 @@ public class DbManager {
 		SQLInsert codeInsert = new SQLInsert();
 		
 	}
-	
+	public void dbInsert()
+	{
+		SQLInsert codeInsert = new SQLInsert();
+		
+	}
+	public void dbInsert()
+	{
+		SQLInsert codeInsert = new SQLInsert();
+		
+	}
+	public void dbInsert()
+	{
+		SQLInsert codeInsert = new SQLInsert();
+		
+	}
+	public void dbInsert()
+	{
+		SQLInsert codeInsert = new SQLInsert();
+		
+	}
+	public void dbInsert()
+	{
+		SQLInsert codeInsert = new SQLInsert();
+		
+	}
+	public void dbInsert()
+	{
+		SQLInsert codeInsert = new SQLInsert();
+		
+	}
+	public void dbInsert()
+	{
+		SQLInsert codeInsert = new SQLInsert();
+		
+	}
 	//Method to Delete
 	
-	public void dbDelete(<> at)
+	public void dbDelete()
 	{
 		SQLDelete del = new SQLDelete();
-		del.delObject(at);
+		del.delObject();
 	}
-	
+	public void dbDelete()
+	{
+		SQLDelete del = new SQLDelete();
+		del.delObject();
+	}
+	public void dbDelete()
+	{
+		SQLDelete del = new SQLDelete();
+		del.delObject();
+	}
+	public void dbDelete()
+	{
+		SQLDelete del = new SQLDelete();
+		del.delObject();
+	}
+	public void dbDelete()
+	{
+		SQLDelete del = new SQLDelete();
+		del.delObject();
+	}
+	public void dbDelete()
+	{
+		SQLDelete del = new SQLDelete();
+		del.delObject();
+	}
+	public void dbDelete()
+	{
+		SQLDelete del = new SQLDelete();
+		del.delObject();
+	}
+	public void dbDelete()
+	{
+		SQLDelete del = new SQLDelete();
+		del.delObject();
+	}
 	//Method to Drop
 	
 	
