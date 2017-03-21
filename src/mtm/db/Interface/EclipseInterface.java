@@ -23,7 +23,7 @@ import mtm.db.jdbc.*;
 				{
 			
 				case 1:
-					mtmDataBase.createTables();
+					
 					waitEnter();
 				case 2:
 					
