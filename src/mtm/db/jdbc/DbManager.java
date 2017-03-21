@@ -4,12 +4,17 @@ public class DbManager {
 	
 	//Different Methods to interact with the dataBase
 	
-	Method to Create the table
+	//Method to Create the table
 	
-	Method to Delate
+	public void createTables()
+	{
+		SQLCreate codeCreate = new SQLCreate();
+	}
 	
-	Method to Drop
+	//Method to Delate
 	
-	Method to Inster
+	//Method to Drop
+	
+	//Method to Inster
 
 }
