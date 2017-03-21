@@ -10,6 +10,10 @@ import mtm.db.jdbc.*;
 {
 	public static void main()
 	{
+		
+		//Object jdbc
+		DbManager mtmDataBase = new DbManager()
+		
 		int option;
 		do{
 			//Start of the db
@@ -19,7 +23,7 @@ import mtm.db.jdbc.*;
 				{
 			
 				case 1:
-					
+					mtmDataBase.createTables();
 					waitEnter();
 				case 2:
 					
@@ -73,8 +77,5 @@ import mtm.db.jdbc.*;
         }catch(IOException ex){
         	ex.printStackTrace();
         }
-    
     }
-    
-    
 }
