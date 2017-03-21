@@ -11,9 +11,10 @@ public class Validator
 	//introducing the type of value we are storing in the variable.
 	
 	static BufferedReader c = new BufferedReader(new InputStreamReader(System.in));
-	int b;
+	int dd;
 	// Writing Methods
 	int cccc;
+	
 	
 	int aaaaa;
 	
