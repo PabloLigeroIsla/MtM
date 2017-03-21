@@ -12,7 +12,7 @@ import mtm.db.jdbc.*;
 	{
 		
 		//Object jdbc
-		DbManager mtmDataBase = new DbManager()
+		DbManager mtmDataBase = new DbManager();
 		
 		int option;
 		do{
