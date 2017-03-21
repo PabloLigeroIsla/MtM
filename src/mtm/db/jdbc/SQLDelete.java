@@ -2,22 +2,13 @@ package mtm.db.jdbc;
 
 public class SQLDelete 
 {
-	
-	public static void main()
+	public void delObject(int)
 	{
 		
-		//Charo
-		
-		
-		//Celia
-		
-		
-		//Alejandro
-		
-		
-		//Pablo
-		
+	}
+	
+	public void delObject(float)
+	{
 		
 	}
-
 }

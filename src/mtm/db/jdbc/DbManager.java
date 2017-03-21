@@ -6,7 +6,7 @@ public class DbManager {
 	
 	//Method to Create the table
 	
-	public void createTables()
+	public void dbCreateTables()
 	{
 		SQLCreate codeCreate = new SQLCreate();
 		
@@ -14,12 +14,19 @@ public class DbManager {
 	
 	//Method to Insert
 	
-		public void insert()
-		{
-			SQLInsert codeInsert = new SQLInsert();
-		}
+	public void dbInsert()
+	{
+		SQLInsert codeInsert = new SQLInsert();
+		
+	}
 	
-	//Method to Delate
+	//Method to Delete
+	
+	public void dbDelete(<> at)
+	{
+		SQLDelete del = new SQLDelete();
+		del.delObject(at);
+	}
 	
 	//Method to Drop
 	
