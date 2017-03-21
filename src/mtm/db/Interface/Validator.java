@@ -14,6 +14,8 @@ public class Validator
 	
 	// Writing Methods
 	
+	int aaaaa;
+	
 	public static int writeNumber() 
 	{
 		//P Methods used to write an integer value without conditions (Just to be an Integer)
