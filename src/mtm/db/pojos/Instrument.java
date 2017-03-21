@@ -3,8 +3,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import sample.db.pojos.Report;
-
 public class Instrument implements Serializable {
 
 	/**
@@ -15,24 +13,31 @@ public class Instrument implements Serializable {
 	private String model;
 	private String purpose;
 	private Integer amount;
-	private Integer number_uses;
-	private String body_location;
-	private List<Warehouse> warehouse_location;
+	private Integer numberUses;
+	private String bodyLocation;
+	private List<Warehouse> warehouseLocationList;
+	private List<Order> orderList;
 
-	public Instrument() {
-		super();
-		this.warehouse_location = new ArrayList<Warehouse>();
-	}
+
 		
 	public Instrument(String model, String purpose, Integer amount, Integer number_uses, String body_location, List<Warehouse> warehouse_location) {
 		super();
 		this.model = model;
 		this.purpose = purpose;
 		this.amount = amount;
-		this.number_uses = number_uses;
-		this.body_location = body_location;
-		this.warehouse_location = new ArrayList<Warehouse>();	}
+		this.numberUses = number_uses;
+		this.bodyLocation = body_location;
+		this.warehouseLocationList = new ArrayList<Warehouse>();
+		this.orderList = new ArrayList<Order>();
+		
+		
+	}
 	
+	
+
+
+
+
 
 
 	@Override
@@ -40,12 +45,13 @@ public class Instrument implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((amount == null) ? 0 : amount.hashCode());
-		result = prime * result + ((body_location == null) ? 0 : body_location.hashCode());
+		result = prime * result + ((bodyLocation == null) ? 0 : bodyLocation.hashCode());
 		result = prime * result + ((instrument_id == null) ? 0 : instrument_id.hashCode());
 		result = prime * result + ((model == null) ? 0 : model.hashCode());
-		result = prime * result + ((number_uses == null) ? 0 : number_uses.hashCode());
+		result = prime * result + ((numberUses == null) ? 0 : numberUses.hashCode());
+		result = prime * result + ((orderList == null) ? 0 : orderList.hashCode());
 		result = prime * result + ((purpose == null) ? 0 : purpose.hashCode());
-		result = prime * result + ((warehouse_location == null) ? 0 : warehouse_location.hashCode());
+		result = prime * result + ((warehouseLocationList == null) ? 0 : warehouseLocationList.hashCode());
 		return result;
 	}
 
@@ -63,10 +69,10 @@ public class Instrument implements Serializable {
 				return false;
 		} else if (!amount.equals(other.amount))
 			return false;
-		if (body_location == null) {
-			if (other.body_location != null)
+		if (bodyLocation == null) {
+			if (other.bodyLocation != null)
 				return false;
-		} else if (!body_location.equals(other.body_location))
+		} else if (!bodyLocation.equals(other.bodyLocation))
 			return false;
 		if (instrument_id == null) {
 			if (other.instrument_id != null)
@@ -78,32 +84,36 @@ public class Instrument implements Serializable {
 				return false;
 		} else if (!model.equals(other.model))
 			return false;
-		if (number_uses == null) {
-			if (other.number_uses != null)
+		if (numberUses == null) {
+			if (other.numberUses != null)
 				return false;
-		} else if (!number_uses.equals(other.number_uses))
+		} else if (!numberUses.equals(other.numberUses))
+			return false;
+		if (orderList == null) {
+			if (other.orderList != null)
+				return false;
+		} else if (!orderList.equals(other.orderList))
 			return false;
 		if (purpose == null) {
 			if (other.purpose != null)
 				return false;
 		} else if (!purpose.equals(other.purpose))
 			return false;
-		if (warehouse_location == null) {
-			if (other.warehouse_location != null)
+		if (warehouseLocationList == null) {
+			if (other.warehouseLocationList != null)
 				return false;
-		} else if (!warehouse_location.equals(other.warehouse_location))
+		} else if (!warehouseLocationList.equals(other.warehouseLocationList))
 			return false;
 		return true;
 	}
-		
+
 	@Override
 	public String toString() {
 		return "Instrument [instrument_id=" + instrument_id + ", model=" + model + ", purpose=" + purpose + ", amount="
-				+ amount + ", number_uses=" + number_uses + ", body_location=" + body_location + ", warehouse_location="
-				+ warehouse_location + "]";
+				+ amount + ", numberUses=" + numberUses + ", bodyLocation=" + bodyLocation + ", warehouseLocationList="
+				+ warehouseLocationList + ", orderList=" + orderList + "]";
 	}
-
-
+	
 	public Integer getInstrument_id() {
 		return instrument_id;
 	}
@@ -137,40 +147,62 @@ public class Instrument implements Serializable {
 	}
 
 	public Integer getNumber_uses() {
-		return number_uses;
+		return numberUses;
 	}
 
 	public void setNumber_uses(Integer number_uses) {
-		this.number_uses = number_uses;
+		this.numberUses = number_uses;
 	}
 
 	public String getBody_location() {
-		return body_location;
+		return bodyLocation;
 	}
 
 	public void setBody_location(String body_location) {
-		this.body_location = body_location;
+		this.bodyLocation = body_location;
 	}
 
 	public List<Warehouse> getWarehouse_location() {
-		return warehouse_location;
+		return warehouseLocationList;
 	}
 
 	public void setWarehouse_location(List<Warehouse> warehouse_location) {
-		this.warehouse_location = warehouse_location;
+		this.warehouseLocationList = warehouse_location;
 	}
 
 	
-	public void addWarehouse(Warehouse warehouse_location) {
-		if (!warehouse_location.contains(warehouse_location)) {
-			this.warehouse_location.add(warehouse_location);
+	public List<Order> getOrderList() {
+		return orderList;
+	}
+
+	public void setOrderList(List<Order> orderList) {
+		this.orderList = orderList;
+	}
+
+	public void addWarehouse(Warehouse warehouseLocation) {
+		if (!warehouseLocationList.contains(warehouseLocation)) {
+			this.warehouseLocationList.add(warehouseLocation);
 		}
 	}
 	
 	// Additional method to remove from a list
-	public void removeWarehouse(Warehouse warehouse_location) {
-		if (warehouse_location.contains(warehouse_location)) {
-			this.warehouse_location.remove(warehouse_location);
+	public void removeWarehouse(Warehouse warehouseLocation) {
+		if (warehouseLocationList.contains(warehouseLocation)) {
+			this.warehouseLocationList.remove(warehouseLocation);
 		}
 	}
+		
+		
+	public void addOrder(Order order) {
+		if (!orderList.contains(order)) {
+			this.orderList.add(order);
+		}
+	}
+		
+	public void removeOrder(Warehouse order) {
+		if (orderList.contains(order)) {
+			this.orderList.remove(order);
+		}
+	}
+
 }
