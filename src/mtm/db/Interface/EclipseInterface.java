@@ -73,8 +73,5 @@ import mtm.db.jdbc.*;
         }catch(IOException ex){
         	ex.printStackTrace();
         }
-    
     }
-    
-    
 }

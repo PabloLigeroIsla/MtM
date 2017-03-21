@@ -18,7 +18,7 @@ public class Validator
 	{
 		//P Methods used to write an integer value without conditions (Just to be an Integer)
         boolean out = false;
-        int answer = 0;
+        int answer = -1;
         String stringNumber = "";
         try
         {
