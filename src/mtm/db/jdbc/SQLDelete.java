@@ -1,6 +1,6 @@
 package mtm.db.jdbc;
 
-public class SQLDelate 
+public class SQLDelete 
 {
 	
 	public static void main()
