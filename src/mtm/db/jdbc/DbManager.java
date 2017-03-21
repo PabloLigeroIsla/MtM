@@ -12,10 +12,16 @@ public class DbManager {
 		
 	}
 	
+	//Method to Insert
+	
+		public void insert()
+		{
+			SQLInsert codeInsert = new SQLInsert();
+		}
+	
 	//Method to Delate
 	
 	//Method to Drop
 	
-	//Method to Inster
-
+	
 }
