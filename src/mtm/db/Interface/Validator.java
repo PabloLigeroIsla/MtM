@@ -13,13 +13,10 @@ public class Validator
 	static BufferedReader c = new BufferedReader(new InputStreamReader(System.in));
 	
 	// Writing Methods
-<<<<<<< HEAD
 	int bbbb;
 	int cc;
 	int dddd;
-=======
 	
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 	public static int writeNumber() 
 	{
 		//P Methods used to write an integer value without conditions (Just to be an Integer)
