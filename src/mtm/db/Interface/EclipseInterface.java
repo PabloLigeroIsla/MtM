@@ -12,7 +12,7 @@ import mtm.db.jdbc.*;
 	{
 		
 		//Object jdbc
-		DbManager mtmDataBase = new DbManager();
+		DbManager dbManager = new DbManager();
 		
 		int option;
 		do{
@@ -23,7 +23,7 @@ import mtm.db.jdbc.*;
 				{
 			
 				case 1:
-					
+					dbManager.createTables();
 					waitEnter();
 				case 2:
 					

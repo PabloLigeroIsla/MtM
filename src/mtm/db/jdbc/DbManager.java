@@ -42,7 +42,7 @@ public class DbManager
 	
 	//Method to Create the tables
 	
-	public void dbCreateTables()
+	public void createTables()
 	{
 		SQLCreate codeCreate = new SQLCreate();
 		
@@ -54,7 +54,7 @@ public class DbManager
 	
 	//Method to Insert
 	
-	public void dbInsert(Hospital obj)
+	public void insert(Hospital obj)
 	{
 		SQLInsert codeInsert = new SQLInsert();
 		
@@ -62,7 +62,7 @@ public class DbManager
 		codeInsert.insert(obj,c);
 		closeConnection(c);
 	}
-	public void dbInsert(Order obj)
+	public void insert(Order obj)
 	{
 		SQLInsert codeInsert = new SQLInsert();
 		
@@ -73,12 +73,12 @@ public class DbManager
 	
 	//Method to Delete
 	
-	public void dbDelete(Hospital obj)
+	public void delete(Hospital obj)
 	{
 		SQLDelete del = new SQLDelete();
 		
 	}
-	public void dbDelete(Order obj)
+	public void delete(Order obj)
 	{
 		SQLDelete del = new SQLDelete();
 		
