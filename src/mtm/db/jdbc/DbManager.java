@@ -8,7 +8,6 @@ import java.sql.DriverManager;
 public class DbManager 
 {
 	// 8 Objects
-	
 	//Different Methods to interact with the dataBase
 	
 	//Methods to connect with the DataBase
@@ -55,18 +54,31 @@ public class DbManager
 	
 	//Method to Insert
 	
-	public void dbInsert(Hospital hos)
+	public void dbInsert(Hospital obj)
 	{
 		SQLInsert codeInsert = new SQLInsert();
+		
+		Connection c = openConnection();
+		codeInsert.insert(obj,c);
+		closeConnection(c);
 	}
-	public void dbInsert(Order order)
+	public void dbInsert(Order obj)
 	{
 		SQLInsert codeInsert = new SQLInsert();
+		
+		Connection c = openConnection();
+		codeInsert.insert(obj,c);
+		closeConnection(c);
 	}
 	
 	//Method to Delete
 	
-	public void dbDelete()
+	public void dbDelete(Hospital obj)
+	{
+		SQLDelete del = new SQLDelete();
+		
+	}
+	public void dbDelete(Order obj)
 	{
 		SQLDelete del = new SQLDelete();
 		
