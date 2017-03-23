@@ -29,6 +29,27 @@ public class SQLCreate
 				+ "delivery_date DATE NOT NULL)";
 			sPt.executeUpdate(sqlp2);
 			sPt.close();
+			
+			//Alex
+			// fAt -->firstAlextable // sqla1 --> sqlalex1
+			Statement fAt = c.createStatement();
+			String sqla1 = "CREATE TABLE company ("
+					+ "resource TEXT PRIMARY KEY,"
+					+ "location TEXT,"
+					+"company_name TEXT);";
+			fAt.executeUpdate(sqla1);
+			fAt.close();
+			
+			Statement sAt = c.createStatement();
+			String sqla2 =  "CREATE TABLE materials ("
+							+"material_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+							+"weight INTEGER,"
+							+"volume INTEGER,"
+							+"material_provided  TEXT REFERENCES company(resource),"
+							+"machinery_type TEXT REFERENCES machinery(type));";
+			sAt.executeUpdate(sqla2);
+			sAt.close();
+			
 			//Alex
 			
 			//Charo
@@ -74,6 +95,7 @@ public class SQLCreate
 	}
 	
 
+<<<<<<< HEAD
 	//Pablo
 	
 	//Charo
@@ -130,4 +152,6 @@ public class SQLCreate
 	//Celia
 	
 	//Alex
+=======
+>>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 }

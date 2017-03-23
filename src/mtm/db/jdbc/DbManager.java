@@ -52,7 +52,72 @@ public class DbManager
 		
 	}
 	
-	public void createTableHospital
+	public void createTableHospital()
+	{
+		SQLCreate codeCreate = new SQLCreate();
+		
+		Connection c = openConnection();
+		//
+		closeConnection(c);
+		
+	}
+	public void createTableOrder()
+	{
+		SQLCreate codeCreate = new SQLCreate();
+		
+		Connection c = openConnection();
+		//
+		closeConnection(c);
+	}
+	public void createTableCompany()
+	{
+		SQLCreate codeCreate = new SQLCreate();
+		
+		Connection c = openConnection();
+		//
+		closeConnection(c);
+	}
+	public void createTableEmployee()
+	{
+		SQLCreate codeCreate = new SQLCreate();
+		
+		Connection c = openConnection();
+		//
+		closeConnection(c);
+	}
+	public void createTableInstrument()
+	{
+		SQLCreate codeCreate = new SQLCreate();
+		
+		Connection c = openConnection();
+		//
+		closeConnection(c);
+	}
+	public void createTableMachinery()
+	{
+		SQLCreate codeCreate = new SQLCreate();
+		
+		Connection c = openConnection();
+		//
+		closeConnection(c);
+	}
+	public void createTableMaterial()
+	{
+		SQLCreate codeCreate = new SQLCreate();
+		
+		Connection c = openConnection();
+		//
+		closeConnection(c);
+	}
+	public void createTableWharhouse()
+	{
+		SQLCreate codeCreate = new SQLCreate();
+		
+		Connection c = openConnection();
+		//
+		closeConnection(c);
+	}
+	
 	//Method to Insert
 	
 	public void insert(Hospital obj)
