@@ -78,7 +78,28 @@ public class SQLCreate
 			
 			
 			
+			
+			//Celia
+			Statement fCt = c.createStatement();
+			String sqlc1= "CREATE TABLE employee("
+					+ "employee_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ "name TEXT NOT NULL,"
+					+ "typeofContract TEXT NOT NULL,"
+					+ "specializationType TEXT NOT NULL,"
+					+ "machineryType TEXT,"
+					+ "FOREIGN KEY (machineryType) REFERENCES machinery(machineryType) )";
+			fCt.executeUpdate(sqlc1);
+			fCt.close();
+				
+			Statement sCt = c.createStatement();
+				String sqlc2= "CREATE TABLE machinery("
+				+ "machineryType TEXT PRIMARY KEY,"
+				+ "stateofMachinery TEXT NOT NULL,"
+				+ "dateofInstallation DATE,"
+				+ "sizeofMachinery INTEGER)";
 
+				sCt.executeUpdate(sqlc2);
+				sCt.close();	
 
 			
 			
@@ -94,6 +115,8 @@ public class SQLCreate
 		}
 		
 	}
+	
+
 	
 	//Pablo
 	public void createTableHospital(Connection c)
@@ -220,5 +243,44 @@ public class SQLCreate
 		
 		}
 	}
-
+	
+	//Celia
+	public void createTableEmployee(Connection c)
+	{
+		try
+		{
+			Statement fCt = c.createStatement();
+			String sqlc1 =  "CREATE TABLE employee("
+					+ "employee_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ "name TEXT NOT NULL,"
+					+ "typeofContract TEXT NOT NULL,"
+					+ "specializationType TEXT NOT NULL,"
+					+ "machineryType TEXT,"
+					+ "FOREIGN KEY (machineryType) REFERENCES machinery(machineryType) )";
+			fCt.executeUpdate(sqlc1);
+			fCt.close();
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void createTableMachinery(Connection c)
+	{
+		try
+		{
+			Statement sCt = c.createStatement();
+			String sqlc2 = "CREATE TABLE machinery("
+					+ "machineryType TEXT PRIMARY KEY,"
+					+ "stateofMachinery TEXT NOT NULL,"
+					+ "dateofInstallation DATE,"
+					+ "sizeofMachinery INTEGER)";
+			sCt.executeUpdate(sqlc2);
+			sCt.close();
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
 }
