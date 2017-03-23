@@ -57,7 +57,7 @@ public class DbManager
 		SQLCreate codeCreate = new SQLCreate();
 		
 		Connection c = openConnection();
-		//
+		codeCreate.createTableHospital(c);
 		closeConnection(c);
 		
 	}
@@ -66,7 +66,7 @@ public class DbManager
 		SQLCreate codeCreate = new SQLCreate();
 		
 		Connection c = openConnection();
-		//
+		codeCreate.createTableOrder(c);
 		closeConnection(c);
 	}
 	public void createTableCompany()
@@ -74,7 +74,7 @@ public class DbManager
 		SQLCreate codeCreate = new SQLCreate();
 		
 		Connection c = openConnection();
-		//
+		codeCreate.createTableCompany(c);
 		closeConnection(c);
 	}
 	public void createTableEmployee()
@@ -82,7 +82,7 @@ public class DbManager
 		SQLCreate codeCreate = new SQLCreate();
 		
 		Connection c = openConnection();
-		//
+		codeCreate.createTableEmployee(c);
 		closeConnection(c);
 	}
 	public void createTableInstrument()
@@ -98,7 +98,7 @@ public class DbManager
 		SQLCreate codeCreate = new SQLCreate();
 		
 		Connection c = openConnection();
-		//
+		codeCreate.createTableMachnery(c);
 		closeConnection(c);
 	}
 	public void createTableMaterial()
@@ -106,7 +106,7 @@ public class DbManager
 		SQLCreate codeCreate = new SQLCreate();
 		
 		Connection c = openConnection();
-		//
+		codeCreate.createTableMachinery(c);
 		closeConnection(c);
 	}
 	public void createTableWharhouse()

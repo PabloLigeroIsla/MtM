@@ -15,18 +15,20 @@ public class Instrument implements Serializable {
 	private Integer amount;
 	private Integer numberUses;
 	private String bodyLocation;
+	private Integer price;
 	private List<Warehouse> warehouseLocationList;
 	private List<Order> orderList;
 
 
 		
-	public Instrument(String model, String purpose, Integer amount, Integer number_uses, String body_location, List<Warehouse> warehouse_location) {
+	public Instrument(String model, String purpose, Integer amount, Integer number_uses, String body_location, Integer price, List<Warehouse> warehouse_location) {
 		super();
 		this.model = model;
 		this.purpose = purpose;
 		this.amount = amount;
 		this.numberUses = number_uses;
 		this.bodyLocation = body_location;
+		this.setPrice(price);
 		this.warehouseLocationList = new ArrayList<Warehouse>();
 		this.orderList = new ArrayList<Order>();
 		
@@ -185,6 +187,8 @@ public class Instrument implements Serializable {
 		}
 	}
 	
+	
+	
 	// Additional method to remove from a list
 	public void removeWarehouse(Warehouse warehouseLocation) {
 		if (warehouseLocationList.contains(warehouseLocation)) {
@@ -203,6 +207,28 @@ public class Instrument implements Serializable {
 		if (orderList.contains(order)) {
 			this.orderList.remove(order);
 		}
+	}
+
+
+
+
+
+
+
+
+	public Integer getPrice() {
+		return price;
+	}
+
+
+
+
+
+
+
+
+	public void setPrice(Integer price) {
+		this.price = price;
 	}
 
 }
