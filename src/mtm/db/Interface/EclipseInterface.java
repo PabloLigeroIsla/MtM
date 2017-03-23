@@ -12,7 +12,7 @@ import mtm.db.jdbc.*;
 	{
 		
 		//Object jdbc
-		DbManager mtmDataBase = new DbManager();
+		DbManager dbManager = new DbManager();
 		
 		int option;
 		do{
@@ -23,7 +23,7 @@ import mtm.db.jdbc.*;
 				{
 			
 				case 1:
-					
+					dbManager.createTables();
 					waitEnter();
 				case 2:
 					
@@ -32,6 +32,9 @@ import mtm.db.jdbc.*;
 					
 					waitEnter();
 				case 4:
+					
+					waitEnter();
+				case 5:
 					
 					waitEnter();
 				case 12:
@@ -46,7 +49,7 @@ import mtm.db.jdbc.*;
 	public static int openMenu()
 	{
 		int option;
-		int numOptions = 4; //Numero de opciones que podemos seleccionar con esta función
+		int numOptions = 6; //Numero de opciones que podemos seleccionar con esta función
 		printMenu();
 		option = writeNumber(numOptions);
 		
@@ -60,6 +63,7 @@ import mtm.db.jdbc.*;
 				+ "Option 2.- Drop Table\n"
 				+ "Option 3.- Introduce values to a Table\n"
 				+ "Option 4.- Delete value of a Table\n"
+				+ "Option 5.- Show Table"//Method to select one of the the table
 				+ "Option 12.- Exit");
 	}
 	

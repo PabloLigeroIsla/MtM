@@ -71,6 +71,21 @@ public class Machinery implements Serializable {
 		
 	}
 	
+	public void addInstrument (Instrument instrument)
+	{
+		if(!instrumentList.contains(instrument))
+		{
+			this.instrumentList.add(instrument);
+		}
+	}
+	
+	public void removeInstrument (Instrument instrument)
+	{
+		if(instrumentList.contains(instrument))
+		{
+			this.instrumentList.remove(instrument);
+		}
+	}
 	
 	@Override
 	public String toString() 

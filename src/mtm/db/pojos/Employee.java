@@ -80,6 +80,22 @@ public class Employee implements Serializable {
 		this.typeofContract = typeofContract;
 		this.machinery = machinery;
 	}
+	
+	public void addMachinery (Machinery machinery)
+	{
+		if(!machineryList.contains(machinery))
+		{
+			this.machineryList.add(machinery);
+		}
+	}
+	
+	public void removeMachinery (Machinery machinery)
+	{
+		if(machineryList.contains(machinery))
+		{
+			this.machineryList.remove(machinery);
+		}
+	}
 
 	@Override
 	public String toString() 
