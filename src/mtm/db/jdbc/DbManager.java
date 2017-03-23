@@ -52,6 +52,7 @@ public class DbManager
 		
 	}
 	
+	public void createTableHospital
 	//Method to Insert
 	
 	public void insert(Hospital obj)

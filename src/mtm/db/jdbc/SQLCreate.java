@@ -29,6 +29,13 @@ public class SQLCreate
 				+ "delivery_date DATE NOT NULL)";
 			sPt.executeUpdate(sqlp2);
 			sPt.close();
+			//Alex
+			
+			//Charo
+			
+			//Celia
+			
+			
 		}catch (Exception e)
 		{
 			e.printStackTrace();
@@ -39,4 +46,11 @@ public class SQLCreate
 	}
 	
 
+	//Pablo
+	
+	//Charo
+	
+	//Celia
+	
+	//Alex
 }
