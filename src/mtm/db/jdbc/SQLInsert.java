@@ -7,6 +7,7 @@ import java.sql.Statement;
 
 public class SQLInsert 
 {	
+	
 	public void insert(Hospital hosp,Connection c) 
 	{
 		try
