@@ -90,7 +90,7 @@ public class DbManager
 		SQLCreate codeCreate = new SQLCreate();
 		
 		Connection c = openConnection();
-		//
+		codeCreate.createTableInstrument(c);
 		closeConnection(c);
 	}
 	public void createTableMachinery()
@@ -114,7 +114,7 @@ public class DbManager
 		SQLCreate codeCreate = new SQLCreate();
 		
 		Connection c = openConnection();
-		//
+		codeCreate.createTableWarehouse(c);
 		closeConnection(c);
 	}
 	
