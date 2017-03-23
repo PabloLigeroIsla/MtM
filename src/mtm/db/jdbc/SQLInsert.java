@@ -2,7 +2,6 @@ package mtm.db.jdbc;
 
 import mtm.db.pojos.*;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -32,15 +31,15 @@ public class SQLInsert
 			
 			String sql = "INSERT INTO orders(total_amount_instruments,order_date,delivery_date)"
 					+ "VALUES("+ ord.getTotal_amount_instruments() +",'"+ ord.getOrder_Date() +"','"+ ord.getDelivery_Date() +"');";
+			stm.executeUpdate(sql);
+			stm.close();
 		}catch(SQLException e)
 		{
 			e.printStackTrace();
 		}
 	}
 	
-<<<<<<< HEAD
 	
-=======
 	public void insert(Company com, Connection c){
 		try{
 
@@ -63,7 +62,6 @@ public class SQLInsert
 			
 		}
 	}
-
 	public void insert(Material mat, Connection c){
 		try{
 
@@ -87,5 +85,4 @@ public class SQLInsert
 		}
 	}
 
->>>>>>> branch 'master' of https://github.com/papsers/MtM
 }
