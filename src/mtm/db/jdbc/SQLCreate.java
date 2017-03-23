@@ -50,7 +50,7 @@ public class SQLCreate
 			sAt.executeUpdate(sqla2);
 			sAt.close();
 			
-			//Alex
+			
 			
 			//Charo
 			// fCht -->firstCharotable //sqlch1 --> sqlcharo1
@@ -95,7 +95,6 @@ public class SQLCreate
 	}
 	
 
-<<<<<<< HEAD
 	//Pablo
 	
 	//Charo
@@ -152,6 +151,4 @@ public class SQLCreate
 	//Celia
 	
 	//Alex
-=======
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 }
