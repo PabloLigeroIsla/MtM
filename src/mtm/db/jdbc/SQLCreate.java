@@ -32,6 +32,34 @@ public class SQLCreate
 			//Alex
 			
 			//Charo
+			// fCht -->firstCharotable //sqlch1 --> sqlcharo1
+			Statement fCht = c.createStatement();
+			String sqlch1 = "CREATE TABLE instrument("
+					+ "instrument_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ "model TEXT NOT NULL,"
+					+ "purpose TEXT NOT NULL,"
+					+ "amount INTEGER NOT NULL,"
+					+ "number_Uses INTEGER NOT NULL,"
+					+ "body_location TEXT NOT NULL,"
+					+ "price INTEGER NOT NULL,"
+					+ "warehouse_location TEXT REFERENCES warehouse (warehouse_location))";
+			fCht.executeUpdate(sqlch1);
+			fCht.close();
+			
+			Statement sCht = c.createStatement();
+			String sqlch2 = "CREATE TABLE warehouse("
+					+ "warehouse_location TEXT PRIMARY KEY NOT NULL,"
+					+ "capacity INTEGER NOT NULL,"
+					+ "filled_space INTEGER NOT NULL)";
+			sCht.executeUpdate(sqlch2);
+			sCht.close();
+			
+			
+			
+
+
+			
+			
 			
 			//Celia
 			
