@@ -98,7 +98,7 @@ public class DbManager
 		SQLCreate codeCreate = new SQLCreate();
 		
 		Connection c = openConnection();
-		codeCreate.createTableMachnery(c);
+		codeCreate.createTableMachinery(c);
 		closeConnection(c);
 	}
 	public void createTableMaterial()

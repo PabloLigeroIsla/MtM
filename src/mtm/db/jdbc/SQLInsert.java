@@ -78,7 +78,7 @@ public class SQLInsert
 	}
 	
 	//Celia
-	public void insert(Employee emp,Connection c) throws IOException 
+	public void insert(Employee emp,Connection c)
 	{
 		try
 		{			
@@ -97,7 +97,7 @@ public class SQLInsert
 		
 		
 	}
-	public void insert(Machinery mach,Connection c) throws IOException
+	public void insert(Machinery mach,Connection c)
 	{
 		try
 		{
