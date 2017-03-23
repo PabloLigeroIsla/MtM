@@ -50,6 +50,13 @@ public class SQLCreate
 			sAt.executeUpdate(sqla2);
 			sAt.close();
 			
+			//Alex
+			
+			//Charo
+			
+			//Celia
+			
+			
 		}catch (Exception e)
 		{
 			e.printStackTrace();
