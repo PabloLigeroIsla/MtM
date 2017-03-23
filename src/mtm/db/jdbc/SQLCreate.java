@@ -94,8 +94,6 @@ public class SQLCreate
 		
 	}
 	
-
-<<<<<<< HEAD
 	//Pablo
 	
 	//Charo
@@ -145,13 +143,5 @@ public class SQLCreate
 		
 		}
 	}
-	
-	
-			
-	
-	//Celia
-	
-	//Alex
-=======
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
+
 }
