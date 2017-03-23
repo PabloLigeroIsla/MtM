@@ -1,6 +1,7 @@
 package mtm.db.jdbc;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class SQLCreate 
@@ -50,6 +51,7 @@ public class SQLCreate
 			sAt.executeUpdate(sqla2);
 			sAt.close();
 			
+			//Alex
 			
 			//Charo
 			// fCht -->firstCharotable //sqlch1 --> sqlcharo1
@@ -94,7 +96,41 @@ public class SQLCreate
 	}
 	
 	//Pablo
-	
+	public void createTableHospital(Connection c)
+	{
+		try
+		{
+			Statement fPt = c.createStatement();
+			String sqlp1 = "CREATE TABLE hospital("
+				+ "hospital_ID    INTEGER PRIMARY KEY AUTOINCREMENT,"
+				+ "name TEXT NOT NULL,"
+				+ "location TEXT NOT NULL,"
+				+ "medical_specialization TEXT NOT NULL)";
+			fPt.executeUpdate(sqlp1);
+			fPt.close();
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
+	}
+	public void createTableOrder(Connection c)
+	{
+		try
+		{
+			Statement sPt = c.createStatement();
+			String sqlp2 = "CREATE TABLE orders("
+				+ "order_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+				+ "total_amount_instruments INTEGER NOT NULL,"
+				+ "order_date DATE NOT NULL,"
+				+ "delivery_date DATE NOT NULL)";
+			sPt.executeUpdate(sqlp2);
+			sPt.close();
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
 	//Alex
 	public void createTableMaterial(Connection c){
 		try
