@@ -52,7 +52,7 @@ public class Validator
 		String stringNumber = "";
 		try
 		{
-			while((numIntro > upperLim) || (numIntro < 0))
+			while((numIntro > upperLim) || (numIntro < 1))
 			{
 				 do 
 	        	 {
@@ -80,6 +80,19 @@ public class Validator
 		return numIntro;
 	}
 	
+	public static String writeString()
+	{
+		String string="";
+		System.out.println("Introduce a Word/sentence");
+		try
+		{
+			string = c.readLine();
+		}catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+		return string;
+	}
 	
 	// Validating Methods
 	

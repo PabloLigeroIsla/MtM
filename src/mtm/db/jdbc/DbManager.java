@@ -51,7 +51,6 @@ public class DbManager
 		closeConnection(c);
 		
 	}
-	
 	public void createTableHospital()
 	{
 		SQLCreate codeCreate = new SQLCreate();
@@ -109,7 +108,7 @@ public class DbManager
 		codeCreate.createTableMachinery(c);
 		closeConnection(c);
 	}
-	public void createTableWharhouse()
+	public void createTableWarehouse()
 	{
 		SQLCreate codeCreate = new SQLCreate();
 		
