@@ -94,9 +94,24 @@ public class Validator
 		return string;
 	}
 	
-	// Validating Methods
+	public static String[] createDate()
+	{
+		String date[] = new String [2];
+		
+		System.out.println("\nDay:");
+		int day1 = writeNumber(31);
+		date[0] = "" + day1;
+		System.out.println("\nMonth:");
+		int month1 = writeNumber(12);
+		 date[1] = "" + month1;
+		System.out.println("\nYear:");
+		int year1 = writeNumber(2017);
+		date[2] = "" + year1;
+		return date;
+	}
 	
-	public static boolean valNumString(String val) 
+	// Validating Methods
+		public static boolean valNumString(String val) 
 	//Method used to validate if the value val is realy an integer or not
 	{
         try {

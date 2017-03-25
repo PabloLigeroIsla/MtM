@@ -85,6 +85,16 @@ public class Order implements Serializable
 		this.instrumentList = new ArrayList<Instrument>();
 	}
 
+	public Order(Integer total_amount_instruments, Date order_Date, Date delivery_Date)
+	{
+		super();
+		this.total_amount_instruments = total_amount_instruments;
+		this.order_Date = order_Date;
+		this.delivery_Date = delivery_Date;
+		this.hospitalList = new ArrayList<Hospital>();
+		this.instrumentList = new ArrayList<Instrument>();
+	}
+	
 	public Order(Integer order_ID, Integer total_amount_instruments, Date order_Date, Date delivery_Date, List<Hospital> hospitalList, List<Instrument> instrumentList)
 	{
 		super();

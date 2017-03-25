@@ -72,6 +72,15 @@ public class Hospital implements Serializable
 		super();
 		this.orderList = new ArrayList<Order>();
 	}
+
+	public Hospital(String name, String location, String medical_specialization)
+	{
+		super();
+		this.name = name;
+		this.location = location;
+		this.medical_specialization = medical_specialization;
+		this.orderList = new ArrayList<Order>();
+	}
 	
 	public Hospital(Integer hospital_ID, String name, String location, String medical_specialization, List<Order> orderList)
 	{

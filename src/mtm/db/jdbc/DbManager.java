@@ -3,12 +3,37 @@ package mtm.db.jdbc;
 import mtm.db.pojos.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
-
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.sql.Date;
 
 public class DbManager 
 {
 	// 8 Objects
 	//Different Methods to interact with the dataBase
+	//Different Methods to create the Objects
+	
+	//Methods to create the Pojos
+	//Pablo
+	public Hospital createPojoHospital(String name,String loc,String med_sp)
+	{
+		Hospital hosp = new Hospital(name,loc,med_sp);
+		return hosp;
+	}
+	
+	public Order createPojoOrder(int number,String d11,String d12,String d13,String d21,String d22,String d23)
+	{
+		Date date1SQL = dateConverterSQL(d13,d12,d11);
+		Date date2SQL = dateConverterSQL(d23,d22,d21);
+		Order ord = new Order(number,date1SQL,date2SQL);
+		return ord;
+	}
+	//Cahro
+	
+	//Alex
+	
+	//Celia
 	
 	//Methods to connect with the DataBase
 	public Connection openConnection()
@@ -119,6 +144,7 @@ public class DbManager
 	
 	//Method to Insert
 	
+	//Pablo
 	public void insert(Hospital obj)
 	{
 		SQLInsert codeInsert = new SQLInsert();
@@ -136,8 +162,16 @@ public class DbManager
 		closeConnection(c);
 	}
 	
+	//Charo
+	
+	//Alex
+	
+	//Celia
+	
+	
 	//Method to Delete
 	
+	//Pablo
 	public void delete(Hospital obj)
 	{
 		SQLDelete del = new SQLDelete();
@@ -149,9 +183,37 @@ public class DbManager
 		
 	}
 	
+	//Celia
 	
+	//Charo
 	
-	//Method to Drop
+	//Alex
 	
+	//Method to Select
+	
+	//DB management Methods
+	
+	private Date dateConverterSQL(String a,String b,String c) 
+	{
+		Date finalDate = null;
+		try
+		{
+			String input = "/"+a+"/"+b+"/"+c+"";
+			
+			Date apptDay = null;
+		    DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+		    
+		    apptDay = (Date) df.parse(input);
+		    
+		    finalDate = new Date(apptDay.getTime());
+		}catch(ParseException e)
+		{
+			e.printStackTrace();
+			System.out.println("Error in conversion");
+		}
+		
+	    
+		return finalDate;
+	}
 	
 }

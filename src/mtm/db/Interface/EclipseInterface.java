@@ -1,18 +1,19 @@
 package mtm.db.Interface;
 
 import static mtm.db.Interface.Validator.*;
-
 import java.io.IOException;
-
 import mtm.db.jdbc.*;
 
  class EclipseInterface 
 {
+	 
+	 static DbManager dbManager = new DbManager();
+	 
 	public static void main()
 	{
 		
 		//Object jdbc
-		DbManager dbManager = new DbManager();
+		
 		
 		int option;
 		do{
@@ -26,10 +27,10 @@ import mtm.db.jdbc.*;
 					createTables();
 					waitEnter();
 				case 2:
-					//dropTable();
+					
 					waitEnter();
 				case 3:
-					
+					intValTable();
 					waitEnter();
 				case 4:
 					
@@ -71,7 +72,7 @@ import mtm.db.jdbc.*;
 	
 	public static void createTables()
 	{
-		DbManager dbManager = new DbManager();
+		
 		System.out.println("Option 1: Create all tables\n"
 				+ "Option 2: Create 1 specific table\n"
 				+ "Option Selected: ");
@@ -131,6 +132,74 @@ import mtm.db.jdbc.*;
 		
 	}
 
+	public static void intValTable()
+	{
+		System.out.println("\n\nSelect the table where you want to introduce a value:\n"
+				+ "1:Company\n"
+				+ "2:Employee\n"
+				+ "3:Hospital\n"
+				+ "4:Instrument\n"
+				+ "5:Machinery"
+				+ "6:Material\n"
+				+ "7:Order\n"
+				+ "8:Warehouse\n"
+				+ "Introduce Option number: ");
+		int  option = writeNumber(8);
+		
+		if(option == 1)
+		{
+			//In hospital we have 1 int and 3 Strings (int is the primary key with the autoincrement)
+			System.out.println("\nName of the hosital:");
+			String a = writeString();
+			System.out.println("\nLocation of the Hospital: ");
+			String b = writeString();
+			System.out.println("\nMedical Specialization of he hospital:");
+			String c = writeString();
+			dbManager.insert(dbManager.createPojoHospital(a,b,c));
+			
+		}
+		if(option == 2)
+		{
+			//In Order we have 2 ints and 2 Strings (The first int is the primary key)
+			System.out.println("\nTotal Amount of Instruments\n");
+			int a = writeNumber();
+			
+			String d1[] = new String[2];
+			String d2[] = new String[2];
+			
+			System.out.println("\nOrder Date\n");
+			d1 = createDate();
+			System.out.println("Delivery Date");
+			d2 = createDate();
+
+			dbManager.insert(dbManager.createPojoOrder(a,d1[0],d1[1],d1[2],d2[0],d2[1],d2[2]));
+		}
+		if(option == 3)
+		{
+			
+		}
+		if(option == 4)
+		{
+			
+		}
+		if(option == 5)
+		{
+			
+		}
+		if(option == 6)
+		{
+			
+		}
+		if(option == 7)
+		{
+			
+		}
+		if(option == 8)
+		{
+			
+		}
+		
+	}
 	
 	//Extra Methods
     public static void waitEnter()
@@ -138,6 +207,7 @@ import mtm.db.jdbc.*;
         System.out.println("Press enter to continue: \n");
         try{
             String a = c.readLine();
+            a = a+"a";
         }catch(IOException ex){
         	ex.printStackTrace();
         }
