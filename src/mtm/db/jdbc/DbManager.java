@@ -172,14 +172,43 @@ public class DbManager
 	//Method to Delete
 	
 	//Pablo
-	public void delete(Hospital obj)
+	public void deleteHospital(int primaryKey)
 	{
-		SQLDelete del = new SQLDelete();
+		String selectQuarry = null;
+		Connection c;
 		
+		//Search the hospital with the primary key in the database (method to search in table hospital)
+			//selectQuarry = method used to search a value 
+		if(selectQuarry == null)
+		{
+			System.out.println("This PrimaryKey doesn't exit");
+		}else
+		{
+			c = openConnection();
+				SQLDelete del = new SQLDelete();
+				//del.deleteHospital(primaryKey,selectQuarry,c);
+				closeConnection(c);
+		}
+
+				
 	}
-	public void delete(Order obj)
+	public void deleteOrder(Order obj)
 	{
-		SQLDelete del = new SQLDelete();
+		String selectQuarry = "";
+		Connection c;
+		
+		//Search the hospital with the primary key in the database (method to search in table hospital)
+			//selectQuarry = method used to search a value 
+		if(selectQuarry == null)
+		{
+			System.out.println("This PrimaryKey doesn't exit");
+		}else
+		{
+			c = openConnection();
+				SQLDelete del = new SQLDelete();
+				//del.deleteHospital(primaryKey,selectQuarry,c);
+				closeConnection(c);
+		}
 		
 	}
 	

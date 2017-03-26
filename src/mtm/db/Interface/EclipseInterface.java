@@ -2,7 +2,7 @@ package mtm.db.Interface;
 
 import static mtm.db.Interface.Validator.*;
 import java.io.IOException;
-import mtm.db.jdbc.*;
+import mtm.db.jdbc.DbManager;
 
  class EclipseInterface 
 {

@@ -80,6 +80,42 @@ public class Validator
 		return numIntro;
 	}
 	
+	public static int writeNumber(int lowerLim, int upperLim)
+	{
+		//P Method used to set one limit, the upper limit
+				int numIntro = -1;
+				boolean out = false;
+				String stringNumber = "";
+				try
+				{
+					while((numIntro > upperLim) || (numIntro < lowerLim))
+					{
+						 do 
+			        	 {
+			                 System.out.println("Introduce a number, anything else Wapi\n");
+			   
+			                     stringNumber = c.readLine();
+			                     if (valNumString(stringNumber)) 
+			                     {
+			                         numIntro = Integer.parseInt(stringNumber);
+			                         out = true;
+			                     }
+			                
+			        	 } while (!out);//Mientras que no me introduzca un numero, no le dejo salir
+						
+						if((numIntro > upperLim) || (numIntro < 0))//si hay 5 opciones no puedes poner 6
+						{	
+							System.out.println("Out of established limits\n");
+						}
+					}
+				}catch(Exception e)
+				{
+					e.printStackTrace();
+					System.out.println("Error Introducing the values");
+				}
+				return numIntro;
+	}
+	
 	public static String writeString()
 	{
 		String string="";
@@ -94,24 +130,10 @@ public class Validator
 		return string;
 	}
 	
-	public static String[] createDate()
-	{
-		String date[] = new String [2];
-		
-		System.out.println("\nDay:");
-		int day1 = writeNumber(31);
-		date[0] = "" + day1;
-		System.out.println("\nMonth:");
-		int month1 = writeNumber(12);
-		 date[1] = "" + month1;
-		System.out.println("\nYear:");
-		int year1 = writeNumber(2017);
-		date[2] = "" + year1;
-		return date;
-	}
+
 	
 	// Validating Methods
-		public static boolean valNumString(String val) 
+	public static boolean valNumString(String val) 
 	//Method used to validate if the value val is realy an integer or not
 	{
         try {
@@ -125,5 +147,33 @@ public class Validator
 	
 	// More Functions
 
-
+	public static String[] createDate()
+		{
+			String date[] = new String [2];
+			
+			System.out.println("\nDay:");
+			int day1 = writeNumber(31);
+			if(day1 > 9)
+			{
+				date[0] = "" + day1;
+			}else
+			{
+				date[0] = "0" + day1;
+			}
+			System.out.println("\nMonth:");
+			int month1 = writeNumber(12);
+			if(month1 > 9)
+			{
+				date[1] = "" + month1;
+			}else
+			{
+				date[1] = "0" + month1;
+			}
+			 date[1] = "" + month1;
+			System.out.println("\nYear:");
+			int year1 = writeNumber(1999,2017);
+			date[2] = "" + year1;
+			return date;
+		}
+		
 }
