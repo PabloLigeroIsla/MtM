@@ -2,7 +2,7 @@
 2.- Hacer en EclipseInterface el metodo para introdicir los datos
 3.- Probar la interfaz 
 4.- Cambiar de Public a Private los métodos de SQL....
-
+5.- Cambiar las PK de las tablas que tengan una PK de String a INTEGER
 
 1.- Método de select para poder mostrar, buscar y modificar valores de las tablas.
 2.- Para Eliminar la fila seleccionada, habia pensado en concatenar Strings, el del 

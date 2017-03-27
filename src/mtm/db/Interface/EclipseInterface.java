@@ -95,39 +95,28 @@ import mtm.db.jdbc.DbManager;
 				+ "8:Warehouse\n"
 				+ "Introduce Option number: ");
 			option = writeNumber(8);
-			//Select the option introduced
-			if(option == 1)
+			
+			switch(option)
 			{
+			case 1:
 				dbManager.createTableCompany();
-			}
-			if(option == 2)
-			{
+			case 2:
 				dbManager.createTableEmployee();
-			}
-			if(option == 3)
-			{
+			case 3:
 				dbManager.createTableHospital();
-			}
-			if(option == 4)
-			{
+			case 4:
 				dbManager.createTableInstrument();
-			}
-			if(option == 5)
-			{
+			case 5:
 				dbManager.createTableMachinery();
-			}
-			if(option == 6)
-			{
+			case 6:
 				dbManager.createTableMaterial();
-			}
-			if(option == 7)
-			{
+			case 7:
 				dbManager.createTableOrder();
-			}
-			if(option == 8)
-			{
+			case 8:
 				dbManager.createTableWarehouse();
 			}
+			
+			
 		}
 		
 	}
@@ -146,8 +135,9 @@ import mtm.db.jdbc.DbManager;
 				+ "Introduce Option number: ");
 		int  option = writeNumber(8);
 		
-		if(option == 1)
+		switch(option)
 		{
+		case 1:
 			//In hospital we have 1 int and 3 Strings (int is the primary key with the autoincrement)
 			System.out.println("\nName of the hosital:");
 			String a = writeString();
@@ -156,13 +146,10 @@ import mtm.db.jdbc.DbManager;
 			System.out.println("\nMedical Specialization of he hospital:");
 			String c = writeString();
 			dbManager.insert(dbManager.createPojoHospital(a,b,c));
-			
-		}
-		if(option == 2)
-		{
+		case 2:
 			//In Order we have 2 ints and 2 Strings (The first int is the primary key)
 			System.out.println("\nTotal Amount of Instruments\n");
-			int a = writeNumber();
+			int d = writeNumber();
 			
 			String d1[] = new String[2];
 			String d2[] = new String[2];
@@ -172,32 +159,16 @@ import mtm.db.jdbc.DbManager;
 			System.out.println("Delivery Date");
 			d2 = createDate();
 
-			dbManager.insert(dbManager.createPojoOrder(a,d1[0],d1[1],d1[2],d2[0],d2[1],d2[2]));
+			dbManager.insert(dbManager.createPojoOrder(d,d1[0],d1[1],d1[2],d2[0],d2[1],d2[2]));
+		
+		case 3:
+		case 4:
+		case 5:
+		case 6:
+		case 7:
+		case 8:
 		}
-		if(option == 3)
-		{
-			
-		}
-		if(option == 4)
-		{
-			
-		}
-		if(option == 5)
-		{
-			
-		}
-		if(option == 6)
-		{
-			
-		}
-		if(option == 7)
-		{
-			
-		}
-		if(option == 8)
-		{
-			
-		}
+		
 		
 	}
 	

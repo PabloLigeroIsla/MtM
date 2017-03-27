@@ -5,7 +5,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Validator
+public abstract class Validator
 {
 	//This class contains some functions that we should use in order to know if the user is
 	//introducing the type of value we are storing in the variable.

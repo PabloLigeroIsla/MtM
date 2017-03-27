@@ -1,26 +1,37 @@
 package mtm.db.jdbc;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class SQLSelect 
 {
-	// Method to select and show specific tables or values of the table
-	// This method must return a String with the Quarry
-	// Inputs are a Connection and the value of the primary key we are searching
-	//For each entity: 
-	//				1 method to show the table with all the values
-	//				1 method to show the row of an specific value(Primary Key ¿or name?)
-	//
-	
-	//Charo
-	
-	//Pablo
-	
-	//Celia
-	
-	//Alex
-	
-	
+
+	public boolean valIPK(String query,Connection c)
+	{
+		boolean a = false;
+		
+		try 
+		{
+			Statement stm = c.createStatement();
+			String sql = query;
+			ResultSet rs = stm.executeQuery(sql);
+			if(rs.getFetchSize() == 0)//if the table is empty.....................................
+			{
+				stm.close();
+				a = false;
+			}else
+			{
+				stm.close();
+				a = true;
+			}
+			
+		} catch (SQLException e) 
+		{		
+			e.printStackTrace();
+		}
+		return a;
+	}
+
 }

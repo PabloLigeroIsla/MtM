@@ -220,6 +220,34 @@ public class DbManager
 	
 	//Method to Select
 	
+	public String selectHospital(int primaryKey)
+	{
+		String table = "hosital";
+		String pkHospital = "hospital_ID";
+		String selQuarry = "SELECT * FROM "+table+" WHERE "+pkHospital+" = "+primaryKey+"";
+		if(valExist(selQuarry))
+		{
+			return selQuarry;
+		}else
+		{
+			System.out.println("/nWe dont find the primary key/n");
+			return null;
+		}
+	}
+	public String selectOrder(int primaryKey)
+	{
+		String table = "orders";
+		String pkHospital = "order_ID";
+		String selQuarry = "SELECT * FROM "+table+" WHERE "+pkHospital+" = "+primaryKey+"";
+		if(valExist(selQuarry))
+		{
+			return selQuarry;
+		}else
+		{
+			System.out.println("/nWe dont find the primary key/n");
+			return null;
+		}
+	}
 	//DB management Methods
 	
 	private Date dateConverterSQL(String a,String b,String c) 
@@ -243,6 +271,17 @@ public class DbManager
 		
 	    
 		return finalDate;
+	}
+	
+	public boolean valExist (String query)
+	{
+		SQLSelect sel = new SQLSelect();
+		
+		Connection c = openConnection();
+		boolean a = sel.valIPK(query,c);
+		closeConnection(c);
+		return a;
+		
 	}
 	
 }
