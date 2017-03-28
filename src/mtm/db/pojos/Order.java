@@ -8,10 +8,10 @@ import java.util.List;
 public class Order implements Serializable
 {
 	
-	private static final long serialVersionUID = -6381647183046062039L;
+	private static final long serialVersionUID = 1821406767918661646L;
 	
-	private Integer order_ID;
-	private Integer total_amount_instruments;
+	private int order_ID;
+	private int total_amount_instruments;
 	private Date order_Date;
 	private Date delivery_Date;
 	
@@ -85,7 +85,19 @@ public class Order implements Serializable
 		this.instrumentList = new ArrayList<Instrument>();
 	}
 
-	public Order(Integer total_amount_instruments, Date order_Date, Date delivery_Date)
+
+	public Order(int order_id,int total_amount_instruments, java.sql.Date order_Date, java.sql.Date delivery_Date)
+	{
+		super();
+		this.order_ID = order_id;
+		this.total_amount_instruments = total_amount_instruments;
+		this.order_Date = order_Date;
+		this.delivery_Date = delivery_Date;
+		this.hospitalList = new ArrayList<Hospital>();
+		this.instrumentList = new ArrayList<Instrument>();
+	}
+	
+	public Order(int total_amount_instruments, java.sql.Date order_Date, java.sql.Date delivery_Date)
 	{
 		super();
 		this.total_amount_instruments = total_amount_instruments;
@@ -95,7 +107,7 @@ public class Order implements Serializable
 		this.instrumentList = new ArrayList<Instrument>();
 	}
 	
-	public Order(Integer order_ID, Integer total_amount_instruments, Date order_Date, Date delivery_Date, List<Hospital> hospitalList, List<Instrument> instrumentList)
+	public Order(int order_ID, int total_amount_instruments, java.sql.Date order_Date, java.sql.Date delivery_Date, List<Hospital> hospitalList, List<Instrument> instrumentList)
 	{
 		super();
 		this.order_ID = order_ID;

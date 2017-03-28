@@ -7,9 +7,9 @@ import mtm.db.jdbc.DbManager;
  class EclipseInterface 
 {
 	 
-	 static DbManager dbManager = new DbManager();
+	static DbManager dbManager = new DbManager();
 	 
-	public static void main()
+	public static void main(String args[]) 
 	{
 		
 		//Object jdbc

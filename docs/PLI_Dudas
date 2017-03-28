@@ -4,11 +4,6 @@
 4.- Cambiar de Public a Private los métodos de SQL....
 5.- Cambiar las PK de las tablas que tengan una PK de String a INTEGER
 
-1.- Método de select para poder mostrar, buscar y modificar valores de las tablas.
-2.- Para Eliminar la fila seleccionada, habia pensado en concatenar Strings, el del 
-	SQLSelect nos devuelva la quarry si existe la fila que buscamos , si no nos devuelve null. Una vez tenemos
-	la quarry, la concatenamos con el codigo de delate unicamente si no nos devolvió 
-	null SELECT.
-	
-
+1.- Método para visualizar las tablas (Interfaz) 
+2.- 
 

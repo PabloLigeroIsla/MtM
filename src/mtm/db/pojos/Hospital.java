@@ -7,8 +7,8 @@ import java.util.List;
 public class Hospital implements Serializable
 {
 
-	private static final long serialVersionUID = -4907375129925145584L;
-	
+	private static final long serialVersionUID = 3198781709673295324L;
+
 	private Integer hospital_ID; 
 	private String name;
 	private String location;
@@ -81,7 +81,15 @@ public class Hospital implements Serializable
 		this.medical_specialization = medical_specialization;
 		this.orderList = new ArrayList<Order>();
 	}
-	
+	public Hospital(Integer hospital_ID, String name, String location, String medical_specialization)
+	{
+		super();
+		this.hospital_ID = hospital_ID;
+		this.name = name;
+		this.location = location;
+		this.medical_specialization = medical_specialization;
+		this.orderList = new ArrayList<Order>();
+	}
 	public Hospital(Integer hospital_ID, String name, String location, String medical_specialization, List<Order> orderList)
 	{
 		super();
