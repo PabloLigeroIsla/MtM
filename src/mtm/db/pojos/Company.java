@@ -12,7 +12,7 @@ public class Company implements Serializable {
 	
 	private String resource; //PRIMARY KEY
 	private String location;
-	private String company_name;
+	private String companyName;
 	
 	private List<Material>  materialList;
 	
@@ -29,10 +29,10 @@ public class Company implements Serializable {
 		this.location = location;
 	}
 	public String getCompany_name() {
-		return company_name;
+		return companyName;
 	}
 	public void setCompany_name(String company_name) {
-		this.company_name = company_name;
+		this.companyName = company_name;
 	}	
 	public List<Material> getMaterialList() {
 		return materialList;
@@ -46,10 +46,10 @@ public class Company implements Serializable {
 
 	}
 	
-	public Company(String resource, String location, String company_name, List<Material> materialList){
+	public Company(String resource, String location, String companyName, List<Material> materialList){
 		this.resource= resource;
 		this.location=location;
-		this.company_name=company_name;
+		this.companyName=companyName;
 		this.materialList=materialList;
 	}
 	
@@ -92,7 +92,7 @@ public class Company implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "Company [resource=" + resource + ", location=" + location + ", company_name=" + company_name
+		return "Company [resource=" + resource + ", location=" + location + ", companyName=" + companyName
 				+ ", materialList=" + materialList + "]";
 	}
 	

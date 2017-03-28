@@ -10,7 +10,7 @@ public class Employee implements Serializable {
 	 */
 	private static final long serialVersionUID = -3297814757811814786L;
 	
-	private String employee_ID;
+	private String employeeID;
 	private String name;
 	private String specializationType;
 	private String typeofContract;
@@ -19,11 +19,11 @@ public class Employee implements Serializable {
 	private List<Machinery> machineryList;
 
 	public String getEmployee_ID() {
-		return employee_ID;
+		return employeeID;
 	}
 
-	public void setEmployee_ID(String employee_ID) {
-		this.employee_ID = employee_ID;
+	public void setEmployee_ID(String employeeID) {
+		this.employeeID = employeeID;
 	}
 
 	public String getName() {
@@ -71,10 +71,10 @@ public class Employee implements Serializable {
 		this.machineryList = new ArrayList<Machinery>();
 	}
 
-	public Employee(String employee_ID, String name, String specializationType, String typeofContract,
+	public Employee(String employeeID, String name, String specializationType, String typeofContract,
 			String machinery) {
 		super();
-		this.employee_ID = employee_ID;
+		this.employeeID = employeeID;
 		this.name = name;
 		this.specializationType = specializationType;
 		this.typeofContract = typeofContract;
@@ -100,7 +100,7 @@ public class Employee implements Serializable {
 	@Override
 	public String toString() 
 	{
-		return "Emplyee [employee_ID=" + employee_ID + ", name=" + name + ", specializationType=" 
+		return "Emplyee [employeeID=" + employeeID + ", name=" + name + ", specializationType=" 
 		+ specializationType + ", typeofContract=" + typeofContract + ", machinery=" + machinery + "]";
 	}
 	
@@ -109,7 +109,7 @@ public class Employee implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((employee_ID == null) ? 0 : employee_ID.hashCode());
+		result = prime * result + ((employeeID == null) ? 0 : employeeID.hashCode());
 		return result;
 	}
 
@@ -122,10 +122,10 @@ public class Employee implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Employee other = (Employee) obj;
-		if (employee_ID == null) {
-			if (other.employee_ID != null)
+		if (employeeID == null) {
+			if (other.employeeID != null)
 				return false;
-		} else if (!employee_ID.equals(other.employee_ID))
+		} else if (!employeeID.equals(other.employeeID))
 			return false;
 		return true;
 	}

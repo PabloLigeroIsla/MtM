@@ -10,10 +10,10 @@ public class Order implements Serializable
 	
 	private static final long serialVersionUID = 1821406767918661646L;
 	
-	private int order_ID;
-	private int total_amount_instruments;
-	private Date order_Date;
-	private Date delivery_Date;
+	private int orderID;
+	private int totalAmountInstruments;
+	private Date orderDate;
+	private Date deliveryDate;
 	
 	private List <Hospital> hospitalList;
 	private List <Instrument> instrumentList;
@@ -40,40 +40,40 @@ public class Order implements Serializable
 		this.instrumentList = instrumentList;
 	}
 	
-	public Integer getOrder_ID()
+	public Integer getOrderID()
 	{
-		return order_ID;
+		return orderID;
 	}
-	public void setOrder_ID(Integer order_ID)
+	public void setOrderID(Integer orderID)
 	{
-		this.order_ID = order_ID;
-	}
-	
-	public Integer getTotal_amount_instruments()
-	{
-		return total_amount_instruments;
-	}
-	public void setTotal_amount_instruments(Integer total_amount_instruments) 
-	{
-		this.total_amount_instruments = total_amount_instruments;
+		this.orderID = orderID;
 	}
 	
-	public Date getOrder_Date()
+	public Integer getTotalAmountInstruments()
 	{
-		return order_Date;
+		return totalAmountInstruments;
 	}
-	public void setOrder_Date(Date order_Date) 
+	public void setTotalAmountInstruments(Integer totalAmountInstruments) 
 	{
-		this.order_Date = order_Date;
+		this.totalAmountInstruments = totalAmountInstruments;
 	}
 	
-	public Date getDelivery_Date() 
+	public Date getOrderDate()
 	{
-		return delivery_Date;
+		return orderDate;
 	}
-	public void setDelivery_Date(Date delivery_Date) 
+	public void setOrderDate(Date orderDate) 
 	{
-		this.delivery_Date = delivery_Date;
+		this.orderDate = orderDate;
+	}
+	
+	public Date getDeliveryDate() 
+	{
+		return deliveryDate;
+	}
+	public void setDeliveryDate(Date deliveryDate) 
+	{
+		this.deliveryDate = deliveryDate;
 	}
 		
 	//Constructors
@@ -86,34 +86,34 @@ public class Order implements Serializable
 	}
 
 
-	public Order(int order_id,int total_amount_instruments, java.sql.Date order_Date, java.sql.Date delivery_Date)
+	public Order(int orderID,int totalAmountInstruments, java.sql.Date orderDate, java.sql.Date deliveryDate)
 	{
 		super();
-		this.order_ID = order_id;
-		this.total_amount_instruments = total_amount_instruments;
-		this.order_Date = order_Date;
-		this.delivery_Date = delivery_Date;
+		this.orderID = orderID;
+		this.totalAmountInstruments = totalAmountInstruments;
+		this.orderDate = orderDate;
+		this.deliveryDate = deliveryDate;
 		this.hospitalList = new ArrayList<Hospital>();
 		this.instrumentList = new ArrayList<Instrument>();
 	}
 	
-	public Order(int total_amount_instruments, java.sql.Date order_Date, java.sql.Date delivery_Date)
+	public Order(int totalAmountInstruments, java.sql.Date orderDate, java.sql.Date deliveryDate)
 	{
 		super();
-		this.total_amount_instruments = total_amount_instruments;
-		this.order_Date = order_Date;
-		this.delivery_Date = delivery_Date;
+		this.totalAmountInstruments = totalAmountInstruments;
+		this.orderDate = orderDate;
+		this.deliveryDate = deliveryDate;
 		this.hospitalList = new ArrayList<Hospital>();
 		this.instrumentList = new ArrayList<Instrument>();
 	}
 	
-	public Order(int order_ID, int total_amount_instruments, java.sql.Date order_Date, java.sql.Date delivery_Date, List<Hospital> hospitalList, List<Instrument> instrumentList)
+	public Order(int orderID, int totalAmountInstruments, java.sql.Date orderDate, java.sql.Date deliveryDate, List<Hospital> hospitalList, List<Instrument> instrumentList)
 	{
 		super();
-		this.order_ID = order_ID;
-		this.total_amount_instruments = total_amount_instruments;
-		this.order_Date = order_Date;
-		this.delivery_Date = delivery_Date;
+		this.orderID = orderID;
+		this.totalAmountInstruments = totalAmountInstruments;
+		this.orderDate = orderDate;
+		this.deliveryDate = deliveryDate;
 		this.hospitalList = hospitalList;
 		this.instrumentList = instrumentList;
 	}
@@ -152,8 +152,8 @@ public class Order implements Serializable
 	@Override
 	public String toString() 
 	{
-		return "Order [order_ID=" + order_ID + ", total_amount_instruments=" + total_amount_instruments
-				+ ", order_Date=" + order_Date + ", delivery_Date=" + delivery_Date + "]";
+		return "Order [orderID=" + orderID + ", totalAmountInstruments=" + totalAmountInstruments
+				+ ", orderDate=" + orderDate + ", deliveryDate=" + deliveryDate + "]";
 	}
 	
 	//hashCode and equals
@@ -163,7 +163,7 @@ public class Order implements Serializable
 	{
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((delivery_Date == null) ? 0 : delivery_Date.hashCode());
+		result = prime * result + ((deliveryDate == null) ? 0 : deliveryDate.hashCode());
 		return result;
 	}
 	
@@ -177,10 +177,10 @@ public class Order implements Serializable
 		if (getClass() != obj.getClass())
 			return false;
 		Order other = (Order) obj;
-		if (delivery_Date == null) {
-			if (other.delivery_Date != null)
+		if (deliveryDate == null) {
+			if (other.deliveryDate != null)
 				return false;
-		} else if (!delivery_Date.equals(other.delivery_Date))
+		} else if (!deliveryDate.equals(other.deliveryDate))
 			return false;
 		return true;
 	}

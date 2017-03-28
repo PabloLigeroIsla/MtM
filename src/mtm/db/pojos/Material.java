@@ -7,11 +7,11 @@ public class Material implements Serializable {
 	private static final long serialVersionUID = -5060012550789129173L;
 
 	
-	private Integer material_ID; //PRIMARY KEY
-	private String material_provided;
+	private Integer materialID; //PRIMARY KEY
+	private String materialProvided;
 	private Integer volume;
 	private Integer weight;
-	private String machinery_type;
+	private String machineryType;
 	
 	
 
@@ -34,26 +34,26 @@ public class Material implements Serializable {
 		super();
 	}
 	
-	public Material(Integer material_ID, String material_provided, Integer weight, Integer volume, String machinery_type){
+	public Material(Integer materialID, String materialProvided, Integer weight, Integer volume, String machineryType){
 		super();
-		this.material_ID= material_ID;
-		this.material_provided= material_provided;
+		this.materialID= materialID;
+		this.materialProvided= materialProvided;
 		this.weight = weight;
 		this.volume = volume;
-		this.machinery_type= machinery_type;
+		this.machineryType= machineryType;
 	}
 	
-	public String getMaterial_provided() {
-		return material_provided;
+	public String getMaterialProvided() {
+		return materialProvided;
 	}
-	public void setMaterial_provided(String material_provided) {
-		this.material_provided = material_provided;
+	public void setMaterialProvided(String materialProvided) {
+		this.materialProvided = materialProvided;
 	}
-	public Integer getMaterial_ID() {
-		return material_ID;
+	public Integer getMaterialID() {
+		return materialID;
 	}
-	public void setMaterial_ID(Integer material_ID) {
-		this.material_ID = material_ID;
+	public void setMaterialID(Integer materialID) {
+		this.materialID = materialID;
 	}
 	
 	
@@ -61,7 +61,7 @@ public class Material implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((material_ID == null) ? 0 : material_ID.hashCode());
+		result = prime * result + ((materialID == null) ? 0 : materialID.hashCode());
 		return result;
 	}
 	@Override
@@ -74,26 +74,26 @@ public class Material implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Material other = (Material) obj;
-		if (material_ID == null) {
-			if (other.material_ID != null)
+		if (materialID == null) {
+			if (other.materialID != null)
 				return false;
-		} else if (!material_ID.equals(other.material_ID))
+		} else if (!materialID.equals(other.materialID))
 			return false;
 		return true;
 	}
 	
 	
 	
-	public String getMachinery_type() {
-		return machinery_type;
+	public String getMachineryType() {
+		return machineryType;
 	}
-	public void setMachinery_type(String machinery_type) {
-		this.machinery_type = machinery_type;
+	public void setMachineryType(String machinery_type) {
+		this.machineryType = machinery_type;
 	}
 	@Override
 	public String toString() {
-		return "Materials [material_ID=" + material_ID + ", material_provided=" + material_provided + ", volume="
-				+ volume + ", weight=" + weight + ", machinery_type=" + machinery_type + "]";
+		return "Materials [materialID=" + materialID + ", materialProvided=" + materialProvided + ", volume="
+				+ volume + ", weight=" + weight + ", machineryType=" + machineryType + "]";
 	}
 	
 	
