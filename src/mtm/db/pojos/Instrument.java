@@ -9,7 +9,7 @@ public class Instrument implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -9207473196538155848L;
-	private Integer instrument_id;
+	private Integer instrumentID;
 	private String model;
 	private String purpose;
 	private Integer amount;
@@ -21,13 +21,13 @@ public class Instrument implements Serializable {
 
 
 		
-	public Instrument(String model, String purpose, Integer amount, Integer number_uses, String body_location, Integer price, List<Warehouse> warehouse_location) {
+	public Instrument(String model, String purpose, Integer amount, Integer numberUses, String bodyLocation, Integer price, List<Warehouse> warehouseLocation) {
 		super();
 		this.model = model;
 		this.purpose = purpose;
 		this.amount = amount;
-		this.numberUses = number_uses;
-		this.bodyLocation = body_location;
+		this.numberUses = numberUses;
+		this.bodyLocation = bodyLocation;
 		this.setPrice(price);
 		this.warehouseLocationList = new ArrayList<Warehouse>();
 		this.orderList = new ArrayList<Order>();
@@ -48,7 +48,7 @@ public class Instrument implements Serializable {
 		int result = 1;
 		result = prime * result + ((amount == null) ? 0 : amount.hashCode());
 		result = prime * result + ((bodyLocation == null) ? 0 : bodyLocation.hashCode());
-		result = prime * result + ((instrument_id == null) ? 0 : instrument_id.hashCode());
+		result = prime * result + ((instrumentID == null) ? 0 : instrumentID.hashCode());
 		result = prime * result + ((model == null) ? 0 : model.hashCode());
 		result = prime * result + ((numberUses == null) ? 0 : numberUses.hashCode());
 		result = prime * result + ((orderList == null) ? 0 : orderList.hashCode());
@@ -76,10 +76,10 @@ public class Instrument implements Serializable {
 				return false;
 		} else if (!bodyLocation.equals(other.bodyLocation))
 			return false;
-		if (instrument_id == null) {
-			if (other.instrument_id != null)
+		if (instrumentID == null) {
+			if (other.instrumentID != null)
 				return false;
-		} else if (!instrument_id.equals(other.instrument_id))
+		} else if (!instrumentID.equals(other.instrumentID))
 			return false;
 		if (model == null) {
 			if (other.model != null)
@@ -111,17 +111,17 @@ public class Instrument implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Instrument [instrument_id=" + instrument_id + ", model=" + model + ", purpose=" + purpose + ", amount="
+		return "Instrument [instrumentID=" + instrumentID + ", model=" + model + ", purpose=" + purpose + ", amount="
 				+ amount + ", numberUses=" + numberUses + ", bodyLocation=" + bodyLocation + ", warehouseLocationList="
 				+ warehouseLocationList + ", orderList=" + orderList + "]";
 	}
 	
 	public Integer getInstrument_id() {
-		return instrument_id;
+		return instrumentID;
 	}
 
 	public void setInstrument_id(Integer instrument_id) {
-		this.instrument_id = instrument_id;
+		this.instrumentID = instrument_id;
 	}
 
 	public String getModel() {

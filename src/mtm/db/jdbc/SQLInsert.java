@@ -163,7 +163,7 @@ public class SQLInsert
 
 						Statement stmt = c.createStatement();
 						String sql;
-						sql = "INSERT INTO materials(weight,volume,material_provided,machinery_type) VALUES('"+mat.getWeight()+","+mat.getVolume()+","+mat.getMaterial_provided()+","+mat.getMachinery_type()+"')";
+						sql = "INSERT INTO materials(weight,volume,material_provided,machinery_type) VALUES('"+mat.getWeight()+","+mat.getVolume()+","+mat.getMaterialProvided()+","+mat.getMachineryType()+"')";
 						stmt.executeUpdate(sql);
 						stmt.close();
 						// End of transaction

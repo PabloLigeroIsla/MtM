@@ -95,7 +95,7 @@ public class SQLSelect
 		while(iterator.hasPrevious())
 			orderStudy = iterator.previous();
 		{
-			if(orderStudy.getOrder_ID() == primaryKey)
+			if(orderStudy.getOrderID() == primaryKey)
 			{
 				order = orderStudy;
 			}

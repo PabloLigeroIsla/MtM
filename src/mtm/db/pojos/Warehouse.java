@@ -8,16 +8,16 @@ public class Warehouse implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -2150121666397926334L;
-	private String warehouse_location;
+	private String warehouseLocation;
 	private Integer capacity;
-	private Integer filled_space;
+	private Integer filledSpace;
 	
 	
-	public Warehouse(String warehouse_location, Integer capacity, Integer filled_space) {
+	public Warehouse(String warehouseLocation, Integer capacity, Integer filledSpace) {
 		super();
-		this.warehouse_location = warehouse_location;
+		this.warehouseLocation = warehouseLocation;
 		this.capacity = capacity;
-		this.filled_space = filled_space;
+		this.filledSpace = filledSpace;
 	}
 	
 
@@ -27,8 +27,8 @@ public class Warehouse implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((capacity == null) ? 0 : capacity.hashCode());
-		result = prime * result + ((filled_space == null) ? 0 : filled_space.hashCode());
-		result = prime * result + ((warehouse_location == null) ? 0 : warehouse_location.hashCode());
+		result = prime * result + ((filledSpace == null) ? 0 : filledSpace.hashCode());
+		result = prime * result + ((warehouseLocation == null) ? 0 : warehouseLocation.hashCode());
 		return result;
 	}
 
@@ -47,15 +47,15 @@ public class Warehouse implements Serializable {
 				return false;
 		} else if (!capacity.equals(other.capacity))
 			return false;
-		if (filled_space == null) {
-			if (other.filled_space != null)
+		if (filledSpace == null) {
+			if (other.filledSpace != null)
 				return false;
-		} else if (!filled_space.equals(other.filled_space))
+		} else if (!filledSpace.equals(other.filledSpace))
 			return false;
-		if (warehouse_location == null) {
-			if (other.warehouse_location != null)
+		if (warehouseLocation == null) {
+			if (other.warehouseLocation != null)
 				return false;
-		} else if (!warehouse_location.equals(other.warehouse_location))
+		} else if (!warehouseLocation.equals(other.warehouseLocation))
 			return false;
 		return true;
 	}
@@ -63,19 +63,19 @@ public class Warehouse implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Warehouse [warehouse_location=" + warehouse_location + ", capacity=" + capacity + ", filled_space="
-				+ filled_space + "]";
+		return "Warehouse [warehouseLocation=" + warehouseLocation + ", capacity=" + capacity + ", filledSpace="
+				+ filledSpace + "]";
 	}
 
 
 
-	public String getWarehouse_location() {
-		return warehouse_location;
+	public String getWarehouseLocation() {
+		return warehouseLocation;
 	}
 
 
-	public void setWarehouse_location(String warehouse_location) {
-		this.warehouse_location = warehouse_location;
+	public void setWarehouse_location(String warehouseLocation) {
+		this.warehouseLocation = warehouseLocation;
 	}
 
 
@@ -89,13 +89,13 @@ public class Warehouse implements Serializable {
 	}
 
 
-	public Integer getFilled_space() {
-		return filled_space;
+	public Integer getFilledSpace() {
+		return filledSpace;
 	}
 
 
-	public void setFilled_space(Integer filled_space) {
-		this.filled_space = filled_space;
+	public void setFilled_space(Integer filledSpace) {
+		this.filledSpace = filledSpace;
 	}
 }
 

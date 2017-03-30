@@ -9,23 +9,23 @@ public class Hospital implements Serializable
 
 	private static final long serialVersionUID = 3198781709673295324L;
 
-	private Integer hospital_ID; 
+	private Integer hospitalID; 
 	private String name;
 	private String location;
-	private String medical_specialization;
+	private String medicalSpecialization;
 	
 	private List<Order> orderList;
-	//Primary Key --> hospital_ID
+	//Primary Key --> hospitalID
 	//Foreign Key --> orderList
 	
 	//Gets and Sets
 	
 	public Integer getHospital_ID() 
 	{
-		return hospital_ID;
+		return hospitalID;
 	}
-	public void setHospital_ID(Integer hospital_ID) {
-		this.hospital_ID = hospital_ID;
+	public void setHospitalID(Integer hospitalID) {
+		this.hospitalID = hospitalID;
 	}
 
 	public String getName()
@@ -46,13 +46,13 @@ public class Hospital implements Serializable
 		this.location = location;
 	}
 
-	public String getMedical_specialization()
+	public String getMedicalSpecialization()
 	{
-		return medical_specialization;
+		return medicalSpecialization;
 	}
-	public void setMedical_specialization(String medical_specialization)
+	public void setMedicalSpecialization(String medicalSpecialization)
 	{
-		this.medical_specialization = medical_specialization;
+		this.medicalSpecialization = medicalSpecialization;
 	}
 	
 	public List<Order> getOrderList()
@@ -78,25 +78,25 @@ public class Hospital implements Serializable
 		super();
 		this.name = name;
 		this.location = location;
-		this.medical_specialization = medical_specialization;
+		this.medicalSpecialization = medical_specialization;
 		this.orderList = new ArrayList<Order>();
 	}
-	public Hospital(Integer hospital_ID, String name, String location, String medical_specialization)
+	public Hospital(Integer hospital_ID, String name, String location, String medicalSpecialization)
 	{
 		super();
-		this.hospital_ID = hospital_ID;
+		this.hospitalID = hospital_ID;
 		this.name = name;
 		this.location = location;
-		this.medical_specialization = medical_specialization;
+		this.medicalSpecialization = medicalSpecialization;
 		this.orderList = new ArrayList<Order>();
 	}
-	public Hospital(Integer hospital_ID, String name, String location, String medical_specialization, List<Order> orderList)
+	public Hospital(Integer hospital_ID, String name, String location, String medicalSpecialization, List<Order> orderList)
 	{
 		super();
-		this.hospital_ID = hospital_ID;
+		this.hospitalID = hospital_ID;
 		this.name = name;
 		this.location = location;
-		this.medical_specialization = medical_specialization;
+		this.medicalSpecialization = medicalSpecialization;
 		this.orderList = orderList;
 	}
 	// Methods
@@ -120,8 +120,8 @@ public class Hospital implements Serializable
 	@Override
 	public String toString() 
 	{
-		return "Hospital [hospital_ID=" + hospital_ID + ", name=" + name + ", location=" + location
-				+ ", medical_specialization=" + medical_specialization + "]";
+		return "Hospital [hospitalID=" + hospitalID + ", name=" + name + ", location=" + location
+				+ ", medicalSpecialization=" + medicalSpecialization + "]";
 	}
 	
 	//hashCode and  equals
@@ -131,7 +131,7 @@ public class Hospital implements Serializable
 	{
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((hospital_ID == null) ? 0 : hospital_ID.hashCode());
+		result = prime * result + ((hospitalID == null) ? 0 : hospitalID.hashCode());
 		return result;
 	}
 
@@ -145,10 +145,10 @@ public class Hospital implements Serializable
 		if (getClass() != obj.getClass())
 			return false;
 		Hospital other = (Hospital) obj;
-		if (hospital_ID == null) {
-			if (other.hospital_ID != null)
+		if (hospitalID == null) {
+			if (other.hospitalID != null)
 				return false;
-		} else if (!hospital_ID.equals(other.hospital_ID))
+		} else if (!hospitalID.equals(other.hospitalID))
 			return false;
 		return true;
 	}
