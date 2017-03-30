@@ -4,10 +4,10 @@ name TEXT NOT NULL,
 location TEXT NOT NULL,
 medical_specialization TEXT NOT NULL);
 
-INSERT INTO hospital(name,location,medical_specialization) VALUES('Gregorio Mara�on','Calle del Dr. Esquerdo, 46, 28007 Madrid','Cardiology');
+INSERT INTO hospital(name,location,medical_specialization) VALUES('Gregorio Maranion','Calle del Dr. Esquerdo, 46, 28007 Madrid','Cardiology');
 INSERT INTO hospital(name,location,medical_specialization) VALUES('La Paz','Paseo de la Castellana, 261, 28046 Madrid','Traumatology');
-INSERT INTO hospital(name,location,medical_specialization) VALUES('Nuestra Se�ora del Rosario','C/Pr�ncipe de Vergara, 53, 28006 Madrid','General');
-INSERT INTO hospital(name,location,medical_specialization) VALUES('Ram�n y Cajal','Ctra. Colmenar Viejo, km. 9,100, 28034 Madrid','Ophthalmology');
+INSERT INTO hospital(name,location,medical_specialization) VALUES('Nuestra Seniora del Rosario','C/Principe de Vergara, 53, 28006 Madrid','General');
+INSERT INTO hospital(name,location,medical_specialization) VALUES('Ramon y Cajal','Ctra. Colmenar Viejo, km. 9,100, 28034 Madrid','Ophthalmology');
 
 
 

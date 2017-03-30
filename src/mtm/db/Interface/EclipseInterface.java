@@ -3,6 +3,7 @@ package mtm.db.Interface;
 import static mtm.db.Interface.Validator.*;
 import java.io.IOException;
 import mtm.db.jdbc.DbManager;
+import mtm.db.pojos.*;
 
  class EclipseInterface 
 {
@@ -26,21 +27,26 @@ import mtm.db.jdbc.DbManager;
 				case 1:
 					createTables();
 					waitEnter();
+					break;
 				case 2:
 					
 					waitEnter();
 				case 3:
 					intValTable();
 					waitEnter();
+					break;
 				case 4:
 					
 					waitEnter();
+					break;
 				case 5:
 					
 					waitEnter();
+					break;
 				case 12:
 					System.out.println("The End");
 					waitEnter();
+					break;
 				}
 		}while(option!=12);
 	}
@@ -100,20 +106,28 @@ import mtm.db.jdbc.DbManager;
 			{
 			case 1:
 				dbManager.createTableCompany();
+				break;
 			case 2:
 				dbManager.createTableEmployee();
+				break;
 			case 3:
 				dbManager.createTableHospital();
+				break;
 			case 4:
 				dbManager.createTableInstrument();
+				break;
 			case 5:
 				dbManager.createTableMachinery();
+				break;
 			case 6:
 				dbManager.createTableMaterial();
+				break;
 			case 7:
 				dbManager.createTableOrder();
+				break;
 			case 8:
 				dbManager.createTableWarehouse();
+				break;
 			}
 			
 			
@@ -146,6 +160,7 @@ import mtm.db.jdbc.DbManager;
 			System.out.println("\nMedical Specialization of he hospital:");
 			String c = writeString();
 			dbManager.insert(dbManager.createPojoHospital(a,b,c));
+			break;
 		case 2:
 			//In Order we have 2 ints and 2 Strings (The first int is the primary key)
 			System.out.println("\nTotal Amount of Instruments\n");
@@ -160,7 +175,7 @@ import mtm.db.jdbc.DbManager;
 			d2 = createDate();
 
 			dbManager.insert(dbManager.createPojoOrder(d,d1[0],d1[1],d1[2],d2[0],d2[1],d2[2]));
-		
+			break;
 		case 3:
 		case 4:
 		case 5:
@@ -182,5 +197,55 @@ import mtm.db.jdbc.DbManager;
         }catch(IOException ex){
         	ex.printStackTrace();
         }
+    }
+
+    public static void showObject()
+    {
+    	//Option is set to select the table, and Option1 is set to print a list or one object
+    	int option,option1;
+    	System.out.println("\n\nSelect the table you want to create:\n"
+				+ "1:Company\n"
+				+ "2:Employee\n"
+				+ "3:Hospital\n"
+				+ "4:Instrument\n"
+				+ "5:Machinery"
+				+ "6:Material\n"
+				+ "7:Order\n"
+				+ "8:Warehouse\n"
+				+ "Introduce Option number: ");
+    	option = writeNumber(8);
+    	System.out.println("Select one option:\n"
+    			+ "1:Print just one Hospital\n"
+    			+ "2:Print the whole table ");
+    	System.out.println("\n\n");
+    	option1 = writeNumber(2);
+    	switch(option)
+    	{
+    	case 1:
+    		if(option1 == 1)
+    		{
+    			int pk = writeNumber();
+    			dbManager.selectHospital(pk);
+    			
+    		}else
+    		{
+    			//printHospitalTable();
+    		}
+    		break;
+    	case 2:
+    		break;
+    	case 3:
+    		break;
+    	case 4:
+    		break;
+    	case 5:
+    		break;
+    	case 6:
+    		break;
+    	case 7:
+    		break;
+    	case 8:
+    		break;
+    	}
     }
 }

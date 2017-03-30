@@ -2,6 +2,7 @@ package mtm.db.jdbc;
 
 import mtm.db.pojos.*;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -14,12 +15,15 @@ public class SQLInsert
 	{
 		try
 		{
+			c.setAutoCommit(false);//With false the data base will be updated in the c.commit();
+								   // If true, then in line executeUpdate() the data base is updated
 			Statement stm = c.createStatement();
 			
 			String sql = "INSERT INTO hospital(name,location,medical_specialization)"
 					+ "VALUES('"+ hosp.getName() + "','"+ hosp.getLocation() +"','"+ hosp.getMedical_specialization() +"');";
 			stm.executeUpdate(sql);
 			stm.close();
+			c.commit();
 			
 		}catch(SQLException e)
 		{
@@ -30,12 +34,20 @@ public class SQLInsert
 	{
 		try
 		{
+			c.setAutoCommit(false);
+			
 			Statement stm = c.createStatement();
 			
 			String sql = "INSERT INTO orders(total_amount_instruments,order_date,delivery_date)"
-					+ "VALUES("+ ord.getTotal_amount_instruments() +",'"+ ord.getOrder_Date() +"','"+ ord.getDelivery_Date() +"');";
+					+ "VALUES(?,?,?);";
+			PreparedStatement prep = c.prepareStatement(sql);
+			prep.setDouble(1, ord.getTotal_amount_instruments());
+			prep.setDate(2,ord.getDelivery_Date());
+			prep.setDate(3, ord.getOrder_Date());
 			stm.executeUpdate(sql);
 			stm.close();
+			
+			c.commit();
 		}catch(SQLException e)
 		{
 			e.printStackTrace();
@@ -47,12 +59,16 @@ public class SQLInsert
 	{
 		try
 		{
+			c.setAutoCommit(false);
+			
 			Statement stmCh = c.createStatement();
 			String sqlCh;
 			sqlCh = "INSERT INTO instrument(model,purpose,amount,number_uses,body_location,price,warehouse_location)"
 					+ "VALUES ('" + instr.getModel() +"','" +instr.getPurpose() + "','"+ instr.getAmount() + "','"+ instr.getNumber_uses() + "','"+ instr.getBody_location() + "','"+instr.getPrice()+"','"+instr.getWarehouse_location()+"');";
 			stmCh.executeUpdate(sqlCh);
-			stmCh.close();							
+			stmCh.close();			
+			
+			c.commit();
 					
 		}catch(SQLException e)
 		{
@@ -64,12 +80,16 @@ public class SQLInsert
 	{
 		try
 		{
+			c.setAutoCommit(false);
+			
 			Statement stmCh = c.createStatement();
 			String sqlCh;
 			sqlCh = "INSERT INTO warehouse (warehouse_location,capacity,filled_space)"
 					+ "VALUES ('" + wareh.getWarehouse_location() +"','" +wareh.getCapacity() + "','"+ wareh.getFilled_space() +"');";
 			stmCh.executeUpdate(sqlCh);
-			stmCh.close();							
+			stmCh.close();
+			
+			c.commit();
 					
 		}catch(SQLException e)
 		{
