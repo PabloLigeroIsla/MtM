@@ -2,6 +2,8 @@ package mtm.db.Interface;
 
 import static mtm.db.Interface.Validator.*;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import mtm.db.jdbc.DbManager;
 import mtm.db.pojos.*;
 
@@ -159,7 +161,8 @@ import mtm.db.pojos.*;
 			String b = writeString();
 			System.out.println("\nMedical Specialization of he hospital:");
 			String c = writeString();
-			dbManager.insert(dbManager.createPojoHospital(a,b,c));
+			Hospital hosp= new Hospital(a,b,c);
+			dbManager.insert(hosp);
 			break;
 		case 2:
 			//In Order we have 2 ints and 2 Strings (The first int is the primary key)
@@ -177,11 +180,17 @@ import mtm.db.pojos.*;
 			dbManager.insert(dbManager.createPojoOrder(d,d1[0],d1[1],d1[2],d2[0],d2[1],d2[2]));
 			break;
 		case 3:
+			break;
 		case 4:
+			break;
 		case 5:
+			break;
 		case 6:
+			break;
 		case 7:
+			break;
 		case 8:
+			break;
 		}
 		
 		
@@ -222,14 +231,25 @@ import mtm.db.pojos.*;
     	switch(option)
     	{
     	case 1:
+    		Hospital hosp = new Hospital();
     		if(option1 == 1)
     		{
     			int pk = writeNumber();
-    			dbManager.selectHospital(pk);
+    			hosp = dbManager.selectHospital(pk);
+    			hosp.toString();
     			
     		}else
     		{
-    			//printHospitalTable();
+    			ArrayList<Hospital> hospList = new ArrayList<Hospital>();
+    			hospList = dbManager.selectHospitals();
+    			
+    			int count= 0;
+    			
+    			while(count < hospList.size())
+    			{
+    				hosp = hospList.get(count);
+    				hosp.toString();
+    			}
     		}
     		break;
     	case 2:

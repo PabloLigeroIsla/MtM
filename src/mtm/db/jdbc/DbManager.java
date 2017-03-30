@@ -17,12 +17,7 @@ public class DbManager
 	//Different Methods to create the Objects
 	
 	//Methods to create the Pojos
-	//Pablo
-	public Hospital createPojoHospital(String name,String loc,String med_sp)
-	{
-		Hospital hosp = new Hospital(name,loc,med_sp);
-		return hosp;
-	}
+
 	
 	public Order createPojoOrder(int number,String d11,String d12,String d13,String d21,String d22,String d23)
 	{
@@ -242,7 +237,7 @@ public class DbManager
 	 		Hospital hosp = new Hospital();
 	 		
 			Connection c = openConnection();
-			hosp = sqlSelect.selectHospital(c,primaryKey);
+			hosp = sqlSelect.selectHospital(c,selQuarry);
 			closeConnection(c);
 			
 			return hosp;
@@ -266,7 +261,7 @@ public class DbManager
 	 		Order order = new Order();
 	 		
 			Connection c = openConnection();
-			order= sqlSelect.selectOrder(c,primaryKey);
+			order= sqlSelect.selectOrder(c,selQuery);
 			closeConnection(c);
 			
 			return order;

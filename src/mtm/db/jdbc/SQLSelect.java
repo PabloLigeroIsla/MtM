@@ -1,17 +1,18 @@
 package mtm.db.jdbc;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.ListIterator;
 
 import mtm.db.pojos.*;
 
 
 public class SQLSelect 
 {
+	
 	public ArrayList<Hospital> selectAllHospitals(Connection c)
 	{
 		ArrayList<Hospital> hospitals = new ArrayList<Hospital>();
@@ -38,23 +39,34 @@ public class SQLSelect
 		return hospitals;
 	}
 	
-	public Hospital selectHospital(Connection c, int primaryKey)
+	public Hospital selectHospital(Connection c, String query)
 	{
-		ArrayList<Hospital> hosp = new ArrayList<Hospital>();
-		ListIterator <Hospital> iterator = hosp.listIterator(hosp.size());
-		Hospital hospital = new Hospital();
-		Hospital hospObject = null;
-		hosp = selectAllHospitals(c);
-
-		while(iterator.hasPrevious())
-			hospital = iterator.previous();
+		Hospital hosp = null;
+		int hospitalID;
+		String name, location,medicalSpecialization;
+		
+		try
 		{
-			if(hospital.getHospital_ID()== primaryKey)
+			PreparedStatement prep = c.prepareStatement(query);
+			ResultSet rs = prep.executeQuery();
+			
+			while (rs.next()) 
 			{
-				hospObject = hospital;
+				hospitalID = rs.getInt("hospital_ID");
+				name = rs.getString("name");
+				location = rs.getString("location");
+				medicalSpecialization = rs.getString("medical_Specializaton");
+				
+				hosp = new Hospital(hospitalID,name,location,medicalSpecialization);
 			}
+			
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
 		}
-		return hospObject;
+
+		
+		return hosp;
 	}
 	
 	public ArrayList<Order> selectAllOrders(Connection c)
@@ -84,21 +96,30 @@ public class SQLSelect
 		return orderList;
 	}
 	
-	public Order selectOrder(Connection c, int primaryKey)
+	public Order selectOrder(Connection c, String query)
 	{
-		ArrayList<Order> orderList = new ArrayList<Order>();
-		ListIterator <Order> iterator = orderList.listIterator(orderList.size());
-		Order orderStudy = new Order();
+		
 		Order order = null;
-		orderList = selectAllOrders(c);
-
-		while(iterator.hasPrevious())
-			orderStudy = iterator.previous();
+		
+		try
 		{
-			if(orderStudy.getOrderID() == primaryKey)
+			PreparedStatement prep = c.prepareStatement(query);
+			ResultSet rs = prep.executeQuery();
+			while(rs.next())
 			{
-				order = orderStudy;
+				int orderID = rs.getInt("order_ID");
+				int totalAmountInstruments = rs.getInt("total_amount_instrument");
+				java.sql.Date orderDate = rs.getDate("order_date");
+				java.sql.Date deliveryDate = rs.getDate("delivery_date");
+				
+				order = new Order(orderID,totalAmountInstruments,orderDate,deliveryDate);
+				
 			}
+			
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
 		}
 		return order;
 	}
