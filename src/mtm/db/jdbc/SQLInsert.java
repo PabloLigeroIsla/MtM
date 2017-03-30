@@ -20,7 +20,7 @@ public class SQLInsert
 			Statement stm = c.createStatement();
 			
 			String sql = "INSERT INTO hospital(name,location,medical_specialization)"
-					+ "VALUES('"+ hosp.getName() + "','"+ hosp.getLocation() +"','"+ hosp.getMedical_specialization() +"');";
+					+ "VALUES('"+ hosp.getName() + "','"+ hosp.getLocation() +"','"+ hosp.getMedicalSpecialization() +"');";
 			stm.executeUpdate(sql);
 			stm.close();
 			c.commit();
@@ -41,9 +41,9 @@ public class SQLInsert
 			String sql = "INSERT INTO orders(total_amount_instruments,order_date,delivery_date)"
 					+ "VALUES(?,?,?);";
 			PreparedStatement prep = c.prepareStatement(sql);
-			prep.setDouble(1, ord.getTotal_amount_instruments());
-			prep.setDate(2,ord.getDelivery_Date());
-			prep.setDate(3, ord.getOrder_Date());
+			prep.setDouble(1, ord.getTotalAmountInstruments());
+			prep.setDate(2,ord.getDeliveryDate());
+			prep.setDate(3, ord.getOrderDate());
 			stm.executeUpdate(sql);
 			stm.close();
 			
@@ -85,7 +85,7 @@ public class SQLInsert
 			Statement stmCh = c.createStatement();
 			String sqlCh;
 			sqlCh = "INSERT INTO warehouse (warehouse_location,capacity,filled_space)"
-					+ "VALUES ('" + wareh.getWarehouse_location() +"','" +wareh.getCapacity() + "','"+ wareh.getFilled_space() +"');";
+					+ "VALUES ('" + wareh.getWarehouseLocation() +"','" +wareh.getCapacity() + "','"+ wareh.getFilledSpace() +"');";
 			stmCh.executeUpdate(sqlCh);
 			stmCh.close();
 			
