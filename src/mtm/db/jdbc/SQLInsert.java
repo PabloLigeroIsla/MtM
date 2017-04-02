@@ -20,10 +20,16 @@ public class SQLInsert
 			Statement stm = c.createStatement();
 			
 			String sql = "INSERT INTO hospital(name,location,medical_specialization)"
-					+ "VALUES('"+ hosp.getName() + "','"+ hosp.getLocation() +"','"+ hosp.getMedicalSpecialization() +"');";
-			stm.executeUpdate(sql);
+					+ "VALUES(?,?,?);";
+			PreparedStatement prep = c.prepareStatement(sql);
+			prep.setString(1,hosp.getName());
+			prep.setString(2,hosp.getLocation());
+			prep.setString(3,hosp.getMedicalSpecialization());
+			prep.executeUpdate();
+			
 			stm.close();
-			c.commit();
+			prep.close();
+			
 			
 		}catch(SQLException e)
 		{
@@ -36,18 +42,18 @@ public class SQLInsert
 		{
 			c.setAutoCommit(false);
 			
-			Statement stm = c.createStatement();
-			
 			String sql = "INSERT INTO orders(total_amount_instruments,order_date,delivery_date)"
 					+ "VALUES(?,?,?);";
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setDouble(1, ord.getTotalAmountInstruments());
 			prep.setDate(2,ord.getDeliveryDate());
 			prep.setDate(3, ord.getOrderDate());
-			stm.executeUpdate(sql);
-			stm.close();
+			
+			prep.executeUpdate();
 			
 			c.commit();
+			prep.close();
+			
 		}catch(SQLException e)
 		{
 			e.printStackTrace();

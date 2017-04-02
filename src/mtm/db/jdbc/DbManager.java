@@ -145,10 +145,17 @@ public class DbManager
 	public void insert(Hospital obj)
 	{
 		SQLInsert codeInsert = new SQLInsert();
+		String selQuarry = "SELECT location FROM hospital WHERE name LIKE ?";
+		if(valExist(selQuarry,-1,obj.getName()))
+		{
+			System.out.println("Thsi Hospital exist");
+		}else
+		{
+			Connection c = openConnection();
+			codeInsert.insert(obj,c);
+			closeConnection(c);
+		}
 		
-		Connection c = openConnection();
-		codeInsert.insert(obj,c);
-		closeConnection(c);
 	}
 	public void insert(Order obj)
 	{
@@ -228,16 +235,16 @@ public class DbManager
  	public Hospital selectHospital(int primaryKey)
 	{
 		String table = "hosital";
-		String pkHospital = "hospital_ID";
-		String selQuarry = "SELECT name FROM "+table+" WHERE "+pkHospital+" = "+primaryKey+"";
+		String selQuarry = "SELECT name FROM "+table+" WHERE hospital_ID == ?";
 		
-		if(valExist(selQuarry))
+		
+		if(valExist(selQuarry,primaryKey,null))
 		{
 			SQLSelect sqlSelect = new SQLSelect();
 	 		Hospital hosp = new Hospital();
 	 		
 			Connection c = openConnection();
-			hosp = sqlSelect.selectHospital(c,selQuarry);
+			hosp = sqlSelect.selectHospital(c,selQuarry,primaryKey);
 			closeConnection(c);
 			
 			return hosp;
@@ -248,29 +255,29 @@ public class DbManager
 			return null;
 		}
 	}
-	
- 	public Order selectOrder(int primaryKey)
-	{
-		String table = "orders";
-		String pkHospital = "order_ID";
-		String selQuery = "SELECT * FROM "+table+" WHERE "+pkHospital+" = "+primaryKey+"";
+ 	public Hospital selectHospital(String nameHospital)
+ 	{
+		String selQuarry = "SELECT location FROM hospital WHERE name LIKE ?";
 		
-		if(valExist(selQuery))
+		if(valExist(selQuarry,-1,nameHospital))
 		{
 			SQLSelect sqlSelect = new SQLSelect();
-	 		Order order = new Order();
+	 		Hospital hosp = new Hospital();
 	 		
 			Connection c = openConnection();
-			order= sqlSelect.selectOrder(c,selQuery);
+			hosp = sqlSelect.selectHospital(c,selQuarry,nameHospital);
 			closeConnection(c);
 			
-			return order;
+			return hosp;
 		}else
 		{
 			System.out.println("/nWe dont find the primary key/n");
+			
 			return null;
 		}
-	}
+ 		
+ 	}
+ 	
  	public ArrayList<Order> selectAllOrders()
  	{
  		ArrayList<Order> orderList = new ArrayList<Order>();
@@ -282,6 +289,27 @@ public class DbManager
 		
  		return orderList;
  	}
+ 	public Order selectOrder(int primaryKey)
+	{
+		String selQuery = "SELECT * FROM orders WHERE order_ID = ?";
+		
+		if(valExist(selQuery,primaryKey,null))
+		{
+			SQLSelect sqlSelect = new SQLSelect();
+	 		Order order = new Order();
+	 		
+			Connection c = openConnection();
+			order= sqlSelect.selectOrder(c,selQuery,primaryKey);
+			closeConnection(c);
+			
+			return order;
+		}else
+		{
+			System.out.println("/nWe dont find the primary key/n");
+			return null;
+		}
+	}
+ 	
 	
  	//DB management Methods
 	
@@ -308,12 +336,23 @@ public class DbManager
 		return finalDate;
 	}
 	
-	public boolean valExist (String query)
+	public boolean valExist (String query, int pkInt, String pkString)
 	{
-		SQLSearch sel = new SQLSearch();
 		
+		boolean a;
+		
+		SQLSearch sel = new SQLSearch();
 		Connection c = openConnection();
-		boolean a = sel.valPK1(query,c);
+		
+		if(pkString == null)
+		{
+			a = sel.valPKInt(query,c,pkInt);
+		}
+		else
+		{
+			a = sel.valPKString(query,c,pkString);
+		}
+		
 		closeConnection(c);
 		return a;
 		

@@ -32,6 +32,9 @@ public class SQLSelect
 				hospitals.add(hosp);
 			}
 			
+			stmt.close();
+			rs.close();
+			
 		}catch(SQLException e)
 		{
 			e.printStackTrace();
@@ -39,7 +42,7 @@ public class SQLSelect
 		return hospitals;
 	}
 	
-	public Hospital selectHospital(Connection c, String query)
+	public Hospital selectHospital(Connection c, String query, int pk)
 	{
 		Hospital hosp = null;
 		int hospitalID;
@@ -47,7 +50,9 @@ public class SQLSelect
 		
 		try
 		{
-			PreparedStatement prep = c.prepareStatement(query);
+			String sql = query;
+			PreparedStatement prep = c.prepareStatement(sql);
+			prep.setInt(1, pk);
 			ResultSet rs = prep.executeQuery();
 			
 			while (rs.next()) 
@@ -59,6 +64,44 @@ public class SQLSelect
 				
 				hosp = new Hospital(hospitalID,name,location,medicalSpecialization);
 			}
+			
+			prep.close();
+			rs.close();
+			
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+
+		
+		return hosp;
+	}
+	
+	public Hospital selectHospital(Connection c, String query, String nameHosp)
+	{
+		Hospital hosp = null;
+		int hospitalID;
+		String name, location,medicalSpecialization;
+		
+		try
+		{
+			String sql = query;
+			PreparedStatement prep = c.prepareStatement(sql);
+			prep.setString(1, nameHosp);
+			ResultSet rs = prep.executeQuery();
+			
+			while (rs.next()) 
+			{
+				hospitalID = rs.getInt("hospital_ID");
+				name = rs.getString("name");
+				location = rs.getString("location");
+				medicalSpecialization = rs.getString("medical_Specializaton");
+				
+				hosp = new Hospital(hospitalID,name,location,medicalSpecialization);
+			}
+			
+			prep.close();
+			rs.close();
 			
 		}catch(SQLException e)
 		{
@@ -89,6 +132,10 @@ public class SQLSelect
 				Order order = new Order(orderID,totalAmountInstruments,orderDate,deliveryDate);
 				orderList.add(order);
 			}
+			
+			stmt.close();
+			rs.close();
+			
 		}catch(SQLException e)
 		{
 			e.printStackTrace();
@@ -96,15 +143,18 @@ public class SQLSelect
 		return orderList;
 	}
 	
-	public Order selectOrder(Connection c, String query)
+	public Order selectOrder(Connection c, String query, int pk)
 	{
 		
 		Order order = null;
 		
 		try
 		{
-			PreparedStatement prep = c.prepareStatement(query);
+			String sql = query;
+			PreparedStatement prep = c.prepareStatement(sql);
+			prep.setInt(1, pk);
 			ResultSet rs = prep.executeQuery();
+			
 			while(rs.next())
 			{
 				int orderID = rs.getInt("order_ID");
@@ -115,6 +165,9 @@ public class SQLSelect
 				order = new Order(orderID,totalAmountInstruments,orderDate,deliveryDate);
 				
 			}
+			
+			prep.close();
+			rs.close();
 			
 		}
 		catch(SQLException e)
