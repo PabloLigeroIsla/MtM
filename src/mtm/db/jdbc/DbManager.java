@@ -37,6 +37,14 @@ public class DbManager
 		return emp;
 		
 	}
+	
+	public Machinery createPojoMachinery(String machineryType,String stateofMachinery, String d,String m,String y,int sizeofMachinery){
+		
+		Date date3SQL = dateConverterSQL(d,m,y);
+		Machinery mach = new Machinery (machineryType, stateofMachinery, d, m, y, sizeofMachinery);
+		return mach;
+	}
+	
 	//Methods to connect with the DataBase
 	public Connection openConnection()
 	{
@@ -153,7 +161,7 @@ public class DbManager
 		String selQuery = "SELECT * FROM hospital WHERE name LIKE ?";
 		if(valExist(selQuery,-1,obj.getName()))
 		{
-			System.out.println("Thsi Hospital exist");
+			System.out.println("This Hospital exist");
 		}else
 		{
 			Connection c = openConnection();
@@ -177,7 +185,24 @@ public class DbManager
 	
 	//Celia
 	
-	
+	public void insert(Employee obj)
+	{
+		SQLInsert codeInsert = new SQLInsert();
+
+			Connection c = openConnection();
+			codeInsert.insert(obj,c);
+			closeConnection(c);
+		
+		
+	}
+	public void insert(Machinery obj)
+	{
+		SQLInsert codeInsert = new SQLInsert();
+		
+		Connection c = openConnection();
+		codeInsert.insert(obj,c);
+		closeConnection(c);
+	}
 	//Method to Delete
 	
 	//Pablo

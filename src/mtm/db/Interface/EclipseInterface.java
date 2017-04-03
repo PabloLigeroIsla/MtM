@@ -246,6 +246,16 @@ import mtm.db.pojos.*;
     	case 1:
     		break;
     	case 2:
+    		Employee emp=new Employee();
+    		if(option1 ==1){
+    			int pk = writeNumber();
+    			//emp = dbManager.selectEmployee(pk);
+    			emp.toString();
+    		}
+    		else{
+    			ArrayList<Employee>empList = new ArrayList<Employee>();
+    			//empList = dbManager.selecEmployee(pk);
+    			}
     		break;
     	case 3:
     		Hospital hosp = new Hospital();
