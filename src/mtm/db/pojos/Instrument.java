@@ -42,6 +42,27 @@ public class Instrument implements Serializable {
 
 
 
+	public Instrument(String model2, String purpose2, Integer amount2, Integer numberUses2, String bodyLocation2,
+			Integer price2) {
+		// este metodo esta creado porque DbManager lo necesita porque tengo un objeto Instrument sin la lista
+		
+		this.model = model2;
+		this.purpose = purpose2;
+		this.amount = amount2;
+		this.numberUses = numberUses2;
+		this.bodyLocation = bodyLocation2;
+		this.setPrice(price2);
+		
+		
+	}
+
+
+
+
+
+
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
