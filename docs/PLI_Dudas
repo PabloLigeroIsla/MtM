@@ -4,7 +4,5 @@
 4.- Cambiar de Public a Private los métodos de SQL....
 5.- Cambiar las PK de las tablas que tengan una PK de String a INTEGER
 6.- Cambiar los las variables a_h NO  ............ aH
-
-1.- Método para visualizar las tablas (Interfaz) 
-2.- Cambiar hospital_id por hospitalID (mirar metodos de SQL)
+7.- Cambiar insert into por los insert into prepared
 

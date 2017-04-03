@@ -1,6 +1,5 @@
 package mtm.db.Interface;
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -176,4 +175,14 @@ public abstract class Validator
 			return date;
 		}
 		
+    public static void waitEnter()
+    {	
+        System.out.println("Press enter to continue: \n");
+        try{
+            String a = c.readLine();
+            a = a+"a";
+        }catch(IOException ex){
+        	ex.printStackTrace();
+        }
+    }
 }

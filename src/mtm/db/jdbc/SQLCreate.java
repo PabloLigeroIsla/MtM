@@ -11,6 +11,7 @@ public class SQLCreate
 	{
 		try
 		{
+			c.setAutoCommit(false);
 			//Pablo
 			// fPt -->firstPablotable //sqlp1 --> sqlpablo1
 			Statement fPt = c.createStatement();
@@ -106,7 +107,7 @@ public class SQLCreate
 			
 			//Celia
 			
-			
+			c.commit();
 		}catch (Exception e)
 		{
 			e.printStackTrace();
