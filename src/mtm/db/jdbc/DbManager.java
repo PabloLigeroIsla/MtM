@@ -145,8 +145,8 @@ public class DbManager
 	public void insert(Hospital obj)
 	{
 		SQLInsert codeInsert = new SQLInsert();
-		String selQuarry = "SELECT location FROM hospital WHERE name LIKE ?";
-		if(valExist(selQuarry,-1,obj.getName()))
+		String selQuery = "SELECT * FROM hospital WHERE name LIKE ?";
+		if(valExist(selQuery,-1,obj.getName()))
 		{
 			System.out.println("Thsi Hospital exist");
 		}else
@@ -176,43 +176,39 @@ public class DbManager
 	//Method to Delete
 	
 	//Pablo
-	//public void deleteHospital(int primaryKey)
-	//{
-		//String selectQuarry = null;
-		//Connection c;
+	public void deleteHospital(int primaryKey)
+	{
 		
-		//Search the hospital with the primary key in the database (method to search in table hospital)
-			//selectQuarry = method used to search a value 
-		//if(selectQuarry == null)
-		//{
-			//System.out.println("This PrimaryKey doesn't exit");
-		//}else
-		//{
-			//c = openConnection();
-				//SQLDelete del = new SQLDelete();
-				//del.deleteHospital(primaryKey,selectQuarry,c);
-				//closeConnection(c);
-		//}			
-	//}
-	//public void deleteOrder(int primaryKey)
-	//{
-		//String selectQuarry = "";
-		//Connection c;
+		String sqlQuery = "SELECT * FROM hospital WHERE hospital_ID == ?";
+		if(valExist(sqlQuery,primaryKey,null))
+		{
+			SQLDelete sqlDelete = new SQLDelete();
+			Connection c = openConnection();
+			sqlDelete.deleteHospital(c,primaryKey);
+			closeConnection(c);
+		}
+		else
+		{
+			System.out.println("\n The hospital does not exist \n");
+		}
 		
-		//Search the hospital with the primary key in the database (method to search in table hospital)
-			//selectQuarry = method used to search a value 
-		//if(selectQuarry == null)
-		//{
-			//System.out.println("This PrimaryKey doesn't exit");
-		//}else
-		//{
-			//c = openConnection();
-				//SQLDelete del = new SQLDelete();
-				//del.deleteHospital(primaryKey,selectQuarry,c);
-				//closeConnection(c);
-		//}
-		
-	//}
+	}
+	
+	public void deleteOrder(int primaryKey)
+	{
+		String sqlQuery = "SELECT * FROM orders WHERE order_ID == ?";
+		if(valExist(sqlQuery,primaryKey,null))
+		{
+			SQLDelete sqlDelete = new SQLDelete();
+			Connection c = openConnection();
+			sqlDelete.deleteOrder(c,primaryKey);
+			closeConnection(c);
+		}
+		else
+		{
+			System.out.println("\n The Order does not exist \n");
+		}
+	}
 	
 	//Celia
 	
