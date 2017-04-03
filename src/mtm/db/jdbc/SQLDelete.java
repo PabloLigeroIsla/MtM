@@ -1,6 +1,7 @@
 package mtm.db.jdbc;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -17,8 +18,38 @@ public class SQLDelete
 	//Alex
 	
 	//Pablo
-	public void deleteHospital(int primaryKey, String quarry, Connection c)
+	public void deleteHospital(Connection c, int pk)
 	{
-		
+		try
+		{
+			String sql = "DELETE FROM hospital WHERE hospital_ID = ?";
+			PreparedStatement prep = c.prepareStatement(sql);
+			prep.setInt(1, pk);
+			prep.executeUpdate();
+			System.out.println("Deletion finished.");
+			
+			prep.close();
+			
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteOrder(Connection c, int pk)
+	{
+		try
+		{
+			String sql = "DELETE FROM orders WHERE order_ID = ?";
+			PreparedStatement prep = c.prepareStatement(sql);
+			prep.setInt(1, pk);
+			prep.executeUpdate();
+			System.out.println("Deletion finished.");
+			
+			prep.close();
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
 	}
 }

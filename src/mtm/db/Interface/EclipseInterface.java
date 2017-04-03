@@ -187,7 +187,8 @@ import mtm.db.pojos.*;
 			String b = writeString();
 			System.out.println("\nMedical Specialization of he hospital:");
 			String c = writeString();
-			dbManager.insert(dbManager.createPojoHospital(a,b,c));
+			Hospital hosp = new Hospital(a,b,c);
+			dbManager.insert(hosp);
 			break;
 		case 4:
 			//In instrument we have 3 ints, 3 Strings and 2 List
