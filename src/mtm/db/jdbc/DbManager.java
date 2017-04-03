@@ -31,8 +31,19 @@ public class DbManager
 		Order ord = new Order(number,date1SQL,date2SQL);
 		return ord;
 	}
-	//Charo
 	
+	//Charo
+	public Instrument createPojoInstrument (String model, String purpose, Integer amount, Integer numberUses, String bodyLocation, Integer price) 
+	{
+		Instrument instrument = new Instrument(model,purpose,amount,numberUses,bodyLocation,price);
+		return instrument;
+	}
+	
+	public Warehouse createPojoWarehouse (String warehouseLocation, Integer capacity, Integer filledSpace)
+	{
+		Warehouse warehouse = new Warehouse (warehouseLocation,capacity,filledSpace);
+		return warehouse;
+	}
 	//Alex
 	
 	//Celia
@@ -166,6 +177,23 @@ public class DbManager
 	
 	//Charo
 	
+	public void insert(Instrument obj)
+	{
+		SQLInsert codeInsert = new SQLInsert();
+		
+		Connection c = openConnection();
+		codeInsert.insert(obj,c);
+		closeConnection(c);
+	}
+	
+	public void insert(Warehouse obj)
+	{
+		SQLInsert codeInsert = new SQLInsert();
+		
+		Connection c = openConnection();
+		codeInsert.insert(obj,c);
+		closeConnection(c);
+	}
 	//Alex
 	
 	//Celia

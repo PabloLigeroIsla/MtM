@@ -3,7 +3,6 @@ package mtm.db.Interface;
 import static mtm.db.Interface.Validator.*;
 import java.io.IOException;
 import mtm.db.jdbc.DbManager;
-import mtm.db.pojos.*;
 
  class EclipseInterface 
 {
@@ -56,7 +55,7 @@ import mtm.db.pojos.*;
 	public static int openMenu()
 	{
 		int option;
-		int numOptions = 6; //Numero de opciones que podemos seleccionar con esta función
+		int numOptions = 6; //Numero de opciones que podemos seleccionar con esta funciï¿½n
 		printMenu();
 		option = writeNumber(numOptions);
 		
@@ -65,7 +64,7 @@ import mtm.db.pojos.*;
 
 	public static void printMenu()
 	{
-		//Si añades opciones, recuerda mirar el metodo abrirMenu
+		//Si aï¿½ades opciones, recuerda mirar el metodo abrirMenu
 		System.out.println("Option 1.- Create Tables\n"
 				+ "Option 2.- Show tables\n"
 				+ "Option 3.- Introduce values to a Table\n"
@@ -152,6 +151,10 @@ import mtm.db.pojos.*;
 		switch(option)
 		{
 		case 1:
+			
+		case 2:
+			
+		case 3:
 			//In hospital we have 1 int and 3 Strings (int is the primary key with the autoincrement)
 			System.out.println("\nName of the hosital:");
 			String a = writeString();
@@ -161,7 +164,33 @@ import mtm.db.pojos.*;
 			String c = writeString();
 			dbManager.insert(dbManager.createPojoHospital(a,b,c));
 			break;
-		case 2:
+		case 4:
+			//In instrument we have 3 ints, 3 Strings and 2 List
+			
+			//HOW DO WE INTRODUCE A LISTÂ¿??
+			
+			System.out.println("\nModel of the instrument\n");
+			String model=writeString();
+			System.out.println("\nPurpose of the instrument\n");
+			String purpose=writeString();
+			System.out.println("\nAmount of instrument\n");
+			int amount=writeNumber();
+			System.out.println("\nNumber of uses of the instrument\n");
+			int numberUses=writeNumber();
+			System.out.println("\nBody location of the instrument\n");
+			String bodyLocation=writeString();
+			System.out.println("\nPrice of the instrument\n");
+			int price=writeNumber();
+			
+			// List<Warehouse> warehouseLocationList;
+			// List<Order> orderList;
+			dbManager.insert(dbManager.createPojoInstrument(model, purpose, amount, numberUses, bodyLocation, price));
+			break;
+			
+			
+		case 5:
+		case 6:
+		case 7:
 			//In Order we have 2 ints and 2 Strings (The first int is the primary key)
 			System.out.println("\nTotal Amount of Instruments\n");
 			int d = writeNumber();
@@ -176,12 +205,16 @@ import mtm.db.pojos.*;
 
 			dbManager.insert(dbManager.createPojoOrder(d,d1[0],d1[1],d1[2],d2[0],d2[1],d2[2]));
 			break;
-		case 3:
-		case 4:
-		case 5:
-		case 6:
-		case 7:
 		case 8:
+			//In warehouse we have 2 ints and 1 String
+			
+			System.out.println("\nLocation of the warehouse\n");
+			String warehouseLocation=writeString();
+			System.out.println("\nCapacity of the warehouse\n");
+			int capacity=writeNumber();
+			System.out.println("\nFilled space in the warehouse\n");
+			int filledSpace=writeNumber();
+			dbManager.insert(dbManager.createPojoWarehouse(warehouseLocation, capacity, filledSpace));
 		}
 		
 		
