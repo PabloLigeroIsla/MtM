@@ -245,7 +245,7 @@ public class DbManager
 	//Alex
 	
 	//Method to Select
-	public ArrayList<Hospital> selectHospitals()
+	public ArrayList<Hospital> selectHospital()
 	{
 		ArrayList<Hospital> hosp = new ArrayList<Hospital>();
 		SQLSelect sqlSelect = new SQLSelect();
