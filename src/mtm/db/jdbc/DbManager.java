@@ -52,8 +52,9 @@ public class DbManager
 	public Machinery createPojoMachinery(String machineryType,String stateofMachinery, String d,String m,String y,int sizeofMachinery){
 		
 		Date date3SQL = dateConverterSQL(d,m,y);
-		Machinery mach = new Machinery (machineryType, stateofMachinery, d, m, y, sizeofMachinery);
+		//Machinery mach = new Machinery (machineryType, stateofMachinery, d, m, y, sizeofMachinery);
 		return mach;
+		
 	}
 	
 	//Methods to connect with the DataBase

@@ -194,6 +194,7 @@ import mtm.db.pojos.*;
 			
 			//HOW DO WE INTRODUCE A LIST¿??
 			
+			
 			System.out.println("\nModel of the instrument\n");
 			String model=writeString();
 			System.out.println("\nPurpose of the instrument\n");
