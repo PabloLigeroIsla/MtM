@@ -1,7 +1,7 @@
 package mtm.db.Interface;
 
 import static mtm.db.Interface.Validator.*;
-import java.io.IOException;
+import java.util.ArrayList;
 import mtm.db.jdbc.DbManager;
 
  class EclipseInterface 
@@ -28,7 +28,7 @@ import mtm.db.jdbc.DbManager;
 					waitEnter();
 					break;
 				case 2:
-					
+					showObject();
 					waitEnter();
 				case 3:
 					intValTable();
@@ -40,6 +40,24 @@ import mtm.db.jdbc.DbManager;
 					break;
 				case 5:
 					
+					waitEnter();
+					break;
+				case 6:
+					waitEnter();
+					break;
+				case 7:
+					waitEnter();
+					break;
+				case 8:
+					waitEnter();
+					break;
+				case 9:
+					waitEnter();
+					break;
+				case 10:
+					waitEnter();
+					break;
+				case 11:
 					waitEnter();
 					break;
 				case 12:
@@ -69,7 +87,13 @@ import mtm.db.jdbc.DbManager;
 				+ "Option 2.- Show tables\n"
 				+ "Option 3.- Introduce values to a Table\n"
 				+ "Option 4.- Delete value of a Table\n"
-				+ "Option 5.- Drop Table"//Method to select one of the the table
+				+ "Option 5.- Drop Table\n\n"
+				+ "Option 6.-\n"
+				+ "Option 7.-\n"
+				+ "Option 8.-\n"
+				+ "Option 9.-\n"
+				+ "Option 10.-\n"
+				+ "Option 11.-\n"
 				+ "Option 12.- Exit");
 	}
 	
@@ -162,7 +186,8 @@ import mtm.db.jdbc.DbManager;
 			String b = writeString();
 			System.out.println("\nMedical Specialization of he hospital:");
 			String c = writeString();
-			dbManager.insert(dbManager.createPojoHospital(a,b,c));
+			Hospital hosp= new Hospital(a,b,c);
+			dbManager.insert(hosp);
 			break;
 		case 4:
 			//In instrument we have 3 ints, 3 Strings and 2 List
@@ -205,7 +230,21 @@ import mtm.db.jdbc.DbManager;
 
 			dbManager.insert(dbManager.createPojoOrder(d,d1[0],d1[1],d1[2],d2[0],d2[1],d2[2]));
 			break;
+<<<<<<< HEAD
+=======
+		case 3:
+			break;
+		case 4:
+			break;
+		case 5:
+			break;
+		case 6:
+			break;
+		case 7:
+			break;
+>>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 		case 8:
+<<<<<<< HEAD
 			//In warehouse we have 2 ints and 1 String
 			
 			System.out.println("\nLocation of the warehouse\n");
@@ -215,28 +254,20 @@ import mtm.db.jdbc.DbManager;
 			System.out.println("\nFilled space in the warehouse\n");
 			int filledSpace=writeNumber();
 			dbManager.insert(dbManager.createPojoWarehouse(warehouseLocation, capacity, filledSpace));
+=======
+			break;
+>>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 		}
 		
 		
 	}
-	
 	//Extra Methods
-    public static void waitEnter()
-    {	
-        System.out.println("Press enter to continue: \n");
-        try{
-            String a = c.readLine();
-            a = a+"a";
-        }catch(IOException ex){
-        	ex.printStackTrace();
-        }
-    }
 
     public static void showObject()
     {
     	//Option is set to select the table, and Option1 is set to print a list or one object
     	int option,option1;
-    	System.out.println("\n\nSelect the table you want to create:\n"
+    	System.out.println("\n\nSelect the table you want to show:\n"
 				+ "1:Company\n"
 				+ "2:Employee\n"
 				+ "3:Hospital\n"
@@ -247,27 +278,40 @@ import mtm.db.jdbc.DbManager;
 				+ "8:Warehouse\n"
 				+ "Introduce Option number: ");
     	option = writeNumber(8);
-    	System.out.println("Select one option:\n"
-    			+ "1:Print just one Hospital\n"
-    			+ "2:Print the whole table ");
+    	
+    	System.out.println("\nSelect one option:\n"
+    			+ "1:Print just one Object\n"
+    			+ "2:Print the whole table of Objects");
     	System.out.println("\n\n");
     	option1 = writeNumber(2);
+    	
     	switch(option)
     	{
     	case 1:
-    		if(option1 == 1)
-    		{
-    			int pk = writeNumber();
-    			dbManager.selectHospital(pk);
-    			
-    		}else
-    		{
-    			//printHospitalTable();
-    		}
     		break;
     	case 2:
     		break;
     	case 3:
+    		Hospital hosp = new Hospital();
+    		if(option1 == 1)
+    		{
+    			int pk = writeNumber();
+    			hosp = dbManager.selectHospital(pk);
+    			hosp.toString();
+    			
+    		}else
+    		{
+    			ArrayList<Hospital> hospList = new ArrayList<Hospital>();
+    			hospList = dbManager.selectHospitals();
+    			
+    			int count= 0;
+    			
+    			while(count < hospList.size())
+    			{
+    				hosp = hospList.get(count);
+    				hosp.toString();
+    			}
+    		}
     		break;
     	case 4:
     		break;

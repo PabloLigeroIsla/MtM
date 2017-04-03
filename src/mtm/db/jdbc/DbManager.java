@@ -17,12 +17,7 @@ public class DbManager
 	//Different Methods to create the Objects
 	
 	//Methods to create the Pojos
-	//Pablo
-	public Hospital createPojoHospital(String name,String loc,String med_sp)
-	{
-		Hospital hosp = new Hospital(name,loc,med_sp);
-		return hosp;
-	}
+
 	
 	public Order createPojoOrder(int number,String d11,String d12,String d13,String d21,String d22,String d23)
 	{
@@ -161,10 +156,17 @@ public class DbManager
 	public void insert(Hospital obj)
 	{
 		SQLInsert codeInsert = new SQLInsert();
+		String selQuery = "SELECT * FROM hospital WHERE name LIKE ?";
+		if(valExist(selQuery,-1,obj.getName()))
+		{
+			System.out.println("Thsi Hospital exist");
+		}else
+		{
+			Connection c = openConnection();
+			codeInsert.insert(obj,c);
+			closeConnection(c);
+		}
 		
-		Connection c = openConnection();
-		codeInsert.insert(obj,c);
-		closeConnection(c);
 	}
 	public void insert(Order obj)
 	{
@@ -202,43 +204,39 @@ public class DbManager
 	//Method to Delete
 	
 	//Pablo
-	//public void deleteHospital(int primaryKey)
-	//{
-		//String selectQuarry = null;
-		//Connection c;
+	public void deleteHospital(int primaryKey)
+	{
 		
-		//Search the hospital with the primary key in the database (method to search in table hospital)
-			//selectQuarry = method used to search a value 
-		//if(selectQuarry == null)
-		//{
-			//System.out.println("This PrimaryKey doesn't exit");
-		//}else
-		//{
-			//c = openConnection();
-				//SQLDelete del = new SQLDelete();
-				//del.deleteHospital(primaryKey,selectQuarry,c);
-				//closeConnection(c);
-		//}			
-	//}
-	//public void deleteOrder(int primaryKey)
-	//{
-		//String selectQuarry = "";
-		//Connection c;
+		String sqlQuery = "SELECT * FROM hospital WHERE hospital_ID == ?";
+		if(valExist(sqlQuery,primaryKey,null))
+		{
+			SQLDelete sqlDelete = new SQLDelete();
+			Connection c = openConnection();
+			sqlDelete.deleteHospital(c,primaryKey);
+			closeConnection(c);
+		}
+		else
+		{
+			System.out.println("\n The hospital does not exist \n");
+		}
 		
-		//Search the hospital with the primary key in the database (method to search in table hospital)
-			//selectQuarry = method used to search a value 
-		//if(selectQuarry == null)
-		//{
-			//System.out.println("This PrimaryKey doesn't exit");
-		//}else
-		//{
-			//c = openConnection();
-				//SQLDelete del = new SQLDelete();
-				//del.deleteHospital(primaryKey,selectQuarry,c);
-				//closeConnection(c);
-		//}
-		
-	//}
+	}
+	
+	public void deleteOrder(int primaryKey)
+	{
+		String sqlQuery = "SELECT * FROM orders WHERE order_ID == ?";
+		if(valExist(sqlQuery,primaryKey,null))
+		{
+			SQLDelete sqlDelete = new SQLDelete();
+			Connection c = openConnection();
+			sqlDelete.deleteOrder(c,primaryKey);
+			closeConnection(c);
+		}
+		else
+		{
+			System.out.println("\n The Order does not exist \n");
+		}
+	}
 	
 	//Celia
 	
@@ -261,16 +259,16 @@ public class DbManager
  	public Hospital selectHospital(int primaryKey)
 	{
 		String table = "hosital";
-		String pkHospital = "hospital_ID";
-		String selQuarry = "SELECT name FROM "+table+" WHERE "+pkHospital+" = "+primaryKey+"";
+		String selQuarry = "SELECT name FROM "+table+" WHERE hospital_ID == ?";
 		
-		if(valExist(selQuarry))
+		
+		if(valExist(selQuarry,primaryKey,null))
 		{
 			SQLSelect sqlSelect = new SQLSelect();
 	 		Hospital hosp = new Hospital();
 	 		
 			Connection c = openConnection();
-			hosp = sqlSelect.selectHospital(c,primaryKey);
+			hosp = sqlSelect.selectHospital(c,selQuarry,primaryKey);
 			closeConnection(c);
 			
 			return hosp;
@@ -281,29 +279,29 @@ public class DbManager
 			return null;
 		}
 	}
-	
- 	public Order selectOrder(int primaryKey)
-	{
-		String table = "orders";
-		String pkHospital = "order_ID";
-		String selQuery = "SELECT * FROM "+table+" WHERE "+pkHospital+" = "+primaryKey+"";
+ 	public Hospital selectHospital(String nameHospital)
+ 	{
+		String selQuarry = "SELECT location FROM hospital WHERE name LIKE ?";
 		
-		if(valExist(selQuery))
+		if(valExist(selQuarry,-1,nameHospital))
 		{
 			SQLSelect sqlSelect = new SQLSelect();
-	 		Order order = new Order();
+	 		Hospital hosp = new Hospital();
 	 		
 			Connection c = openConnection();
-			order= sqlSelect.selectOrder(c,primaryKey);
+			hosp = sqlSelect.selectHospital(c,selQuarry,nameHospital);
 			closeConnection(c);
 			
-			return order;
+			return hosp;
 		}else
 		{
 			System.out.println("/nWe dont find the primary key/n");
+			
 			return null;
 		}
-	}
+ 		
+ 	}
+ 	
  	public ArrayList<Order> selectAllOrders()
  	{
  		ArrayList<Order> orderList = new ArrayList<Order>();
@@ -315,6 +313,27 @@ public class DbManager
 		
  		return orderList;
  	}
+ 	public Order selectOrder(int primaryKey)
+	{
+		String selQuery = "SELECT * FROM orders WHERE order_ID = ?";
+		
+		if(valExist(selQuery,primaryKey,null))
+		{
+			SQLSelect sqlSelect = new SQLSelect();
+	 		Order order = new Order();
+	 		
+			Connection c = openConnection();
+			order= sqlSelect.selectOrder(c,selQuery,primaryKey);
+			closeConnection(c);
+			
+			return order;
+		}else
+		{
+			System.out.println("/nWe dont find the primary key/n");
+			return null;
+		}
+	}
+ 	
 	
  	//DB management Methods
 	
@@ -341,12 +360,23 @@ public class DbManager
 		return finalDate;
 	}
 	
-	public boolean valExist (String query)
+	public boolean valExist (String query, int pkInt, String pkString)
 	{
-		SQLSearch sel = new SQLSearch();
 		
+		boolean a;
+		
+		SQLSearch sel = new SQLSearch();
 		Connection c = openConnection();
-		boolean a = sel.valPK1(query,c);
+		
+		if(pkString == null)
+		{
+			a = sel.valPKInt(query,c,pkInt);
+		}
+		else
+		{
+			a = sel.valPKString(query,c,pkString);
+		}
+		
 		closeConnection(c);
 		return a;
 		
