@@ -3,6 +3,7 @@ package mtm.db.Interface;
 import static mtm.db.Interface.Validator.*;
 import java.util.ArrayList;
 import mtm.db.jdbc.DbManager;
+import mtm.db.pojos.*;
 
  class EclipseInterface 
 {
@@ -186,8 +187,7 @@ import mtm.db.jdbc.DbManager;
 			String b = writeString();
 			System.out.println("\nMedical Specialization of he hospital:");
 			String c = writeString();
-			Hospital hosp= new Hospital(a,b,c);
-			dbManager.insert(hosp);
+			dbManager.insert(dbManager.createPojoHospital(a,b,c));
 			break;
 		case 4:
 			//In instrument we have 3 ints, 3 Strings and 2 List
@@ -230,21 +230,7 @@ import mtm.db.jdbc.DbManager;
 
 			dbManager.insert(dbManager.createPojoOrder(d,d1[0],d1[1],d1[2],d2[0],d2[1],d2[2]));
 			break;
-<<<<<<< HEAD
-=======
-		case 3:
-			break;
-		case 4:
-			break;
-		case 5:
-			break;
-		case 6:
-			break;
-		case 7:
-			break;
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 		case 8:
-<<<<<<< HEAD
 			//In warehouse we have 2 ints and 1 String
 			
 			System.out.println("\nLocation of the warehouse\n");
@@ -254,20 +240,18 @@ import mtm.db.jdbc.DbManager;
 			System.out.println("\nFilled space in the warehouse\n");
 			int filledSpace=writeNumber();
 			dbManager.insert(dbManager.createPojoWarehouse(warehouseLocation, capacity, filledSpace));
-=======
-			break;
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 		}
 		
 		
 	}
 	//Extra Methods
+    
 
     public static void showObject()
     {
     	//Option is set to select the table, and Option1 is set to print a list or one object
     	int option,option1;
-    	System.out.println("\n\nSelect the table you want to show:\n"
+    	System.out.println("\n\nSelect the table you want to create:\n"
 				+ "1:Company\n"
 				+ "2:Employee\n"
 				+ "3:Hospital\n"
@@ -278,10 +262,9 @@ import mtm.db.jdbc.DbManager;
 				+ "8:Warehouse\n"
 				+ "Introduce Option number: ");
     	option = writeNumber(8);
-    	
-    	System.out.println("\nSelect one option:\n"
-    			+ "1:Print just one Object\n"
-    			+ "2:Print the whole table of Objects");
+    	System.out.println("Select one option:\n"
+    			+ "1:Print just one Hospital\n"
+    			+ "2:Print the whole table ");
     	System.out.println("\n\n");
     	option1 = writeNumber(2);
     	
