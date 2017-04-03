@@ -36,7 +36,12 @@ public class DbManager
 	//Alex
 	
 	//Celia
-	
+	public Employee createPojoEmployee(int employeeID,String name, String typeofContract, String specializationType )
+	{
+		Employee emp = new Employee(employeeID,name,typeofContract,specializationType);
+		return emp;
+		
+	}
 	//Methods to connect with the DataBase
 	public Connection openConnection()
 	{
