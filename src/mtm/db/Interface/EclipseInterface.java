@@ -187,12 +187,14 @@ import mtm.db.pojos.*;
 			String b = writeString();
 			System.out.println("\nMedical Specialization of he hospital:");
 			String c = writeString();
-			dbManager.insert(dbManager.createPojoHospital(a,b,c));
+			Hospital hosp = new Hospital(a,b,c);
+			dbManager.insert(hosp);
 			break;
 		case 4:
 			//In instrument we have 3 ints, 3 Strings and 2 List
 			
 			//HOW DO WE INTRODUCE A LIST¿??
+			
 			
 			System.out.println("\nModel of the instrument\n");
 			String model=writeString();
@@ -273,6 +275,16 @@ import mtm.db.pojos.*;
     	case 1:
     		break;
     	case 2:
+    		Employee emp=new Employee();
+    		if(option1 ==1){
+    			int pk = writeNumber();
+    			//emp = dbManager.selectEmployee(pk);
+    			emp.toString();
+    		}
+    		else{
+    			ArrayList<Employee>empList = new ArrayList<Employee>();
+    			//empList = dbManager.selecEmployee(pk);
+    			}
     		break;
     	case 3:
     		Hospital hosp = new Hospital();

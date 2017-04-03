@@ -108,7 +108,9 @@ public class SQLInsert
 	public void insert(Employee emp,Connection c)
 	{
 		try
-		{			
+		{	
+			c.setAutoCommit(false);
+
 			Statement stmt = c.createStatement();
 			String sql = "INSERT INTO employee (name, typeofContract,specializationType) "
 					+ "VALUES ('" + emp.getName() + "', '" + emp.getTypeofContract()	+ "', '" + emp.getSpecializationType()	+ "');";
@@ -116,6 +118,8 @@ public class SQLInsert
 			stmt.close();
 			System.out.println("Employee information processed");
 			System.out.println("Records inserted.");
+			
+			c.commit();
 			
 			}catch(SQLException e)
 		{
@@ -128,6 +132,8 @@ public class SQLInsert
 	{
 		try
 		{
+			c.setAutoCommit(false);
+
 			Statement stmt = c.createStatement();
 			
 			String sql = "INSERT INTO machinery (machineryType, stateofMachinery,dateofInstallation,sizeofMachinery) "
@@ -135,7 +141,9 @@ public class SQLInsert
 			stmt.executeUpdate(sql);
 			stmt.close();
 			System.out.println("Machinery information processed");
-			System.out.println("Records inserted.");			
+			System.out.println("Records inserted.");
+			c.commit();
+
 		}catch(SQLException e)
 		{
 			e.printStackTrace();

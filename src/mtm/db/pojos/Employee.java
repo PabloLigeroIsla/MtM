@@ -81,6 +81,10 @@ public class Employee implements Serializable {
 		this.machinery = machinery;
 	}
 	
+	public Employee(int employeeID2, String name2, String typeofContract2, String specializationType2) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public void addMachinery (Machinery machinery)
 	{
 		if(!machineryList.contains(machinery))
