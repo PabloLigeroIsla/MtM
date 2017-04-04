@@ -15,6 +15,8 @@ public class Employee implements Serializable {
 	private String specializationType;
 	private String typeofContract;
 	private String machinery;
+	
+	//machinery¿?
 
 	private List<Machinery> machineryList;
 

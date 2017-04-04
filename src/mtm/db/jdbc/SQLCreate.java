@@ -104,9 +104,6 @@ public class SQLCreate
 
 			
 			
-			
-			//Celia
-			
 			c.commit();
 		}catch (Exception e)
 		{
