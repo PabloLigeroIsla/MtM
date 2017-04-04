@@ -1,6 +1,8 @@
 package mtm.db.Interface;
 
 import static mtm.db.Interface.Validator.*;
+
+import java.sql.Date;
 import java.util.ArrayList;
 import mtm.db.jdbc.DbManager;
 import mtm.db.pojos.*;
@@ -178,6 +180,19 @@ import mtm.db.pojos.*;
 		case 1:
 			
 		case 2:
+//la pk se pone sola??
+
+			System.out.println("\nName of the employee:");
+			String ae = writeString();
+			System.out.println("\nSpeialization type of the employee: ");
+			String be = writeString();
+			System.out.println("\nType of contract:");
+			String ce = writeString();
+			System.out.println("\nMachinery:");
+			String de = writeString();			
+			Employee emp = new Employee(ae,be,ce,de);
+			dbManager.insert(emp);
+			break;
 			
 		case 3:
 			//In hospital we have 1 int and 3 Strings (int is the primary key with the autoincrement)
@@ -192,6 +207,7 @@ import mtm.db.pojos.*;
 			break;
 		case 4:
 			//In instrument we have 3 ints, 3 Strings and 2 List
+			
 			
 			//HOW DO WE INTRODUCE A LIST¿??
 			
@@ -216,6 +232,20 @@ import mtm.db.pojos.*;
 			
 			
 		case 5:
+			
+			System.out.println("\nMachinery type:");
+			String am = writeString();
+			System.out.println("\nState of machinery: ");
+			String bm = writeString();
+			System.out.println("\nDate of installation:");
+			String cm[] = new String[2];
+			cm = createDate();
+
+			System.out.println("\nSize of machinery:");
+			int dm = writeNumber();
+			Mahinery mach = new Machinery(am,bm,cm,dm);
+			dbManager.insert(mach);
+			break;
 		case 6:
 		case 7:
 			//In Order we have 2 ints and 2 Strings (The first int is the primary key)
@@ -311,7 +341,19 @@ import mtm.db.pojos.*;
     	case 4:
     		break;
     	case 5:
-    		break;
+    		Machinery mach=new Machinery();
+    		if(option1 ==1){
+    			int pk = writeNumber();
+    			//mach = dbManager.selectMachinery(pk);
+    			mach.toString();
+    		}
+    		else{
+    			ArrayList<Machinery>machList = new ArrayList<Machinery>();
+    			//machList = dbManager.selecMachinery(pk);
+    			}
+    		break;    	
+    	
+    		
     	case 6:
     		break;
     	case 7:

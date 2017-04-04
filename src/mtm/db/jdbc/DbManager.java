@@ -270,7 +270,40 @@ public class DbManager
 	}
 	
 	//Celia
+	public void deleteEmployee(int primaryKey)
+	{
+		
+		String sqlQuery = "SELECT * FROM employee WHERE employee_ID == ?";
+		if(valExist(sqlQuery,primaryKey,null))
+		{
+			SQLDelete sqlDelete = new SQLDelete();
+			Connection c = openConnection();
+			sqlDelete.deleteEmployee(c,primaryKey);
+			closeConnection(c);
+		}
+		else
+		{
+			System.out.println("\n The employee does not exist \n");
+		}
+		
+	}
 	
+	//pk is a String????
+	public void deleteMachinery(String primaryKey)
+	{
+		String sqlQuery = "SELECT * FROM orders WHERE machineryType == ?";
+		if(valExist(sqlQuery,primaryKey,null))
+		{
+			SQLDelete sqlDelete = new SQLDelete();
+			Connection c = openConnection();
+			sqlDelete.deleteMachinery(c,primaryKey);
+			closeConnection(c);
+		}
+		else
+		{
+			System.out.println("\n The Order does not exist \n");
+		}
+	}
 	//Charo
 	
 	//Alex
@@ -364,8 +397,121 @@ public class DbManager
 			return null;
 		}
 	}
- 	
+ 	//Employee
+ 	public ArrayList<Employee> selectEmployee()
+	{
+		ArrayList<Employee> emp = new ArrayList<Employee>();
+		SQLSelect sqlSelect = new SQLSelect();
+		
+		Connection c = openConnection();
+		emp = sqlSelect.selectAllEmployee(c);
+		closeConnection(c);
+		
+		return emp;
+	}
+ 	public Employee selectEmployee(int primaryKey)
+	{
+		String table = "employee";
+		String selQuarry = "SELECT name FROM "+table+" WHERE employee_ID == ?";
+		
+		
+		if(valExist(selQuarry,primaryKey,null))
+		{
+			SQLSelect sqlSelect = new SQLSelect();
+	 		Employee emp = new Employee();
+	 		
+			Connection c = openConnection();
+			emp = sqlSelect.selectEmployee(c,selQuarry,primaryKey);
+			closeConnection(c);
+			
+			return emp;
+		}else
+		{
+			System.out.println("/nWe dont find the primary key/n");
+			
+			return null;
+		}
+	}
+ 	public Employee selectEmployee(String nameEmployee)
+ 	{
+		String selQuarry = "SELECT location FROM employee WHERE name LIKE ?";
+		
+		if(valExist(selQuarry,-1,nameEmployee))
+		{
+			SQLSelect sqlSelect = new SQLSelect();
+	 		Employee emp = new Employee();
+	 		
+			Connection c = openConnection();
+			emp = sqlSelect.selectEmployee(c,selQuarry,nameEmployee);
+			closeConnection(c);
+			
+			return emp;
+		}else
+		{
+			System.out.println("/nWe dont find the primary key/n");
+			
+			return null;
+		}
+ 		
+ 	}
 	
+ 	//Machinery
+ 	public ArrayList<Machinery> selectMachinery()
+	{
+		ArrayList<Machinery> mach = new ArrayList<Machinery>();
+		SQLSelect sqlSelect = new SQLSelect();
+		
+		Connection c = openConnection();
+		mach = sqlSelect.selectAllMachinery(c);
+		closeConnection(c);
+		
+		return mach;
+	}
+ 	public Machinery selectMachinery(int primaryKey)
+	{
+		String table = "machinery";
+		String selQuarry = "SELECT name FROM "+table+" WHERE machineryType == ?";
+		
+		
+		if(valExist(selQuarry,primaryKey,null))
+		{
+			SQLSelect sqlSelect = new SQLSelect();
+			Machinery mach = new Machinery();
+	 		
+			Connection c = openConnection();
+			mach = sqlSelect.selectMachinery(c,selQuarry,primaryKey);
+			closeConnection(c);
+			
+			return mach;
+		}else
+		{
+			System.out.println("/nWe dont find the primary key/n");
+			
+			return null;
+		}
+	}
+ 	public Machinery selectMachinery(String typeMachinery)
+ 	{
+		String selQuarry = "SELECT location FROM machinery WHERE name LIKE ?";
+		
+		if(valExist(selQuarry,-1,typeMachinery))
+		{
+			SQLSelect sqlSelect = new SQLSelect();
+			Machinery mach = new Machinery();
+	 		
+			Connection c = openConnection();
+			mach = sqlSelect.selectMachinery(c,selQuarry,typeMachinery);
+			closeConnection(c);
+			
+			return mach;
+		}else
+		{
+			System.out.println("/nWe dont find the primary key/n");
+			
+			return null;
+		}
+ 		
+ 	}
  	//DB management Methods
 	
 	private Date dateConverterSQL(String a,String b,String c) 
