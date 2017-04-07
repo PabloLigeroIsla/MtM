@@ -1,15 +1,21 @@
 package mtm.db.Interface;
 
-import static mtm.db.Interface.Validator.*;
+import static mtm.db.Interface.Validator.createDate;
+import static mtm.db.Interface.Validator.waitEnter;
+import static mtm.db.Interface.Validator.writeNumber;
+import static mtm.db.Interface.Validator.writeString;
 
-import java.security.cert.PKIXRevocationChecker.Option;
-import java.sql.Date;
 import java.util.ArrayList;
-import mtm.db.jdbc.DbManager;
-import mtm.db.pojos.*;
 
- class EclipseInterface 
+import mtm.db.jdbc.DbManager;
+import mtm.db.pojos.Employee;
+import mtm.db.pojos.Hospital;
+import mtm.db.pojos.Machinery;
+import mtm.db.pojos.Order;
+
+public class UserInterface 
 {
+
 	 
 	static DbManager dbManager = new DbManager();
 	 
@@ -86,45 +92,48 @@ import mtm.db.pojos.*;
 
 	public static void printMenu()
 	{
-		//Si aÃ±ades opciones, recuerda mirar el metodo abrirMenu
-		System.out.println(""
-				+ "Option 1.- Create Tables\n" 
-					//Option 1.1: all the tables?
-					//Option 1.2: One table //y se las enseÃ±as
-						//option 1.2.1: Select the table
-					
-				+ "Option 2.- Show tables\n"
-					//Option: Do you want to see all the relations? (Condition)
-						//Option 2.1: Show 1 table
-							//Option 2.1.1: What table do you want to see? //y se las enseÃ±as
+		//Si añades opciones, recuerda mirar el metodo abrirMenu
+				System.out.println(""
+						+ "Option 1.- Create Tables\n" 
+							//Option 1.1: all the tables?
+							//Option 1.2: One table //y se las enseñas
+								//option 1.2.1: Select the table
+							
+						+ "Option 2.- Show tables\n"
+							//Option: Do you want to see all the relations? (Condition)
+								//Option 2.1: Show 1 table
+									//Option 2.1.1: What table do you want to see? //y se las enseñas
+										//Select the table
+								//Option 2.2: Show all the Tables
+						
+						
+						+ "Option 3.- Introduce value to a Table\n"
+							//Option 3.1: What table do you want to insert the value to? //y se las enseñas
 								//Select the table
-						//Option 2.2: Show all the Tables
-				
-				
-				+ "Option 3.- Introduce value to a Table\n"
-					//Option 3.1: What table do you want to insert the value to? //y se las enseÃ±as
-						//Select the table
-				
-				//aqui ademas se debe llamar a UPDATE la tabla, y la relacion con otra tabla si la tiene
-				
-				+ "Option 4.- Delete value of a Table\n"
-					//Option 4.1: What table do you want to delete a value from? //y se las enseÃ±as
-						//Select the table
-				//aqui tambien haremos un UPDATE
-				
-				+ "Option 5.- Drop Tables\n"
-					//Option 5.1: all the tables?
-					//Option 5.2: One table //y se las enseÃ±as (pero no tiene sentido borrar hospital, warehouse, company?
-						//Select the table
-				//si es solo una tabla, tras esto delete la tabla con relaciones que afecten a la tabla eliminada
-				
-				+ "Option 6.- \n"
-				+ "Option 7.-\n"
-				+ "Option 8.-\n"
-				+ "Option 9.-\n"
-				+ "Option 10.-\n"
-				+ "Option 11.- Create Relation?\n"
-				+ "Option 12.- Exit");
+						
+						//aqui ademas se debe llamar a UPDATE la tabla, y la relacion con otra tabla si la tiene
+						
+						+ "Option 4.- Delete value of a Table\n"
+							//Option 4.1: What table do you want to delete a value from? //y se las enseñas
+								//Select the table
+						//aqui tambien haremos un UPDATE
+						
+						+ "Option 5.- Drop Tables\n"
+							//Option 5.1: all the tables?
+							//Option 5.2: One table //y se las enseñas (pero no tiene sentido borrar hospital, warehouse, company?
+								//Select the table
+						//si es solo una tabla, tras esto delete la tabla con relaciones que afecten a la tabla eliminada
+						
+						+ "Option 6.- \n"
+						+ "Option 7.-\n"
+						+ "Option 8.-\n"
+						+ "Option 9.-\n"
+						+ "Option 10.- Salir de la base de datos\n"
+						//Aqui tenemos que llamar al metodo cerrar conexion
+						
+						+ "Option 11.- Create Relation?\n"
+						+ "Option 12.- Exit");
+
 	}
 	
 	//Data Base Methods
@@ -208,7 +217,7 @@ import mtm.db.pojos.*;
 		case 2:
 //la pk se pone sola??
 
-			System.out.println("\nName of the employee:");
+			/*System.out.println("\nName of the employee:");
 			String ae = writeString();
 			System.out.println("\nSpeialization type of the employee: ");
 			String be = writeString();
@@ -218,7 +227,7 @@ import mtm.db.pojos.*;
 			String de = writeString();			
 			Employee emp = new Employee(ae,be,ce,de);
 			dbManager.insert(emp);
-			break;
+			break;*/
 			
 		case 3:
 			//In hospital we have 1 int and 3 Strings (int is the primary key with the autoincrement)
@@ -257,7 +266,7 @@ import mtm.db.pojos.*;
 			
 		case 5:
 			
-			System.out.println("\nMachinery type:");
+			/*System.out.println("\nMachinery type:");
 			String am = writeString();
 			System.out.println("\nState of machinery: ");
 			String bm = writeString();
@@ -268,7 +277,7 @@ import mtm.db.pojos.*;
 			System.out.println("\nSize of machinery:");
 			int dm = writeNumber();
 			Mahinery mach = new Machinery(am,bm,cm,dm);
-			dbManager.insert(mach);
+			dbManager.insert(mach);*/
 			break;
 		case 6:
 
