@@ -1,8 +1,6 @@
-1.- Hacer en DbManager el metodo que crea una clase pojo específica
-2.- Hacer en EclipseInterface el metodo para introdicir los datos
-3.- Probar la interfaz 
+1.- Hacer en la interfaz la instancia de los POJOS, unicamnete ORDER y MACHINERY en la base de datos 
 4.- Cambiar de Public a Private los métodos de SQL....
 5.- Cambiar las PK de las tablas que tengan una PK de String a INTEGER
-6.- Cambiar los las variables a_h NO  ............ aH
-7.- Cambiar insert into por los insert into prepared
+6.- RODRIGOOOOOOOOOOOOOO hello...ist meeeeeee
+		Regards CHARO 
 
