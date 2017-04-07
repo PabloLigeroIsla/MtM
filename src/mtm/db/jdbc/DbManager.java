@@ -1,9 +1,6 @@
 package mtm.db.jdbc;
 
 import mtm.db.pojos.*;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -59,7 +56,7 @@ public class DbManager
 	//}
 	
 	//Methods to connect with the DataBase
-	public Connection openConnection()
+	/*public Connection openConnection()
 	{
 		Connection c = null;
 		try
@@ -86,99 +83,98 @@ public class DbManager
 		{
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 	//Methods to Create the tables
 	
 	public void createTables()
 	{
-		SQLCreate codeCreate = new SQLCreate();
+		SQL codeCreate = new SQL();
 		
-		Connection c = openConnection();
-		codeCreate.createTables(c);
-		closeConnection(c);
+
+		codeCreate.createTables();
+		
 		
 	}
 	public void createTableHospital()
 	{
-		SQLCreate codeCreate = new SQLCreate();
+		SQL codeCreate = new SQL();
 		
-		Connection c = openConnection();
-		codeCreate.createTableHospital(c);
-		closeConnection(c);
+		
+		codeCreate.createTableHospital();
+		
 		
 	}
 	public void createTableOrder()
 	{
-		SQLCreate codeCreate = new SQLCreate();
+		SQL codeCreate = new SQL();
 		
-		Connection c = openConnection();
-		codeCreate.createTableOrder(c);
-		closeConnection(c);
+		
+		codeCreate.createTableOrder();
+		
 	}
 	public void createTableCompany()
 	{
-		SQLCreate codeCreate = new SQLCreate();
+		SQL codeCreate = new SQL();
 		
-		Connection c = openConnection();
-		codeCreate.createTableCompany(c);
-		closeConnection(c);
+		
+		codeCreate.createTableCompany();
+		
 	}
 	public void createTableEmployee()
 	{
-		SQLCreate codeCreate = new SQLCreate();
+		SQL codeCreate = new SQL();
 		
-		Connection c = openConnection();
-		codeCreate.createTableEmployee(c);
-		closeConnection(c);
+		
+		codeCreate.createTableEmployee();
+		
 	}
 	public void createTableInstrument()
 	{
-		SQLCreate codeCreate = new SQLCreate();
+		SQL codeCreate = new SQL();
 		
-		Connection c = openConnection();
-		codeCreate.createTableInstrument(c);
-		closeConnection(c);
+		
+		codeCreate.createTableInstrument();
+		
 	}
 	public void createTableMachinery()
 	{
-		SQLCreate codeCreate = new SQLCreate();
+		SQL codeCreate = new SQL();
 		
-		Connection c = openConnection();
-		codeCreate.createTableMachinery(c);
-		closeConnection(c);
+		
+		codeCreate.createTableMachinery();
+		
 	}
 	public void createTableMaterial()
 	{
-		SQLCreate codeCreate = new SQLCreate();
+		SQL codeCreate = new SQL();
 		
-		Connection c = openConnection();
-		codeCreate.createTableMachinery(c);
-		closeConnection(c);
+		
+		codeCreate.createTableMachinery();
+		
 	}
 	public void createTableWarehouse()
 	{
-		SQLCreate codeCreate = new SQLCreate();
+		SQL codeCreate = new SQL();
 		
-		Connection c = openConnection();
-		codeCreate.createTableWarehouse(c);
-		closeConnection(c);
+		
+		codeCreate.createTableWarehouse();
+		
 	}
 		//Relational Tables
 	public void createTableHospitalOrder()
 	{
-		SQLCreate codeCreate = new SQLCreate();
-		Connection c = openConnection();
-		codeCreate.createTableHospitalOrders(c);
-		closeConnection(c);
+		SQL codeCreate = new SQL();
+		
+		codeCreate.createTableHospitalOrders();
 	}
 	
 	public void createTableInstrumentOrder()
 	{
-		SQLCreate codeCreate = new SQLCreate();
-		Connection c = openConnection();
-		codeCreate.createTableInstrumentOrders(c);
-		closeConnection(c);
+		SQL codeCreate = new SQL();
+		
+		codeCreate.createTableInstrumentOrders();
+		
 	}
 	
 	//Methods to Insert
@@ -186,46 +182,46 @@ public class DbManager
 	//Pablo
 	public void insert(Hospital obj)
 	{
-		SQLInsert codeInsert = new SQLInsert();
+		SQL codeInsert = new SQL();
 		String selQuery = "SELECT * FROM hospital WHERE name LIKE ?";
 		if(valExist(selQuery,-1,obj.getName()))
 		{
 			System.out.println("This Hospital exist");
 		}else
 		{
-			Connection c = openConnection();
-			codeInsert.insert(obj,c);
-			closeConnection(c);
+	
+			codeInsert.insert(obj);
+		
 		}
 		
 	}
 	public void insert(Order obj)
 	{
-		SQLInsert codeInsert = new SQLInsert();
+		SQL codeInsert = new SQL();
 		
-		Connection c = openConnection();
-		codeInsert.insert(obj,c);
-		closeConnection(c);
+	
+		codeInsert.insert(obj);
+		
 	}
 	
 	//Charo
 	
 	public void insert(Instrument obj)
 	{
-		SQLInsert codeInsert = new SQLInsert();
+		SQL codeInsert = new SQL();
 		
-		Connection c = openConnection();
-		codeInsert.insert(obj,c);
-		closeConnection(c);
+		
+		codeInsert.insert(obj);
+		
 	}
 	
 	public void insert(Warehouse obj)
 	{
-		SQLInsert codeInsert = new SQLInsert();
+		SQL codeInsert = new SQL();
 		
-		Connection c = openConnection();
-		codeInsert.insert(obj,c);
-		closeConnection(c);
+		
+		codeInsert.insert(obj);
+		
 	}
 	//Alex
 	
@@ -233,21 +229,20 @@ public class DbManager
 	
 	public void insert(Employee obj)
 	{
-		SQLInsert codeInsert = new SQLInsert();
+		SQL codeInsert = new SQL();
 
-			Connection c = openConnection();
-			codeInsert.insert(obj,c);
-			closeConnection(c);
 		
+			codeInsert.insert(obj);
+			
 		
 	}
 	public void insert(Machinery obj)
 	{
-		SQLInsert codeInsert = new SQLInsert();
+		SQL codeInsert = new SQL();
 		
-		Connection c = openConnection();
-		codeInsert.insert(obj,c);
-		closeConnection(c);
+		
+		codeInsert.insert(obj);
+		
 	}
 	
 	//Methods to Delete
@@ -259,10 +254,10 @@ public class DbManager
 		String sqlQuery = "SELECT * FROM hospital WHERE hospital_ID = ?";
 		if(valExist(sqlQuery,primaryKey,null))
 		{
-			SQLDelete sqlDelete = new SQLDelete();
-			Connection c = openConnection();
-			sqlDelete.deleteHospital(c,primaryKey);
-			closeConnection(c);
+			SQL sqlDelete = new SQL();
+			
+			sqlDelete.deleteHospital(primaryKey);
+			
 			//We delate the corresponding orders related with the hospital
 			
 			String relationalTable = "hospital_orders";
@@ -295,10 +290,10 @@ public class DbManager
 		String sqlQuery = "SELECT * FROM orders WHERE order_ID == ?";
 		if(valExist(sqlQuery,primaryKey,null))
 		{
-			SQLDelete sqlDelete = new SQLDelete();
-			Connection c = openConnection();
-			sqlDelete.deleteOrder(c,primaryKey);
-			closeConnection(c);
+			SQL sqlDelete = new SQL();
+			
+			sqlDelete.deleteOrder(primaryKey);
+			
 			
 			//We also delete the relation
 			String table = "hospital_orders";
@@ -329,10 +324,10 @@ public class DbManager
 		String sqlQuery = "SELECT * FROM instrument WHERE instrumentID = ?";
 		if(valExist(sqlQuery,primaryKeyInstrument,null))
 		{
-			SQLDelete sqlDelete = new SQLDelete();
-			Connection c = openConnection();
-			sqlDelete.deleteHospital(c,primaryKeyInstrument);
-			closeConnection(c);
+			SQL sqlDelete = new SQL();
+			
+			sqlDelete.deleteHospital(primaryKeyInstrument);
+			
 			
 			// We also delete the relation with the order in which it is contained
 			//We also need to delete the relation between the order just deleted and the hospital which orders it
@@ -353,10 +348,10 @@ public class DbManager
 		String sqlQuery = "SELECT * FROM instrument WHERE instrumentID = ?";
 		if(valExist(sqlQuery,primaryKeyWarehouse,null))
 		{
-			SQLDelete sqlDelete = new SQLDelete();
-			Connection c = openConnection();
-			sqlDelete.deleteHospital(c,primaryKeyWarehouse);
-			closeConnection(c);
+			SQL sqlDelete = new SQL();
+			
+			sqlDelete.deleteHospital(primaryKeyWarehouse);
+			
 		}
 		else
 		{
@@ -371,11 +366,11 @@ public class DbManager
 	public ArrayList<Hospital> selectHospitals()
 	{
 		ArrayList<Hospital> hosp = new ArrayList<Hospital>();
-		SQLSelect sqlSelect = new SQLSelect();
+		SQL sqlSelect = new SQL();
 		
-		Connection c = openConnection();
-		hosp = sqlSelect.selectAllHospitals(c);
-		closeConnection(c);
+		
+		hosp = sqlSelect.selectAllHospitals();
+		
 		
 		return hosp;
 	}
@@ -387,12 +382,12 @@ public class DbManager
 		
 		if(valExist(selQuery,primaryKey,null))
 		{
-			SQLSelect sqlSelect = new SQLSelect();
+			SQL sqlSelect = new SQL();
 	 		Hospital hosp = new Hospital();
 	 		
-			Connection c = openConnection();
-			hosp = sqlSelect.selectHospital(c,selQuery,primaryKey);
-			closeConnection(c);
+			
+			hosp = sqlSelect.selectHospital(selQuery,primaryKey);
+		
 			
 			return hosp;
 		}else
@@ -408,12 +403,12 @@ public class DbManager
 		
 		if(valExist(selQuarry,-1,nameHospital))
 		{
-			SQLSelect sqlSelect = new SQLSelect();
+			SQL sqlSelect = new SQL();
 	 		Hospital hosp = new Hospital();
 	 		
-			Connection c = openConnection();
-			hosp = sqlSelect.selectHospital(c,selQuarry,nameHospital);
-			closeConnection(c);
+			
+			hosp = sqlSelect.selectHospital(selQuarry,nameHospital);
+			
 			
 			return hosp;
 		}else
@@ -428,11 +423,10 @@ public class DbManager
  	public ArrayList<Order> selectAllOrders()
  	{
  		ArrayList<Order> orderList = new ArrayList<Order>();
- 		SQLSelect sqlSelect = new SQLSelect();
+ 		SQL sqlSelect = new SQL();
  		
- 		Connection c = openConnection();
-		orderList = sqlSelect.selectAllOrders(c);
-		closeConnection(c);
+ 		
+		orderList = sqlSelect.selectAllOrders();
 		
  		return orderList;
  	}
@@ -442,12 +436,12 @@ public class DbManager
 		
 		if(valExist(selQuery,primaryKey,null))
 		{
-			SQLSelect sqlSelect = new SQLSelect();
+			SQL sqlSelect = new SQL();
 	 		Order order = new Order();
 	 		
-			Connection c = openConnection();
-			order= sqlSelect.selectOrder(c,selQuery,primaryKey);
-			closeConnection(c);
+	
+			order= sqlSelect.selectOrder(selQuery,primaryKey);
+			
 			
 			return order;
 		}else
@@ -466,10 +460,10 @@ public class DbManager
  		String selQuery = "SELECT name FROM "+table+" WHERE hospital_ID = ?";
  		if(valExist(selQuery,pkSearch,null))
  		{
- 			Connection c = openConnection();
- 			SQLUpdate sqlUpdate= new SQLUpdate();
- 			sqlUpdate.update(c,table,colChange,stringChange,intChange,colSearch,pkSearch);
- 			closeConnection(c);
+ 			
+ 			SQL sqlUpdate= new SQL();
+ 			sqlUpdate.update(table,colChange,stringChange,intChange,colSearch,pkSearch);
+ 			
  			
  		}
  		
@@ -480,10 +474,10 @@ public class DbManager
  		String selQuery = "SELECT * FROM orders WHERE order_ID = ?";
  		if(valExist(selQuery,pkSearch,null))
  		{
- 			Connection c = openConnection();
- 			SQLUpdate sqlUpdate= new SQLUpdate();
- 			sqlUpdate.update(c,table,colChange,stringChange,intChange,colSearch,pkSearch);
- 			closeConnection(c);
+ 		
+ 			SQL sqlUpdate= new SQL();
+ 			sqlUpdate.update(table,colChange,stringChange,intChange,colSearch,pkSearch);
+ 		
  			
  		}
  		
@@ -505,12 +499,12 @@ public class DbManager
 		
 		if(valExist(selQuarry,primaryKey,null))
 		{
-			SQLSelect sqlSelect = new SQLSelect();
+			SQL sqlSelect = new SQL();
 	 		Instrument instrument = new Instrument();
 	 		
-			Connection c = openConnection();
-			instrument = sqlSelect.selectInstrument(c,selQuarry,primaryKey);
-			closeConnection(c);
+			
+			instrument = sqlSelect.selectInstrument(selQuarry,primaryKey);
+			
 			
 			return instrument;
 		}else
@@ -524,11 +518,11 @@ public class DbManager
  	public ArrayList<Instrument> selectAllInstruments()
  	{
  		ArrayList<Instrument> instrumentList = new ArrayList<Instrument>();
- 		SQLSelect sqlSelect = new SQLSelect();
+ 		SQL sqlSelect = new SQL();
  		
- 		Connection c = openConnection();
- 		instrumentList = sqlSelect.selectAllInstruments(c);
-		closeConnection(c);
+ 	
+ 		instrumentList = sqlSelect.selectAllInstruments();
+		
 		
  		return instrumentList;
  	}
@@ -542,12 +536,12 @@ public class DbManager
 		
 		if(valExist(selQuarry,primaryKey,null))
 		{
-			SQLSelect sqlSelect = new SQLSelect();
+			SQL sqlSelect = new SQL();
 			Warehouse warehouse = new Warehouse();
 	 		
-			Connection c = openConnection();
-			warehouse = sqlSelect.selectWarehouse(c,selQuarry,primaryKey);
-			closeConnection(c);
+			
+			warehouse = sqlSelect.selectWarehouse(selQuarry,primaryKey);
+		
 			
 			return warehouse;
 		}else
@@ -589,19 +583,19 @@ public class DbManager
 		
 		boolean a;
 		
-		SQLSearch sel = new SQLSearch();
-		Connection c = openConnection();
+		SQL sel = new SQL();
+		
 		
 		if(pkString == null)
 		{
-			a = sel.valPKInt(query,c,pkInt);
+			a = sel.valPKInt(query,pkInt);
 		}
 		else
 		{
-			a = sel.valPKString(query,c,pkString);
+			a = sel.valPKString(query,pkString);
 		}
 		
-		closeConnection(c);
+	
 		return a;
 		
 	}
@@ -609,19 +603,19 @@ public class DbManager
 	//Relations
 	public void setRelationHospitalOrder(int hosp, int order)
 	{
-		Connection c = openConnection();
-		SQLInsert sqlInsert = new SQLInsert();
-		sqlInsert.insertHospitalOrderRelation(c, hosp, order);
-		closeConnection(c);
+		
+		SQL sqlInsert = new SQL();
+		sqlInsert.insertHospitalOrderRelation( hosp, order);
+		
 	}
 	
 	public void deleteRelationHospitalOrder(int pkCol,String colPk)
 	{
 		String table = "hospital_orders";
-		Connection c = openConnection();
-		SQLDelete sqlDelete = new SQLDelete();
-		sqlDelete.deleteRelationNtoN(c, table, colPk, pkCol);
-		closeConnection(c);
+	
+		SQL sqlDelete = new SQL();
+		sqlDelete.deleteRelationNtoN( table, colPk, pkCol);
+		
 	}
 	
 	
@@ -688,10 +682,10 @@ public class DbManager
 		
 		ArrayList<Integer> pkArray = new ArrayList<Integer>();
 		
-		SQLSearch sqlSearch = new SQLSearch();
-		Connection c = openConnection();
-		pkArray=sqlSearch.searchPkRelation(c,query, pkValueCompere, pk1AtrivuteSearch);
-		closeConnection(c);
+		SQL sqlSearch = new SQL();
+		
+		pkArray=sqlSearch.searchPkRelation(query, pkValueCompere, pk1AtrivuteSearch);
+		
 		return pkArray;
 		
 	}
