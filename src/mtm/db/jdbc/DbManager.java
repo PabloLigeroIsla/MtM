@@ -88,13 +88,8 @@ public class DbManager
 		}
 	}
 	
-<<<<<<< HEAD
 	//Methods to Create the tables
 	
-=======
-	//Method to Create the tables
-		
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 	public void createTables()
 	{
 		SQLCreate codeCreate = new SQLCreate();
@@ -462,7 +457,44 @@ public class DbManager
 		}
 	}
  	
-<<<<<<< HEAD
+ 	// Update
+ 	
+ 	//Pablo
+ 	public void updateHospital(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
+ 	{
+ 		String table = "hospital";
+ 		String selQuery = "SELECT name FROM "+table+" WHERE hospital_ID = ?";
+ 		if(valExist(selQuery,pkSearch,null))
+ 		{
+ 			Connection c = openConnection();
+ 			SQLUpdate sqlUpdate= new SQLUpdate();
+ 			sqlUpdate.update(c,table,colChange,stringChange,intChange,colSearch,pkSearch);
+ 			closeConnection(c);
+ 			
+ 		}
+ 		
+ 	}
+ 	public void updateOrder(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
+ 	{
+ 		String table = "orders";
+ 		String selQuery = "SELECT * FROM orders WHERE order_ID = ?";
+ 		if(valExist(selQuery,pkSearch,null))
+ 		{
+ 			Connection c = openConnection();
+ 			SQLUpdate sqlUpdate= new SQLUpdate();
+ 			sqlUpdate.update(c,table,colChange,stringChange,intChange,colSearch,pkSearch);
+ 			closeConnection(c);
+ 			
+ 		}
+ 		
+ 	}
+ 	
+ 	//Charo
+ 	
+ 	//Celia
+ 	
+ 	//Alex
+ 	
 	//Charo
  	
  	public Instrument selectInstrument(int primaryKey)
@@ -526,45 +558,6 @@ public class DbManager
 		}
 	}
  	
-=======
-	// Update
- 	
- 	//Pablo
- 	public void updateHospital(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
- 	{
- 		String table = "hospital";
- 		String selQuery = "SELECT name FROM "+table+" WHERE hospital_ID = ?";
- 		if(valExist(selQuery,pkSearch,null))
- 		{
- 			Connection c = openConnection();
- 			SQLUpdate sqlUpdate= new SQLUpdate();
- 			sqlUpdate.update(c,table,colChange,stringChange,intChange,colSearch,pkSearch);
- 			closeConnection(c);
- 			
- 		}
- 		
- 	}
- 	public void updateOrder(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
- 	{
- 		String table = "orders";
- 		String selQuery = "SELECT * FROM orders WHERE order_ID = ?";
- 		if(valExist(selQuery,pkSearch,null))
- 		{
- 			Connection c = openConnection();
- 			SQLUpdate sqlUpdate= new SQLUpdate();
- 			sqlUpdate.update(c,table,colChange,stringChange,intChange,colSearch,pkSearch);
- 			closeConnection(c);
- 			
- 		}
- 		
- 	}
- 	
- 	//Charo
- 	
- 	//Celia
- 	
- 	//Alex
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
  	
  	//DB management Methods
 	
@@ -685,6 +678,7 @@ public class DbManager
 			int i = iter2.next();
 			ord.addInstrument(selectInstrument(i));
 		}
+	return ord;
 	}
 		
 	//Relation Help Methods
