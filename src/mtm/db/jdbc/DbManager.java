@@ -28,11 +28,11 @@ public class DbManager
 	}
 	
 	//Charo
-	public Instrument createPojoInstrument (String model, String purpose, Integer amount, Integer numberUses, String bodyLocation, Integer price) 
+	public Instrument createPojoInstrument (String model, String purpose, Integer amount, Integer numberUses, String bodyLocation, Integer price, Warehouse warehouseID) 
 	{
-		Instrument instrument = new Instrument(model,purpose,amount,numberUses,bodyLocation,price);
+		Instrument instrument = new Instrument(model,purpose,amount,numberUses,bodyLocation,price,warehouseID);
 		return instrument;
-	}
+	}//DEBO QUITAR WAREHOUSE???
 	
 	public Warehouse createPojoWarehouse (String warehouseLocation, Integer capacity, Integer filledSpace)
 	{
@@ -87,7 +87,7 @@ public class DbManager
 		}
 	}
 	
-	//Method to Create the tables
+	//Methods to Create the tables
 	
 	public void createTables()
 	{
@@ -164,7 +164,7 @@ public class DbManager
 		closeConnection(c);
 	}
 	
-	//Method to Insert
+	//Methods to Insert
 	
 	//Pablo
 	public void insert(Hospital obj)
@@ -232,7 +232,8 @@ public class DbManager
 		codeInsert.insert(obj,c);
 		closeConnection(c);
 	}
-	//Method to Delete
+	
+	//Methods to Delete
 	
 	//Pablo
 	public void deleteHospital(int primaryKey)
@@ -272,6 +273,48 @@ public class DbManager
 	//Celia
 	
 	//Charo
+	
+	public void deleteInstrument(int primaryKeyInstrument)
+	{
+		
+		String sqlQuery = "SELECT * FROM instrument WHERE instrumentID = ?";
+		if(valExist(sqlQuery,primaryKeyInstrument,null))
+		{
+			SQLDelete sqlDelete = new SQLDelete();
+			Connection c = openConnection();
+			sqlDelete.deleteHospital(c,primaryKeyInstrument);
+			closeConnection(c);
+			
+			// We also delete the relation with the order in which it is contained
+			//We also need to delete the relation between the order just deleted and the hospital which orders it
+			
+			// hago el metodo que me de la pk de los orders relacionados con ese instrument, elimino la relacion intrument-order
+			
+		}
+		else
+		{
+			System.out.println("\n The instrument does not exist \n");
+		}
+		
+	}
+	
+	public void deleteWarehouse(int primaryKeyWarehouse)
+	{
+		
+		String sqlQuery = "SELECT * FROM instrument WHERE instrumentID = ?";
+		if(valExist(sqlQuery,primaryKeyWarehouse,null))
+		{
+			SQLDelete sqlDelete = new SQLDelete();
+			Connection c = openConnection();
+			sqlDelete.deleteHospital(c,primaryKeyWarehouse);
+			closeConnection(c);
+		}
+		else
+		{
+			System.out.println("\n The warehouse does not exist \n");
+		}
+		
+	}
 	
 	//Alex
 	
@@ -365,7 +408,70 @@ public class DbManager
 		}
 	}
  	
-	
+	//Charo
+ 	
+ 	public Instrument selectInstrument(int primaryKey)
+	{
+		String table = "instrument";
+		String selQuarry = "SELECT name FROM "+table+" WHERE instrumentID == ?";
+		
+		
+		if(valExist(selQuarry,primaryKey,null))
+		{
+			SQLSelect sqlSelect = new SQLSelect();
+	 		Instrument instrument = new Instrument();
+	 		
+			Connection c = openConnection();
+			instrument = sqlSelect.selectInstrument(c,selQuarry,primaryKey);
+			closeConnection(c);
+			
+			return instrument;
+		}else
+		{
+			System.out.println("/nWe dont find the primary key/n");
+			
+			return null;
+		}
+	}
+
+ 	public ArrayList<Instrument> selectAllInstruments()
+ 	{
+ 		ArrayList<Instrument> instrumentList = new ArrayList<Instrument>();
+ 		SQLSelect sqlSelect = new SQLSelect();
+ 		
+ 		Connection c = openConnection();
+ 		instrumentList = sqlSelect.selectAllInstruments(c);
+		closeConnection(c);
+		
+ 		return instrumentList;
+ 	}
+ 	
+ 	
+ 	public Warehouse selectWarehouse(int primaryKey)
+	{
+		String table = "warehouse";
+		String selQuarry = "SELECT name FROM "+table+" WHERE warehouseID == ?";
+		
+		
+		if(valExist(selQuarry,primaryKey,null))
+		{
+			SQLSelect sqlSelect = new SQLSelect();
+			Warehouse warehouse = new Warehouse();
+	 		
+			Connection c = openConnection();
+			warehouse = sqlSelect.selectWarehouse(c,selQuarry,primaryKey);
+			closeConnection(c);
+			
+			return warehouse;
+		}else
+		{
+			System.out.println("/nWe dont find the primary key/n");
+			
+			return null;
+		}
+	}
+ 	
+ 	
  	//DB management Methods
 	
 	private Date dateConverterSQL(String a,String b,String c) 

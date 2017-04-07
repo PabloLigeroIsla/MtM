@@ -62,6 +62,7 @@ public class SQLInsert
 	}
 	
 	//Charo
+
 	public void insert(Instrument instr,Connection c) 
 	{
 		try
@@ -70,8 +71,8 @@ public class SQLInsert
 			
 			Statement stmCh = c.createStatement();
 			String sqlCh;
-			sqlCh = "INSERT INTO instrument(model,purpose,amount,number_uses,body_location,price,warehouse_location)"
-					+ "VALUES ('" + instr.getModel() +"','" +instr.getPurpose() + "','"+ instr.getAmount() + "','"+ instr.getNumber_uses() + "','"+ instr.getBody_location() + "','"+instr.getPrice()+"','"+instr.getWarehouse_location()+"');";
+			sqlCh = "INSERT INTO instrument(model,purpose,amount,numberUses,bodyLocation,price,warehouseLocation)"
+					+ "VALUES ('" + instr.getModel() +"','" +instr.getPurpose() + "','"+ instr.getAmount() + "','"+ instr.getNumberUses() + "','"+ instr.getBodyLocation() + "','"+instr.getPrice()+"','"+instr.getWarehouseID()+"');";
 			stmCh.executeUpdate(sqlCh);
 			stmCh.close();			
 			

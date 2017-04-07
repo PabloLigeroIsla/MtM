@@ -209,10 +209,10 @@ public class SQLCreate
 					+ "model TEXT NOT NULL,"
 					+ "purpose TEXT NOT NULL,"
 					+ "amount INTEGER NOT NULL,"
-					+ "number_Uses INTEGER NOT NULL,"
-					+ "body_location TEXT NOT NULL,"
+					+ "numberUses INTEGER NOT NULL,"
+					+ "bodyLocation TEXT NOT NULL,"
 					+ "price INTEGER NOT NULL,"
-					+ "warehouse_location TEXT REFERENCES warehouse (warehouse_location))";
+					+ "warehouseID INTEGER REFERENCES warehouse (warehouseID))";
 			fCht.executeUpdate(sqlch1);
 			fCht.close();
 			
@@ -233,7 +233,7 @@ public class SQLCreate
 			String sqlch2 = "CREATE TABLE warehouse("
 					+ "warehouse_location TEXT PRIMARY KEY NOT NULL,"
 					+ "capacity INTEGER NOT NULL,"
-					+ "filled_space INTEGER NOT NULL)";
+					+ "filledSpace INTEGER NOT NULL)";
 			sCht.executeUpdate(sqlch2);
 			sCht.close();
 			

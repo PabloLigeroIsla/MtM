@@ -208,10 +208,13 @@ import mtm.db.pojos.*;
 			String bodyLocation=writeString();
 			System.out.println("\nPrice of the instrument\n");
 			int price=writeNumber();
+			System.out.println("\nID of the warehouse where the instrument is\n");
 			
-			// List<Warehouse> warehouseLocationList;
+			//TENGO QUE CONSEGUIR EL ID DE ESTA RELACION Y LO ESCRIBO? TIPO WAREHOUSE??
+			
+			//int warehouseIDInstrument=writeNumber();
 			// List<Order> orderList;
-			dbManager.insert(dbManager.createPojoInstrument(model, purpose, amount, numberUses, bodyLocation, price));
+			//dbManager.insert(dbManager.createPojoInstrument(model, purpose, amount, numberUses, bodyLocation, price, warehouseIDInstrument));
 			break;
 			
 			

@@ -6,12 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import mtm.db.pojos.*;
 
 
 public class SQLSelect 
 {
+	//Pablo
 	
 	public ArrayList<Hospital> selectAllHospitals(Connection c)
 	{
@@ -177,4 +179,144 @@ public class SQLSelect
 		return order;
 	}
 
+	//Charo
+	
+	//al insertar un instrumento, cuando tengo que rellenar el campo de warehouse meto un nombre, le doy la lista, lo busca con un cearch y lo coje con select
+	//cuando tenga que 
+	
+	
+	public Instrument selectInstrument(Connection c, String query, int pkInstrument)
+	{
+		Instrument instrument = null;
+		int instrumentID;
+		
+		//atributos de instrument
+		String model;
+		String purpose;
+		Integer amount;
+		Integer numberUses;
+		String bodyLocation;
+		Integer price;
+		Integer warehouseID;
+		
+		
+		try
+		{
+			String sql = query;
+			PreparedStatement prep = c.prepareStatement(sql);
+			prep.setInt(1, pkInstrument);
+			ResultSet rs = prep.executeQuery();
+			
+			while (rs.next()) 
+			{
+				instrumentID = rs.getInt("instrumentID");
+				model = rs.getString("model");
+				purpose = rs.getString("purpose");
+				amount = rs.getInt("amount");
+				numberUses = rs.getInt("numberUses");
+				bodyLocation = rs.getString("bodyLocation");
+				price = rs.getInt("price");
+				/*warehouseID = rs.getInt("warehouseID");
+				Warehouse ware = new Warehouse();
+				ware = selectWarehouse(c,sql,warehouseID);
+				//warehouseLocation = rs.getString("warehouseLocation");
+				*/
+				instrument = new Instrument(instrumentID,model,purpose,amount,numberUses,bodyLocation,price);
+			}
+			
+			prep.close();
+			rs.close();
+			
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+
+		
+		return instrument;
+	}
+	
+	
+	
+	public ArrayList<Instrument> selectAllInstruments(Connection c)
+	{
+		ArrayList<Instrument> instrumentList = new ArrayList<Instrument>();
+		try
+		{
+			Statement stmt = c.createStatement();
+			String sql = "SELECT * FROM instrument";
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next());
+			{
+				int instrumentID = rs.getInt("instrumentID");
+				String model = rs.getString("model");
+				String purpose = rs.getString("purpose");
+				int amount = rs.getInt("amount");
+				int numberUses = rs.getInt("numberUses");
+				String bodyLocation = rs.getString("bodyLocation");
+				int price = rs.getInt("price");
+				
+				//debo hacer la relacion para meter el objeto
+				//warehouseLocation = rs.getString("warehouseLocation");
+				
+				Instrument instrument = new Instrument(instrumentID,model,purpose,amount,numberUses,bodyLocation,price);
+				instrumentList.add(instrument);
+			}
+			
+			stmt.close();
+			rs.close();
+			
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return instrumentList;
+	}
+	
+	public Warehouse selectWarehouse(Connection c, String query, int pkWarehouse)
+	{
+		Warehouse warehouse = null;
+		
+		//atributos de warehouse
+		int warehouseID;
+		String warehouseLocation;
+		Integer capacity;
+		Integer filledSpace;
+		
+		
+		try
+		{
+			String sql = query;
+			PreparedStatement prep = c.prepareStatement(sql);
+			prep.setInt(1, pkWarehouse);
+			ResultSet rs = prep.executeQuery();
+			
+			while (rs.next()) 
+			{
+				warehouseID = rs.getInt("warehouseID");
+				warehouseLocation = rs.getString("warehouseLocation");
+				capacity = rs.getInt("capacity");
+				filledSpace = rs.getInt("filledSpace");
+			
+				warehouse = new Warehouse(warehouseID,warehouseLocation,capacity,filledSpace);
+			}
+			
+			prep.close();
+			rs.close();
+			
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+
+		
+		return warehouse;
+	}
+	
+	//no me hace falta una lista de Warehouse porque solo hay uno en el que está todo, instruments and materials
+	
+	
+	//Celia
+	
+	//Alex
 }

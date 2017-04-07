@@ -12,6 +12,42 @@ public class SQLDelete
 	// 		value
 	
 	//Charo
+	public void deleteInstrument(Connection c, int pkInstrument)
+	{
+		try
+		{
+			String sql = "DELETE FROM instrument WHERE instrumentID = ?";
+			PreparedStatement prep = c.prepareStatement(sql);
+			prep.setInt(1, pkInstrument);
+			prep.executeUpdate();
+			System.out.println("Deletion finished.");
+			
+			prep.close();
+			
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteWarehouse(Connection c, int pkWarehouse)
+	{
+		try
+		{
+			String sql = "DELETE FROM warehouse WHERE warehouseID = ?";
+			PreparedStatement prep = c.prepareStatement(sql);
+			prep.setInt(1, pkWarehouse);
+			prep.executeUpdate();
+			System.out.println("Deletion finished.");
+			
+			prep.close();
+			
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	
 	//Celia
 	
