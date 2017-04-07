@@ -195,4 +195,49 @@ public class SQLInsert
 			
 		}
 	}
+	
+	//Relational Tables 
+	
+	public void insertHospitalOrderRelation(Connection c, int pkHospital, int pkOrder)
+	{
+		try
+		{
+			c.setAutoCommit(false);
+			
+			String sql = "INSERT INTO hospital_orders(hospital_ID,order_ID)"
+					+ "VALUES(?,?)";
+			
+			PreparedStatement prep = c.prepareStatement(sql);
+			prep.setInt(1,pkHospital);
+			prep.setInt(2,pkOrder);
+			
+			prep.executeUpdate();
+			
+			c.commit();
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void insertInstrumentOrderRelation(Connection c, int pkInstrument, int pkOrder)
+	{
+		try
+		{
+			c.setAutoCommit(false);
+			
+			String sql = "INSERT INTO instrument_orders(order_ID,instrument_ID)VALUES(?,?)";
+			
+			PreparedStatement prep = c.prepareStatement(sql);
+			prep.setInt(1,pkInstrument);
+			prep.setInt(2,pkOrder);
+			
+			prep.executeUpdate();
+			c.commit();
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
+	}
 }

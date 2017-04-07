@@ -9,7 +9,7 @@ public class Hospital implements Serializable
 
 	private static final long serialVersionUID = 3198781709673295324L;
 
-	private Integer hospitalID; 
+	private int hospitalID; 
 	private String name;
 	private String location;
 	private String medicalSpecialization;
@@ -20,7 +20,7 @@ public class Hospital implements Serializable
 	
 	//Gets and Sets
 	
-	public Integer getHospital_ID() 
+	public int getHospitalID() 
 	{
 		return hospitalID;
 	}
@@ -124,20 +124,18 @@ public class Hospital implements Serializable
 				+ ", medicalSpecialization=" + medicalSpecialization + "]";
 	}
 	
+	
 	//hashCode and  equals
 	
 	@Override
-	public int hashCode()
-	{
+	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((hospitalID == null) ? 0 : hospitalID.hashCode());
+		result = prime * result + hospitalID;
 		return result;
 	}
-
 	@Override
-	public boolean equals(Object obj) 
-	{
+	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -145,12 +143,10 @@ public class Hospital implements Serializable
 		if (getClass() != obj.getClass())
 			return false;
 		Hospital other = (Hospital) obj;
-		if (hospitalID == null) {
-			if (other.hospitalID != null)
-				return false;
-		} else if (!hospitalID.equals(other.hospitalID))
+		if (hospitalID != other.hospitalID)
 			return false;
 		return true;
 	}
+	
 	
 }

@@ -86,4 +86,24 @@ public class SQLDelete
 			e.printStackTrace();
 		}
 	}
+	
+	
+	//Delete Relations
+	
+	public void deleteRelationNtoN(Connection c,String table, String colPk,int pkCol)
+	{
+		try
+		{
+			String sql = "DELETE FROM "+table+" WHERE "+colPk+" = ?";
+			PreparedStatement prep = c.prepareStatement(sql);
+			prep.setInt(1, pkCol);
+			prep.executeUpdate();
+			System.out.println("Deletion finished.");
+			
+			prep.close();
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
 }
