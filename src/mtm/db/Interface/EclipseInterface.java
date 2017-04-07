@@ -86,22 +86,39 @@ import mtm.db.pojos.*;
 
 	public static void printMenu()
 	{
-		//Si a�ades opciones, recuerda mirar el metodo abrirMenu
+		//Si añades opciones, recuerda mirar el metodo abrirMenu
 		System.out.println(""
 				+ "Option 1.- Create Tables\n" 
 					//Option 1.1: all the tables?
-					//Option 1.2: One table //y se las ense�as
+					//Option 1.2: One table //y se las enseñas
 						//option 1.2.1: Select the table
+					
 				+ "Option 2.- Show tables\n"
-					//Option: Do you want to see all de relations (Condition)
+					//Option: Do you want to see all the relations? (Condition)
 						//Option 2.1: Show 1 table
-							//Option 2.1.1: What table do you want to see:
+							//Option 2.1.1: What table do you want to see? //y se las enseñas
+								//Select the table
 						//Option 2.2: Show all the Tables
 				
-				+ "Option 3.- Introduce values to a Table\n"
+				
+				+ "Option 3.- Introduce value to a Table\n"
+					//Option 3.1: What table do you want to insert the value to? //y se las enseñas
+						//Select the table
+				
+				//aqui ademas se debe llamar a UPDATE la tabla, y la relacion con otra tabla si la tiene
+				
 				+ "Option 4.- Delete value of a Table\n"
-				+ "Option 5.- Drop Table\n\n"
-				+ "Option 6.-\n"
+					//Option 4.1: What table do you want to delete a value from? //y se las enseñas
+						//Select the table
+				//aqui tambien haremos un UPDATE
+				
+				+ "Option 5.- Drop Tables\n"
+					//Option 5.1: all the tables?
+					//Option 5.2: One table //y se las enseñas (pero no tiene sentido borrar hospital, warehouse, company?
+						//Select the table
+				//si es solo una tabla, tras esto delete la tabla con relaciones que afecten a la tabla eliminada
+				
+				+ "Option 6.- \n"
 				+ "Option 7.-\n"
 				+ "Option 8.-\n"
 				+ "Option 9.-\n"
