@@ -40,7 +40,7 @@ public class Order implements Serializable
 		this.instrumentList = instrumentList;
 	}
 	
-	public Integer getOrderID()
+	public int getOrderID()
 	{
 		return orderID;
 	}
@@ -119,31 +119,31 @@ public class Order implements Serializable
 	}
 	//Methods
 	
-	public void addHospitalList(Hospital hospital)
+	public void addHospital(Hospital hospital)
 	{
-		if(hospitalList.contains(hospital))
+		if(!hospitalList.contains(hospital))
 		{
 			this.hospitalList.add(hospital);
 		}
 	}
-	public void addInstrumentList(Instrument instrument)
+	public void addInstrument(Instrument instrument)
 	{
-		if(instrumentList.contains(instrument))
+		if(!instrumentList.contains(instrument))
 		{
 			this.instrumentList.add(instrument);
 		}
 	}
 	
-	public void removeHospitalList(Hospital hospital)
+	public void removeHospital(Hospital hospital)
 	{
-		if(!hospitalList.contains(hospital))
+		if(hospitalList.contains(hospital))
 		{
 			this.hospitalList.remove(hospital);
 		}
 	}
-	public void removeInstrumentList(Instrument instrument)
+	public void removeInstrument(Instrument instrument)
 	{
-		if(!instrumentList.contains(instrument))
+		if(instrumentList.contains(instrument))
 		{
 			this.instrumentList.remove(instrument);
 		}

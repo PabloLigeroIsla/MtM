@@ -32,6 +32,23 @@ public class SQLCreate
 			sPt.executeUpdate(sqlp2);
 			sPt.close();
 			
+			Statement tPt = c.createStatement();
+			String sqlp3 = "CREATE TABLE hospital_orders("
+					+ "hospital_ID INTEGER REFERENCES hospital(hospital_ID),"
+					+ "order_ID INTEGER REFERENCES orders(order_ID),"
+					+ "PRIMARY KEY(hospital_ID,order_ID))";
+			tPt.executeUpdate(sqlp3);
+			tPt.close();
+			
+			Statement fPt2 = c.createStatement();
+			String sqlp4 = "CREATE TABLE instrument_orders("
+					+ "order_ID INTEGER REFERENCES orders(order_ID),"
+					+ "instrument_ID INTEGER REFERENCES instrument(instrument_ID),"
+					+ "amount_order INTEGER,"
+					+ "PRIMARY KEY(order_ID,instrument_ID))";
+			fPt2.executeUpdate(sqlp4);
+			fPt2.close();
+			
 			//Alex
 			// fAt -->firstAlextable // sqla1 --> sqlalex1
 			Statement fAt = c.createStatement();
@@ -104,9 +121,6 @@ public class SQLCreate
 
 			
 			
-			
-			//Celia
-			
 			c.commit();
 		}catch (Exception e)
 		{
@@ -155,6 +169,7 @@ public class SQLCreate
 			e.printStackTrace();
 		}
 	}
+	
 	//Alex
 	public void createTableMaterial(Connection c){
 		try
@@ -284,4 +299,43 @@ public class SQLCreate
 			e.printStackTrace();
 		}
 	}
+	
+	
+	//Relational Tables 
+	
+	public void createTableHospitalOrders(Connection c)
+	{
+		try
+		{
+			Statement tPt = c.createStatement();
+			String sqlp3 = "CREATE TABLE hospital_orders("
+					+ "hospital_ID INTEGER REFERENCES hospital(hospital_ID),"
+					+ "order_ID INTEGER REFERENCES orders(order_ID),"
+					+ "PRIMARY KEY(hospital_ID,order_ID))";
+			tPt.executeUpdate(sqlp3);
+			tPt.close();
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void createTableInstrumentOrders(Connection c)
+	{
+		try
+		{
+			Statement fPt = c.createStatement();
+			String sqlp4 = "CREATE TABLE instrument_orders("
+					+ "order_ID INTEGER REFERENCES orders(order_ID),"
+					+ "instrument_ID INTEGER REFERENCES instrument(instrument_ID),"
+					+ "amount_order INTEGER,"
+					+ "PRIMARY KEY(order_ID,instrument_ID))";
+			fPt.executeUpdate(sqlp4);
+			fPt.close();
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 }

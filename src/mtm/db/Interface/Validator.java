@@ -104,7 +104,7 @@ public abstract class Validator
 						
 						if((numIntro > upperLim) || (numIntro < 0))//si hay 5 opciones no puedes poner 6
 						{	
-							System.out.println("Out of established limits\n");
+							System.out.println("Out of established limits "+upperLim+","+lowerLim+"\n");
 						}
 					}
 				}catch(Exception e)

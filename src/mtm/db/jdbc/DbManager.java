@@ -8,6 +8,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.sql.Date;
 
 public class DbManager 
@@ -87,8 +88,13 @@ public class DbManager
 		}
 	}
 	
+<<<<<<< HEAD
 	//Methods to Create the tables
 	
+=======
+	//Method to Create the tables
+		
+>>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 	public void createTables()
 	{
 		SQLCreate codeCreate = new SQLCreate();
@@ -161,6 +167,22 @@ public class DbManager
 		
 		Connection c = openConnection();
 		codeCreate.createTableWarehouse(c);
+		closeConnection(c);
+	}
+		//Relational Tables
+	public void createTableHospitalOrder()
+	{
+		SQLCreate codeCreate = new SQLCreate();
+		Connection c = openConnection();
+		codeCreate.createTableHospitalOrders(c);
+		closeConnection(c);
+	}
+	
+	public void createTableInstrumentOrder()
+	{
+		SQLCreate codeCreate = new SQLCreate();
+		Connection c = openConnection();
+		codeCreate.createTableInstrumentOrders(c);
 		closeConnection(c);
 	}
 	
@@ -239,13 +261,32 @@ public class DbManager
 	public void deleteHospital(int primaryKey)
 	{
 		
-		String sqlQuery = "SELECT * FROM hospital WHERE hospital_ID == ?";
+		String sqlQuery = "SELECT * FROM hospital WHERE hospital_ID = ?";
 		if(valExist(sqlQuery,primaryKey,null))
 		{
 			SQLDelete sqlDelete = new SQLDelete();
 			Connection c = openConnection();
 			sqlDelete.deleteHospital(c,primaryKey);
 			closeConnection(c);
+			//We delate the corresponding orders related with the hospital
+			
+			String relationalTable = "hospital_orders";
+			String pk1AttributeSearch = "order_ID";
+			String pkAttributeCompere = "hospital_ID";
+			int pkValueCompare = primaryKey;
+			
+			ArrayList<Integer> orderPkRelationFound = new ArrayList<Integer>();
+			orderPkRelationFound = foundRelation(relationalTable,pk1AttributeSearch,pkAttributeCompere,pkValueCompare);
+			
+			Iterator<Integer> iter = orderPkRelationFound.iterator();
+			while(iter.hasNext())
+			{
+				int i = iter.next();
+				deleteOrder(i);
+				deleteRelationHospitalOrder(i,pk1AttributeSearch);
+			}
+			
+			
 		}
 		else
 		{
@@ -263,6 +304,19 @@ public class DbManager
 			Connection c = openConnection();
 			sqlDelete.deleteOrder(c,primaryKey);
 			closeConnection(c);
+			
+			//We also delete the relation
+			String table = "hospital_orders";
+			String  pk1AtrivuteSearch = "order_ID";
+			String pkAtrivuteCompere = "order_ID";
+			int pkValueCompere = primaryKey;
+			if(!sharedRelation(table, pk1AtrivuteSearch, pkAtrivuteCompere, pkValueCompere))
+			{
+				String colPk = "order_ID";
+				deleteRelationHospitalOrder(primaryKey,colPk);
+			}
+			
+
 		}
 		else
 		{
@@ -333,16 +387,16 @@ public class DbManager
  	public Hospital selectHospital(int primaryKey)
 	{
 		String table = "hosital";
-		String selQuarry = "SELECT name FROM "+table+" WHERE hospital_ID == ?";
+		String selQuery = "SELECT name FROM "+table+" WHERE hospital_ID = ?";
 		
 		
-		if(valExist(selQuarry,primaryKey,null))
+		if(valExist(selQuery,primaryKey,null))
 		{
 			SQLSelect sqlSelect = new SQLSelect();
 	 		Hospital hosp = new Hospital();
 	 		
 			Connection c = openConnection();
-			hosp = sqlSelect.selectHospital(c,selQuarry,primaryKey);
+			hosp = sqlSelect.selectHospital(c,selQuery,primaryKey);
 			closeConnection(c);
 			
 			return hosp;
@@ -408,6 +462,7 @@ public class DbManager
 		}
 	}
  	
+<<<<<<< HEAD
 	//Charo
  	
  	public Instrument selectInstrument(int primaryKey)
@@ -471,6 +526,45 @@ public class DbManager
 		}
 	}
  	
+=======
+	// Update
+ 	
+ 	//Pablo
+ 	public void updateHospital(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
+ 	{
+ 		String table = "hospital";
+ 		String selQuery = "SELECT name FROM "+table+" WHERE hospital_ID = ?";
+ 		if(valExist(selQuery,pkSearch,null))
+ 		{
+ 			Connection c = openConnection();
+ 			SQLUpdate sqlUpdate= new SQLUpdate();
+ 			sqlUpdate.update(c,table,colChange,stringChange,intChange,colSearch,pkSearch);
+ 			closeConnection(c);
+ 			
+ 		}
+ 		
+ 	}
+ 	public void updateOrder(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
+ 	{
+ 		String table = "orders";
+ 		String selQuery = "SELECT * FROM orders WHERE order_ID = ?";
+ 		if(valExist(selQuery,pkSearch,null))
+ 		{
+ 			Connection c = openConnection();
+ 			SQLUpdate sqlUpdate= new SQLUpdate();
+ 			sqlUpdate.update(c,table,colChange,stringChange,intChange,colSearch,pkSearch);
+ 			closeConnection(c);
+ 			
+ 		}
+ 		
+ 	}
+ 	
+ 	//Charo
+ 	
+ 	//Celia
+ 	
+ 	//Alex
+>>>>>>> branch 'master' of https://github.com/papsers/MtM.git
  	
  	//DB management Methods
 	
@@ -518,5 +612,132 @@ public class DbManager
 		return a;
 		
 	}
+		
+	//Relations
+	public void setRelationHospitalOrder(int hosp, int order)
+	{
+		Connection c = openConnection();
+		SQLInsert sqlInsert = new SQLInsert();
+		sqlInsert.insertHospitalOrderRelation(c, hosp, order);
+		closeConnection(c);
+	}
+	
+	public void deleteRelationHospitalOrder(int pkCol,String colPk)
+	{
+		String table = "hospital_orders";
+		Connection c = openConnection();
+		SQLDelete sqlDelete = new SQLDelete();
+		sqlDelete.deleteRelationNtoN(c, table, colPk, pkCol);
+		closeConnection(c);
+	}
+	
+	
+	
+	public Hospital setHospitalRelations(Hospital hosp)
+	{
+		String relationalTable = "hospital_orders";
+		String pk1AtrivuteSearch = "order_ID";
+		String pkAtrivuteCompere = "hospital_ID";
+		int pkValueCompere = hosp.getHospitalID();
+		
+		
+		ArrayList<Integer> orderPkRelationFound = new ArrayList<Integer>();
+		orderPkRelationFound = foundRelation(relationalTable,pk1AtrivuteSearch,pkAtrivuteCompere,pkValueCompere);
+		Iterator<Integer> iter = orderPkRelationFound.iterator();
+		while(iter.hasNext())
+		{
+			int i = iter.next();
+			hosp.addOrder(selectOrder(i));
+		}
+		return hosp;
+	}
+	
+	public Order setOrderRelations(Order ord)
+	{
+	//Hacer create the tabla asociada instruments/order	
+		String pkAtrivuteCompere = "order_ID";
+		int pkValueCompere = ord.getOrderID();
+		
+		//Hospital List
+		String relationalTable = "hospital_orders";
+		String pk1AtrivuteSearch = "hospital_ID";
+		
+		ArrayList<Integer> hospitalPkRelationFound = new ArrayList<Integer>();
+		hospitalPkRelationFound = foundRelation(relationalTable,pk1AtrivuteSearch,pkAtrivuteCompere,pkValueCompere);
+		
+		Iterator<Integer> iter = hospitalPkRelationFound.iterator();
+		while(iter.hasNext())
+		{
+			int i = iter.next();
+			ord.addHospital(selectHospital(i));
+		}
+		
+		//Instrument List
+		
+		relationalTable = "instrument_orders";
+		pk1AtrivuteSearch = "instrument_ID";
+		
+		ArrayList<Integer> instrumentPkRelationFound = new ArrayList<Integer>();
+		instrumentPkRelationFound = foundRelation(relationalTable,pk1AtrivuteSearch,pkAtrivuteCompere,pkValueCompere);
+		Iterator<Integer> iter2 = instrumentPkRelationFound.iterator();
+		while(iter2.hasNext())
+		{
+			int i = iter2.next();
+			ord.addInstrument(selectInstrument(i));
+		}
+	}
+		
+	//Relation Help Methods
+	public ArrayList<Integer> foundRelation(String table,String pk1AtrivuteSearch,String pkAtrivuteCompere ,int pkValueCompere)
+	{
+		String query = "SELECT "+pk1AtrivuteSearch+" FROM "+table+" WHERE "+pkAtrivuteCompere+" = ?";
+		
+		ArrayList<Integer> pkArray = new ArrayList<Integer>();
+		
+		SQLSearch sqlSearch = new SQLSearch();
+		Connection c = openConnection();
+		pkArray=sqlSearch.searchPkRelation(c,query, pkValueCompere, pk1AtrivuteSearch);
+		closeConnection(c);
+		return pkArray;
+		
+	}
+	
+	public boolean sharedRelation(String table,String pk1AtrivuteSearch,String pkAtrivuteCompere ,Integer pkValueCompere)
+	{
+		boolean a = false;
+		ArrayList<Integer> b = foundRelation(table,pk1AtrivuteSearch,pkAtrivuteCompere,pkValueCompere);
+		
+		if(b.size()<=1)
+		{
+			a = false;
+		}else
+		{
+			a = true;
+		}
+		return a;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

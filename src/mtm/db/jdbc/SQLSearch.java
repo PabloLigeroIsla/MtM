@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class SQLSearch 
 {
@@ -16,7 +17,6 @@ public class SQLSearch
 		try 
 		{
 			int count = 0;
-			Statement stm = c.createStatement();
 			String sql = query;
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setInt(1, numb);
@@ -33,8 +33,6 @@ public class SQLSearch
 			{
 				a = true;
 			}
-			
-			stm.close();
 			prep.close();
 			rs.close();
 		} catch (SQLException e) 
@@ -107,6 +105,31 @@ boolean a = false;
 		return a;
 	}
 
-	
+	public ArrayList<Integer> searchPkRelation(Connection c,String query,int pk,String colAtSearch)
+	{
+		ArrayList<Integer> pkArray = new ArrayList<Integer>();
+		try
+		{
+			
+			PreparedStatement prep = c.prepareStatement(query);
+			prep.setInt(1, pk);
+			ResultSet rs = prep.executeQuery();
+		
+			while(rs.next())
+			{
+				int pkFound = rs.getInt(colAtSearch);
+				pkArray.add(pkFound);
+			}
+			rs.close();
+			prep.close();
+			
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
+		return pkArray;
+		
+	}
 	
 }
