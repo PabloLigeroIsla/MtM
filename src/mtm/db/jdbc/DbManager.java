@@ -38,6 +38,17 @@ public class DbManager
 		return warehouse;
 	}
 	//Alex
+	public Material createPojoMaterial (Integer weight, Integer volume, String type, Company companyID, Machinery machineryID){
+		Material mat = new Material(weight, volume, type, companyID, machineryID);
+		return mat;
+	}
+	
+	public Company createPojoCompany(String location, String companyName){
+		Company com = new Company(location, companyName);
+		return com;
+	}
+
+	
 	
 	//Celia
 	public Employee createPojoEmployee(int employeeID,String name, String typeofContract, String specializationType )
@@ -150,7 +161,7 @@ public class DbManager
 		SQL codeCreate = new SQL();
 		
 		
-		codeCreate.createTableMachinery();
+		codeCreate.createTableMaterial();
 		
 	}
 	public void createTableWarehouse()
@@ -224,6 +235,24 @@ public class DbManager
 		
 	}
 	//Alex
+	
+	public void insert(Company obj)
+	{
+		SQL codeInsert = new SQL();
+		
+		
+		codeInsert.insert(obj);
+	}
+	
+	public void insert(Material obj)
+	{
+		SQL codeInsert = new SQL();
+		
+		
+		codeInsert.insert(obj);
+	}
+
+	
 	
 	//Celia
 	
@@ -361,6 +390,35 @@ public class DbManager
 	}
 	
 	//Alex
+	public void deleteCompany(int primaryKey){
+		String sqlQuery = "SELECT * FROM company WHERE company_ID == ?";
+		if(valExist(sqlQuery,primaryKey,null))
+		{
+			SQL sqlDelete = new SQL();
+			sqlDelete.deleteCompany(primaryKey);
+
+		}
+		else
+		{
+			System.out.println("\n The company does not exist \n");
+		}
+	}
+
+	public void deleteMaterial(int primaryKey){
+		String sqlQuery = "SELECT * FROM material WHERE material_ID == ?";
+		if(valExist(sqlQuery,primaryKey,null))
+		{
+			SQL sqlDelete = new SQL();
+			sqlDelete.deleteMaterial(primaryKey);
+
+		}
+		else
+		{
+			System.out.println("\n The material does not exist \n");
+		}
+	}
+
+	
 	
 	//Method to Select
 	public ArrayList<Hospital> selectHospitals()
@@ -450,6 +508,62 @@ public class DbManager
 			return null;
 		}
 	}
+ 	//Alex
+ 	public ArrayList<Company> selectCompanies(){
+ 		ArrayList<Company> companiesList = new ArrayList<Company>();
+ 		SQL sqlSelect = new SQL();
+ 		
+		companiesList = sqlSelect.selectAllCompanies();
+		
+ 		return companiesList;
+ 	}
+ 	
+ 	public Company selectCompany(int primaryKey){
+ 		String selQuery = "SELECT * FROM company WHERE company_ID = ?";
+		
+		if(valExist(selQuery,primaryKey,null))
+		{
+			SQL sqlSelect = new SQL();
+	 		Company comp = new Company();
+	 	
+			comp= sqlSelect.selectCompany(selQuery,primaryKey);
+			
+			return comp;
+		}else
+		{
+			System.out.println("/nWe dont find the primary key/n");
+			return null;
+		}
+ 	}
+
+ 	public ArrayList<Material> selectMaterials(){
+ 		ArrayList<Material> materialList = new ArrayList<Material>();
+ 		SQL sqlSelect = new SQL();
+ 		
+		materialList = sqlSelect.selectAllMaterials();
+
+		
+ 		return materialList;
+ 	}
+ 	public Material selectMaterial(int primaryKey){
+ 		String selQuery = "SELECT * FROM material WHERE material_ID = ?";
+		
+		if(valExist(selQuery,primaryKey,null))
+		{
+			SQL sqlSelect = new SQL();
+	 		Material mat = new Material();
+	 		
+			mat= sqlSelect.selectMaterial(selQuery,primaryKey);
+
+			
+			return mat;
+		}else
+		{
+			System.out.println("/nWe dont find the primary key/n");
+			return null;
+		}
+ 	}
+
  	
  	// Update
  	

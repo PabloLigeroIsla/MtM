@@ -191,12 +191,13 @@ public class SQL
 		try
 		{
 		Statement sAt = c.createStatement();
-		String sqla2 =  "CREATE TABLE materials ("
-						+"material_id INTEGER PRIMARY KEY AUTOINCREMENT,"
-						+"weight INTEGER,"
-						+"volume INTEGER,"
-						+"material_provided  TEXT REFERENCES company(resource),"
-						+"machinery_type TEXT REFERENCES machinery(type));";
+		String sqla2 =  "CREATE TABLE material ("
+				+"material_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+				+"weight INTEGER NOT NULL,"
+				+"volume INTEGER NOT NULL,"
+				+"company_ID  TEXT REFERENCES company(company_id),"
+				+"machinery_ID TEXT REFERENCES machinery(machinery_id));";
+
 		sAt.executeUpdate(sqla2);
 		sAt.close();
 		}catch (Exception e)
@@ -211,9 +212,10 @@ public class SQL
 			{
 				Statement fAt = c.createStatement();
 				String sqla1 = "CREATE TABLE company ("
-						+ "resource TEXT PRIMARY KEY,"
+						+ "company_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
 						+ "location TEXT,"
 						+"company_name TEXT);";
+
 				fAt.executeUpdate(sqla1);
 				fAt.close();
 				
@@ -347,6 +349,46 @@ public class SQL
 		}
 	}
 	
+		public void createTableMaterial(Connection c){
+			try
+			{
+			Statement sAt = c.createStatement();
+			String sqla2 =  "CREATE TABLE materials ("
+							+"material_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+							+"weight INTEGER NOT NULL,"
+							+"volume INTEGER NOT NULL,"
+							+"type TEXT"
+							+"material_ID  TEXT REFERENCES company(material_ID),"
+							+"machinery_ID TEXT REFERENCES machinery(machinery_ID));";
+			sAt.executeUpdate(sqla2);
+			sAt.close();
+			}catch (Exception e)
+			{
+				e.printStackTrace();
+				System.out.println("Conection Error, Ask Rodrigo for Help");
+			
+			}
+		}
+
+		public void createTableCompany(Connection c){
+			try
+			{
+				Statement fAt = c.createStatement();
+				String sqla1 = "CREATE TABLE company ("
+						+ "company_ID TEXT PRIMARY KEY,"
+						+ "location TEXT,"
+						+"company_name TEXT);";
+				fAt.executeUpdate(sqla1);
+				fAt.close();
+				
+			}catch (Exception e)
+			{
+				e.printStackTrace();
+				System.out.println("Conection Error, Ask Rodrigo for Help");
+			
+			}
+		}
+
 	//Delete
 		public void deleteInstrument( int pkInstrument)
 	{
@@ -422,7 +464,43 @@ public class SQL
 		}
 	}	
 		//Alex
-	
+		
+		public void deleteCompany(int pk)
+		{
+			try
+			{
+				String sql = "DELETE FROM company WHERE company_id = ?";
+				PreparedStatement prep = c.prepareStatement(sql);
+				prep.setInt(1, pk);
+				prep.executeUpdate();
+				System.out.println("Deletion finished.");
+				
+				prep.close();
+			}catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		
+		public void deleteMaterial(int pk)
+		{
+			try
+			{
+				String sql = "DELETE FROM material WHERE material_id = ?";
+				PreparedStatement prep = c.prepareStatement(sql);
+				prep.setInt(1, pk);
+				prep.executeUpdate();
+				System.out.println("Deletion finished.");
+				
+				prep.close();
+			}catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+
+		
+		
 		//Pablo
 		public void deleteHospital( int pk)
 	{
@@ -623,50 +701,50 @@ public class SQL
 		//Alex
 	
 		public void insert(Company com){
-		try{
+			try{
 
-						Statement stmt = c.createStatement();
-						String sql;
-						sql = "INSERT INTO company(resource,location,company_name) VALUES ('"+com.getResource()+"','"+com.getLocation()+",'"+com.getCompany_name()+"')"; 
-						stmt.executeUpdate(sql);					
-						stmt.close();
-						// End of transaction
-						c.commit();
-						System.out.println("Records inserted.");
-						// Insert new records: end
+							Statement stmt = c.createStatement();
+							String sql;
+							sql = "INSERT INTO company(location,company_name)  VALUES ('"+com.getLocation()+",'"+com.getCompanyName()+"')"; 
+							stmt.executeUpdate(sql);					
+							stmt.close();
+							// End of transaction
+							c.commit();
+							System.out.println("Records inserted.");
+							// Insert new records: end
 
-						// Close database connection
-						c.close();
-						System.out.println("Database connection closed.");
+							// Close database connection
+							c.close();
+							System.out.println("Database connection closed.");
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+				
+			}
 		}
-		catch (Exception e) {
-			e.printStackTrace();
-			
-		}
-	}
 		public void insert(Material mat){
-		try{
+			try{
 
-						Statement stmt = c.createStatement();
-						String sql;
-						sql = "INSERT INTO materials(weight,volume,material_provided,machinery_type) VALUES('"+mat.getWeight()+","+mat.getVolume()+","+mat.getMaterialProvided()+","+mat.getMachineryType()+"')";
-						stmt.executeUpdate(sql);
-						stmt.close();
-						// End of transaction
-						c.commit();
-						System.out.println("Records inserted.");
-						// Insert new records: end
+							Statement stmt = c.createStatement();
+							String sql;
+							sql = "INSERT INTO material(weight,volume,type,compnay_id,machinery_id) VALUES('"+mat.getWeight()+","+mat.getVolume()+","+mat.getCompanyID()+","+mat.getMachineryID()+"')";
+							stmt.executeUpdate(sql);
+							stmt.close();
+							// End of transaction
+							c.commit();
+							System.out.println("Records inserted.");
+							// Insert new records: end
 
-						// Close database connection
-						c.close();
-						System.out.println("Database connection closed.");
+							// Close database connection
+							c.close();
+							System.out.println("Database connection closed.");
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+				
+			}
 		}
-		catch (Exception e) {
-			e.printStackTrace();
-			
-		}
-	}
-	
+
 		//Relational Tables 
 	
 		public void insertHospitalOrderRelation( int pkHospital, int pkOrder)
@@ -1141,6 +1219,131 @@ boolean a = false;
 		//Celia
 		
 		//Alex
+		public ArrayList<Company> selectAllCompanies()
+		{
+			ArrayList<Company> companies = new ArrayList<Company>();
+			try
+			{
+				Statement stmt = c.createStatement();
+				String sql = "SELECT * FROM company";
+				ResultSet rs = stmt.executeQuery(sql);
+				while(rs.next());
+				{
+					int companyID = rs.getInt("company_ID");
+					String location = rs.getString("location");
+					String name = rs.getString("company_name");
+					
+					Company com = new Company(companyID, location, name);
+					companies.add(com);
+				}
+				
+				stmt.close();
+				rs.close();
+				
+			}catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+			return companies;
+		}
+
+		public Company selectCompany(String query, int pk){
+				Company comp = null;
+				int companyID;
+				String name, location;
+				
+				try
+				{
+					String sql = query;
+					PreparedStatement prep = c.prepareStatement(sql);
+					prep.setInt(1, pk);
+					ResultSet rs = prep.executeQuery();
+					
+					while (rs.next()) 
+					{
+						companyID = rs.getInt("company_ID");
+						name = rs.getString("company_name");
+						location = rs.getString("location");
+						
+						comp = new Company(companyID, name, location);
+					}
+					
+					prep.close();
+					rs.close();
+					
+				}catch(SQLException e)
+				{
+					e.printStackTrace();
+				}
+
+				return comp;
+			
+		}
+
+		public  ArrayList<Material> selectAllMaterials()
+		{
+			ArrayList<Material> materials = new ArrayList<Material>();
+			try
+			{
+				Statement stmt = c.createStatement();
+				String sql = "SELECT * FROM material";
+				ResultSet rs = stmt.executeQuery(sql);
+				while(rs.next());
+				{
+					int materialID = rs.getInt("material_ID");
+					int weight = rs.getInt("weight");
+					int volume = rs.getInt("volume");
+					String type = rs.getString("type");
+					
+					Material mat = new Material(materialID, weight, volume, type);
+					materials.add(mat);
+				}
+				
+				stmt.close();
+				rs.close();
+				
+			}catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+			return materials;
+		}
+
+		public Material selectMaterial(String query, int pk){
+			Material mat = null;
+			int materialID, weight, volume;
+			String type;
+			
+			try
+			{
+				String sql = query;
+				PreparedStatement prep = c.prepareStatement(sql);
+				prep.setInt(1, pk);
+				ResultSet rs = prep.executeQuery();
+				
+				while (rs.next()) 
+				{
+					materialID = rs.getInt("material_ID");
+					weight = rs.getInt("weight");
+					volume = rs.getInt("volume");
+					type = rs.getString("type");
+					
+					mat = new Material(materialID, weight, volume, type);
+				}
+				
+				prep.close();
+				rs.close();
+				
+			}catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+
+			return mat;
+		
+	}
+
+		
 	//Update
 		public void update(String table, String colChange, String stringChange, int intChange, String colSearch, int pkSearch)
 		{

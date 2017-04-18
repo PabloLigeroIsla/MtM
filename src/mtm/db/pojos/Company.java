@@ -1,6 +1,7 @@
 package mtm.db.pojos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -10,47 +11,36 @@ public class Company implements Serializable {
 	private static final long serialVersionUID = -8663787080395108472L;
 
 	
-	private String resource; //PRIMARY KEY
+	private int companyID; //PRIMARY KEY
 	private String location;
 	private String companyName;
 	
 	private List<Material>  materialList;
 	
-	public String getResource() {
-		return resource;
-	}
-	public void setResource(String resource) {
-		this.resource = resource;
-	}
-	public String getLocation() {
-		return location;
-	}
-	public void setLocation(String location) {
-		this.location = location;
-	}
-	public String getCompany_name() {
-		return companyName;
-	}
-	public void setCompany_name(String company_name) {
-		this.companyName = company_name;
-	}	
-	public List<Material> getMaterialList() {
-		return materialList;
-	}
-	public void setMaterialList(List<Material> materialList) {
-		this.materialList = materialList;
-	}
-	
-	
 	public Company(){
 
 	}
 	
-	public Company(String resource, String location, String companyName, List<Material> materialList){
-		this.resource= resource;
+	public Company(int company_id, String location, String companyName, List<Material> materialList){
+		this.companyID= company_id;
 		this.location=location;
 		this.companyName=companyName;
 		this.materialList=materialList;
+	}
+	
+	
+	public Company(int company_id, String location, String companyName){
+		this.companyID = company_id;
+		this.location = location;
+		this.companyName = companyName;
+		this.materialList = new ArrayList<Material>();
+
+	}
+
+	public Company(String location, String companyName){
+		this.location = location;
+		this.companyName = companyName;
+		this.materialList = new ArrayList<Material>();
 	}
 	
 	public void addMaterial (Material material){
@@ -64,37 +54,35 @@ public class Company implements Serializable {
 			this.materialList.remove(material);
 		}
 	}
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((resource == null) ? 0 : resource.hashCode());
-		return result;
+
+	public int getCompanyID() {
+		return companyID;
 	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Company other = (Company) obj;
-		if (resource == null) {
-			if (other.resource != null)
-				return false;
-		} else if (!resource.equals(other.resource))
-			return false;
-		return true;
+
+	public void setCompanyID(int companyID) {
+		this.companyID = companyID;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 	
+
 	
-	@Override
-	public String toString() {
-		return "Company [resource=" + resource + ", location=" + location + ", companyName=" + companyName
-				+ ", materialList=" + materialList + "]";
-	}
+	
+
 	
 	
 	

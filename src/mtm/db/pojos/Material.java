@@ -8,55 +8,94 @@ public class Material implements Serializable {
 
 	
 	private Integer materialID; //PRIMARY KEY
-	private String materialProvided;
-	private Integer volume;
 	private Integer weight;
-	private String machineryType;
+	private Integer volume;
+	private String type;
+	private Company companyID; //FOREIGN KEY
+	private Machinery machineryID; //FOREIGN KEY
 	
 	
 
 
-	public Integer getVolume() {
-		return volume;
-	}
-	public void setVolume(Integer volume) {
-		this.volume = volume;
-	}
-	public Integer getWeight() {
-		return weight;
-	}
-	public void setWeight(Integer weight) {
-		this.weight = weight;
-	}
-	
 	
 	public Material (){
 		super();
 	}
 	
-	public Material(Integer materialID, String materialProvided, Integer weight, Integer volume, String machineryType){
+	public Material(Integer materialID, Integer weight, Integer volume, String type, Company c_id, Machinery m_id){
 		super();
 		this.materialID= materialID;
-		this.materialProvided= materialProvided;
 		this.weight = weight;
 		this.volume = volume;
-		this.machineryType= machineryType;
+		this.type= type;
+		this.companyID = c_id;
+		this.machineryID = m_id;
 	}
 	
-	public String getMaterialProvided() {
-		return materialProvided;
+	public Material(Integer materialID, Integer weight, Integer volume, String type){
+		super();
+		this.materialID= materialID;
+		this.weight = weight;
+		this.volume = volume;
+		this.type= type;
 	}
-	public void setMaterialProvided(String materialProvided) {
-		this.materialProvided = materialProvided;
+
+	public Material(Integer weight2, Integer volume2, String type2, Company companyID2, Machinery machineryID2) {
+		this.weight = weight2;
+		this.volume = volume2;
+		this.type = type2;
+		this.companyID = companyID2;
+		this.machineryID = machineryID2;
 	}
+
 	public Integer getMaterialID() {
 		return materialID;
 	}
+
 	public void setMaterialID(Integer materialID) {
 		this.materialID = materialID;
 	}
-	
-	
+
+	public Integer getWeight() {
+		return weight;
+	}
+
+	public void setWeight(Integer weight) {
+		this.weight = weight;
+	}
+
+	public Integer getVolume() {
+		return volume;
+	}
+
+	public void setVolume(Integer volume) {
+		this.volume = volume;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public Company getCompanyID() {
+		return companyID;
+	}
+
+	public void setCompanyID(Company companyID) {
+		this.companyID = companyID;
+	}
+
+	public Machinery getMachineryID() {
+		return machineryID;
+	}
+
+	public void setMachineryID(Machinery machineryID) {
+		this.machineryID = machineryID;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -64,9 +103,9 @@ public class Material implements Serializable {
 		result = prime * result + ((materialID == null) ? 0 : materialID.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
-
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -81,20 +120,14 @@ public class Material implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
-	
-	public String getMachineryType() {
-		return machineryType;
-	}
-	public void setMachineryType(String machinery_type) {
-		this.machineryType = machinery_type;
-	}
+
 	@Override
 	public String toString() {
-		return "Materials [materialID=" + materialID + ", materialProvided=" + materialProvided + ", volume="
-				+ volume + ", weight=" + weight + ", machineryType=" + machineryType + "]";
+		return "Material [materialID=" + materialID + ", weight=" + weight + ", volume=" + volume + ", type=" + type
+				+ ", companyID=" + companyID + ", machineryID=" + machineryID + "]";
 	}
+	
+
 	
 	
 	
