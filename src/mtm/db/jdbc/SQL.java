@@ -809,7 +809,54 @@ public class SQL
 							e.printStackTrace();
 						}
 		}
-	//Search
+	
+		public void insertInstrumentWarehouseRelation(int pkInstrument, int pkWarehouse ){
+			try
+			{
+				c.setAutoCommit(false);
+				
+				String sql = "INSERT INTO instrument_warehouse(instrument_ID,warehouse_ID)"
+						+ "VALUES(?,?)";
+				
+				PreparedStatement prep = c.prepareStatement(sql);
+				prep.setInt(1,pkInstrument);
+				prep.setInt(2,pkWarehouse);
+				
+				prep.executeUpdate();
+				
+				c.commit();
+			}catch(SQLException e)
+			{
+				e.printStackTrace();
+			}	
+		}
+		
+		public void insertMaterialWarehouseRelation(int pkMaterial, int pkWarehouse ){
+			try
+			{
+				c.setAutoCommit(false);
+				
+				String sql = "INSERT INTO instrument_warehouse(instrument_ID,warehouse_ID)"
+						+ "VALUES(?,?)";
+				
+				PreparedStatement prep = c.prepareStatement(sql);
+				prep.setInt(1,pkMaterial);
+				prep.setInt(2,pkWarehouse);
+				
+				prep.executeUpdate();
+				
+				c.commit();
+			}catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+			
+			
+			
+		}
+		
+		
+		//Search
 		public boolean valPKInt(String query, int numb)
 	{
 		boolean a = false;
@@ -933,6 +980,7 @@ boolean a = false;
 	}
 	
 	//Select
+		
 		//Pablo
 	
 		public ArrayList<Hospital> selectAllHospitals()
