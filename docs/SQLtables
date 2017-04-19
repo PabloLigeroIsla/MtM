@@ -101,20 +101,21 @@ INSERT INTO employee (name,typeofContract,specializationType,machineryType)VALUE
 
 
 CREATE TABLE machinery(
-machineryType TEXT PRIMARY KEY,
+machinery_ID INTEGER  PRIMARY KEY AUTOINCREMENT,
+machineryType TEXT,
 stateofMachinery TEXT NOT NULL,
 dateofInstallation DATE,
 sizeofMachinery INTEGER);
 
-INSERT INTO machinery (machineryType,stateofMachinery,dateofInstallation,sizeofMachinery)VALUES('Laser','No Working','03/06/2016',8);
-INSERT INTO machinery (machineryType,stateofMachinery,dateofInstallation,sizeofMachinery)VALUES('Sterilization','Working','01/04/2016',15);
-INSERT INTO machinery (machineryType,stateofMachinery,dateofInstallation,sizeofMachinery)VALUES('Grinder',' Working','03/02/2016',12);
-INSERT INTO machinery (machineryType,stateofMachinery,dateofInstallation,sizeofMachinery)VALUES('Milling Machine','Working','21/07/2016',10);
+INSERT INTO machinery (machinery_ID,machineryType,stateofMachinery,dateofInstallation,sizeofMachinery)VALUES('1','Laser','No Working','03/06/2016',8);
+INSERT INTO machinery (machinery_ID,machineryType,stateofMachinery,dateofInstallation,sizeofMachinery)VALUES('2','Sterilization','Working','01/04/2016',15);
+INSERT INTO machinery (machinery_ID,machineryType,stateofMachinery,dateofInstallation,sizeofMachinery)VALUES('3','Grinder',' Working','03/02/2016',12);
+INSERT INTO machinery (machinery_ID,machineryType,stateofMachinery,dateofInstallation,sizeofMachinery)VALUES('4','Milling Machine','Working','21/07/2016',10);
 
 
 
 
-CREATE Table instrumentmachinery(
+CREATE Table instrument_machinery(
 instrument_ID INTEGER NOT NULL REFERENCES instrument(instrument_ID),
 machinery_ID INTEGER NOT NULL REFERENCES machinery(machinery_ID),
 timeofMade INTEGER,

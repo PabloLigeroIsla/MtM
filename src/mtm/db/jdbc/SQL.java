@@ -790,6 +790,25 @@ public class SQL
 		
 	}
 	
+		public void insertMachineryInstrumentRelation(int pkMachinery,int pkInstrument){
+				//////TIME: atributo predeterminado 
+			
+						try
+						{
+							c.setAutoCommit(false);
+
+							Statement stmt = c.createStatement();
+							String sql ="INSERT INTO machinery_instrument(machinery_ID,instrument_ID)"
+									+ "VALUES('" + pkMachinery + "','" + pkInstrument+ "');";
+							stmt.executeUpdate(sql);
+							stmt.close();
+							c.commit();
+
+						}catch(SQLException e)
+						{
+							e.printStackTrace();
+						}
+		}
 	//Search
 		public boolean valPKInt(String query, int numb)
 	{
@@ -1217,6 +1236,211 @@ boolean a = false;
 		
 		
 		//Celia
+		//Employee
+		
+		public ArrayList<Employee> selectAllEmployee(Connection c)
+		{
+			ArrayList<Employee> employee = new ArrayList<Employee>();
+			try
+			{
+				Statement stmt = c.createStatement();
+				String sql = "SELECT * FROM employee";
+				ResultSet rs = stmt.executeQuery(sql);
+				while(rs.next());
+				{
+					int employeeID = rs.getInt("employee_ID");
+					String name = rs.getString("name");
+					String specializationType = rs.getString("specializationType");
+					String typeofContract = rs.getString("typeofContract");
+					
+					Employee emp = new Employee(employeeID,name,specializationType,typeofContract);
+					employee.add(emp);
+				}
+				
+				stmt.close();
+				rs.close();
+				
+			}catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+			return employee;
+		}
+		
+		public Employee selectEmployee(Connection c, String query, int pk)
+		{
+			Employee emp = null;
+			int employeeID;
+			String name, specializationType,typeofContract;
+			
+			try
+			{
+				String sql = query;
+				PreparedStatement prep = c.prepareStatement(sql);
+				prep.setInt(1, pk);
+				ResultSet rs = prep.executeQuery();
+				
+				while (rs.next()) 
+				{
+					employeeID = rs.getInt("employee_ID");
+					name = rs.getString("name");
+					specializationType = rs.getString("specializationType");
+					typeofContract = rs.getString("typeofContract");
+					emp = new Employee(employeeID,name,specializationType,typeofContract);
+				}
+				
+				prep.close();
+				rs.close();
+				
+			}catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+
+			
+			return emp;
+		}
+		
+		public Employee selectEmployee(Connection c, String query, String nameEmp)
+		{
+			Employee emp = null;
+			int employeeID;
+			String name, specializationType,typeofContract;
+			
+			try
+			{
+				String sql = query;
+				PreparedStatement prep = c.prepareStatement(sql);
+				prep.setString(1, nameEmp);
+				ResultSet rs = prep.executeQuery();
+				
+				while (rs.next()) 
+				{
+					employeeID = rs.getInt("employee_ID");
+					name = rs.getString("name");
+					specializationType = rs.getString("specializationType");
+					typeofContract = rs.getString("typeofContract");
+					emp = new Employee(employeeID,name,specializationType,typeofContract);	
+				}
+				
+				prep.close();
+				rs.close();
+				
+			}catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+
+			
+			return emp;
+		}
+		
+		//Machinery
+		public ArrayList<Machinery> selectAllMachinery(Connection c)
+		{
+			ArrayList<Machinery> machineryList = new ArrayList<Machinery>();
+			
+			try
+			{
+				Statement stmt = c.createStatement();
+				String sql = "SELECT * FROM machinery";
+				ResultSet rs = stmt.executeQuery(sql);
+				
+				while(rs.next());
+				{
+					int machineryID = rs.getInt("machinery_ID");
+					String machineryType = rs.getString("machineryType");
+					String stateofMachinery = rs.getString("stateofMachinery");				
+					java.sql.Date machineryDate = rs.getDate("dateofInstallation");
+					int sizeofMachinery = rs.getInt("sizeofMachinery");
+					
+					Machinery machinery = new Machinery(machineryID,machineryType,stateofMachinery,machineryDate,sizeofMachinery);
+					machineryList.add(machinery);
+				}
+				
+				stmt.close();
+				rs.close();
+				
+			}catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+			return machineryList;
+		}
+		
+		public Machinery selectMachinery(Connection c, String query, int pk)
+		{
+			
+			Machinery machinery = null;
+			
+			try
+			{
+				String sql = query;
+				PreparedStatement prep = c.prepareStatement(sql);
+				prep.setInt(1, pk);
+				ResultSet rs = prep.executeQuery();
+				
+				while(rs.next())
+				{
+					
+					int machineryID = rs.getInt("machinery_ID");
+					String machineryType = rs.getString("machineryType");
+					String stateofMachinery = rs.getString("stateofMachinery");				
+					java.sql.Date machineryDate = rs.getDate("dateofInstallation");
+					int sizeofMachinery = rs.getInt("sizeofMachinery");
+					
+					machinery = new Machinery(machineryID,machineryType,stateofMachinery,machineryDate,sizeofMachinery);
+					
+				}
+				
+				prep.close();
+				rs.close();
+				
+			}
+			catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+			return machinery;
+		}
+
+		public Machinery selectMachinery(Connection c, String query, String nameMach)
+		{
+			Machinery mach = null;
+			int machineryID, sizeofMachinery;
+			String machineryType, stateofMachinery;
+			
+			try
+			{
+				String sql = query;
+				PreparedStatement prep = c.prepareStatement(sql);
+				prep.setString(1, nameMach);
+				ResultSet rs = prep.executeQuery();
+				
+				while (rs.next()) 
+				{				
+					
+					machineryID = rs.getInt("machinery_ID");
+					machineryType = rs.getString("machineryType");
+					stateofMachinery = rs.getString("stateofMachinery");
+					java.sql.Date dateMachinery = rs.getDate("order_date");
+					sizeofMachinery = rs.getInt("sizeofMachinery");
+
+					mach = new Machinery(machineryID,machineryType,stateofMachinery,dateMachinery,sizeofMachinery);	
+				}
+				
+				prep.close();
+				rs.close();
+				
+			}catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+
+			
+			return mach;
+		}
+
 		
 		//Alex
 		public ArrayList<Company> selectAllCompanies()

@@ -58,13 +58,15 @@ public class DbManager
 		
 	}
 	
-	//public Machinery createPojoMachinery(String machineryType,String stateofMachinery, String d,String m,String y,int sizeofMachinery){
+	public Machinery createPojoMachinery(String machineryType, String stateofMachinery,String d,String m, String y, int sizeofMachinery){
 		
-		//Date date3SQL = dateConverterSQL(y,m,d);
-		//Machinery mach = new Machinery (machineryType, stateofMachinery, d, m, y, sizeofMachinery);
-		//return mach;
+		Date date3SQL = dateConverterSQL(y,m,d);
+		Machinery mach = new Machinery (machineryType, stateofMachinery, date3SQL, sizeofMachinery);
+		return mach;
 		
-	//}
+	}
+
+
 	
 	//Methods to connect with the DataBase
 	/*public Connection openConnection()
@@ -344,6 +346,36 @@ public class DbManager
 	}
 	
 	//Celia
+	public void deleteEmployee(int primaryKey)
+	{
+		
+		String sqlQuery = "SELECT * FROM employee WHERE employee_ID == ?";
+		if(valExist(sqlQuery,primaryKey,null))
+		{
+			SQL sql = new SQL();
+			sql.deleteEmployee(primaryKey);
+		}
+		else
+		{
+			System.out.println("\n The Employee does not exist \n");
+		}
+		
+	}
+	
+	public void deleteMachinery(int primaryKey)
+	{
+		String sqlQuery = "SELECT * FROM orders WHERE machineryID == ?";
+		if(valExist(sqlQuery,primaryKey,null))
+		{
+			SQL sql = new SQL();
+			sql.deleteMachinery(primaryKey);
+		}
+		else
+		{
+			System.out.println("\n The Machinery does not exist \n");
+		}
+	}
+
 	
 	//Charo
 	
@@ -563,8 +595,112 @@ public class DbManager
 			return null;
 		}
  	}
+ 	//Celia
+ 	//Employee
+ 	/*
+ 	 	public ArrayList<Employee> selectEmployee()
+ 		{
+ 			ArrayList<Employee> emp = new ArrayList<Employee>();
+ 			SQL sqlSelect = new SQL();
+ 			
+ 			emp = sqlSelect.selectAllEmployee();
+ 			
+ 			return emp;
+ 		}
+ 	 	public Employee selectEmployee(int primaryKey)
+ 		{
+ 			String table = "employee";
+ 			String selQuarry = "SELECT name FROM "+table+" WHERE employee_ID == ?";
+ 			
+ 			
+ 			if(valExist(selQuarry,primaryKey,null))
+ 			{
+ 				SQL sqlSelect = new SQL();
+ 		 		Employee emp = new Employee();
+ 		 		
+ 				emp = sqlSelect.selectEmployee(selQuarry,primaryKey);
+ 				
+ 				return emp;
+ 			}else
+ 			{
+ 				System.out.println("/nWe dont find the primary key/n");
+ 				
+ 				return null;
+ 			}
+ 		}
+ 	 	public Employee selectEmployee(String nameEmployee)
+ 	 	{
+ 			String selQuarry = "SELECT location FROM employee WHERE name LIKE ?";
+ 			
+ 			if(valExist(selQuarry,-1,nameEmployee))
+ 			{
+ 				SQL sqlSelect = new SQL();
+ 		 		Employee emp = new Employee();
+ 		 		
+ 				emp = sqlSelect.selectEmployee(selQuarry,nameEmployee);
+ 				
+ 				return emp;
+ 			}else
+ 			{
+ 				System.out.println("/nWe dont find the primary key/n");
+ 				
+ 				return null;
+ 			}
+ 	 		
+ 	 	}
+ 	 //Machinery
+ 	 	public ArrayList<Machinery> selectMachinery()
+ 		{
+ 			ArrayList<Machinery> mach = new ArrayList<Machinery>();
+ 			SQL sqlSelect = new SQL();
+ 			
+ 			mach = sqlSelect.selectAllMachinery();
+ 			
+ 			return mach;
+ 		}
+ 	 	public Machinery selectMachinery(int primaryKey)
+ 		{
+ 			String table = "machinery";
+ 			String selQuarry = "SELECT name FROM "+table+" WHERE machinery_ID == ?";
+ 			
+ 			
+ 			if(valExist(selQuarry,primaryKey,null))
+ 			{
+ 				SQL sqlSelect = new SQL();
+ 				Machinery mach = new Machinery();
+ 		 		
+ 				mach = sqlSelect.selectMachinery(selQuarry,primaryKey);
+ 				
+ 				return mach;
+ 			}else
+ 			{
+ 				System.out.println("/nWe dont find the primary key/n");
+ 				
+ 				return null;
+ 			}
+ 		}
+ 	 	public Machinery selectMachinery(String nameMachinery)
+ 	 	{
+ 			String selQuarry = "SELECT location FROM machinery WHERE name LIKE ?";
+ 			
+ 			if(valExist(selQuarry,-1,nameMachinery))
+ 			{
+ 				SQL sqlSelect = new SQL();
+ 				Machinery mach = new Machinery();
+ 		 		
+ 				mach = sqlSelect.selectMachinery(selQuarry,nameMachinery);
+ 				
+ 				return mach;
+ 			}else
+ 			{
+ 				System.out.println("/nWe dont find the primary key/n");
+ 				
+ 				return null;
+ 			}
+ 	 		
+ 	 	}
 
- 	
+ 	*/
  	// Update
  	
  	//Pablo
@@ -790,15 +926,15 @@ public class DbManager
 	}
 		
 	//Relation Help Methods
-	public ArrayList<Integer> foundRelation(String table,String pk1AtrivuteSearch,String pkAtrivuteCompere ,int pkValueCompere)
+	public ArrayList<Integer> foundRelation(String table,String pk1AttributeSearch,String pkAttributeCompere ,int pkValueCompere)
 	{
-		String query = "SELECT "+pk1AtrivuteSearch+" FROM "+table+" WHERE "+pkAtrivuteCompere+" = ?";
+		String query = "SELECT "+pk1AttributeSearch+" FROM "+table+" WHERE "+pkAttributeCompere+" = ?";
 		
 		ArrayList<Integer> pkArray = new ArrayList<Integer>();
 		
 		SQL sqlSearch = new SQL();
 		
-		pkArray=sqlSearch.searchPkRelation(query, pkValueCompere, pk1AtrivuteSearch);
+		pkArray=sqlSearch.searchPkRelation(query, pkValueCompere, pk1AttributeSearch);
 		
 		return pkArray;
 		

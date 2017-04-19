@@ -1,30 +1,30 @@
 package mtm.db.pojos;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Employee implements Serializable {
+
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -3297814757811814786L;
+	private static final long serialVersionUID = -8477517713230030048L;
 	
-	private String employeeID;
+	//Atributes
+	
+	private int employeeID;
 	private String name;
 	private String specializationType;
 	private String typeofContract;
-	private String machinery;
+	private Machinery machineryType;
 	
-	//machinery¿?
+	//Gets and Sets
 
-	private List<Machinery> machineryList;
-
-	public String getEmployee_ID() {
+	public int getEmployee_ID() {
 		return employeeID;
 	}
 
-	public void setEmployee_ID(String employeeID) {
+	public void setEmployee_ID(int employeeID) {
 		this.employeeID = employeeID;
 	}
 
@@ -52,70 +52,63 @@ public class Employee implements Serializable {
 		this.typeofContract = typeofContract;
 	}
 
-	public String getMachinery() {
-		return machinery;
+	public Machinery getMachineryType() {
+		return machineryType;
 	}
 
-	public void setMachinery(String machinery) {
-		this.machinery = machinery;
+	public void setMachineryType(Machinery machineryType) {
+		this.machineryType = machineryType;
 	}
-
-	public List<Machinery> getMachineryList() {
-		return machineryList;
-	}
-
-	public void setMachineryList(List<Machinery> machineryList) {
-		this.machineryList = machineryList;
-	}
-
+	
+	// Constructors	
 	public Employee() {
 		super();
-		this.machineryList = new ArrayList<Machinery>();
-	}
 
-	public Employee(String employeeID, String name, String specializationType, String typeofContract,
-			String machinery) {
+	}
+	
+	public Employee(String name, String specializationType, String typeofContract,
+			Machinery machineryType) {
+		super();
+		this.name = name;
+		this.specializationType = specializationType;
+		this.typeofContract = typeofContract;
+		this.machineryType = machineryType;
+	}
+	
+	public Employee(int employeeID, String name, String specializationType, String typeofContract,
+			Machinery machineryType) {
+		super();
+		this.employeeID=employeeID;
+		this.name = name;
+		this.specializationType = specializationType;
+		this.typeofContract = typeofContract;
+		this.machineryType = machineryType;
+	}
+	
+
+	public Employee(Integer employeeID, String name, String specializationType, String typeofContract) {
 		super();
 		this.employeeID = employeeID;
 		this.name = name;
 		this.specializationType = specializationType;
 		this.typeofContract = typeofContract;
-		this.machinery = machinery;
-	}
-	
-	public Employee(int employeeID2, String name2, String typeofContract2, String specializationType2) {
-		// TODO Auto-generated constructor stub
+		
 	}
 
-	public void addMachinery (Machinery machinery)
-	{
-		if(!machineryList.contains(machinery))
-		{
-			this.machineryList.add(machinery);
-		}
-	}
-	
-	public void removeMachinery (Machinery machinery)
-	{
-		if(machineryList.contains(machinery))
-		{
-			this.machineryList.remove(machinery);
-		}
-	}
+	// Methods
 
 	@Override
 	public String toString() 
 	{
 		return "Emplyee [employeeID=" + employeeID + ", name=" + name + ", specializationType=" 
-		+ specializationType + ", typeofContract=" + typeofContract + ", machinery=" + machinery + "]";
+		+ specializationType + ", typeofContract=" + typeofContract + ", machineryType=" + machineryType + "]";
 	}
-	
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((employeeID == null) ? 0 : employeeID.hashCode());
+		result = prime * result + employeeID;
 		return result;
 	}
 
@@ -128,12 +121,12 @@ public class Employee implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Employee other = (Employee) obj;
-		if (employeeID == null) {
-			if (other.employeeID != null)
-				return false;
-		} else if (!employeeID.equals(other.employeeID))
+		if (employeeID != other.employeeID)
 			return false;
 		return true;
 	}
+	
+	
+
 
 }
