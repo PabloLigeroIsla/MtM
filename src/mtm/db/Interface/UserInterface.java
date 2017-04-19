@@ -99,24 +99,28 @@ public class UserInterface
 							//Option 1.2: One table //y se las enseñas
 								//option 1.2.1: Select the table
 							
-						+ "Option 2.- Show tables\n"
-							//Option: Do you want to see all the relations? (Condition)
-								//Option 2.1: Show 1 table
-									//Option 2.1.1: What table do you want to see? //y se las enseñas
-										//Select the table
-								//Option 2.2: Show all the Tables
+						+ "Option 2.- List entities\n"
+							//Option: Do you want to see all the relations? (Condition)					
+								//Option 2.1: What table do you want to see? //y se las enseñas
+									//Listas el objeto 
+									//Seleccioname 1 
+									//muestras
+						+ "Option 3.- Show table"
+							//Seleccióname la tabla
+							//Muestramela 
 						
-						
-						+ "Option 3.- Introduce value to a Table\n"
+						+ "Option 3.- Introduce value to a table"
 							//Option 3.1: What table do you want to insert the value to? //y se las enseñas
+								//Listas tablas
 								//Select the table
-						
+								//Introduces
+								
 						//aqui ademas se debe llamar a UPDATE la tabla, y la relacion con otra tabla si la tiene
 						
 						+ "Option 4.- Delete value of a Table\n"
 							//Option 4.1: What table do you want to delete a value from? //y se las enseñas
 								//Select the table
-						//aqui tambien haremos un UPDATE
+						
 						
 						+ "Option 5.- Drop Tables\n"
 							//Option 5.1: all the tables?
@@ -124,15 +128,16 @@ public class UserInterface
 								//Select the table
 						//si es solo una tabla, tras esto delete la tabla con relaciones que afecten a la tabla eliminada
 						
-						+ "Option 6.- \n"
-						+ "Option 7.-\n"
-						+ "Option 8.-\n"
-						+ "Option 9.-\n"
-						+ "Option 10.- Salir de la base de datos\n"
-						//Aqui tenemos que llamar al metodo cerrar conexion
-						
-						+ "Option 11.- Create Relation?\n"
-						+ "Option 12.- Exit");
+						+ "Option 6.- Modify value\n"
+							//mostrar entidades
+							//Option 6.1: Select a table to madify a value
+							// mostrar valores d la tabla
+							// seleccionar la fila 
+							// seleccionas la columna
+							// Das el valor
+							// update
+
+						+ "Option 7.- Salir de la base de datos\n");
 
 	}
 	
@@ -279,7 +284,7 @@ public class UserInterface
 			Mahinery mach = new Machinery(am,bm,cm,dm);
 			dbManager.insert(mach);*/
 			break;
-		case 6:
+		case 6:  
 
 		case 8:
 			//In warehouse we have 2 ints and 1 String

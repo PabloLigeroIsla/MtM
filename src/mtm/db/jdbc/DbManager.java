@@ -7,6 +7,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.sql.Date;
+import java.sql.Connection;
+import java.sql.DriverManager;
+
 
 public class DbManager 
 {
@@ -16,6 +19,7 @@ public class DbManager
 	
 	//Methods to create the Pojos
 
+	//Pablo
 	
 	public Order createPojoOrder(int number,String d11,String d12,String d13,String d21,String d22,String d23)
 	{
@@ -25,38 +29,8 @@ public class DbManager
 		return ord;
 	}
 	
-	//Charo
-	public Instrument createPojoInstrument (String model, String purpose, Integer amount, Integer numberUses, String bodyLocation, Integer price, Warehouse warehouseID) 
-	{
-		Instrument instrument = new Instrument(model,purpose,amount,numberUses,bodyLocation,price,warehouseID);
-		return instrument;
-	}//DEBO QUITAR WAREHOUSE???
-	
-	public Warehouse createPojoWarehouse (String warehouseLocation, Integer capacity, Integer filledSpace)
-	{
-		Warehouse warehouse = new Warehouse (warehouseLocation,capacity,filledSpace);
-		return warehouse;
-	}
-	//Alex
-	public Material createPojoMaterial (Integer weight, Integer volume, String type, Company companyID, Machinery machineryID){
-		Material mat = new Material(weight, volume, type, companyID, machineryID);
-		return mat;
-	}
-	
-	public Company createPojoCompany(String location, String companyName){
-		Company com = new Company(location, companyName);
-		return com;
-	}
-
-	
-	
 	//Celia
-	public Employee createPojoEmployee(int employeeID,String name, String typeofContract, String specializationType )
-	{
-		Employee emp = new Employee(employeeID,name,typeofContract,specializationType);
-		return emp;
-		
-	}
+
 	
 	public Machinery createPojoMachinery(String machineryType, String stateofMachinery,String d,String m, String y, int sizeofMachinery){
 		
@@ -69,7 +43,7 @@ public class DbManager
 
 	
 	//Methods to connect with the DataBase
-	/*public Connection openConnection()
+	public Connection openConnection()
 	{
 		Connection c = null;
 		try
@@ -96,7 +70,7 @@ public class DbManager
 		{
 			e.printStackTrace();
 		}
-	}*/
+	}
 	
 	//Methods to Create the tables
 	
