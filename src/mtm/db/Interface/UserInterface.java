@@ -118,7 +118,7 @@ public class UserInterface
 						//aqui ademas se debe llamar a UPDATE la tabla, y la relacion con otra tabla si la tiene
 						
 						+ "Option 4.- Delete value of a Table\n"
-							//Option 4.1: What table do you want to delete a value from? //y se las enseñas
+							///Option 4.1: What table do you want to delete a value from? //y se las enseñas
 								//Select the table
 						
 						
