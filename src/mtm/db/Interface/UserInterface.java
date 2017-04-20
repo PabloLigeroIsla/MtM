@@ -146,60 +146,6 @@ public class UserInterface
 	public static void createTables()
 	{
 		
-		System.out.println("Option 1: Create all tables\n"
-				+ "Option 2: Create 1 specific table\n"
-				+ "Option Selected: ");
-		int option = writeNumber(2);
-		if(option == 1)
-		{
-			//Option 1: All the tables
-			dbManager.createTables();
-		}else
-		{
-		//Select if we want to create one specific table or all the tables
-			System.out.println("\n\nSelect the table you want to create:\n"
-				+ "1:Company\n"
-				+ "2:Employee\n"
-				+ "3:Hospital\n"
-				+ "4:Instrument\n"
-				+ "5:Machinery"
-				+ "6:Material\n"
-				+ "7:Order\n"
-				+ "8:Warehouse\n"
-				+ "Introduce Option number: ");
-			option = writeNumber(8);
-			
-			switch(option)
-			{
-			case 1:
-				dbManager.createTableCompany();
-				break;
-			case 2:
-				dbManager.createTableEmployee();
-				break;
-			case 3:
-				dbManager.createTableHospital();
-				break;
-			case 4:
-				dbManager.createTableInstrument();
-				break;
-			case 5:
-				dbManager.createTableMachinery();
-				break;
-			case 6:
-				dbManager.createTableMaterial();
-				break;
-			case 7:
-				dbManager.createTableOrder();
-				break;
-			case 8:
-				dbManager.createTableWarehouse();
-				break;
-			}
-			
-			
-		}
-		
 	}
 
 	public static void intValTable()
@@ -331,7 +277,7 @@ public class UserInterface
     			
     		break;
     	case 3:
-    		showHospitals();
+    		listHospitals();
     		break;
     	case 4:
     		break;
@@ -345,15 +291,47 @@ public class UserInterface
     	
     		
     	case 6:
+    		
     		break;
     	case 7:
-    		showOrders();
+    		
     		break;
     	case 8:
     		break;
     	}
     }
-    
+    //Menu
+    public static void SelectionMenu(int option)
+    {
+    	//The option of this menu select the type of menu we wnat to print
+    	switch(option)
+    	{
+    	case 1:
+    		//This case is used to the method CreateTables
+    		System.out.println("\n\nSelect the table you want to create:\n"
+    				+ "1:Company\n"
+    				+ "2:Employee\n"
+    				+ "3:Hospital\n"
+    				+ "4:Instrument\n"
+    				+ "5:Machinery"
+    				+ "6:Material\n"
+    				+ "8:Warehouse\n"
+    				+ "Introduce Option number: ");
+    		
+    		break;
+    	case 2:
+    		break;
+    	case 3:
+    		break;
+    	case 4:
+    		break;
+    	case 5:
+    		break;
+    	case 6:
+    		break;
+    	}
+    	
+    }
     //Creation of Objects
     public static Hospital createHospital()
     {
@@ -378,15 +356,18 @@ public class UserInterface
 				if(option.equals("YES"))
 				{
 					System.out.println("Select one of the Orders");
-					showOrders();
+					listOrders();
 					int op = writeNumber();
-					dbManager.setRelationHospitalOrder(hosp.getHospitalID(),op);
+					System.out.println("Insert the amountOrder");
+					int tao = writeNumber();
+					dbManager.setRelationHospitalOrder(hosp.getHospitalID(),op,tao);
 				}else
 				{
 					Order ord = createOrder();
 					dbManager.insert(ord);
-					//hosp = dbManager.relateOrder(hosp,ord.getOrderID());
-					dbManager.setRelationHospitalOrder(hosp.getHospitalID(),ord.getOrderID());
+					System.out.println("Insert the amountOrder");
+					int tao = writeNumber();
+					dbManager.setRelationHospitalOrder(hosp.getHospitalID(),ord.getOrderID(),tao);
 				}
 				System.out.println("\n Do you want to keep relating? YES,NO\n");
 				option = writeString();
@@ -402,8 +383,7 @@ public class UserInterface
 		}
 		
 		return hosp;
-    }
-    
+    } 
     public static Order createOrder()
     {
     	System.out.println("\nIntroduce the values\n");
@@ -431,7 +411,7 @@ public class UserInterface
 		hosp = dbManager.selectHospital(pk);
 		hosp.toString();
     }
-    public static void showHospitals()
+    public static void listHospitals()
     {
     	Hospital hosp = new Hospital();
 		ArrayList<Hospital> hospList = new ArrayList<Hospital>();
@@ -442,7 +422,9 @@ public class UserInterface
 		while(count < hospList.size())
 		{
 			hosp = hospList.get(count);
-			hosp.toString();
+			String name = hosp.getName();
+			int id = hosp.getHospitalID();
+			System.out.printf("id: %d,name: %s\n",id,name);
 		}
     }
     
@@ -452,7 +434,7 @@ public class UserInterface
     	ord = dbManager.selectOrder(pk);
     	ord.toString();
     }
-    public static void showOrders()
+    public static void listOrders()
     {
     	Order ord = new Order();
     	ArrayList<Order> ordList = new ArrayList<Order>();
@@ -463,7 +445,7 @@ public class UserInterface
     	while(count < ordList.size())
     	{
     		ord = ordList.get(count);
-    		ord.toString();
+    		System.out.printf("id: %d\n",ord.getOrderID());
     	}
     	
     }

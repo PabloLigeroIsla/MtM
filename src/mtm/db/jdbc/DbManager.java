@@ -825,11 +825,11 @@ public class DbManager
 	}
 		
 	//Relations
-	public void setRelationHospitalOrder(int hosp, int order)
+	public void setRelationHospitalOrder(int hosp, int order, int tao)
 	{
 		
 		SQL sqlInsert = new SQL();
-		sqlInsert.insertHospitalOrderRelation( hosp, order);
+		sqlInsert.insertHospitalOrderRelation( hosp, order, tao);
 		
 	}
 	

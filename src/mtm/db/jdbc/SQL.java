@@ -747,18 +747,19 @@ public class SQL
 
 		//Relational Tables 
 	
-		public void insertHospitalOrderRelation( int pkHospital, int pkOrder)
+		public void insertHospitalOrderRelation( int pkHospital, int pkOrder, int tao)
 	{
 		try
 		{
 			c.setAutoCommit(false);
 			
-			String sql = "INSERT INTO hospital_orders(hospital_ID,order_ID)"
-					+ "VALUES(?,?)";
+			String sql = "INSERT INTO hospital_orders(hospital_ID,order_ID,amountOrder)"
+					+ "VALUES(?,?,?)";
 			
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setInt(1,pkHospital);
 			prep.setInt(2,pkOrder);
+			prep.setInt(3,tao);
 			
 			prep.executeUpdate();
 			

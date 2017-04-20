@@ -30,6 +30,7 @@ INSERT INTO orders(total_amount_instruments,order_date,delivery_date) VALUES(500
 CREATE TABLE hospital_orders(
 hospital_ID INTEGER REFERENCES hospital(hospital_ID),
 order_ID INTEGER REFERENCES orders(order_ID),
+amountOrder INTEGER,
 PRIMARY KEY(hospital_ID,order_ID));
 
 INSERT INTO hospital_orders(hospital_ID,order_ID)VALUES(1,1);
