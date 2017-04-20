@@ -66,7 +66,6 @@ public class Instrument implements Serializable {
 
 	public Instrument(int instrumentID2, String model2, String purpose2, Integer amount2, Integer numberUses2,
 			String bodyLocation2, Integer price2, Warehouse warehouseID2) {
-		// TODO Auto-generated constructor stub
 	}
 
 
@@ -74,14 +73,18 @@ public class Instrument implements Serializable {
 
 	public Instrument(int instrumentID2, String model2, String purpose2, Integer amount2, Integer numberUses2,
 			String bodyLocation2, Integer price2) {
-		// TODO Auto-generated constructor stub
 	}
 
 
 	// Additional method to add and remove from a list	
 
 	public Instrument() {
-		// TODO Auto-generated constructor stub
+	}
+
+
+
+
+	public Instrument(String model2, String purpose2, int amount2, int numberUses2, String bodyLocation2, int price2) {
 	}
 
 

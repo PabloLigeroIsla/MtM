@@ -10,8 +10,10 @@ import java.util.ArrayList;
 import mtm.db.jdbc.DbManager;
 import mtm.db.pojos.Employee;
 import mtm.db.pojos.Hospital;
+import mtm.db.pojos.Instrument;
 import mtm.db.pojos.Machinery;
 import mtm.db.pojos.Order;
+import mtm.db.pojos.Warehouse;
 
 public class UserInterface 
 {
@@ -92,25 +94,25 @@ public class UserInterface
 
 	public static void printMenu()
 	{
-		//Si añades opciones, recuerda mirar el metodo abrirMenu
+		//Si aï¿½ades opciones, recuerda mirar el metodo abrirMenu
 				System.out.println(""
 						+ "Option 1.- Create Tables\n" 
 							//Option 1.1: all the tables?
-							//Option 1.2: One table //y se las enseñas
+							//Option 1.2: One table //y se las enseï¿½as
 								//option 1.2.1: Select the table
 							
 						+ "Option 2.- List entities\n"
 							//Option: Do you want to see all the relations? (Condition)					
-								//Option 2.1: What table do you want to see? //y se las enseñas
+								//Option 2.1: What table do you want to see? //y se las enseï¿½as
 									//Listas el objeto 
 									//Seleccioname 1 
 									//muestras
 						+ "Option 3.- Show table"
-							//Seleccióname la tabla
+							//Selecciï¿½name la tabla
 							//Muestramela 
 						
 						+ "Option 3.- Introduce value to a table"
-							//Option 3.1: What table do you want to insert the value to? //y se las enseñas
+							//Option 3.1: What table do you want to insert the value to? //y se las enseï¿½as
 								//Listas tablas
 								//Select the table
 								//Introduces
@@ -118,13 +120,13 @@ public class UserInterface
 						//aqui ademas se debe llamar a UPDATE la tabla, y la relacion con otra tabla si la tiene
 						
 						+ "Option 4.- Delete value of a Table\n"
-							///Option 4.1: What table do you want to delete a value from? //y se las enseñas
+							///Option 4.1: What table do you want to delete a value from? //y se las enseï¿½as
 								//Select the table
 						
 						
 						+ "Option 5.- Drop Tables\n"
 							//Option 5.1: all the tables?
-							//Option 5.2: One table //y se las enseñas (pero no tiene sentido borrar hospital, warehouse, company?
+							//Option 5.2: One table //y se las enseï¿½as (pero no tiene sentido borrar hospital, warehouse, company?
 								//Select the table
 						//si es solo una tabla, tras esto delete la tabla con relaciones que afecten a la tabla eliminada
 						
@@ -189,29 +191,9 @@ public class UserInterface
 		case 4:
 			//In instrument we have 3 ints, 3 Strings and 2 List
 			
+			Instrument inst = createInstrument();
+			dbManager.insert(inst);
 			
-			//HOW DO WE INTRODUCE A LISTÂ¿??
-			
-			
-			System.out.println("\nModel of the instrument\n");
-			String model=writeString();
-			System.out.println("\nPurpose of the instrument\n");
-			String purpose=writeString();
-			System.out.println("\nAmount of instrument\n");
-			int amount=writeNumber();
-			System.out.println("\nNumber of uses of the instrument\n");
-			int numberUses=writeNumber();
-			System.out.println("\nBody location of the instrument\n");
-			String bodyLocation=writeString();
-			System.out.println("\nPrice of the instrument\n");
-			int price=writeNumber();
-			System.out.println("\nID of the warehouse where the instrument is\n");
-			
-			//TENGO QUE CONSEGUIR EL ID DE ESTA RELACION Y LO ESCRIBO? TIPO WAREHOUSE??
-			
-			//int warehouseIDInstrument=writeNumber();
-			// List<Order> orderList;
-			//dbManager.insert(dbManager.createPojoInstrument(model, purpose, amount, numberUses, bodyLocation, price, warehouseIDInstrument));
 			break;
 			
 			
@@ -235,13 +217,9 @@ public class UserInterface
 		case 8:
 			//In warehouse we have 2 ints and 1 String
 			
-			System.out.println("\nLocation of the warehouse\n");
-			String warehouseLocation=writeString();
-			System.out.println("\nCapacity of the warehouse\n");
-			int capacity=writeNumber();
-			System.out.println("\nFilled space in the warehouse\n");
-			int filledSpace=writeNumber();
-			dbManager.insert(dbManager.createPojoWarehouse(warehouseLocation, capacity, filledSpace));
+			Warehouse warehouse = createWarehouse();
+			
+			dbManager.insert(warehouse);
 		}
 		
 		
@@ -403,6 +381,44 @@ public class UserInterface
 		
 		return ord;
     }
+    
+    public static Warehouse createWarehouse(){
+    	
+    	System.out.println("\nLocation of the warehouse\n");
+		String warehouseLocation=writeString();
+		System.out.println("\nCapacity of the warehouse\n");
+		int capacity=writeNumber();
+		System.out.println("\nFilled space in the warehouse\n");
+		int filledSpace=writeNumber();
+		
+		Warehouse warehouse = new Warehouse( warehouseLocation,capacity,filledSpace);
+		
+		return warehouse;
+    }
+
+    public static Instrument createInstrument(){
+    	
+    	System.out.println("\nModel of the instrument\n");
+		String model=writeString();
+		System.out.println("\nPurpose of the instrument\n");
+		String purpose=writeString();
+		System.out.println("\nAmount of instrument\n");
+		int amount=writeNumber();
+		System.out.println("\nNumber of uses of the instrument\n");
+		int numberUses=writeNumber();
+		System.out.println("\nBody location of the instrument\n");
+		String bodyLocation=writeString();
+		System.out.println("\nPrice of the instrument\n");
+		int price=writeNumber();
+		System.out.println("\nID of the warehouse where the instrument is\n");
+		
+		Instrument inst = new Instrument (model,purpose,amount,numberUses,bodyLocation,price);
+		
+		return inst;
+		
+    	
+    }
+    
     
     //Show the Objects
     public static void showHospital(int pk)
