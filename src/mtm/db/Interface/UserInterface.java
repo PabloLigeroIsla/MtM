@@ -31,10 +31,7 @@ public class UserInterface
 			switch(option)
 				{
 				case 1:
-<<<<<<< HEAD
-=======
 					//Create tables
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 					createTable();
 					waitEnter();
 					break;
@@ -92,7 +89,7 @@ public class UserInterface
 				System.out.println(""
 						+ "Option 1.- Create Tables\n" 
 							//Option 1.1: all the tables?
-							//Option 1.2: One table //y se las enseñas
+							//Option 1.2: One table //y se las enseï¿½as
 								//option 1.2.1: Select the table
 							
 						+ "Option 2.- List entities\n"
@@ -224,25 +221,6 @@ public class UserInterface
 	//Data Base Methods
 	
 	public static void createTable()
-<<<<<<< HEAD
-=======
-	{
-		System.out.println("Create one or all the tables?");
-		int op = writeNumber(2);
-		switch(op)
-		{
-		case 1:
-			System.out.println("cual");
-			selectionMenu(1);
-			int i = writeNumber();
-			break;
-		case 2:
-			
-		}
-	}
-
-	public static void listEntity()
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 	{
 		System.out.println(" Do you want to create all the tables?\n");
 		String a = "Yes";
@@ -276,187 +254,23 @@ public class UserInterface
 		
 
 	}
-	
-	public static void showTable()
-	{}
-	
-	public static void intValTable()
-<<<<<<< HEAD
+
+	public static void listEntity()
 	{
-		System.out.println("\n\nSelect the table where you want to introduce a value:\n"
-				+ "1:Company\n"
-				+ "2:Employee\n"
-				+ "3:Hospital\n"
-				+ "4:Instrument\n"
-				+ "5:Machinery"
-				+ "6:Material\n"
-				+ "7:Warehouse\n"
-				+ "Introduce Option number: ");
-		int  option = writeNumber(8);
-		
-=======
-	{	
-		int option = writeNumber();;
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
-		switch(option)
-		{
-		case 1:
-			
-		case 2:
-//la pk se pone sola??
-
-			/*System.out.println("\nName of the employee:");
-			String ae = writeString();
-			System.out.println("\nSpeialization type of the employee: ");
-			String be = writeString();
-			System.out.println("\nType of contract:");
-			String ce = writeString();
-			System.out.println("\nMachinery:");
-			String de = writeString();			
-			Employee emp = new Employee(ae,be,ce,de);
-			dbManager.insert(emp);
-			break;*/
-			
-		case 3:
-			//In hospital we have 1 int and 3 Strings (int is the primary key with the autoincrement)
-			Hospital hosp = createHospital();
-			
-			dbManager.insert(hosp);
-			break;
-		case 4:
-			//In instrument we have 3 ints, 3 Strings and 2 List
-			
-			Instrument inst = createInstrument();
-			dbManager.insert(inst);
-			
-			break;
-			
-			
-		case 5:
-			
-			/*System.out.println("\nMachinery type:");
-			String am = writeString();
-			System.out.println("\nState of machinery: ");
-			String bm = writeString();
-			System.out.println("\nDate of installation:");
-			String cm[] = new String[2];
-			cm = createDate();
-
-			System.out.println("\nSize of machinery:");
-			int dm = writeNumber();
-			Mahinery mach = new Machinery(am,bm,cm,dm);
-			dbManager.insert(mach);*/
-			break;
-		case 6:  
-
-		case 8:
-			//In warehouse we have 2 ints and 1 String
-			
-			Warehouse warehouse = createWarehouse();
-			
-			dbManager.insert(warehouse);
-		}
 		
 		
 	}
-	
-    public static void delValTable()
-    {	
-    	
-    }
+	//Extra Methods
     
     public static void dropTable()
     {
-<<<<<<< HEAD
-    	//Option is set to select the table, and Option1 is set to print a list or one object
-    	int option,option1;
-    	System.out.println("\n\nSelect the table you want to show:\n"
-				+ "1:Company\n"
-				+ "2:Employee\n"
-				+ "3:Hospital\n"
-				+ "4:Instrument\n"
-				+ "5:Machinery"
-				+ "6:Material\n"
-				+ "7:Order\n"
-				+ "8:Warehouse\n"
-				+ "Introduce Option number: ");
-    	option = writeNumber(8);
-
-    	
-    	switch(option)
-    	{
-    	case 1:
-    		break;
-    	case 2:
-    		Employee emp=new Employee();
-
-    		ArrayList<Employee>empList = new ArrayList<Employee>();
-    		//empList = dbManager.selecEmployee(pk);
-    			
-    		break;
-    	case 3:
-    		listHospitals();
-    		break;
-    	case 4:
-    		break;
-    	case 5:
-    		Machinery mach=new Machinery();
-
-    			ArrayList<Machinery>machList = new ArrayList<Machinery>();
-    			//machList = dbManager.selecMachinery(pk);
-    			
-    		break;    	
-    	
-    		
-    	case 6:
-    		
-    		break;
-    	case 7:
-    		
-    		break;
-    	case 8:
-    		break;
-    	}
-    }
-    //Menu
-    public static void SelectionMenu(int option)
-    {
-    	//The option of this menu select the type of menu we wnat to print
-    	switch(option)
-    	{
-    	case 1:
-    		//This case is used to the method CreateTables
-    		System.out.println("\n\nSelect the table you want to create:\n"
-    				+ "1:Company\n"
-    				+ "2:Employee\n"
-    				+ "3:Hospital\n"
-    				+ "4:Instrument\n"
-    				+ "5:Machinery"
-    				+ "6:Material\n"
-    				+ "7:Warehouse\n"
-    				+ "Introduce Option number: ");
-    		
-    		break;
-    	case 2:
-    		break;
-    	case 3:
-    		break;
-    	case 4:
-    		break;
-    	case 5:
-    		break;
-    	case 6:
-    		break;
-    	}
-=======
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
     	
     }
     
     public static void updValTable()
-    {
-    	
-    }
+{
+}
+
     
     //Creation of Objects
     public static Hospital createHospital()
