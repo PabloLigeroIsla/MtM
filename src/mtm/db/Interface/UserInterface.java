@@ -4,12 +4,14 @@ import static mtm.db.Interface.Validator.createDate;
 import static mtm.db.Interface.Validator.waitEnter;
 import static mtm.db.Interface.Validator.writeNumber;
 import static mtm.db.Interface.Validator.writeString;
+import static mtm.db.Interface.Validator.writeOption;
 import java.util.ArrayList;
 import mtm.db.jdbc.DbManager;
 import mtm.db.pojos.Employee;
 import mtm.db.pojos.Hospital;
 import mtm.db.pojos.Instrument;
 import mtm.db.pojos.Machinery;
+import mtm.db.pojos.Material;
 import mtm.db.pojos.Order;
 import mtm.db.pojos.Warehouse;
 
@@ -223,9 +225,10 @@ public class UserInterface
 	public static void createTable()
 	{
 		System.out.println(" Do you want to create all the tables?\n");
-		String a = "Yes";
-		if (a.compareTo("Yes") == 0){
-			dbManager.createTables();
+		
+		String a = writeString();
+		if(writeOption(a)){
+		dbManager.createTables();
 		}else{
 			//See entity names
 			selectionMenu(1);
@@ -265,18 +268,99 @@ public class UserInterface
 	
 	public static void intValTable()
 	{
+		System.out.println("What table do you want to insert the value to? \n");
+		selectionMenu(1);
+		int op=0;
+		
+		switch(op){
+		
+		case 1: //Company   
+			Company comp = createCompany();
+			dbManager.insert(comp);
+			break;
+		case 2: //Employee
+			Employee emp = 
+			dbManager.insert(emp);
+			break;
+		case 3: //Hospital 
+			Hospital hosp = createHospital();
+			dbManager.insert(hosp);
+			break;
+		case 4: //Instrument
+			Instrument inst = createInstrument();
+			dbManager.insert(inst);
+			break;
+		case 5: //Machinery
+			Machinery mach = createMachinery();
+			dbManager.insert(mach);
+			break;
+		case 6: //Material
+			Material mat = createMaterial(); 
+			dbManager.insert(mat);
+			break;
+		case 7: // Warehouse
+			Warehouse war = createWarehouse();
+			dbManager.insert(war);
+			break;
+		}
+		
 		
 	}
 	public static void delValTable()
 	{
+		System.out.println("What table do you want to delete a value from? \n");
+		selectionMenu(1);
+		int op=0;
+		
+		switch(op){
+		
+		case 1: //Company 
+			listCompanies(false);
+			System.out.println("What company do you want to delete from this table? \n");
+			int pk1 = writeNumber();
+			dbManager.deleteCompany(pk1);
+			break;
+		case 2: //Employee
+			listEmployees(false);
+			System.out.println("What employee do you want to delete from this table? \n");
+			int pk2 = writeNumber();
+			dbManager.deleteEmployee(pk2);
+			break;
+		case 3: //Hospital 
+			listHospitals(false);
+			System.out.println("What hospital do you want to delete from this table? \n");
+			int pk3 = writeNumber();
+			dbManager.deleteHospital(pk3);
+			break;
+		case 4: //Instrument
+			listInstruments(false);
+			System.out.println("What instrument do you want to delete from this table? \n");
+			int pk4 = writeNumber();
+			dbManager.deleteInstrument(pk4);
+			break;
+		case 5: //Machinery
+			listMachineries(false);
+			System.out.println("What machinery do you want to delete from this table? \n");
+			int pk5 = writeNumber();
+			dbManager.deleteMachinery(pk5);
+			break;
+		case 6: //Material
+			listMaterials(false);
+			System.out.println("What material do you want to delete from this table? \n");
+			int pk6 = writeNumber();
+			dbManager.deleteMaterial(pk6);
+			break;
+		case 7: // Warehouse
+			listWarehouse(false);
+			System.out.println("What warehouse do you want to delete from this table? \n");
+			int pk7 = writeNumber();
+			dbManager.deleteWarehouse(pk7);
+			break;
+		}
 		
 	}
 	//Extra Methods
     
-    public static void dropTable()
-    {
-    	
-    }
     
     public static void updValTable()
 {
@@ -423,6 +507,7 @@ public class UserInterface
     	ord = dbManager.selectOrder(pk);
     	ord.toString();
     }
+    
     public static void listOrders()
     {
     	Order ord = new Order();
@@ -439,4 +524,23 @@ public class UserInterface
     	
     }
     
+    public static void showInstrument(int pk){
+    	Instrument inst = new Instrument();
+    	inst = dbManager.selectInstrument(pk);
+    	inst.toString();
+    	
+    }
+    //acabar Charo
+    public static void listInstruments(){
+    	
+    }
+    public static void showWarehouse(int pk){
+    	Warehouse war = new Warehouse();
+    	war = dbManager.selectWarehouse(pk);
+    	war.toString();
+    }
+    //acabar Charo
+    public static void listWarehouse(){
+    	
+    }
 }
