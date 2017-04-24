@@ -247,9 +247,6 @@ public class UserInterface
 					break;
 			
 			}
-			
-			
-
 		}
 		
 
@@ -258,6 +255,20 @@ public class UserInterface
 	public static void listEntity()
 	{
 		
+		
+	}
+	
+	public static void showTable()
+	{
+		
+	}
+	
+	public static void intValTable()
+	{
+		
+	}
+	public static void delValTable()
+	{
 		
 	}
 	//Extra Methods
