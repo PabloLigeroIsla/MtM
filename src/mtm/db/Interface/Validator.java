@@ -118,7 +118,7 @@ public abstract class Validator
 	public static boolean writeOption(String option)
 	{
 		boolean a = false;
-		if(option.equals("YES"))
+		if(option.compareTo("YES") == 0)
 		{
 			a = true;
 		}

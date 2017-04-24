@@ -556,7 +556,7 @@ public class SQL
 			e.printStackTrace();
 		}
 	}
-	//Drop
+
 	
 	//Insert
 		public void insert(Hospital hosp) 
