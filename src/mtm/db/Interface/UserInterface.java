@@ -36,7 +36,7 @@ public class UserInterface
 				{
 			
 				case 1:
-					createTables();
+					createTable();
 					waitEnter();
 					break;
 				case 2:
@@ -145,9 +145,39 @@ public class UserInterface
 	
 	//Data Base Methods
 	
-	public static void createTables()
+	public static void createTable()
 	{
+		System.out.println(" Do you want to create all the tables?\n");
+		String a = "Yes";
+		if (a.compareTo("Yes") == 0){
+			dbManager.createTables();
+		}else{
+			//See entity names
+			SelectionMenu(1);
+			int op=0;
+			switch(op){
+				case 1: dbManager.createTableCompany();
+					break;
+				case 2: dbManager.createTableEmployee();
+					break;
+				case 3: dbManager.createTableHospital();
+					break;
+				case 4: dbManager.createTableInstrument();
+					break;
+				case 5: dbManager.createTableMachinery();
+					break;
+				case 6: dbManager.createTableMaterial();
+					break;
+				case 7: dbManager.createTableWarehouse();
+					break;
+			
+			}
+			
+			
+
+		}
 		
+
 	}
 
 	public static void intValTable()
@@ -159,7 +189,7 @@ public class UserInterface
 				+ "4:Instrument\n"
 				+ "5:Machinery"
 				+ "6:Material\n"
-				+ "8:Warehouse\n"
+				+ "7:Warehouse\n"
 				+ "Introduce Option number: ");
 		int  option = writeNumber(8);
 		
@@ -293,7 +323,7 @@ public class UserInterface
     				+ "4:Instrument\n"
     				+ "5:Machinery"
     				+ "6:Material\n"
-    				+ "8:Warehouse\n"
+    				+ "7:Warehouse\n"
     				+ "Introduce Option number: ");
     		
     		break;
