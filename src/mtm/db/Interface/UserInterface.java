@@ -1,9 +1,7 @@
 package mtm.db.Interface;
 
-import static mtm.db.Interface.Validator.createDate;
-import static mtm.db.Interface.Validator.waitEnter;
-import static mtm.db.Interface.Validator.writeNumber;
-import static mtm.db.Interface.Validator.writeString;
+
+import static mtm.db.Interface.Validator.*;
 import java.util.ArrayList;
 import mtm.db.jdbc.DbManager;
 import mtm.db.pojos.Employee;
@@ -54,22 +52,18 @@ public class UserInterface
 					delValTable();
 					waitEnter();
 					break;
+
 				case 6:
-					//Drop
-					dropTable();
-					waitEnter();
-					break;
-				case 7:
 					//Modify
 					updValTable();
 					waitEnter();
 					break;
-				case 8:
+				case 7:
 					dbManager.closeConnection();
 					waitEnter();
 					break;
 				}
-		}while(option!=8);
+		}while(option!=7);
 	}
 
 	// Menu
@@ -114,14 +108,7 @@ public class UserInterface
 							///Option 4.1: What table do you want to delete a value from? //y se las ense�as
 								//Select the table
 						
-						
-						+ "Option 6.- Drop Tables\n"
-							//Option 5.1: all the tables?
-							//Option 5.2: One table //y se las ense�as (pero no tiene sentido borrar hospital, warehouse, company?
-								//Select the table
-						//si es solo una tabla, tras esto delete la tabla con relaciones que afecten a la tabla eliminada
-						
-						+ "Option 7.- Modify value\n"
+						+ "Option 6.- Modify value\n"
 							//mostrar entidades
 							//Option 6.1: Select a table to madify a value
 							// mostrar valores d la tabla
@@ -130,7 +117,7 @@ public class UserInterface
 							// Das el valor
 							// update
 
-						+ "Option 8.- Salir de la base de datos\n");
+						+ "Option 7.- BUUUUUU \n");
 
 	}
 	
@@ -193,25 +180,13 @@ public class UserInterface
     				+ "3:Order\n");
     		break;
     	case 6:
-    		//Drop option menu
-    		System.out.println("\n\nSelect the table you want to Drop:\n"
-    				+ "1:Company\n"
-    				+ "2:Employee\n"
-    				+ "3:Hospital\n"
-    				+ "4:Instrument\n"
-    				+ "5:Machinery"
-    				+ "6:Material\n"
-    				+ "7:Order"
-    				+ "8:Warehouse\n");
-    		break;
-    	case 7:
     		//Menu for the Update
     		System.out.println("\n\nSelect the table you want to Drop:\n"
     				+ "6:Machinery\n"
     				+ "7:WareHouse");
     		break;
-    	case 8:
-    		//
+    	case 7:
+    		//BUUUUUUU
     		System.out.println("Are you Sure?");
     		break;
     	}
@@ -223,9 +198,10 @@ public class UserInterface
 	public static void createTable()
 	{
 		System.out.println(" Do you want to create all the tables?\n");
-		String a = "Yes";
-		if (a.compareTo("Yes") == 0){
-			dbManager.createTables();
+		
+		String a = writeString();
+		if(writeOption(a)){
+		dbManager.createTables();
 		}else{
 			//See entity names
 			selectionMenu(1);
@@ -254,29 +230,163 @@ public class UserInterface
 
 	public static void listEntity()
 	{
+		System.out.println("Do you want to see the relations? Write YES or NOT");
+		boolean relationOption = writeOption(writeString());
 		
+		System.out.println("What table do you want to list?");
+		selectionMenu(2);
+		int option = writeNumber(8);
+		
+		switch(option)
+		{
+		case 1:
+			listCompanies(relationOption);
+			break;
+		case 2:
+			listEmployees(relationOption);
+			break;
+		case 3:
+			listHospitals(relationOption);
+			break;
+		case 4:
+			listInstruments(relationOption);
+			break;
+		case 5:
+			listMachinery(relationOption);
+			break;
+		case 6:
+			listMaterials(relationOption);
+			break;
+		case 7:
+			listOrders(relationOption);
+			break;
+		case 8:
+			listWareHouse(relationOption);
+			break;
+		}
 		
 	}
 	
 	public static void showTable()
 	{
-		
+		selectionMenu(3);
+		int option = writeNumber(8);
+		switch(option)
+		{
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		case 5:
+			break;
+		case 6:
+			break;
+		case 7:
+			break;	
+		case 8:
+			break;
+		}
 	}
 	
 	public static void intValTable()
 	{
+		System.out.println("What table do you want to insert the value to? \n");
+		selectionMenu(1);
+		int op=0;
+		
+		switch(op){
+		
+		case 1: //Company   
+			Company comp = createCompany();
+			dbManager.insert(comp);
+			break;
+		case 2: //Employee
+			Employee emp = 
+			dbManager.insert(emp);
+			break;
+		case 3: //Hospital 
+			Hospital hosp = createHospital();
+			dbManager.insert(hosp);
+			break;
+		case 4: //Instrument
+			Instrument inst = createInstrument();
+			dbManager.insert(inst);
+			break;
+		case 5: //Machinery
+			Machinery mach = createMachinery();
+			dbManager.insert(mach);
+			break;
+		case 6: //Material
+			Material mat = createMaterial(); 
+			dbManager.insert(mat);
+			break;
+		case 7: // Warehouse
+			Warehouse war = createWarehouse();
+			dbManager.insert(war);
+			break;
+		}
+		
 		
 	}
 	public static void delValTable()
 	{
+		System.out.println("What table do you want to delete a value from? \n");
+		selectionMenu(1);
+		int op=0;
+		
+		switch(op){
+		
+		case 1: //Company 
+			listCompanies(false);
+			System.out.println("What company do you want to delete from this table? \n");
+			int pk1 = writeNumber();
+			dbManager.deleteCompany(pk1);
+			break;
+		case 2: //Employee
+			listEmployees(false);
+			System.out.println("What employee do you want to delete from this table? \n");
+			int pk2 = writeNumber();
+			dbManager.deleteEmployee(pk2);
+			break;
+		case 3: //Hospital 
+			listHospitals(false);
+			System.out.println("What hospital do you want to delete from this table? \n");
+			int pk3 = writeNumber();
+			dbManager.deleteHospital(pk3);
+			break;
+		case 4: //Instrument
+			listInstruments(false);
+			System.out.println("What instrument do you want to delete from this table? \n");
+			int pk4 = writeNumber();
+			dbManager.deleteInstrument(pk4);
+			break;
+		case 5: //Machinery
+			listMachineries(false);
+			System.out.println("What machinery do you want to delete from this table? \n");
+			int pk5 = writeNumber();
+			dbManager.deleteMachinery(pk5);
+			break;
+		case 6: //Material
+			listMaterials(false);
+			System.out.println("What material do you want to delete from this table? \n");
+			int pk6 = writeNumber();
+			dbManager.deleteMaterial(pk6);
+			break;
+		case 7: // Warehouse
+			listWarehouse(false);
+			System.out.println("What warehouse do you want to delete from this table? \n");
+			int pk7 = writeNumber();
+			dbManager.deleteWarehouse(pk7);
+			break;
+		}
 		
 	}
 	//Extra Methods
     
-    public static void dropTable()
-    {
-    	
-    }
     
     public static void updValTable()
 {
@@ -434,13 +544,16 @@ public class UserInterface
 }
     
     //Show the Objects
+    
+    
     public static void showHospital(int pk)
     {
     	Hospital hosp = new Hospital();
 		hosp = dbManager.selectHospital(pk);
+		dbManager.setHospitalRelations(hosp);
 		hosp.toString();
     }
-    public static void listHospitals()
+    public static void listHospitals(boolean relation)
     {
     	Hospital hosp = new Hospital();
 		ArrayList<Hospital> hospList = new ArrayList<Hospital>();
@@ -453,7 +566,15 @@ public class UserInterface
 			hosp = hospList.get(count);
 			String name = hosp.getName();
 			int id = hosp.getHospitalID();
-			System.out.printf("id: %d,name: %s\n",id,name);
+			if(relation)
+			{
+				dbManager.setHospitalRelations(hosp);
+				System.out.printf("id: %d,name: %s, relation: %d\n",id,name,hosp.getOrderList().toString());
+				count++;
+			}else{
+				System.out.printf("id: %d,name: %s\n",id,name);
+				count++;
+			}
 		}
     }
     
@@ -463,7 +584,7 @@ public class UserInterface
     	ord = dbManager.selectOrder(pk);
     	ord.toString();
     }
-    public static void listOrders()
+    public static void listOrders(boolean relation)
     {
     	Order ord = new Order();
     	ArrayList<Order> ordList = new ArrayList<Order>();
@@ -473,12 +594,21 @@ public class UserInterface
     	
     	while(count < ordList.size())
     	{
-    		ord = ordList.get(count);
-    		System.out.printf("id: %d\n",ord.getOrderID());
+    		if(relation)
+    		{
+    			dbManager.setOrderRelations(ord);
+    			System.out.printf("id: %d, relations: %d\n",ord.getOrderID(),ord.getHospitalList().toString());
+    		}else
+    		{
+    			ord = ordList.get(count);
+    			System.out.printf("id: %d\n",ord.getOrderID());
+    		}
+    		
     	}
     	
     }
     
+<<<<<<< HEAD
     /*
     public static void showEmployee(int pk)
     {
@@ -527,4 +657,25 @@ public class UserInterface
     	}
     
     */
+=======
+    public static void showInstrument(int pk){
+    	Instrument inst = new Instrument();
+    	inst = dbManager.selectInstrument(pk);
+    	inst.toString();
+    	
+    }
+    //acabar Charo
+    public static void listInstruments(){
+    	
+    }
+    public static void showWarehouse(int pk){
+    	Warehouse war = new Warehouse();
+    	war = dbManager.selectWarehouse(pk);
+    	war.toString();
+    }
+    //acabar Charo
+    public static void listWarehouse(){
+    	
+    }
+>>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 }
