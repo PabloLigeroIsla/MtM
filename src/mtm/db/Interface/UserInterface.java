@@ -228,7 +228,7 @@ public class UserInterface
 			dbManager.createTables();
 		}else{
 			//See entity names
-			SelectionMenu(1);
+			selectionMenu(1);
 			int op=0;
 			switch(op){
 				case 1: dbManager.createTableCompany();
@@ -247,9 +247,6 @@ public class UserInterface
 					break;
 			
 			}
-			
-			
-
 		}
 		
 
@@ -258,6 +255,20 @@ public class UserInterface
 	public static void listEntity()
 	{
 		
+		
+	}
+	
+	public static void showTable()
+	{
+		
+	}
+	
+	public static void intValTable()
+	{
+		
+	}
+	public static void delValTable()
+	{
 		
 	}
 	//Extra Methods
