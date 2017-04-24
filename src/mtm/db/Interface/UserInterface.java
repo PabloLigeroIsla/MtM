@@ -1,10 +1,15 @@
 package mtm.db.Interface;
 
+<<<<<<< HEAD
 import static mtm.db.Interface.Validator.createDate;
 import static mtm.db.Interface.Validator.waitEnter;
 import static mtm.db.Interface.Validator.writeNumber;
 import static mtm.db.Interface.Validator.writeString;
 import static mtm.db.Interface.Validator.writeOption;
+=======
+
+import static mtm.db.Interface.Validator.*;
+>>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 import java.util.ArrayList;
 import mtm.db.jdbc.DbManager;
 import mtm.db.pojos.Employee;
@@ -56,22 +61,18 @@ public class UserInterface
 					delValTable();
 					waitEnter();
 					break;
+
 				case 6:
-					//Drop
-					dropTable();
-					waitEnter();
-					break;
-				case 7:
 					//Modify
 					updValTable();
 					waitEnter();
 					break;
-				case 8:
+				case 7:
 					dbManager.closeConnection();
 					waitEnter();
 					break;
 				}
-		}while(option!=8);
+		}while(option!=7);
 	}
 
 	// Menu
@@ -116,14 +117,7 @@ public class UserInterface
 							///Option 4.1: What table do you want to delete a value from? //y se las ense�as
 								//Select the table
 						
-						
-						+ "Option 6.- Drop Tables\n"
-							//Option 5.1: all the tables?
-							//Option 5.2: One table //y se las ense�as (pero no tiene sentido borrar hospital, warehouse, company?
-								//Select the table
-						//si es solo una tabla, tras esto delete la tabla con relaciones que afecten a la tabla eliminada
-						
-						+ "Option 7.- Modify value\n"
+						+ "Option 6.- Modify value\n"
 							//mostrar entidades
 							//Option 6.1: Select a table to madify a value
 							// mostrar valores d la tabla
@@ -132,7 +126,7 @@ public class UserInterface
 							// Das el valor
 							// update
 
-						+ "Option 8.- Salir de la base de datos\n");
+						+ "Option 7.- BUUUUUU \n");
 
 	}
 	
@@ -195,25 +189,13 @@ public class UserInterface
     				+ "3:Order\n");
     		break;
     	case 6:
-    		//Drop option menu
-    		System.out.println("\n\nSelect the table you want to Drop:\n"
-    				+ "1:Company\n"
-    				+ "2:Employee\n"
-    				+ "3:Hospital\n"
-    				+ "4:Instrument\n"
-    				+ "5:Machinery"
-    				+ "6:Material\n"
-    				+ "7:Order"
-    				+ "8:Warehouse\n");
-    		break;
-    	case 7:
     		//Menu for the Update
     		System.out.println("\n\nSelect the table you want to Drop:\n"
     				+ "6:Machinery\n"
     				+ "7:WareHouse");
     		break;
-    	case 8:
-    		//
+    	case 7:
+    		//BUUUUUUU
     		System.out.println("Are you Sure?");
     		break;
     	}
@@ -257,13 +239,66 @@ public class UserInterface
 
 	public static void listEntity()
 	{
+		System.out.println("Do you want to see the relations? Write YES or NOT");
+		boolean relationOption = writeOption(writeString());
 		
+		System.out.println("What table do you want to list?");
+		selectionMenu(2);
+		int option = writeNumber(8);
+		
+		switch(option)
+		{
+		case 1:
+			listCompanies(relationOption);
+			break;
+		case 2:
+			listEmployees(relationOption);
+			break;
+		case 3:
+			listHospitals(relationOption);
+			break;
+		case 4:
+			listInstruments(relationOption);
+			break;
+		case 5:
+			listMachinery(relationOption);
+			break;
+		case 6:
+			listMaterials(relationOption);
+			break;
+		case 7:
+			listOrders(relationOption);
+			break;
+		case 8:
+			listWareHouse(relationOption);
+			break;
+		}
 		
 	}
 	
 	public static void showTable()
 	{
-		
+		selectionMenu(3);
+		int option = writeNumber(8);
+		switch(option)
+		{
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		case 5:
+			break;
+		case 6:
+			break;
+		case 7:
+			break;	
+		case 8:
+			break;
+		}
 	}
 	
 	public static void intValTable()
@@ -306,6 +341,7 @@ public class UserInterface
 		
 		
 	}
+	
 	public static void delValTable()
 	{
 		System.out.println("What table do you want to delete a value from? \n");
@@ -360,7 +396,10 @@ public class UserInterface
 		
 	}
 	//Extra Methods
+<<<<<<< HEAD
     
+=======
+>>>>>>> branch 'master' of https://github.com/papsers/MtM.git
     
     public static void updValTable()
 {
@@ -478,13 +517,16 @@ public class UserInterface
     
     
     //Show the Objects
+    
+    
     public static void showHospital(int pk)
     {
     	Hospital hosp = new Hospital();
 		hosp = dbManager.selectHospital(pk);
+		dbManager.setHospitalRelations(hosp);
 		hosp.toString();
     }
-    public static void listHospitals()
+    public static void listHospitals(boolean relation)
     {
     	Hospital hosp = new Hospital();
 		ArrayList<Hospital> hospList = new ArrayList<Hospital>();
@@ -497,7 +539,15 @@ public class UserInterface
 			hosp = hospList.get(count);
 			String name = hosp.getName();
 			int id = hosp.getHospitalID();
-			System.out.printf("id: %d,name: %s\n",id,name);
+			if(relation)
+			{
+				dbManager.setHospitalRelations(hosp);
+				System.out.printf("id: %d,name: %s, relation: %d\n",id,name,hosp.getOrderList().toString());
+				count++;
+			}else{
+				System.out.printf("id: %d,name: %s\n",id,name);
+				count++;
+			}
 		}
     }
     
@@ -507,8 +557,12 @@ public class UserInterface
     	ord = dbManager.selectOrder(pk);
     	ord.toString();
     }
+<<<<<<< HEAD
     
     public static void listOrders()
+=======
+    public static void listOrders(boolean relation)
+>>>>>>> branch 'master' of https://github.com/papsers/MtM.git
     {
     	Order ord = new Order();
     	ArrayList<Order> ordList = new ArrayList<Order>();
@@ -518,8 +572,16 @@ public class UserInterface
     	
     	while(count < ordList.size())
     	{
-    		ord = ordList.get(count);
-    		System.out.printf("id: %d\n",ord.getOrderID());
+    		if(relation)
+    		{
+    			dbManager.setOrderRelations(ord);
+    			System.out.printf("id: %d, relations: %d\n",ord.getOrderID(),ord.getHospitalList().toString());
+    		}else
+    		{
+    			ord = ordList.get(count);
+    			System.out.printf("id: %d\n",ord.getOrderID());
+    		}
+    		
     	}
     	
     }
