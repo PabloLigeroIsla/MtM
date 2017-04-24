@@ -21,7 +21,7 @@ import mtm.db.pojos.Warehouse;
 
 public class SQL 
 {
-	Connection c = openConnection();
+	Connection c = null;
 	
 	
 	//Create
@@ -1663,7 +1663,6 @@ boolean a = false;
 	//Connection
 		public Connection openConnection()
 	{
-		Connection c = null;
 		try
 		{
 			Class.forName("org.sqlite.JDBC");
@@ -1677,7 +1676,7 @@ boolean a = false;
 		}
 		return c;
 	}	
-		public void closeConnection(Connection c)
+		public void closeConnection()
 		{
 			try
 			{

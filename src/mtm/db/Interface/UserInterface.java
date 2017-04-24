@@ -4,9 +4,7 @@ import static mtm.db.Interface.Validator.createDate;
 import static mtm.db.Interface.Validator.waitEnter;
 import static mtm.db.Interface.Validator.writeNumber;
 import static mtm.db.Interface.Validator.writeString;
-
 import java.util.ArrayList;
-
 import mtm.db.jdbc.DbManager;
 import mtm.db.pojos.Employee;
 import mtm.db.pojos.Hospital;
@@ -24,64 +22,57 @@ public class UserInterface
 	public static void main(String args[]) 
 	{
 		
-		//Object jdbc
-		
-		
 		int option;
+		dbManager.openConnection();
 		do{
 			//Start of the db
 			option = openMenu();
 		
 			switch(option)
 				{
-			
 				case 1:
-					createTables();
+					//Create tables
+					createTable();
 					waitEnter();
 					break;
 				case 2:
-					showObject();
+					//List Entities
+					listEntity();
 					waitEnter();
 				case 3:
-					intValTable();
+					//show table
+					showTable();
 					waitEnter();
 					break;
 				case 4:
-					
+					//Introduce Value
+					intValTable();
 					waitEnter();
 					break;
 				case 5:
-					
+					//DeleteOption
+					delValTable();
 					waitEnter();
 					break;
 				case 6:
+					//Drop
+					dropTable();
 					waitEnter();
 					break;
 				case 7:
+					//Modify
+					updValTable();
 					waitEnter();
 					break;
 				case 8:
-					waitEnter();
-					break;
-				case 9:
-					waitEnter();
-					break;
-				case 10:
-					waitEnter();
-					break;
-				case 11:
-					waitEnter();
-					break;
-				case 12:
-					System.out.println("The End");
+					dbManager.closeConnection();
 					waitEnter();
 					break;
 				}
-		}while(option!=12);
+		}while(option!=8);
 	}
 
-
-	//User Methods
+	// Menu
 	public static int openMenu()
 	{
 		int option;
@@ -91,8 +82,8 @@ public class UserInterface
 		
 		return option;
 	}
-
-	public static void printMenu()
+    
+    public static void printMenu()
 	{
 		//Si a�ades opciones, recuerda mirar el metodo abrirMenu
 				System.out.println(""
@@ -108,11 +99,15 @@ public class UserInterface
 									//Seleccioname 1 
 									//muestras
 						+ "Option 3.- Show table"
-							//Selecci�name la tabla
-							//Muestramela 
+							//Seleccioname la tabla que quieres ver
+							//Muestramela con todo
 						
+<<<<<<< HEAD
 						+ "Option 3.- Introduce value to a table"
 						
+=======
+						+ "Option 4.- Introduce value to a table"
+>>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 							//Option 3.1: What table do you want to insert the value to? //y se las ense�as
 								//Listas tablas
 								//Select the table
@@ -120,18 +115,18 @@ public class UserInterface
 								
 						//aqui ademas se debe llamar a UPDATE la tabla, y la relacion con otra tabla si la tiene
 						
-						+ "Option 4.- Delete value of a Table\n"
+						+ "Option 5.- Delete value of a Table\n"
 							///Option 4.1: What table do you want to delete a value from? //y se las ense�as
 								//Select the table
 						
 						
-						+ "Option 5.- Drop Tables\n"
+						+ "Option 6.- Drop Tables\n"
 							//Option 5.1: all the tables?
 							//Option 5.2: One table //y se las ense�as (pero no tiene sentido borrar hospital, warehouse, company?
 								//Select the table
 						//si es solo una tabla, tras esto delete la tabla con relaciones que afecten a la tabla eliminada
 						
-						+ "Option 6.- Modify value\n"
+						+ "Option 7.- Modify value\n"
 							//mostrar entidades
 							//Option 6.1: Select a table to madify a value
 							// mostrar valores d la tabla
@@ -140,147 +135,11 @@ public class UserInterface
 							// Das el valor
 							// update
 
-						+ "Option 7.- Salir de la base de datos\n");
+						+ "Option 8.- Salir de la base de datos\n");
 
 	}
 	
-	//Data Base Methods
-	
-	public static void createTables()
-	{
-		
-	}
-
-	public static void intValTable()
-	{
-		System.out.println("\n\nSelect the table where you want to introduce a value:\n"
-				+ "1:Company\n"
-				+ "2:Employee\n"
-				+ "3:Hospital\n"
-				+ "4:Instrument\n"
-				+ "5:Machinery"
-				+ "6:Material\n"
-				+ "8:Warehouse\n"
-				+ "Introduce Option number: ");
-		int  option = writeNumber(8);
-		
-		switch(option)
-		{
-		case 1:
-			
-		case 2:
-//la pk se pone sola??
-
-			/*System.out.println("\nName of the employee:");
-			String ae = writeString();
-			System.out.println("\nSpeialization type of the employee: ");
-			String be = writeString();
-			System.out.println("\nType of contract:");
-			String ce = writeString();
-			System.out.println("\nMachinery:");
-			String de = writeString();			
-			Employee emp = new Employee(ae,be,ce,de);
-			dbManager.insert(emp);
-			break;*/
-			
-		case 3:
-			//In hospital we have 1 int and 3 Strings (int is the primary key with the autoincrement)
-			Hospital hosp = createHospital();
-			
-			dbManager.insert(hosp);
-			break;
-		case 4:
-			//In instrument we have 3 ints, 3 Strings and 2 List
-			
-			Instrument inst = createInstrument();
-			dbManager.insert(inst);
-			
-			break;
-			
-			
-		case 5:
-			
-			/*System.out.println("\nMachinery type:");
-			String am = writeString();
-			System.out.println("\nState of machinery: ");
-			String bm = writeString();
-			System.out.println("\nDate of installation:");
-			String cm[] = new String[2];
-			cm = createDate();
-
-			System.out.println("\nSize of machinery:");
-			int dm = writeNumber();
-			Mahinery mach = new Machinery(am,bm,cm,dm);
-			dbManager.insert(mach);*/
-			break;
-		case 6:  
-
-		case 8:
-			//In warehouse we have 2 ints and 1 String
-			
-			Warehouse warehouse = createWarehouse();
-			
-			dbManager.insert(warehouse);
-		}
-		
-		
-	}
-	//Extra Methods
-    
-    public static void showObject()
-    {
-    	//Option is set to select the table, and Option1 is set to print a list or one object
-    	int option,option1;
-    	System.out.println("\n\nSelect the table you want to show:\n"
-				+ "1:Company\n"
-				+ "2:Employee\n"
-				+ "3:Hospital\n"
-				+ "4:Instrument\n"
-				+ "5:Machinery"
-				+ "6:Material\n"
-				+ "7:Order\n"
-				+ "8:Warehouse\n"
-				+ "Introduce Option number: ");
-    	option = writeNumber(8);
-
-    	
-    	switch(option)
-    	{
-    	case 1:
-    		break;
-    	case 2:
-    		Employee emp=new Employee();
-
-    		ArrayList<Employee>empList = new ArrayList<Employee>();
-    		//empList = dbManager.selecEmployee(pk);
-    			
-    		break;
-    	case 3:
-    		listHospitals();
-    		break;
-    	case 4:
-    		break;
-    	case 5:
-    		Machinery mach=new Machinery();
-
-    			ArrayList<Machinery>machList = new ArrayList<Machinery>();
-    			//machList = dbManager.selecMachinery(pk);
-    			
-    		break;    	
-    	
-    		
-    	case 6:
-    		
-    		break;
-    	case 7:
-    		
-    		break;
-    	case 8:
-    		break;
-    	}
-    }
-    //Menu
-    public static void SelectionMenu(int option)
+    public static void selectionMenu(int option)
     {
     	//The option of this menu select the type of menu we wnat to print
     	switch(option)
@@ -294,23 +153,141 @@ public class UserInterface
     				+ "4:Instrument\n"
     				+ "5:Machinery"
     				+ "6:Material\n"
-    				+ "8:Warehouse\n"
-    				+ "Introduce Option number: ");
+    				+ "7:Order"
+    				+ "8:Warehouse\n");
     		
     		break;
     	case 2:
+    		//This case is used when you want to list an Entity
+    		System.out.println("\n\nSelect the table you want to List:\n"
+    				+ "1:Company\n"
+    				+ "2:Employee\n"
+    				+ "3:Hospital\n"
+    				+ "4:Instrument\n"
+    				+ "5:Machinery"
+    				+ "6:Material\n"
+    				+ "8:Warehouse\n");
     		break;
     	case 3:
+    		System.out.println("\n\nSelect the table you want to show:\n"
+    				+ "1:Company\n"
+    				+ "2:Employee\n"
+    				+ "3:Hospital\n"
+    				+ "4:Instrument\n"
+    				+ "5:Machinery"
+    				+ "6:Material\n"
+    				+ "7:Order"
+    				+ "8:Warehouse\n");
     		break;
     	case 4:
+    		//This case is used whuen you want to introduce a value in the dataBase
+    		System.out.println("\n\nSelect the table where ypu wsnt to insert the value:\n"
+    				+ "1:Company\n"
+    				+ "2:Employee\n"
+    				+ "3:Hospital\n"
+    				+ "4:Instrument\n"
+    				+ "5:Machinery"
+    				+ "6:Material\n"
+    				+ "7:Warehouse\n");
     		break;
     	case 5:
+    		//Menu for the delete option
+    		System.out.println("\n\nSelect the table where you want to delate a value:\n"
+    				+ "1:Company\n"
+    				+ "2:Employee\n"
+    				+ "3:Order\n");
     		break;
     	case 6:
+    		//Drop option menu
+    		System.out.println("\n\nSelect the table you want to Drop:\n"
+    				+ "1:Company\n"
+    				+ "2:Employee\n"
+    				+ "3:Hospital\n"
+    				+ "4:Instrument\n"
+    				+ "5:Machinery"
+    				+ "6:Material\n"
+    				+ "7:Order"
+    				+ "8:Warehouse\n");
+    		break;
+    	case 7:
+    		//Menu for the Update
+    		System.out.println("\n\nSelect the table you want to Drop:\n"
+    				+ "6:Machinery\n"
+    				+ "7:WareHouse");
+    		break;
+    	case 8:
+    		//
+    		System.out.println("Are you Sure?");
     		break;
     	}
     	
     }
+    
+	//Data Base Methods
+	
+	public static void createTable()
+	{
+		System.out.println(" Do you want to create all the tables?\n");
+		String a = "Yes";
+		if (a.compareTo("Yes") == 0){
+			dbManager.createTables();
+		}else{
+			//See entity names
+			selectionMenu(1);
+			int op=0;
+			switch(op){
+				case 1: dbManager.createTableCompany();
+					break;
+				case 2: dbManager.createTableEmployee();
+					break;
+				case 3: dbManager.createTableHospital();
+					break;
+				case 4: dbManager.createTableInstrument();
+					break;
+				case 5: dbManager.createTableMachinery();
+					break;
+				case 6: dbManager.createTableMaterial();
+					break;
+				case 7: dbManager.createTableWarehouse();
+					break;
+			
+			}
+		}
+		
+
+	}
+
+	public static void listEntity()
+	{
+		
+		
+	}
+	
+	public static void showTable()
+	{
+		
+	}
+	
+	public static void intValTable()
+	{
+		
+	}
+	public static void delValTable()
+	{
+		
+	}
+	//Extra Methods
+    
+    public static void dropTable()
+    {
+    	
+    }
+    
+    public static void updValTable()
+{
+}
+
+    
     //Creation of Objects
     public static Hospital createHospital()
     {
@@ -467,4 +444,5 @@ public class UserInterface
     	
     }
     
+  
 }
