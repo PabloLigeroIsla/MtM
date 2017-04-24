@@ -102,12 +102,7 @@ public class UserInterface
 							//Seleccioname la tabla que quieres ver
 							//Muestramela con todo
 						
-<<<<<<< HEAD
-						+ "Option 3.- Introduce value to a table"
-						
-=======
 						+ "Option 4.- Introduce value to a table"
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 							//Option 3.1: What table do you want to insert the value to? //y se las ense�as
 								//Listas tablas
 								//Select the table
@@ -444,5 +439,4 @@ public class UserInterface
     	
     }
     
-  
 }
