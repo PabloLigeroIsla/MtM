@@ -1,22 +1,13 @@
 package mtm.db.Interface;
 
-<<<<<<< HEAD
-import static mtm.db.Interface.Validator.createDate;
-import static mtm.db.Interface.Validator.waitEnter;
-import static mtm.db.Interface.Validator.writeNumber;
-import static mtm.db.Interface.Validator.writeString;
-import static mtm.db.Interface.Validator.writeOption;
-=======
 
 import static mtm.db.Interface.Validator.*;
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 import java.util.ArrayList;
 import mtm.db.jdbc.DbManager;
 import mtm.db.pojos.Employee;
 import mtm.db.pojos.Hospital;
 import mtm.db.pojos.Instrument;
 import mtm.db.pojos.Machinery;
-import mtm.db.pojos.Material;
 import mtm.db.pojos.Order;
 import mtm.db.pojos.Warehouse;
 
@@ -341,7 +332,6 @@ public class UserInterface
 		
 		
 	}
-	
 	public static void delValTable()
 	{
 		System.out.println("What table do you want to delete a value from? \n");
@@ -396,10 +386,7 @@ public class UserInterface
 		
 	}
 	//Extra Methods
-<<<<<<< HEAD
     
-=======
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
     
     public static void updValTable()
 {
@@ -557,12 +544,7 @@ public class UserInterface
     	ord = dbManager.selectOrder(pk);
     	ord.toString();
     }
-<<<<<<< HEAD
-    
-    public static void listOrders()
-=======
     public static void listOrders(boolean relation)
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
     {
     	Order ord = new Order();
     	ArrayList<Order> ordList = new ArrayList<Order>();
