@@ -392,6 +392,46 @@ public class UserInterface
     	
     }
     
+    public static Employee createEmployee(){
+
+	System.out.println("\nName of the employee:");
+	String a = writeString();
+	System.out.println("\nType of contract: ");
+	String b = writeString();
+	System.out.println("\nSpecialization type:");
+	String c = writeString();
+	System.out.println("\nIn which machinery is the employee specializated in?");
+	
+	
+	
+	
+	
+
+	Employee emp = new Employee(a,b,c);
+	
+	return emp;
+    
+    }
+   
+    public static Machinery createMachinery(){
+    	
+	Machinery mach = new Machinery();
+	
+    	System.out.println("\nMachinery type");
+		String a=writeString();
+		System.out.println("\nState of machinery");
+		String b=writeString();
+		System.out.println("\nDate of installation:");		
+		String c1[] = new String[2];	
+		c1 = createDate();
+
+		System.out.println("\nSize of machinery");
+		int d=writeNumber();
+
+		mach = dbManager.createPojoMachinery(a,b,c1[0],c1[1],c1[2],d);
+		
+		return mach;
+}
     
     //Show the Objects
     public static void showHospital(int pk)
@@ -439,4 +479,52 @@ public class UserInterface
     	
     }
     
+    /*
+    public static void showEmployee(int pk)
+    {
+    	Employee emp = new Order();
+    	emp = dbManager.selectEmployee(pk);
+    	emp.toString();
+    }
+    public static void listEmployee()
+    {
+    	Employee emp = new Employee();
+    	ArrayList<Employee> ordList = new ArrayList<Employee>();
+    	empList = dbManager.selectAllEmployee();
+    	
+    	int count = 0;
+    	
+    	while(count < empList.size())
+    	{
+    		emp = empList.get(count);
+    		System.out.printf("id: %d\n",emp.getEmployeeID());
+    	}
+    	
+    	
+    	
+    	
+    }*/
+    
+    /*
+    public static void showMachinery(int pk)
+    {
+    	Machinery mach = new Machinery();
+    	mach = dbManager.selectMachinery(pk);
+    	mach.toString();
+    }
+    public static void listMachinery()
+    {
+    	Machinery mach = new Machinery();
+    	ArrayList<Machinery> ordList = new ArrayList<Machinery>();
+    	machList = dbManager.selectAllMachinery();
+    	
+    	int count = 0;
+    	
+    	while(count < machList.size())
+    	{
+    		mach =machList.get(count);
+    		System.out.printf("id: %d\n",mach.getMachineryID());
+    	}
+    
+    */
 }
