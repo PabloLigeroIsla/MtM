@@ -607,8 +607,25 @@ public class UserInterface
     	}
     	
     }
-    
-<<<<<<< HEAD
+        public static void showInstrument(int pk){
+    	Instrument inst = new Instrument();
+    	inst = dbManager.selectInstrument(pk);
+    	inst.toString();
+    	
+    }
+    //acabar Charo
+    public static void listInstruments(){
+    	
+    }
+    public static void showWarehouse(int pk){
+    	Warehouse war = new Warehouse();
+    	war = dbManager.selectWarehouse(pk);
+    	war.toString();
+    }
+    //acabar Charo
+    public static void listWarehouse(){
+    	
+    }
     /*
     public static void showEmployee(int pk)
     {
@@ -657,25 +674,4 @@ public class UserInterface
     	}
     
     */
-=======
-    public static void showInstrument(int pk){
-    	Instrument inst = new Instrument();
-    	inst = dbManager.selectInstrument(pk);
-    	inst.toString();
-    	
-    }
-    //acabar Charo
-    public static void listInstruments(){
-    	
-    }
-    public static void showWarehouse(int pk){
-    	Warehouse war = new Warehouse();
-    	war = dbManager.selectWarehouse(pk);
-    	war.toString();
-    }
-    //acabar Charo
-    public static void listWarehouse(){
-    	
-    }
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 }
