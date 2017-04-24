@@ -115,6 +115,20 @@ public abstract class Validator
 				return numIntro;
 	}
 	
+	public static boolean writeOption(String option)
+	{
+		boolean a = false;
+		if(option.equals("YES"))
+		{
+			a = true;
+		}
+		else
+		{
+			a = false;
+		}
+		return a;
+	}
+	
 	public static String writeString()
 	{
 		String string="";
