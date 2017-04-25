@@ -882,6 +882,45 @@ public class DbManager
 	return ord;
 	}
 		
+	public Instrument setInstrumentRelations(Instrument inst){
+		String relationalTable = "instrument_relations";
+		
+		//relation instrument-orders
+		String pk1AttSearchOrder = "order_ID";
+		
+		String pkAttCompare = "instrument_ID";
+		int pkValueCompare = inst.getInstrumentID();
+		
+		ArrayList<Integer> instPkRelationFound = new ArrayList<Integer>();
+		instPkRelationFound = foundRelation(relationalTable, pk1AttSearchOrder, pkAttCompare, pkValueCompare);
+		Iterator<Integer> iter = instPkRelationFound.iterator();
+		while(iter.hasNext()){
+			int i = iter.next();
+			inst.addOrder(selectOrder(i));
+		}
+		
+		//relation instrument-machinery
+		String pkAttSearchMach = "machinery_ID";
+		
+		instPkRelationFound = foundRelation(relationalTable, pkAttSearchMach, pkAttCompare, pkValueCompare);
+		iter = instPkRelationFound.iterator();
+		while(iter.hasNext()){
+			int i = iter.next();
+			inst.addOrder(selectOrder(i));
+		}
+		
+		//relation instrument-warehouse
+		String pkAttSearchWar = "warehouse_ID";
+		instPkRelationFound = foundRelation(relationalTable, pkAttSearchWar, pkAttCompare, pkValueCompare);
+		iter = instPkRelationFound.iterator();
+		while(iter.hasNext()){
+			int i = iter.next();
+			inst.addOrder(selectOrder(i));
+		}
+		return inst;		
+	}
+
+	
 	//Relation Help Methods
 	public ArrayList<Integer> foundRelation(String table,String pk1AttributeSearch,String pkAttributeCompere ,int pkValueCompere)
 	{
