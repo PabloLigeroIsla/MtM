@@ -94,7 +94,7 @@ public class UserInterface
 									//muestras
 						+ "Option 3.- Show table"
 							//Seleccioname la tabla que quieres ver
-							//Muestramela con todo
+							//Muestramela con todo (relaciones incluidas)
 						
 						+ "Option 4.- Introduce value to a table"
 							//Option 3.1: What table do you want to insert the value to? //y se las ense�as
@@ -274,20 +274,42 @@ public class UserInterface
 		switch(option)
 		{
 		case 1:
+			listCompanies(false);
+			System.out.printf("Select the ID of the company you want to see");
+			showCompany(writeNumber());
 			break;
 		case 2:
+			listEmployees(false);
+			System.out.printf("Select the ID of the employee you want to see");
+			showEmployee(writeNumber());
 			break;
 		case 3:
+			listHospitals(false);
+			System.out.printf("Select the ID of the hospital you want to see");
+			showHospital(writeNumber());
 			break;
 		case 4:
+			listInstruments(false);
+			System.out.printf("Select the ID of the instrument you want to see");
+			showInstrument(writeNumber());
 			break;
 		case 5:
+			listMachinery(false);
+			System.out.printf("Select the ID of the machinery you want to see");
+			showEMachinery(writeNumber());
 			break;
 		case 6:
+			listMaterials(false);
+			System.out.printf("Select the ID of the material you want to see");
+			showMaterial(writeNumber());
 			break;
 		case 7:
-			break;	
+			listOrders(false);
+			System.out.printf("Select the ID of the order you want to see");
+			showOrder(writeNumber());
+			break;
 		case 8:
+			showWarehouse(1);
 			break;
 		}
 	}
