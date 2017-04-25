@@ -11,7 +11,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 
-public class DbManager 
+public class JDBCManager 
 {
 	
 	public Connection c = null;

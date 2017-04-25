@@ -3,7 +3,7 @@ package mtm.db.Interface;
 
 import static mtm.db.Interface.Validator.*;
 import java.util.ArrayList;
-import mtm.db.jdbc.DbManager;
+import mtm.db.jdbc.JDBCManager;
 import mtm.db.pojos.Employee;
 import mtm.db.pojos.Hospital;
 import mtm.db.pojos.Instrument;
@@ -15,7 +15,7 @@ public class UserInterface
 {
 
 	 
-	static DbManager dbManager = new DbManager();
+	static JDBCManager dbManager = new JDBCManager();
 	 
 	public static void main(String args[]) 
 	{
