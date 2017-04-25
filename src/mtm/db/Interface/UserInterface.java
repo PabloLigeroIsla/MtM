@@ -582,6 +582,7 @@ public class UserInterface
     {
     	Order ord = new Order();
     	ord = dbManager.selectOrder(pk);
+    	dbManager.setOrderRelations(ord);
     	ord.toString();
     }
     public static void listOrders(boolean relation)
