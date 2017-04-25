@@ -377,7 +377,7 @@ public class UserInterface
 			dbManager.deleteMaterial(pk6);
 			break;
 		case 7: // Warehouse
-			listWarehouse(false);
+			showWarehouse(1);
 			System.out.println("What warehouse do you want to delete from this table? \n");
 			int pk7 = writeNumber();
 			dbManager.deleteWarehouse(pk7);
@@ -417,7 +417,7 @@ public class UserInterface
 				if(option.equals("YES"))
 				{
 					System.out.println("Select one of the Orders");
-					listOrders();
+					listOrders(false);
 					int op = writeNumber();
 					System.out.println("Insert the amountOrder");
 					int tao = writeNumber();
