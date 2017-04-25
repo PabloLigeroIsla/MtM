@@ -626,10 +626,11 @@ public class UserInterface
     public static void listWarehouse(){
     	
     }
+    
     /*
     public static void showEmployee(int pk)
     {
-    	Employee emp = new Order();
+    	Employee emp = new Employee();
     	emp = dbManager.selectEmployee(pk);
     	emp.toString();
     }
@@ -650,7 +651,7 @@ public class UserInterface
     	
     	
     	
-    }*/
+    }
     
     /*
     public static void showMachinery(int pk)

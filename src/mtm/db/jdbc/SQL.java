@@ -1287,8 +1287,8 @@ boolean a = false;
 		//Celia
 		//Employee
 		
-		public ArrayList<Employee> selectAllEmployee(Connection c)
-		{
+		public ArrayList<Employee> selectAllEmployee(){
+			
 			ArrayList<Employee> employee = new ArrayList<Employee>();
 			try
 			{
@@ -1316,7 +1316,7 @@ boolean a = false;
 			return employee;
 		}
 		
-		public Employee selectEmployee(Connection c, String query, int pk)
+		public Employee selectEmployee( String query, int pk)
 		{
 			Employee emp = null;
 			int employeeID;
@@ -1350,7 +1350,7 @@ boolean a = false;
 			return emp;
 		}
 		
-		public Employee selectEmployee(Connection c, String query, String nameEmp)
+		public Employee selectEmployee(String query, String nameEmp)
 		{
 			Employee emp = null;
 			int employeeID;
@@ -1385,7 +1385,7 @@ boolean a = false;
 		}
 		
 		//Machinery
-		public ArrayList<Machinery> selectAllMachinery(Connection c)
+		public ArrayList<Machinery> selectAllMachinery()
 		{
 			ArrayList<Machinery> machineryList = new ArrayList<Machinery>();
 			
@@ -1417,7 +1417,7 @@ boolean a = false;
 			return machineryList;
 		}
 		
-		public Machinery selectMachinery(Connection c, String query, int pk)
+		public Machinery selectMachinery(String query, int pk)
 		{
 			
 			Machinery machinery = null;
@@ -1453,7 +1453,7 @@ boolean a = false;
 			return machinery;
 		}
 
-		public Machinery selectMachinery(Connection c, String query, String nameMach)
+		public Machinery selectMachinery(String query, String nameMach)
 		{
 			Machinery mach = null;
 			int machineryID, sizeofMachinery;

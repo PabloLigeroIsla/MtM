@@ -554,9 +554,9 @@ public class DbManager
  	}
  	//Celia
  	//Employee
- 	/*
- 	 	public ArrayList<Employee> selectEmployee()
- 		{
+ 	
+ 	 	public ArrayList<Employee> selectEmployee(){
+ 	 		
  			ArrayList<Employee> emp = new ArrayList<Employee>();
  			SQL sqlSelect = new SQL();
  			
@@ -605,6 +605,8 @@ public class DbManager
  			}
  	 		
  	 	}
+ 	 	
+ 	 	
  	 //Machinery
  	 	public ArrayList<Machinery> selectMachinery()
  		{
@@ -657,7 +659,7 @@ public class DbManager
  	 		
  	 	}
 
- 	*/
+ 	
  	// Update
  	
  	//Pablo
