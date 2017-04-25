@@ -40,7 +40,7 @@ public class DbManager
 		
 	}
 
-
+	
 	
 	//Methods to connect with the DataBase
 	public void openConnection()
@@ -675,10 +675,44 @@ public class DbManager
  		}
  		
  	}
- 	public void updateOrder(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
+ 	//public void updateOrder(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
+ 	//{
+ 		//String table = "orders";
+ 	//	String selQuery = "SELECT * FROM orders WHERE order_ID = ?";
+ 	//	if(valExist(selQuery,pkSearch,null))
+ 		//{
+ 		
+ 	//		SQL sqlUpdate= new SQL();
+ 	//		sqlUpdate.update(table,colChange,stringChange,intChange,colSearch,pkSearch);
+ 		
+ 			
+ 	//	}
+ 		
+ 	//}
+ 	
+ 	//Charo
+ 	
+ 	//Celia
+ 	
+ 	//Alex
+ 	public void updateMaterial(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
  	{
- 		String table = "orders";
- 		String selQuery = "SELECT * FROM orders WHERE order_ID = ?";
+ 		String table = "material";
+ 		String selQuery = "SELECT name FROM "+table+" WHERE material_ID = ?";
+ 		if(valExist(selQuery,pkSearch,null))
+ 		{
+ 			
+ 			SQL sqlUpdate= new SQL();
+ 			sqlUpdate.update(table,colChange,stringChange,intChange,colSearch,pkSearch);
+ 			
+ 			
+ 		}
+ 		
+ 	}
+ 	public void updateCompany(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
+ 	{
+ 		String table = "company";
+ 		String selQuery = "SELECT * FROM o WHERE company_ID = ?";
  		if(valExist(selQuery,pkSearch,null))
  		{
  		
@@ -690,11 +724,6 @@ public class DbManager
  		
  	}
  	
- 	//Charo
- 	
- 	//Celia
- 	
- 	//Alex
  	
 	//Charo
  	

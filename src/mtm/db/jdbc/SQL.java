@@ -71,19 +71,19 @@ public class SQL
 			// fAt -->firstAlextable // sqla1 --> sqlalex1
 			Statement fAt = c.createStatement();
 			String sqla1 = "CREATE TABLE company ("
-					+ "resource TEXT PRIMARY KEY,"
+					+ "company_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ "location TEXT,"
-					+"company_name TEXT);";
+					+"name TEXT);";
 			fAt.executeUpdate(sqla1);
 			fAt.close();
 			
 			Statement sAt = c.createStatement();
 			String sqla2 =  "CREATE TABLE materials ("
-							+"material_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+							+"material_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
 							+"weight INTEGER,"
 							+"volume INTEGER,"
-							+"material_provided  TEXT REFERENCES company(resource),"
-							+"machinery_type TEXT REFERENCES machinery(type));";
+							+"company_ID  TEXT REFERENCES company(company_ID),"
+							+"machinery_ID TEXT REFERENCES machinery(machinery_ID));";
 			sAt.executeUpdate(sqla2);
 			sAt.close();
 			
