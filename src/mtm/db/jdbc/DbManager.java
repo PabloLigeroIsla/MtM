@@ -13,6 +13,10 @@ import java.sql.DriverManager;
 
 public class DbManager 
 {
+	
+	public Connection c = null;
+	
+	
 	//7 8 Objects//
 	//Different Methods to interact with the dataBase
 	//Different Methods to create the Objects
@@ -43,23 +47,38 @@ public class DbManager
 
 	
 	//Methods to connect with the DataBase
-	public void openConnection()
+	//Connection
+	public Connection openConnection()
+{
+	try
 	{
-		SQL sql = new SQL();
-		sql.openConnection();
-
+		Class.forName("org.sqlite.JDBC");
+		c = DriverManager.getConnection("jdbc:sqlite:./db/mtm.db");
+		c.createStatement().execute("PRAGMA foreign_keys=ON");
+		System.out.println("Database connection opened.");
+	
+	}catch(Exception e)
+	{
+		e.printStackTrace();
 	}
+	return c;
+}	
 	public void closeConnection()
 	{
-		SQL sql = new SQL();
-		sql.closeConnection();
-
+		try
+		{
+			c.close();
+			System.out.println("Database Closed");
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 	//Methods to Create the tables
 	
 	public void createTables()
 	{
-		SQL codeCreate = new SQL();
+		SQL codeCreate = new SQL(c);
 		
 
 		codeCreate.createTables();
