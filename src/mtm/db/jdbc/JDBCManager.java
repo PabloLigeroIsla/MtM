@@ -905,9 +905,10 @@ public class JDBCManager
 	}
 		
 	public Instrument setInstrumentRelations(Instrument inst){
-		String relationalTable = "instrument_relations";
+		
 		
 		//relation instrument-orders
+		String relationalTable = "instrument_orders";
 		String pk1AttSearchOrder = "order_ID";
 		
 		String pkAttCompare = "instrument_ID";
@@ -922,23 +923,20 @@ public class JDBCManager
 		}
 		
 		//relation instrument-machinery
+		relationalTable = "instrument_machinery";
 		String pkAttSearchMach = "machinery_ID";
 		
 		instPkRelationFound = foundRelation(relationalTable, pkAttSearchMach, pkAttCompare, pkValueCompare);
 		iter = instPkRelationFound.iterator();
 		while(iter.hasNext()){
 			int i = iter.next();
-			inst.addOrder(selectOrder(i));
+			inst.addMachinery(selectMachinery(i));
 		}
 		
 		//relation instrument-warehouse
-		String pkAttSearchWar = "warehouse_ID";
-		instPkRelationFound = foundRelation(relationalTable, pkAttSearchWar, pkAttCompare, pkValueCompare);
-		iter = instPkRelationFound.iterator();
-		while(iter.hasNext()){
-			int i = iter.next();
-			inst.addOrder(selectOrder(i));
-		}
+		
+		inst.addWarehouse(selectWarehouse(1));
+		
 		return inst;		
 	}
 
