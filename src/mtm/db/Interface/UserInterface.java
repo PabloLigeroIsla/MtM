@@ -48,7 +48,7 @@ public class UserInterface
 					waitEnter();
 					break;
 				case 5:
-					//DeleteOption
+					//DeleteOption//
 					delValTable();
 					waitEnter();
 					break;
@@ -582,6 +582,7 @@ public class UserInterface
     {
     	Order ord = new Order();
     	ord = dbManager.selectOrder(pk);
+    	dbManager.setOrderRelations(ord);
     	ord.toString();
     }
     public static void listOrders(boolean relation)
@@ -642,7 +643,7 @@ public class UserInterface
     /*
     public static void showEmployee(int pk)
     {
-    	Employee emp = new Order();
+    	Employee emp = new Employee();
     	emp = dbManager.selectEmployee(pk);
     	emp.toString();
     }
@@ -663,7 +664,7 @@ public class UserInterface
     	
     	
     	
-    }*/
+    }
     
     /*
     public static void showMachinery(int pk)
