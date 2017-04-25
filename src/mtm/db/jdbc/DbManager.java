@@ -78,7 +78,7 @@ public class DbManager
 	
 	public void createTables()
 	{
-		SQL codeCreate = new SQL(c);
+		JDBCCreate codeCreate = new JDBCCreate(c);
 		
 
 		codeCreate.createTables();
@@ -87,7 +87,7 @@ public class DbManager
 	}
 	public void createTableHospital()
 	{
-		SQL codeCreate = new SQL();
+		JDBCCreate codeCreate = new JDBCCreate(c);
 		
 		
 		codeCreate.createTableHospital();
@@ -96,7 +96,7 @@ public class DbManager
 	}
 	public void createTableOrder()
 	{
-		SQL codeCreate = new SQL();
+		JDBCCreate codeCreate = new JDBCCreate(c);
 		
 		
 		codeCreate.createTableOrder();
@@ -104,7 +104,7 @@ public class DbManager
 	}
 	public void createTableCompany()
 	{
-		SQL codeCreate = new SQL();
+		JDBCCreate codeCreate = new JDBCCreate(c);
 		
 		
 		codeCreate.createTableCompany();
@@ -112,7 +112,7 @@ public class DbManager
 	}
 	public void createTableEmployee()
 	{
-		SQL codeCreate = new SQL();
+		JDBCCreate codeCreate = new JDBCCreate(c);
 		
 		
 		codeCreate.createTableEmployee();
@@ -120,7 +120,7 @@ public class DbManager
 	}
 	public void createTableInstrument()
 	{
-		SQL codeCreate = new SQL();
+		JDBCCreate codeCreate = new JDBCCreate(c);
 		
 		
 		codeCreate.createTableInstrument();
@@ -128,7 +128,7 @@ public class DbManager
 	}
 	public void createTableMachinery()
 	{
-		SQL codeCreate = new SQL();
+		JDBCCreate codeCreate = new JDBCCreate(c);
 		
 		
 		codeCreate.createTableMachinery();
@@ -136,7 +136,7 @@ public class DbManager
 	}
 	public void createTableMaterial()
 	{
-		SQL codeCreate = new SQL();
+		JDBCCreate codeCreate = new JDBCCreate(c);
 		
 		
 		codeCreate.createTableMaterial();
@@ -144,7 +144,7 @@ public class DbManager
 	}
 	public void createTableWarehouse()
 	{
-		SQL codeCreate = new SQL();
+		JDBCCreate codeCreate = new JDBCCreate(c);
 		
 		
 		codeCreate.createTableWarehouse();
@@ -153,14 +153,14 @@ public class DbManager
 		//Relational Tables
 	public void createTableHospitalOrder()
 	{
-		SQL codeCreate = new SQL();
+		JDBCCreate codeCreate = new JDBCCreate(c);
 		
 		codeCreate.createTableHospitalOrders();
 	}
 	
 	public void createTableInstrumentOrder()
 	{
-		SQL codeCreate = new SQL();
+		JDBCCreate codeCreate = new JDBCCreate(c);
 		
 		codeCreate.createTableInstrumentOrders();
 		
@@ -171,7 +171,7 @@ public class DbManager
 	//Pablo
 	public void insert(Hospital obj)
 	{
-		SQL codeInsert = new SQL();
+		JDBCInsert codeInsert = new JDBCInsert(c);
 		String selQuery = "SELECT * FROM hospital WHERE name LIKE ?";
 		if(valExist(selQuery,-1,obj.getName()))
 		{
@@ -186,7 +186,7 @@ public class DbManager
 	}
 	public void insert(Order obj)
 	{
-		SQL codeInsert = new SQL();
+		JDBCInsert codeInsert = new JDBCInsert(c);
 		
 	
 		codeInsert.insert(obj);
@@ -197,7 +197,7 @@ public class DbManager
 	
 	public void insert(Instrument obj)
 	{
-		SQL codeInsert = new SQL();
+		JDBCInsert codeInsert = new JDBCInsert(c);
 		
 		
 		codeInsert.insert(obj);
@@ -206,7 +206,7 @@ public class DbManager
 	
 	public void insert(Warehouse obj)
 	{
-		SQL codeInsert = new SQL();
+		JDBCInsert codeInsert = new JDBCInsert(c);
 		
 		
 		codeInsert.insert(obj);
@@ -216,7 +216,7 @@ public class DbManager
 	
 	public void insert(Company obj)
 	{
-		SQL codeInsert = new SQL();
+		JDBCInsert codeInsert = new JDBCInsert(c);
 		
 		
 		codeInsert.insert(obj);
@@ -224,7 +224,7 @@ public class DbManager
 	
 	public void insert(Material obj)
 	{
-		SQL codeInsert = new SQL();
+		JDBCInsert codeInsert = new JDBCInsert(c);
 		
 		
 		codeInsert.insert(obj);
@@ -236,7 +236,7 @@ public class DbManager
 	
 	public void insert(Employee obj)
 	{
-		SQL codeInsert = new SQL();
+		JDBCInsert codeInsert = new JDBCInsert(c);
 
 		
 			codeInsert.insert(obj);
@@ -245,7 +245,7 @@ public class DbManager
 	}
 	public void insert(Machinery obj)
 	{
-		SQL codeInsert = new SQL();
+		JDBCInsert codeInsert = new JDBCInsert(c);
 		
 		
 		codeInsert.insert(obj);
@@ -261,7 +261,7 @@ public class DbManager
 		String sqlQuery = "SELECT * FROM hospital WHERE hospital_ID = ?";
 		if(valExist(sqlQuery,primaryKey,null))
 		{
-			SQL sqlDelete = new SQL();
+			JDBCDelete sqlDelete = new JDBCDelete(c);
 			
 			sqlDelete.deleteHospital(primaryKey);
 			
@@ -297,7 +297,7 @@ public class DbManager
 		String sqlQuery = "SELECT * FROM orders WHERE order_ID == ?";
 		if(valExist(sqlQuery,primaryKey,null))
 		{
-			SQL sqlDelete = new SQL();
+			JDBCDelete sqlDelete = new JDBCDelete(c);
 			
 			sqlDelete.deleteOrder(primaryKey);
 			
@@ -328,7 +328,7 @@ public class DbManager
 		String sqlQuery = "SELECT * FROM employee WHERE employee_ID == ?";
 		if(valExist(sqlQuery,primaryKey,null))
 		{
-			SQL sql = new SQL();
+			JDBCDelete sql = new JDBCDelete(c);
 			sql.deleteEmployee(primaryKey);
 		}
 		else
@@ -343,7 +343,7 @@ public class DbManager
 		String sqlQuery = "SELECT * FROM orders WHERE machineryID == ?";
 		if(valExist(sqlQuery,primaryKey,null))
 		{
-			SQL sql = new SQL();
+			JDBCDelete sql = new JDBCDelete(c);
 			sql.deleteMachinery(primaryKey);
 		}
 		else
@@ -361,7 +361,7 @@ public class DbManager
 		String sqlQuery = "SELECT * FROM instrument WHERE instrumentID = ?";
 		if(valExist(sqlQuery,primaryKeyInstrument,null))
 		{
-			SQL sqlDelete = new SQL();
+			JDBCDelete sqlDelete = new JDBCDelete(c);
 			
 			sqlDelete.deleteHospital(primaryKeyInstrument);
 			
@@ -385,7 +385,7 @@ public class DbManager
 		String sqlQuery = "SELECT * FROM instrument WHERE instrumentID = ?";
 		if(valExist(sqlQuery,primaryKeyWarehouse,null))
 		{
-			SQL sqlDelete = new SQL();
+			JDBCDelete sqlDelete = new JDBCDelete(c);
 			
 			sqlDelete.deleteHospital(primaryKeyWarehouse);
 			
@@ -402,7 +402,7 @@ public class DbManager
 		String sqlQuery = "SELECT * FROM company WHERE company_ID == ?";
 		if(valExist(sqlQuery,primaryKey,null))
 		{
-			SQL sqlDelete = new SQL();
+			JDBCDelete sqlDelete = new JDBCDelete(c);
 			sqlDelete.deleteCompany(primaryKey);
 
 		}
@@ -416,7 +416,7 @@ public class DbManager
 		String sqlQuery = "SELECT * FROM material WHERE material_ID == ?";
 		if(valExist(sqlQuery,primaryKey,null))
 		{
-			SQL sqlDelete = new SQL();
+			JDBCDelete sqlDelete = new JDBCDelete(c);
 			sqlDelete.deleteMaterial(primaryKey);
 
 		}
@@ -432,7 +432,7 @@ public class DbManager
 	public ArrayList<Hospital> selectHospitals()
 	{
 		ArrayList<Hospital> hosp = new ArrayList<Hospital>();
-		SQL sqlSelect = new SQL();
+		JDBCSelect sqlSelect = new JDBCSelect(c);
 		
 		
 		hosp = sqlSelect.selectAllHospitals();
@@ -448,7 +448,7 @@ public class DbManager
 		
 		if(valExist(selQuery,primaryKey,null))
 		{
-			SQL sqlSelect = new SQL();
+			JDBCSelect sqlSelect = new JDBCSelect(c);
 	 		Hospital hosp = new Hospital();
 	 		
 			
@@ -469,7 +469,7 @@ public class DbManager
 		
 		if(valExist(selQuarry,-1,nameHospital))
 		{
-			SQL sqlSelect = new SQL();
+			JDBCSelect sqlSelect = new JDBCSelect(c);
 	 		Hospital hosp = new Hospital();
 	 		
 			
@@ -489,7 +489,7 @@ public class DbManager
  	public ArrayList<Order> selectAllOrders()
  	{
  		ArrayList<Order> orderList = new ArrayList<Order>();
- 		SQL sqlSelect = new SQL();
+ 		JDBCSelect sqlSelect = new JDBCSelect(c);
  		
  		
 		orderList = sqlSelect.selectAllOrders();
@@ -502,7 +502,7 @@ public class DbManager
 		
 		if(valExist(selQuery,primaryKey,null))
 		{
-			SQL sqlSelect = new SQL();
+			JDBCSelect sqlSelect = new JDBCSelect(c);
 	 		Order order = new Order();
 	 		
 	
@@ -519,7 +519,7 @@ public class DbManager
  	//Alex
  	public ArrayList<Company> selectCompanies(){
  		ArrayList<Company> companiesList = new ArrayList<Company>();
- 		SQL sqlSelect = new SQL();
+ 		JDBCSelect sqlSelect = new JDBCSelect(c);
  		
 		companiesList = sqlSelect.selectAllCompanies();
 		
@@ -531,7 +531,7 @@ public class DbManager
 		
 		if(valExist(selQuery,primaryKey,null))
 		{
-			SQL sqlSelect = new SQL();
+			JDBCSelect sqlSelect = new JDBCSelect(c);
 	 		Company comp = new Company();
 	 	
 			comp= sqlSelect.selectCompany(selQuery,primaryKey);
@@ -546,7 +546,7 @@ public class DbManager
 
  	public ArrayList<Material> selectMaterials(){
  		ArrayList<Material> materialList = new ArrayList<Material>();
- 		SQL sqlSelect = new SQL();
+ 		JDBCSelect sqlSelect = new JDBCSelect(c);
  		
 		materialList = sqlSelect.selectAllMaterials();
 
@@ -558,7 +558,7 @@ public class DbManager
 		
 		if(valExist(selQuery,primaryKey,null))
 		{
-			SQL sqlSelect = new SQL();
+			JDBCSelect sqlSelect = new JDBCSelect(c);
 	 		Material mat = new Material();
 	 		
 			mat= sqlSelect.selectMaterial(selQuery,primaryKey);
@@ -577,7 +577,7 @@ public class DbManager
  	 	public ArrayList<Employee> selectEmployee(){
  	 		
  			ArrayList<Employee> emp = new ArrayList<Employee>();
- 			SQL sqlSelect = new SQL();
+ 			JDBCSelect sqlSelect = new JDBCSelect(c);
  			
  			emp = sqlSelect.selectAllEmployee();
  			
@@ -591,7 +591,7 @@ public class DbManager
  			
  			if(valExist(selQuarry,primaryKey,null))
  			{
- 				SQL sqlSelect = new SQL();
+ 				JDBCSelect sqlSelect = new JDBCSelect(c);
  		 		Employee emp = new Employee();
  		 		
  				emp = sqlSelect.selectEmployee(selQuarry,primaryKey);
@@ -610,7 +610,7 @@ public class DbManager
  			
  			if(valExist(selQuarry,-1,nameEmployee))
  			{
- 				SQL sqlSelect = new SQL();
+ 				JDBCSelect sqlSelect = new JDBCSelect(c);
  		 		Employee emp = new Employee();
  		 		
  				emp = sqlSelect.selectEmployee(selQuarry,nameEmployee);
@@ -630,7 +630,7 @@ public class DbManager
  	 	public ArrayList<Machinery> selectMachinery()
  		{
  			ArrayList<Machinery> mach = new ArrayList<Machinery>();
- 			SQL sqlSelect = new SQL();
+ 			JDBCSelect sqlSelect = new JDBCSelect(c);
  			
  			mach = sqlSelect.selectAllMachinery();
  			
@@ -644,7 +644,7 @@ public class DbManager
  			
  			if(valExist(selQuarry,primaryKey,null))
  			{
- 				SQL sqlSelect = new SQL();
+ 				JDBCSelect sqlSelect = new JDBCSelect(c);
  				Machinery mach = new Machinery();
  		 		
  				mach = sqlSelect.selectMachinery(selQuarry,primaryKey);
@@ -663,7 +663,7 @@ public class DbManager
  			
  			if(valExist(selQuarry,-1,nameMachinery))
  			{
- 				SQL sqlSelect = new SQL();
+ 				JDBCSelect sqlSelect = new JDBCSelect(c);
  				Machinery mach = new Machinery();
  		 		
  				mach = sqlSelect.selectMachinery(selQuarry,nameMachinery);
@@ -678,6 +678,68 @@ public class DbManager
  	 		
  	 	}
 
+ 	 	
+ 	 	public Instrument selectInstrument(int primaryKey)
+ 		{
+ 			String table = "instrument";
+ 			String selQuarry = "SELECT name FROM "+table+" WHERE instrumentID == ?";
+ 			
+ 			
+ 			if(valExist(selQuarry,primaryKey,null))
+ 			{
+ 				JDBCSelect sqlSelect = new JDBCSelect(c);
+ 		 		Instrument instrument = new Instrument();
+ 		 		
+ 				
+ 				instrument = sqlSelect.selectInstrument(selQuarry,primaryKey);
+ 				
+ 				
+ 				return instrument;
+ 			}else
+ 			{
+ 				System.out.println("/nWe dont find the primary key/n");
+ 				
+ 				return null;
+ 			}
+ 		}
+
+ 	 	public ArrayList<Instrument> selectAllInstruments()
+ 	 	{
+ 	 		ArrayList<Instrument> instrumentList = new ArrayList<Instrument>();
+ 	 		JDBCSelect sqlSelect = new JDBCSelect(c);
+ 	 		
+ 	 	
+ 	 		instrumentList = sqlSelect.selectAllInstruments();
+ 			
+ 			
+ 	 		return instrumentList;
+ 	 	}
+ 	 	
+ 	 	
+ 	 	public Warehouse selectWarehouse(int primaryKey)
+ 		{
+ 			String table = "warehouse";
+ 			String selQuarry = "SELECT name FROM "+table+" WHERE warehouseID == ?";
+ 			
+ 			
+ 			if(valExist(selQuarry,primaryKey,null))
+ 			{
+ 				JDBCSelect sqlSelect = new JDBCSelect(c);
+ 				Warehouse warehouse = new Warehouse();
+ 		 		
+ 				
+ 				warehouse = sqlSelect.selectWarehouse(selQuarry,primaryKey);
+ 			
+ 				
+ 				return warehouse;
+ 			}else
+ 			{
+ 				System.out.println("/nWe dont find the primary key/n");
+ 				
+ 				return null;
+ 			}
+ 		}
+ 	 	
  	
  	// Update
  	
@@ -689,7 +751,7 @@ public class DbManager
  		if(valExist(selQuery,pkSearch,null))
  		{
  			
- 			SQL sqlUpdate= new SQL();
+ 			JDBCUpdate sqlUpdate= new JDBCUpdate(c);
  			sqlUpdate.update(table,colChange,stringChange,intChange,colSearch,pkSearch);
  			
  			
@@ -703,7 +765,7 @@ public class DbManager
  		if(valExist(selQuery,pkSearch,null))
  		{
  		
- 			SQL sqlUpdate= new SQL();
+ 			JDBCUpdate sqlUpdate= new JDBCUpdate(c);
  			sqlUpdate.update(table,colChange,stringChange,intChange,colSearch,pkSearch);
  		
  			
@@ -718,68 +780,7 @@ public class DbManager
  	//Alex
  	
 	//Charo
- 	
- 	public Instrument selectInstrument(int primaryKey)
-	{
-		String table = "instrument";
-		String selQuarry = "SELECT name FROM "+table+" WHERE instrumentID == ?";
-		
-		
-		if(valExist(selQuarry,primaryKey,null))
-		{
-			SQL sqlSelect = new SQL();
-	 		Instrument instrument = new Instrument();
-	 		
-			
-			instrument = sqlSelect.selectInstrument(selQuarry,primaryKey);
-			
-			
-			return instrument;
-		}else
-		{
-			System.out.println("/nWe dont find the primary key/n");
-			
-			return null;
-		}
-	}
 
- 	public ArrayList<Instrument> selectAllInstruments()
- 	{
- 		ArrayList<Instrument> instrumentList = new ArrayList<Instrument>();
- 		SQL sqlSelect = new SQL();
- 		
- 	
- 		instrumentList = sqlSelect.selectAllInstruments();
-		
-		
- 		return instrumentList;
- 	}
- 	
- 	
- 	public Warehouse selectWarehouse(int primaryKey)
-	{
-		String table = "warehouse";
-		String selQuarry = "SELECT name FROM "+table+" WHERE warehouseID == ?";
-		
-		
-		if(valExist(selQuarry,primaryKey,null))
-		{
-			SQL sqlSelect = new SQL();
-			Warehouse warehouse = new Warehouse();
-	 		
-			
-			warehouse = sqlSelect.selectWarehouse(selQuarry,primaryKey);
-		
-			
-			return warehouse;
-		}else
-		{
-			System.out.println("/nWe dont find the primary key/n");
-			
-			return null;
-		}
-	}
- 	
  	
  	//DB management Methods
 	
@@ -811,7 +812,7 @@ public class DbManager
 		
 		boolean a;
 		
-		SQL sel = new SQL();
+		 JDBCSearch sel = new JDBCSearch(c);
 		
 		
 		if(pkString == null)
@@ -832,7 +833,7 @@ public class DbManager
 	public void setRelationHospitalOrder(int hosp, int order, int tao)
 	{
 		
-		SQL sqlInsert = new SQL();
+		JDBCInsert sqlInsert = new JDBCInsert(c);
 		sqlInsert.insertHospitalOrderRelation( hosp, order, tao);
 		
 	}
@@ -841,7 +842,7 @@ public class DbManager
 	{
 		String table = "hospital_orders";
 	
-		SQL sqlDelete = new SQL();
+		JDBCDelete sqlDelete = new JDBCDelete(c);
 		sqlDelete.deleteRelationNtoN( table, colPk, pkCol);
 		
 	}
@@ -949,7 +950,7 @@ public class DbManager
 		
 		ArrayList<Integer> pkArray = new ArrayList<Integer>();
 		
-		SQL sqlSearch = new SQL();
+		JDBCSearch sqlSearch = new JDBCSearch(c);
 		
 		pkArray=sqlSearch.searchPkRelation(query, pkValueCompere, pk1AttributeSearch);
 		
