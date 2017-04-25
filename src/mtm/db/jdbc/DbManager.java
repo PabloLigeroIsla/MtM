@@ -13,7 +13,7 @@ import java.sql.DriverManager;
 
 public class DbManager 
 {
-	//7 8 Objects
+	//7 8 Objects//
 	//Different Methods to interact with the dataBase
 	//Different Methods to create the Objects
 	

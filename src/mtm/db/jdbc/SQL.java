@@ -31,7 +31,7 @@ public class SQL
 		{
 			c.setAutoCommit(false);
 			//Pablo
-			// fPt -->firstPablotable , sqlp1 --> sqlpablo1
+			// fPt -->firstPablotable , sqlp1 --> sqlpablo1//
 			Statement fPt = c.createStatement();
 			String sqlp1 = "CREATE TABLE hospital("
 				+ "hospital_ID    INTEGER PRIMARY KEY AUTOINCREMENT,"
