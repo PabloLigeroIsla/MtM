@@ -39,6 +39,13 @@ public class Material implements Serializable {
 		this.volume = volume;
 		this.type= type;
 	}
+	
+	public Material(Integer weight, Integer volume, String type){
+		super();
+		this.weight = weight;
+		this.volume = volume;
+		this.type= type;
+	}
 
 	public Material(Integer weight2, Integer volume2, String type2, Company companyID2, Machinery machineryID2) {
 		this.weight = weight2;

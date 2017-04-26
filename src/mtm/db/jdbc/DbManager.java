@@ -856,6 +856,10 @@ public class DbManager
 	
 	
 	
+	public void setRelationCompanyMaterial(){
+		SQL sqlInsert = new SQL();
+		sqlInsert.insert
+	}
 	public Hospital setHospitalRelations(Hospital hosp)
 	{
 		String relationalTable = "hospital_orders";

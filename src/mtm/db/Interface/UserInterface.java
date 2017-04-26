@@ -4,10 +4,12 @@ package mtm.db.Interface;
 import static mtm.db.Interface.Validator.*;
 import java.util.ArrayList;
 import mtm.db.jdbc.DbManager;
+import mtm.db.pojos.Company;
 import mtm.db.pojos.Employee;
 import mtm.db.pojos.Hospital;
 import mtm.db.pojos.Instrument;
 import mtm.db.pojos.Machinery;
+import mtm.db.pojos.Material;
 import mtm.db.pojos.Order;
 import mtm.db.pojos.Warehouse;
 
@@ -543,8 +545,45 @@ public class UserInterface
 		return mach;
 }
     
+    public static Company createCompany(){
+    	
+    	
+    	
+    	System.out.println("\nCompany location");
+    	String a=writeString();
+    	System.out.println("\nCompany name");
+    	String b=writeString();
+    	
+    	Company com = new Company(a,b);
+    	return com;
+    }
+    
+    public static Material createMaterial()
+    {
+    	
+    	System.out.println("\nWeight");
+    	int a = writeNumber();
+    	System.out.println("\nVolume");
+    	int b = writeNumber();
+    	System.out.println("\nType");
+    	String c = writeString();
+    	
+    	Material mat = new Material(a,b,c);
+    	
+    	return mat;
+    	
+    }
+
+    
+    
     //Show the Objects
     
+    public static void showCompany(int pk){
+    	Company com = new Company();
+		com = dbManager.selectCompany(pk);
+		dbManager.setCompanyRelations(com);
+		com.toString();
+    }
     
     public static void showHospital(int pk)
     {
