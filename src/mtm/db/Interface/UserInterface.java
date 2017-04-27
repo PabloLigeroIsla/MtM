@@ -252,7 +252,7 @@ public class UserInterface
 			listInstruments(relationOption);
 			break;
 		case 5:
-			listMachinery(relationOption);
+			listMachineries(relationOption);
 			break;
 		case 6:
 			listMaterials(relationOption);
@@ -294,9 +294,9 @@ public class UserInterface
 			showInstrument(writeNumber());
 			break;
 		case 5:
-			listMachinery(false);
+			listMachineries(false);
 			System.out.printf("Select the ID of the machinery you want to see");
-			showEMachinery(writeNumber());
+			showMachinery(writeNumber());
 			break;
 		case 6:
 			listMaterials(false);
@@ -327,7 +327,7 @@ public class UserInterface
 			jdbcManager.insert(comp);
 			break;
 		case 2: //Employee
-			Employee emp = 
+			Employee emp = createEmployee();
 			jdbcManager.insert(emp);
 			break;
 		case 3: //Hospital 
@@ -662,28 +662,18 @@ public class UserInterface
     	war = jdbcManager.selectWarehouse(pk);    		
     	war.toString();
     }
-<<<<<<< HEAD
-    //acabar Charo
-    public static void listWarehouse(){
-    	
-    }
-    
-    //Employee
-=======
-        	
-    /*
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
+        
     public static void showEmployee(int pk)
     {
     	Employee emp = new Employee();
-    	emp = dbManager.selectEmployee(pk);
+    	emp = jdbcManager.selectEmployee(pk);
     	emp.toString();
     }
-    public static void listEmployee()
+    public static void listEmployees(boolean relation)
     {
     	Employee emp = new Employee();
     	ArrayList<Employee> empList = new ArrayList<Employee>();
-    	empList = dbManager.selectAllEmployee();
+    	empList = jdbcManager.selectAllEmployees();
     	
     	int count = 0;
     	
@@ -702,14 +692,14 @@ public class UserInterface
     public static void showMachinery(int pk)
     {
     	Machinery mach = new Machinery();
-    	mach = dbManager.selectMachinery(pk);
+    	mach = jdbcManager.selectMachinery(pk);
     	mach.toString();
     }
-    public static void listMachinery() {
+    public static void listMachineries(boolean relation) {
     	
     	Machinery mach = new Machinery();
     	ArrayList<Machinery> machList = new ArrayList<Machinery>();
-    	machList = dbManager.selectAllMachinery();
+    	machList = jdbcManager.selectAllMachineries();
     	
     	int count = 0;
     	
