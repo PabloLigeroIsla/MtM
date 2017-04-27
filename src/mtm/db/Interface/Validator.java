@@ -25,7 +25,7 @@ public abstract class Validator
         	 do 
         	 {
         		    
-                 System.out.println("Introduce a number, anything else Wapi\n");
+                 System.out.println("Introduce a number\n");
    
                      stringNumber = c.readLine();
                      if (valNumString(stringNumber)) 
@@ -55,7 +55,7 @@ public abstract class Validator
 			{
 				 do 
 	        	 {
-	                 System.out.println("Introduce a number, anything else Wapi\n");
+	                 System.out.println("Introduce a number\n");
 	   
 	                     stringNumber = c.readLine();
 	                     if (valNumString(stringNumber)) 
@@ -91,7 +91,7 @@ public abstract class Validator
 					{
 						 do 
 			        	 {
-			                 System.out.println("Introduce a number, anything else Wapi\n");
+			                 System.out.println("Introduce a number\n");
 			   
 			                     stringNumber = c.readLine();
 			                     if (valNumString(stringNumber)) 
@@ -132,7 +132,7 @@ public abstract class Validator
 	public static String writeString()
 	{
 		String string="";
-		System.out.println("Introduce a Word/sentence");
+		System.out.println("Introduce a word/sentence in CAPITAL letters");
 		try
 		{
 			string = c.readLine();
