@@ -46,24 +46,6 @@ public class Instrument implements Serializable {
 	
 
 
-/*	public Instrument(String model2, String purpose2, Integer amount2, Integer numberUses2, String bodyLocation2,
-			Integer price2) {
-		// este metodo esta creado porque DbManager lo necesita porque tengo un objeto Instrument sin la lista
-		
-		this.model = model2;
-		this.purpose = purpose2;
-		this.amount = amount2;
-		this.numberUses = numberUses2;
-		this.bodyLocation = bodyLocation2;
-		this.setPrice(price2);
-		
-		
-	}
-	*/
-	
-
-
-
 	public Instrument(int instrumentID2, String model2, String purpose2, Integer amount2, Integer numberUses2,
 			String bodyLocation2, Integer price2, Warehouse warehouseID2) {
 	}
@@ -114,6 +96,15 @@ public class Instrument implements Serializable {
 		}
 	}
 
+
+	public void addWarehouse(Warehouse warehouse) {
+		this.warehouse = warehouse;
+	}
+
+	public void removeWarehouse(Warehouse warehouse){
+		this.warehouse = null;
+	}
+	
 
 
 
@@ -367,6 +358,8 @@ public class Instrument implements Serializable {
 	public void setMachineryTypeList(List<Machinery> machineryTypeList) {
 		this.machineryTypeList = machineryTypeList;
 	}
+
+
 
 
 
