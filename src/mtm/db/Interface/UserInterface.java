@@ -628,7 +628,7 @@ public class UserInterface
     	
     }
     
-    /*
+    //Employee
     public static void showEmployee(int pk)
     {
     	Employee emp = new Employee();
@@ -638,7 +638,7 @@ public class UserInterface
     public static void listEmployee()
     {
     	Employee emp = new Employee();
-    	ArrayList<Employee> ordList = new ArrayList<Employee>();
+    	ArrayList<Employee> empList = new ArrayList<Employee>();
     	empList = dbManager.selectAllEmployee();
     	
     	int count = 0;
@@ -646,7 +646,7 @@ public class UserInterface
     	while(count < empList.size())
     	{
     		emp = empList.get(count);
-    		System.out.printf("id: %d\n",emp.getEmployeeID());
+    		System.out.printf("id: %d\n",emp.getEmployee_ID());
     	}
     	
     	
@@ -654,26 +654,26 @@ public class UserInterface
     	
     }
     
-    /*
+    
     public static void showMachinery(int pk)
     {
     	Machinery mach = new Machinery();
     	mach = dbManager.selectMachinery(pk);
     	mach.toString();
     }
-    public static void listMachinery()
-    {
+    public static void listMachinery() {
+    	
     	Machinery mach = new Machinery();
-    	ArrayList<Machinery> ordList = new ArrayList<Machinery>();
+    	ArrayList<Machinery> machList = new ArrayList<Machinery>();
     	machList = dbManager.selectAllMachinery();
     	
     	int count = 0;
     	
-    	while(count < machList.size())
-    	{
+    	while(count < machList.size()){
+    		
     		mach =machList.get(count);
     		System.out.printf("id: %d\n",mach.getMachineryID());
     	}
     
-    */
+    }
 }
