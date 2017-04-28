@@ -70,7 +70,7 @@ public class UserInterface
 	public static int openMenu()
 	{
 		int option;
-		int numOptions = 6; //Numero de opciones que podemos seleccionar con esta funci�n
+		int numOptions = 7; //Numero de opciones que podemos seleccionar con esta funci�n
 		printMenu();
 		option = writeNumber(numOptions);
 		
@@ -214,7 +214,7 @@ public class UserInterface
 		switch(option)
 		{
 		case 1:
-			listCompanies(relationOption);
+			//listCompanies(relationOption);
 			break;
 		case 2:
 			listEmployees(relationOption);
@@ -229,7 +229,7 @@ public class UserInterface
 			listMachineries(relationOption);
 			break;
 		case 6:
-			listMaterials(relationOption);
+			//listMaterials(relationOption);
 			break;
 		case 7:
 			listOrders(relationOption);
@@ -248,9 +248,9 @@ public class UserInterface
 		switch(option)
 		{
 		case 1:
-			listCompanies(false);
+			//listCompanies(false);
 			System.out.printf("Select the ID of the company you want to see");
-			showCompany(writeNumber());
+			//showCompany(writeNumber());
 			break;
 		case 2:
 			listEmployees(false);
@@ -273,9 +273,9 @@ public class UserInterface
 			showMachinery(writeNumber());
 			break;
 		case 6:
-			listMaterials(false);
+			//listMaterials(false);
 			System.out.printf("Select the ID of the material you want to see");
-			showMaterial(writeNumber());
+			//showMaterial(writeNumber());
 			break;
 		case 7:
 			listOrders(false);
@@ -297,8 +297,8 @@ public class UserInterface
 		switch(op){
 		
 		case 1: //Company   
-		Company comp = createCompany();
-		jdbcManager.insert(comp);
+		//Company comp = createCompany();
+		//jdbcManager.insert(comp);
 			break;
 		case 2: //Employee
 			Employee emp = createEmployee();
@@ -317,8 +317,8 @@ public class UserInterface
 			jdbcManager.insert(mach);
 			break;
 		case 6: //Material
-		Material mat = createMaterial(); 
-		jdbcManager.insert(mat);
+		//Material mat = createMaterial(); 
+		//jdbcManager.insert(mat);
 			break;
 		case 7: // Warehouse 
 			Warehouse war = createWarehouse();
@@ -386,6 +386,7 @@ public class UserInterface
     
     public static void updValTable()
 {
+    //	cavcaed
 }
 
     
