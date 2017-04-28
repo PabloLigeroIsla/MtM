@@ -17,11 +17,11 @@ public class JDBCDelete
 		{
 			try
 			{
-				String sql = "DELETE FROM instrument WHERE instrumentID = ?";
+				String sql = "DELETE FROM instrument WHERE instrument_ID = ?";
 				PreparedStatement prep = c.prepareStatement(sql);
 				prep.setInt(1, pkInstrument);
 				prep.executeUpdate();
-				System.out.println("Deletion finished.");
+				System.out.println("Deletion finished\n");
 				
 				prep.close();
 				
@@ -35,11 +35,11 @@ public class JDBCDelete
 		{
 			try
 			{
-				String sql = "DELETE FROM warehouse WHERE warehouseID = ?";
+				String sql = "DELETE FROM warehouse WHERE warehouse_ID = ?";
 				PreparedStatement prep = c.prepareStatement(sql);
 				prep.setInt(1, pkWarehouse);
 				prep.executeUpdate();
-				System.out.println("Deletion finished.");
+				System.out.println("Deletion finished\n");
 				
 				prep.close();
 				
@@ -59,7 +59,7 @@ public class JDBCDelete
 				PreparedStatement prep = c.prepareStatement(sql);
 				prep.setInt(1, pk);
 				prep.executeUpdate();
-				System.out.println("Deletion finished.");
+				System.out.println("Deletion finished\n");
 				
 				prep.close();
 				
@@ -77,7 +77,7 @@ public class JDBCDelete
 				PreparedStatement prep = c.prepareStatement(sql);
 				prep.setInt(1, pk);
 				prep.executeUpdate();
-				System.out.println("Deletion finished.");
+				System.out.println("Deletion finished\n");
 				
 				prep.close();
 				
@@ -96,7 +96,7 @@ public class JDBCDelete
 					PreparedStatement prep = c.prepareStatement(sql);
 					prep.setInt(1, pk);
 					prep.executeUpdate();
-					System.out.println("Deletion finished.");
+					System.out.println("Deletion finished\n");
 					
 					prep.close();
 				}catch(SQLException e)
@@ -113,7 +113,7 @@ public class JDBCDelete
 					PreparedStatement prep = c.prepareStatement(sql);
 					prep.setInt(1, pk);
 					prep.executeUpdate();
-					System.out.println("Deletion finished.");
+					System.out.println("Deletion finished\n");
 					
 					prep.close();
 				}catch(SQLException e)
@@ -133,7 +133,7 @@ public class JDBCDelete
 				PreparedStatement prep = c.prepareStatement(sql);
 				prep.setInt(1, pk);
 				prep.executeUpdate();
-				System.out.println("Deletion finished.");
+				System.out.println("Deletion finished\n");
 				
 				prep.close();
 				
@@ -151,7 +151,7 @@ public class JDBCDelete
 				PreparedStatement prep = c.prepareStatement(sql);
 				prep.setInt(1, pk);
 				prep.executeUpdate();
-				System.out.println("Deletion finished.");
+				System.out.println("Deletion finished\n");
 				
 				prep.close();
 			}catch(SQLException e)
@@ -171,7 +171,7 @@ public class JDBCDelete
 				PreparedStatement prep = c.prepareStatement(sql);
 				prep.setInt(1, pkCol);
 				prep.executeUpdate();
-				System.out.println("Deletion finished.");
+				System.out.println("Deletion finished\n");
 				
 				prep.close();
 			}catch(SQLException e)

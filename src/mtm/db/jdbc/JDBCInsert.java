@@ -85,8 +85,8 @@ public class JDBCInsert
 				
 				Statement stmCh = c.createStatement();
 				String sqlCh;
-				sqlCh = "INSERT INTO instrument(model,purpose,amount,numberUses,bodyLocation,price,warehouseLocation)"
-						+ "VALUES ('" + instr.getModel() +"','" +instr.getPurpose() + "','"+ instr.getAmount() + "','"+ instr.getNumberUses() + "','"+ instr.getBodyLocation() + "','"+instr.getPrice()+"','"+instr.getWarehouseID()+"');";
+				sqlCh = "INSERT INTO instrument(model,purpose,amount,number_uses,body_location,price)"
+						+ "VALUES ('" + instr.getModel() +"','" +instr.getPurpose() + "','"+ instr.getAmount() + "','"+ instr.getNumberUses() + "','"+ instr.getBodyLocation() + "','"+instr.getPrice()+"');";
 				stmCh.executeUpdate(sqlCh);
 				stmCh.close();			
 				
