@@ -42,7 +42,7 @@ public class JDBCSelect
 				int hospitalID = rs.getInt("hospital_ID");
 				String name = rs.getString("name");
 				String location = rs.getString("location");
-				String medicalSpecialization = rs.getString("medical_Specializaton");
+				String medicalSpecialization = rs.getString("medical_specializaton");
 				
 				Hospital hosp = new Hospital(hospitalID,name,location,medicalSpecialization);
 				hospitals.add(hosp);
@@ -76,7 +76,7 @@ public class JDBCSelect
 				hospitalID = rs.getInt("hospital_ID");
 				name = rs.getString("name");
 				location = rs.getString("location");
-				medicalSpecialization = rs.getString("medical_Specializaton");
+				medicalSpecialization = rs.getString("medical_specializaton");
 				
 				hosp = new Hospital(hospitalID,name,location,medicalSpecialization);
 			}
@@ -111,7 +111,7 @@ public class JDBCSelect
 				hospitalID = rs.getInt("hospital_ID");
 				name = rs.getString("name");
 				location = rs.getString("location");
-				medicalSpecialization = rs.getString("medical_Specializaton");
+				medicalSpecialization = rs.getString("medical_specializaton");
 				
 				hosp = new Hospital(hospitalID,name,location,medicalSpecialization);
 			}
@@ -141,7 +141,7 @@ public class JDBCSelect
 			while(rs.next());
 			{
 				int orderID = rs.getInt("order_ID");
-				int totalAmountInstruments = rs.getInt("total_amount_instrument");
+				int totalAmountInstruments = rs.getInt("total_amount_instruments");
 				java.sql.Date orderDate = rs.getDate("order_date");
 				java.sql.Date deliveryDate = rs.getDate("delivery_date");
 				
@@ -174,7 +174,7 @@ public class JDBCSelect
 			while(rs.next())
 			{
 				int orderID = rs.getInt("order_ID");
-				int totalAmountInstruments = rs.getInt("total_amount_instrument");
+				int totalAmountInstruments = rs.getInt("total_amount_instruments");
 				java.sql.Date orderDate = rs.getDate("order_date");
 				java.sql.Date deliveryDate = rs.getDate("delivery_date");
 				
@@ -195,16 +195,14 @@ public class JDBCSelect
 
 	//Charo
 	
-	//al insertar un instrumento, cuando tengo que rellenar el campo de warehouse meto un nombre, le doy la lista, lo busca con un cearch y lo coje con select
-	//cuando tenga que 
-	
+
 	
 	public Instrument selectInstrument(String query, int pkInstrument)
 	{
 		Instrument instrument = null;
 		int instrumentID;
 		
-		//atributos de instrument
+		//attributes of instrument
 		String model;
 		String purpose;
 		Integer amount;
@@ -222,17 +220,17 @@ public class JDBCSelect
 			
 			while (rs.next()) 
 			{
-				instrumentID = rs.getInt("instrumentID");
+				instrumentID = rs.getInt("instrument_ID");
 				model = rs.getString("model");
 				purpose = rs.getString("purpose");
 				amount = rs.getInt("amount");
-				numberUses = rs.getInt("numberUses");
-				bodyLocation = rs.getString("bodyLocation");
+				numberUses = rs.getInt("number_uses");
+				bodyLocation = rs.getString("body_location");
 				price = rs.getInt("price");
-				/*warehouseID = rs.getInt("warehouseID");
+				/*warehouseID = rs.getInt("warehouse_ID");
 				Warehouse ware = new Warehouse();
-				ware = selectWarehouse(c,sql,warehouseID);
-				//warehouseLocation = rs.getString("warehouseLocation");
+				ware = selectWarehouse(c,sql,warehouse_ID);
+				//warehouseLocation = rs.getString("warehouse_location");
 				*/
 				instrument = new Instrument(instrumentID,model,purpose,amount,numberUses,bodyLocation,price);
 			}
@@ -249,7 +247,7 @@ public class JDBCSelect
 		return instrument;
 	}
 	
-	
+	//
 	
 	public ArrayList<Instrument> selectAllInstruments()
 	{
@@ -261,12 +259,12 @@ public class JDBCSelect
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next());
 			{
-				int instrumentID = rs.getInt("instrumentID");
+				int instrumentID = rs.getInt("instrument_ID");
 				String model = rs.getString("model");
 				String purpose = rs.getString("purpose");
 				int amount = rs.getInt("amount");
-				int numberUses = rs.getInt("numberUses");
-				String bodyLocation = rs.getString("bodyLocation");
+				int numberUses = rs.getInt("number_uses");
+				String bodyLocation = rs.getString("body_location");
 				int price = rs.getInt("price");
 				
 				//debo hacer la relacion para meter el objeto
@@ -290,7 +288,7 @@ public class JDBCSelect
 	{
 		Warehouse warehouse = null;
 		
-		//atributos de warehouse
+		//attributes of warehouse
 		int warehouseID;
 		String warehouseLocation;
 		Integer capacity;
@@ -306,10 +304,10 @@ public class JDBCSelect
 			
 			while (rs.next()) 
 			{
-				warehouseID = rs.getInt("warehouseID");
-				warehouseLocation = rs.getString("warehouseLocation");
+				warehouseID = rs.getInt("warehouse_ID");
+				warehouseLocation = rs.getString("warehouse_location");
 				capacity = rs.getInt("capacity");
-				filledSpace = rs.getInt("filledSpace");
+				filledSpace = rs.getInt("filled_space");
 			
 				warehouse = new Warehouse(warehouseID,warehouseLocation,capacity,filledSpace);
 			}
