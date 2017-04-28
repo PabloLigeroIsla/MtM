@@ -215,11 +215,8 @@ public class UserInterface
 		switch(option)
 		{
 		case 1:
-<<<<<<< HEAD
 			//listCompanies(relationOption);
-=======
 //			listCompanies(relationOption);
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 			break;
 		case 2:
 			listEmployees(relationOption);
@@ -234,11 +231,8 @@ public class UserInterface
 			listMachineries(relationOption);
 			break;
 		case 6:
-<<<<<<< HEAD
 			//listMaterials(relationOption);
-=======
 //			listMaterials(relationOption);
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 			break;
 		case 7:
 			listOrders(relationOption);
@@ -257,17 +251,11 @@ public class UserInterface
 		switch(option)
 		{
 		case 1:
-<<<<<<< HEAD
 			//listCompanies(false);
-=======
 //			listCompanies(false);
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 			System.out.printf("Select the ID of the company you want to see");
-<<<<<<< HEAD
 			//showCompany(writeNumber());
-=======
 //			showCompany(writeNumber());
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 			break;
 		case 2:
 			listEmployees(false);
@@ -290,17 +278,11 @@ public class UserInterface
 			showMachinery(writeNumber());
 			break;
 		case 6:
-<<<<<<< HEAD
 			//listMaterials(false);
-=======
 //			listMaterials(false);
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 			System.out.printf("Select the ID of the material you want to see");
-<<<<<<< HEAD
 			//showMaterial(writeNumber());
-=======
 //			showMaterial(writeNumber());
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 			break;
 		case 7:
 			listOrders(false);
@@ -321,13 +303,10 @@ public class UserInterface
 		switch(op){
 		
 		case 1: //Company   
-<<<<<<< HEAD
 		//Company comp = createCompany();
 		//jdbcManager.insert(comp);
-=======
 //		Company comp = createCompany();
 	//	jdbcManager.insert(comp);
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 			break;
 		case 2: //Employee
 			Employee emp = createEmployee();
@@ -346,13 +325,10 @@ public class UserInterface
 			jdbcManager.insert(mach);
 			break;
 		case 6: //Material
-<<<<<<< HEAD
 		//Material mat = createMaterial(); 
 		//jdbcManager.insert(mat);
-=======
 //		Material mat = createMaterial(); 
 //		jdbcManager.insert(mat);
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 			break;
 		case 7: //Order
 			Order ord = createOrder();
@@ -424,7 +400,7 @@ public class UserInterface
     
     public static void updValTable()
 {
-    //	cavcaed
+hbcpi<uedshvpuih
 }
 
     
