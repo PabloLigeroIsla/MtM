@@ -197,47 +197,9 @@ public class UserInterface
 	
 	public static void createTable()
 	{
-		System.out.println(" Do you want to create all the tables?\n");
-		
-		String a = writeString();
-		if(writeOption(a)){
+		System.out.println(" Creating all tables?\n");
 		jdbcManager.createTables();
 		//System.out.println(" Tables created succesfully\n");
-		}else{
-			System.out.println(" Select the table you want to create\n");
-			//See entity names
-			selectionMenu(1);
-			int op=0;
-			switch(op){
-				case 1: jdbcManager.createTableCompany();
-						//System.out.println(" Table of Company created succesfully\n");
-					break;
-				case 2: jdbcManager.createTableEmployee();
-						//System.out.println(" Table of Employee created succesfully\n");
-					break;
-				case 3: jdbcManager.createTableHospital();
-						//System.out.println(" Table of Hospital created succesfully\n");
-					break;
-				case 4: jdbcManager.createTableInstrument();
-						//System.out.println(" Table of Instrument created succesfully\n");
-					break;
-				case 5: jdbcManager.createTableMachinery();
-						//System.out.println(" Table of Machinery created succesfully\n");
-					break;
-				case 6: jdbcManager.createTableMaterial();
-						//System.out.println(" Table of Material created succesfully\n");
-					break;
-				case 7: jdbcManager.createTableOrder();
-						//System.out.println(" Table of Order created succesfully\n");
-					break;
-				case 8: jdbcManager.createTableWarehouse();
-						//System.out.println(" Table of Warehouse created succesfully\n");
-					break;
-			
-			}
-		}
-		
-
 	}
 
 	public static void listEntity()
