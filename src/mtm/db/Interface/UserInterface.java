@@ -400,7 +400,7 @@ public class UserInterface
     
     public static void updValTable()
 {
-hbcpi<uedshvpuih
+    //	hbcpi<uedshvpuih
 }
 
     
