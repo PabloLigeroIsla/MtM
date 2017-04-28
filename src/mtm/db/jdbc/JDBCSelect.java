@@ -247,7 +247,7 @@ public class JDBCSelect
 		return instrument;
 	}
 	
-	
+	//
 	
 	public ArrayList<Instrument> selectAllInstruments()
 	{

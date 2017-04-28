@@ -715,7 +715,7 @@ public class JDBCManager
  	 		return instrumentList;
  	 	}
  	 	
- 	 	
+// 	 	
  	 	public Warehouse selectWarehouse(int primaryKey)
  		{
  			String table = "warehouse";

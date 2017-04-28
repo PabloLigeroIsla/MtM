@@ -12,6 +12,7 @@ public class JDBCDelete
 	{
 		this.c = c;
 	}
+	//
 	//Delete
 			public void deleteInstrument( int pkInstrument)
 		{

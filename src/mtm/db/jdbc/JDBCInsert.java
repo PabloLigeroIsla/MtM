@@ -97,7 +97,7 @@ public class JDBCInsert
 				e.printStackTrace();
 			}
 		}
-		
+		//
 		public void insert(Warehouse wareh) 
 		{
 			try

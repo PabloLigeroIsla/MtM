@@ -610,7 +610,7 @@ public class UserInterface
     	inst.toString();
     	
     }
-    
+    //
     public static void listInstruments(boolean relation){
     	Instrument inst = new Instrument();
     	ArrayList<Instrument> instrumentList = new ArrayList<Instrument>();

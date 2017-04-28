@@ -146,7 +146,7 @@ insert into instrument(model,purpose,amount,number_uses,body_location,price,ware
 insert into instrument(model,purpose,amount,number_uses,body_location,price,warehouse_location) values('Version 3', 'Absorb',10,100, 'Stomach',200,'Chamberi Street 6, 28002 Madrid');
 insert into instrument(model,purpose,amount,number_uses,body_location,price,warehouse_location) values('Version 4', 'Sew',3000,1, 'General',7,'Chamberi Street 6, 28002 Madrid');
 
-
+//
 
 
 CREATE TABLE warehouse(
