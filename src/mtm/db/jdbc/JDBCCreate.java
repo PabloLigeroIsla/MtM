@@ -76,7 +76,6 @@ public class JDBCCreate
 				sAt.executeUpdate(sqla2);
 				sAt.close();
 				
-				//Alex
 				
 				//Charo
 				// fCht -->firstCharotable //sqlch1 --> sqlcharo1

@@ -576,7 +576,7 @@ public class JDBCManager
  	//Celia
  	//Employee
  	
- 	 	public ArrayList<Employee> selectEmployee(){
+ 	 	public ArrayList<Employee> selectAllEmployees(){
  	 		
  			ArrayList<Employee> emp = new ArrayList<Employee>();
  			JDBCSelect sqlSelect = new JDBCSelect(c);
@@ -629,7 +629,7 @@ public class JDBCManager
  	 	
  	 	
  	 //Machinery
- 	 	public ArrayList<Machinery> selectMachinery()
+ 	 	public ArrayList<Machinery> selectAllMachineries()
  		{
  			ArrayList<Machinery> mach = new ArrayList<Machinery>();
  			JDBCSelect sqlSelect = new JDBCSelect(c);
