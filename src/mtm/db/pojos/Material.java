@@ -136,7 +136,13 @@ public class Material implements Serializable {
 	
 
 	
+	public void addCompany(Company provider){
+		this.companyID = provider;
+	}
 	
+	public void deleteCompany(){
+		this.companyID = null
+	}
 	
 	
 	
