@@ -367,6 +367,23 @@ public class JDBCManager
 			
 			
 			// We also delete the relation with the order in which it is contained
+			
+			String table = "instruments_order";
+			String pk1AtSearch = "order_ID";
+			String pk1Compare = "instrument_ID";
+			int pkValueCompare = primaryKeyInstrument;
+			if(!sharedRelation(table, pk1AtSearch, pk1Compare, pkValueCompare))
+			{
+				String colPk = "_ID";
+				deleteRelationInstrumentOrder(primaryKeyInstrument,colPk);
+			}
+			
+
+		}
+		else
+		{
+			System.out.println("\n The Order does not exist \n");
+		}
 			//We also need to delete the relation between the order just deleted and the hospital which orders it
 			
 			// hago el metodo que me de la pk de los orders relacionados con ese instrument, elimino la relacion intrument-order
@@ -810,6 +827,9 @@ public class JDBCManager
  	
 	//Charo
 
+ 	warehouse;
+ 	
+
  	
  	//DB management Methods
 	
@@ -933,43 +953,39 @@ public class JDBCManager
 	return ord;
 	}
 		
-	public Instrument setInstrumentRelations(Instrument inst){
-		
-		
-		//relation instrument-orders
-		String relationalTable = "instrument_orders";
-		String pk1AttSearchOrder = "order_ID";
-		
-		String pkAttCompare = "instrument_ID";
-		int pkValueCompare = inst.getInstrumentID();
-		
-		ArrayList<Integer> instPkRelationFound = new ArrayList<Integer>();
-		instPkRelationFound = foundRelation(relationalTable, pk1AttSearchOrder, pkAttCompare, pkValueCompare);
-		Iterator<Integer> iter = instPkRelationFound.iterator();
-		while(iter.hasNext()){
-			int i = iter.next();
-			inst.addOrder(selectOrder(i));
-		}
+	
+	public Instrument setRelationInstrumentMachinery(Instrument instID, int machID){
 		
 		//relation instrument-machinery
-		relationalTable = "instrument_machinery";
-		String pkAttSearchMach = "machinery_ID";
 		
-		instPkRelationFound = foundRelation(relationalTable, pkAttSearchMach, pkAttCompare, pkValueCompare);
-		iter = instPkRelationFound.iterator();
-		while(iter.hasNext()){
-			int i = iter.next();
-			inst.addMachinery(selectMachinery(i));
-		}
+		JDBCInsert relation = new JDBCInsert (c);
+		relation.insertMachineryInstrumentRelation(instID.getInstrumentID(), machID);
 		
-		//relation instrument-warehouse
+		instID.addMachinery(machID);	
+		return instID;
+	}
+	
+
+	public void deleteRelationInstrumentOrder(int pkCol,String colPk)
+	{
+		String table = "instrument_orders";
+	
+		JDBCDelete sqlDelete = new JDBCDelete(c);
+		sqlDelete.deleteRelationNtoN( table, colPk, pkCol);
 		
-		inst.addWarehouse(selectWarehouse(1));
-		
-		return inst;		
 	}
 
-
+	
+	public void deleteRelationInstrumentMachinery(int pkCol,String colPk)
+	{
+		String table = "instrument_machinery";
+	
+		JDBCDelete sqlDelete = new JDBCDelete(c);
+		sqlDelete.deleteRelationNtoN( table, colPk, pkCol);
+		
+	}
+	
+	
 	public Company setCompanyRelations(Company com){
 		//insert the materials
 		ArrayList<Material> allMaterials = selectAllMaterials();
@@ -999,6 +1015,18 @@ public class JDBCManager
 		
 		return com;
 	}
+
+	public Instrument setInstrumentID(Instrument inst){
+		ArrayList<Instrument> arrayinst = selectAllInstruments();
+		Iterator<Instrument> iter = arrayinst.iterator();
+		int pkSearch = 0;
+		while(iter.hasNext()){
+			pkSearch = iter.next().getInstrumentID();
+		}
+		inst.setInstrumentID(pkSearch);
+		return inst;
+	}
+	
 	
 	//Relation Help Methods
 	public ArrayList<Integer> foundRelation(String table,String pk1AttributeSearch,String pkAttributeCompere ,int pkValueCompere)

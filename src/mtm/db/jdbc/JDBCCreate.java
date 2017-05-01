@@ -82,13 +82,14 @@ public class JDBCCreate
 				Statement fCht = c.createStatement();
 				String sqlch1 = "CREATE TABLE instrument("
 						+ "instrument_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+						+ "name TEXT NOT NULL,"
 						+ "model TEXT NOT NULL,"
 						+ "purpose TEXT NOT NULL,"
 						+ "amount INTEGER NOT NULL,"
 						+ "number_uses INTEGER NOT NULL,"
 						+ "body_location TEXT NOT NULL,"
 						+ "price INTEGER NOT NULL,"
-						+ "warehouse_location TEXT REFERENCES warehouse (warehouse_ID))";
+						+ "warehouse_location INTEGER REFERENCES warehouse (warehouse_ID))";
 				fCht.executeUpdate(sqlch1);
 				fCht.close();
 				
@@ -226,6 +227,7 @@ public class JDBCCreate
 				Statement fCht = c.createStatement();
 				String sqlch1 = "CREATE TABLE instrument("
 						+ "instrument_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+						+ "name TEXT NOT NULL,"
 						+ "model TEXT NOT NULL,"
 						+ "purpose TEXT NOT NULL,"
 						+ "amount INTEGER NOT NULL,"

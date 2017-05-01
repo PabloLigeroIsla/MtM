@@ -8,15 +8,17 @@ public class Instrument implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 529944640208225941L;
+	private static final long serialVersionUID = 3782979999194436070L;
 	/**
 	 * 
 	 */
+
 
 	//
 
 	
 	private Integer instrumentID;
+	private String name;
 	private String model;
 	private String purpose;
 	private Integer amount;
@@ -24,36 +26,21 @@ public class Instrument implements Serializable {
 	private String bodyLocation;
 	private Integer price;
 	private Warehouse warehouse;
-	private List<Order> orderList;
-	private List<Machinery> machineryTypeList;
+	private List<Integer> orderListIDs;
+	private List<Integer> machineryTypeListIDs;
 
 
 		
-	public Instrument(String model, String purpose, Integer amount, Integer numberUses, String bodyLocation, Integer price, Warehouse warehouseID) {
-		super();
-		this.model = model;
-		this.purpose = purpose;
-		this.amount = amount;
-		this.numberUses = numberUses;
-		this.bodyLocation = bodyLocation;
-		this.setPrice(price);
-		this.warehouse = warehouseID;
-		this.orderList = new ArrayList<Order>();
-		this.machineryTypeList = new ArrayList<Machinery>();
-		
-	}
-	
-	
 
 
-	public Instrument(int instrumentID2, String model2, String purpose2, Integer amount2, Integer numberUses2,
+	public Instrument(int instrumentID2, String name2, String model2, String purpose2, Integer amount2, Integer numberUses2,
 			String bodyLocation2, Integer price2, Warehouse warehouseID2) {
 	}
 
 
 
 
-	public Instrument(int instrumentID2, String model2, String purpose2, Integer amount2, Integer numberUses2,
+	public Instrument(int instrumentID2, String name2, String model2, String purpose2, Integer amount2, Integer numberUses2,
 			String bodyLocation2, Integer price2) {
 	}
 
@@ -66,33 +53,45 @@ public class Instrument implements Serializable {
 
 
 
-	public Instrument(String model2, String purpose2, int amount2, int numberUses2, String bodyLocation2, int price2) {
+
+
+
+	public Instrument(String name, String model, String purpose, int amount, int numberUses, String bodyL,
+			int price) {
+		
+		this.name = name;
+		this.model = model;
+		this.purpose = purpose;
+		this.amount = amount;
+		this.numberUses = numberUses;
+		this.bodyLocation = bodyL;
+		this.setPrice(price);
 	}
 
 
 
 
-	public void addOrder(Order order) {
-		if (!orderList.contains(order)) {
-			this.orderList.add(order);
+	public void addOrder(int orderID) {
+		if (!orderListIDs.contains(orderID)) {
+			this.orderListIDs.add(orderID);
 		}
 	}
 		
-	public void removeOrder(Order order) {
-		if (orderList.contains(order)) {
-			this.orderList.remove(order);
+	public void removeOrder(int orderID) {
+		if (orderListIDs.contains(orderID)) {
+			this.orderListIDs.remove(orderID);
 		}
 	}
 	
-	public void addMachinery(Machinery machineryType){
-		if (!machineryTypeList.contains(machineryType)) {
-			this.machineryTypeList.add(machineryType);
+	public void addMachinery(int machineryTypeID){
+		if (!machineryTypeListIDs.contains(machineryTypeID)) {
+			this.machineryTypeListIDs.add(machineryTypeID);
 		}
 	}
 	
-	public void removeMachinery(Machinery machineryType){
-		if (machineryTypeList.contains(machineryType)) {
-			this.machineryTypeList.remove(machineryType);
+	public void removeMachinery(int machineryTypeID){
+		if (machineryTypeListIDs.contains(machineryTypeID)) {
+			this.machineryTypeListIDs.remove(machineryTypeID);
 		}
 	}
 
@@ -117,13 +116,8 @@ public class Instrument implements Serializable {
 
 
 
-	@Override
-	public String toString() {
-		return "Instrument [instrumentID=" + instrumentID + ", model=" + model + ", purpose=" + purpose + ", amount="
-				+ amount + ", numberUses=" + numberUses + ", bodyLocation=" + bodyLocation + ", price=" + price
-				+ ", warehouseLocation=" + warehouse + ", orderList=" + orderList + ", machineryTypeList="
-				+ machineryTypeList + "]";
-	}
+
+
 
 
 
@@ -132,16 +126,7 @@ public class Instrument implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((amount == null) ? 0 : amount.hashCode());
-		result = prime * result + ((bodyLocation == null) ? 0 : bodyLocation.hashCode());
 		result = prime * result + ((instrumentID == null) ? 0 : instrumentID.hashCode());
-		result = prime * result + ((machineryTypeList == null) ? 0 : machineryTypeList.hashCode());
-		result = prime * result + ((model == null) ? 0 : model.hashCode());
-		result = prime * result + ((numberUses == null) ? 0 : numberUses.hashCode());
-		result = prime * result + ((orderList == null) ? 0 : orderList.hashCode());
-		result = prime * result + ((price == null) ? 0 : price.hashCode());
-		result = prime * result + ((purpose == null) ? 0 : purpose.hashCode());
-		result = prime * result + ((warehouse == null) ? 0 : warehouse.hashCode());
 		return result;
 	}
 
@@ -157,55 +142,10 @@ public class Instrument implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Instrument other = (Instrument) obj;
-		if (amount == null) {
-			if (other.amount != null)
-				return false;
-		} else if (!amount.equals(other.amount))
-			return false;
-		if (bodyLocation == null) {
-			if (other.bodyLocation != null)
-				return false;
-		} else if (!bodyLocation.equals(other.bodyLocation))
-			return false;
 		if (instrumentID == null) {
 			if (other.instrumentID != null)
 				return false;
 		} else if (!instrumentID.equals(other.instrumentID))
-			return false;
-		if (machineryTypeList == null) {
-			if (other.machineryTypeList != null)
-				return false;
-		} else if (!machineryTypeList.equals(other.machineryTypeList))
-			return false;
-		if (model == null) {
-			if (other.model != null)
-				return false;
-		} else if (!model.equals(other.model))
-			return false;
-		if (numberUses == null) {
-			if (other.numberUses != null)
-				return false;
-		} else if (!numberUses.equals(other.numberUses))
-			return false;
-		if (orderList == null) {
-			if (other.orderList != null)
-				return false;
-		} else if (!orderList.equals(other.orderList))
-			return false;
-		if (price == null) {
-			if (other.price != null)
-				return false;
-		} else if (!price.equals(other.price))
-			return false;
-		if (purpose == null) {
-			if (other.purpose != null)
-				return false;
-		} else if (!purpose.equals(other.purpose))
-			return false;
-		if (warehouse == null) {
-			if (other.warehouse != null)
-				return false;
-		} else if (!warehouse.equals(other.warehouse))
 			return false;
 		return true;
 	}
@@ -222,6 +162,34 @@ public class Instrument implements Serializable {
 
 	public void setInstrumentID(Integer instrumentID) {
 		this.instrumentID = instrumentID;
+	}
+
+
+
+
+	public String getName() {
+		return name;
+	}
+
+
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
+
+	public Warehouse getWarehouse() {
+		return warehouse;
+	}
+
+
+
+
+	public void setWarehouse(Warehouse warehouse) {
+		this.warehouse = warehouse;
 	}
 
 
@@ -334,29 +302,29 @@ public class Instrument implements Serializable {
 
 
 
-	public List<Order> getOrderList() {
-		return orderList;
+	public List<Integer> getOrderList() {
+		return orderListIDs;
 	}
 
 
 
 
-	public void setOrderList(List<Order> orderList) {
-		this.orderList = orderList;
+	public void setOrderList(List<Integer> orderList) {
+		this.orderListIDs = orderList;
 	}
 
 
 
 
-	public List<Machinery> getMachineryTypeList() {
-		return machineryTypeList;
+	public List<Integer> getMachineryTypeList() {
+		return machineryTypeListIDs;
 	}
 
 
 
 
-	public void setMachineryTypeList(List<Machinery> machineryTypeList) {
-		this.machineryTypeList = machineryTypeList;
+	public void setMachineryTypeList(List<Integer> machineryTypeList) {
+		this.machineryTypeListIDs = machineryTypeList;
 	}
 
 

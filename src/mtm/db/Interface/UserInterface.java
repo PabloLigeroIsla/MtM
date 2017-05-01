@@ -493,6 +493,8 @@ public class UserInterface
 
     public static Instrument createInstrument(){
     	
+    	System.out.println("Name of the instrument\n");
+    	String name=writeString();
     	System.out.println("Model of the instrument\n");
 		String model=writeString();
 		System.out.println("Purpose of the instrument\n");
@@ -506,7 +508,17 @@ public class UserInterface
 		System.out.println("Price of the instrument\n");
 		int price=writeNumber();
 		
-		Instrument inst = new Instrument (model,purpose,amount,numberUses,bodyLocation,price);
+		Instrument inst = new Instrument (name,model,purpose,amount,numberUses,bodyLocation,price);
+		inst.addWarehouse(jdbcManager.selectWarehouse(1));
+		jdbcManager.insert(inst);
+		inst = jdbcManager.setInstrumentID(inst); // to obtain the ID of the instrument
+		
+		
+		System.out.println("Select the machines this instrument has used?\n");
+		listMachineries(false);
+		int machID= writeNumber();
+		inst = jdbcManager.setInstrumentRelationMachinery(inst,machID);
+		
 		
 		return inst;
 		
@@ -795,7 +807,7 @@ public class UserInterface
     	inst.toString();
     	
     }
-    //
+    
     public static void listInstruments(boolean relation){
     	Instrument inst = new Instrument();
     	ArrayList<Instrument> instrumentList = new ArrayList<Instrument>();
