@@ -1,6 +1,7 @@
 package mtm.db.jdbc;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -54,5 +55,10 @@ public class JDBCUpdate
 		}
 		
 	}
+	public void updateMachinery(int pkSearch){
+		
+	}
+
+	
 
 }
