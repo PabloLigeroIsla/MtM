@@ -873,6 +873,7 @@ public class UserInterface
     {
     	Machinery mach = new Machinery();
     	mach = jdbcManager.selectMachinery(pk);
+    	jdbcManager.setMachineryRelations(mach);
     	mach.toString();
     }
     public static void listMachineries(boolean relation) {
@@ -886,7 +887,17 @@ public class UserInterface
     	while(count < machList.size()){
     		
     		mach =machList.get(count);
-    		System.out.printf("id: %d\n",mach.getMachineryID());
+    		if(relation)
+    		{
+    			jdbcManager.setMachineryRelation(mach);
+    			System.out.printf("id: %d, relation Instrument: %d, relation employee: %d, relation materials: %d\n",mach.getMachineryID(),mach.getemployeeList().toString(),mach.getmaterialList().toString());
+    			
+    		}else
+    		{
+    			System.out.printf("id: %d\n",mach.getMachineryID());
+    		}
+    		
+    		
     	}
     
     }
