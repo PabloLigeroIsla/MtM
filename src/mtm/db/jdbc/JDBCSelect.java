@@ -203,6 +203,7 @@ public class JDBCSelect
 		int instrumentID;
 		
 		//attributes of instrument
+		String name;
 		String model;
 		String purpose;
 		Integer amount;
@@ -221,18 +222,15 @@ public class JDBCSelect
 			while (rs.next()) 
 			{
 				instrumentID = rs.getInt("instrument_ID");
+				name = rs.getString("name");
 				model = rs.getString("model");
 				purpose = rs.getString("purpose");
 				amount = rs.getInt("amount");
 				numberUses = rs.getInt("number_uses");
 				bodyLocation = rs.getString("body_location");
 				price = rs.getInt("price");
-				/*warehouseID = rs.getInt("warehouse_ID");
-				Warehouse ware = new Warehouse();
-				ware = selectWarehouse(c,sql,warehouse_ID);
-				//warehouseLocation = rs.getString("warehouse_location");
-				*/
-				instrument = new Instrument(instrumentID,model,purpose,amount,numberUses,bodyLocation,price);
+				
+				instrument = new Instrument(instrumentID,name,model,purpose,amount,numberUses,bodyLocation,price);
 			}
 			
 			prep.close();
@@ -260,6 +258,7 @@ public class JDBCSelect
 			while(rs.next());
 			{
 				int instrumentID = rs.getInt("instrument_ID");
+				String name = rs.getString("name");
 				String model = rs.getString("model");
 				String purpose = rs.getString("purpose");
 				int amount = rs.getInt("amount");
@@ -270,7 +269,7 @@ public class JDBCSelect
 				//debo hacer la relacion para meter el objeto
 				//warehouseLocation = rs.getString("warehouseLocation");
 				
-				Instrument instrument = new Instrument(instrumentID,model,purpose,amount,numberUses,bodyLocation,price);
+				Instrument instrument = new Instrument(instrumentID,name,model,purpose,amount,numberUses,bodyLocation,price);
 				instrumentList.add(instrument);
 			}
 			

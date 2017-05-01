@@ -133,6 +133,7 @@ INSERT INTO instrumentmachinery(instrument_ID,machinery_ID,timeofMade)VALUES(4,4
 
 CREATE TABLE instrument(
 instrument_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+name TEXT NOT NULL,
 model TEXT NOT NULL,
 purpose TEXT NOT NULL,
 amount INTEGER NOT NULL,
@@ -141,10 +142,10 @@ body_location TEXT NOT NULL,
 price INTEGER NOT NULL,
 warehouse_location TEXT REFERENCES warehouse (warehouse_ID));
 
-insert into instrument(model,purpose,amount,number_uses,body_location,price,warehouse_location)values('Version 1', 'Cut',50,500, 'General',12,'Chamberi Street 6, 28002 Madrid');
-insert into instrument(model,purpose,amount,number_uses,body_location,price,warehouse_location) values('Version 2', 'Clean',200,1, 'General',5,'Chamberi Street 6, 28002 Madrid');
-insert into instrument(model,purpose,amount,number_uses,body_location,price,warehouse_location) values('Version 3', 'Absorb',10,100, 'Stomach',200,'Chamberi Street 6, 28002 Madrid');
-insert into instrument(model,purpose,amount,number_uses,body_location,price,warehouse_location) values('Version 4', 'Sew',3000,1, 'General',7,'Chamberi Street 6, 28002 Madrid');
+insert into instrument(name,model,purpose,amount,number_uses,body_location,price,warehouse_location)values('Version 1', 'Cut',50,500, 'General',12,'Chamberi Street 6, 28002 Madrid');
+insert into instrument(name,model,purpose,amount,number_uses,body_location,price,warehouse_location) values('Version 2', 'Clean',200,1, 'General',5,'Chamberi Street 6, 28002 Madrid');
+insert into instrument(name,model,purpose,amount,number_uses,body_location,price,warehouse_location) values('Version 3', 'Absorb',10,100, 'Stomach',200,'Chamberi Street 6, 28002 Madrid');
+insert into instrument(name,model,purpose,amount,number_uses,body_location,price,warehouse_location) values('Version 4', 'Sew',3000,1, 'General',7,'Chamberi Street 6, 28002 Madrid');
 
 //
 
