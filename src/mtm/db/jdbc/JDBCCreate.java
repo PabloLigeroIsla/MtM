@@ -12,7 +12,7 @@ public class JDBCCreate
 	{
 		this.c = c;
 	}
-	
+	//
 	//Create
 			public void createTables()
 		{
@@ -85,16 +85,17 @@ public class JDBCCreate
 						+ "model TEXT NOT NULL,"
 						+ "purpose TEXT NOT NULL,"
 						+ "amount INTEGER NOT NULL,"
-						+ "number_Uses INTEGER NOT NULL,"
+						+ "number_uses INTEGER NOT NULL,"
 						+ "body_location TEXT NOT NULL,"
 						+ "price INTEGER NOT NULL,"
-						+ "warehouse_location TEXT REFERENCES warehouse (warehouse_location))";
+						+ "warehouse_location TEXT REFERENCES warehouse (warehouse_ID))";
 				fCht.executeUpdate(sqlch1);
 				fCht.close();
 				
 				Statement sCht = c.createStatement();
 				String sqlch2 = "CREATE TABLE warehouse("
-						+ "warehouse_location TEXT PRIMARY KEY NOT NULL,"
+						+ "warehouse_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+						+ "warehouse_location TEXT NOT NULL,"
 						+ "capacity INTEGER NOT NULL,"
 						+ "filled_space INTEGER NOT NULL)";
 				sCht.executeUpdate(sqlch2);
@@ -128,6 +129,7 @@ public class JDBCCreate
 				
 				
 				c.commit();
+				
 			}catch (Exception e)
 			{
 				e.printStackTrace();
@@ -227,10 +229,10 @@ public class JDBCCreate
 						+ "model TEXT NOT NULL,"
 						+ "purpose TEXT NOT NULL,"
 						+ "amount INTEGER NOT NULL,"
-						+ "numberUses INTEGER NOT NULL,"
-						+ "bodyLocation TEXT NOT NULL,"
+						+ "number_uses INTEGER NOT NULL,"
+						+ "body_location TEXT NOT NULL,"
 						+ "price INTEGER NOT NULL,"
-						+ "warehouseID INTEGER REFERENCES warehouse (warehouseID))";
+						+ "warehouse_ID INTEGER REFERENCES warehouse (warehouse_ID))";
 				fCht.executeUpdate(sqlch1);
 				fCht.close();
 				

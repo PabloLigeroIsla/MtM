@@ -72,7 +72,7 @@ public class UserInterface
 	public static int openMenu()
 	{
 		int option;
-		int numOptions = 6; //Numero de opciones que podemos seleccionar con esta funci�n
+		int numOptions = 7; //Numero de opciones que podemos seleccionar con esta funci�n
 		printMenu();
 		option = writeNumber(numOptions);
 		
@@ -165,14 +165,15 @@ public class UserInterface
     		break;
     	case 4:
     		//This case is used when you want to introduce a value in the dataBase
-    		System.out.println("\n\nSelect the table where ypu wsnt to insert the value:\n"
+    		System.out.println("\n\nSelect the table where you want to insert the value:\n"
     				+ "1:Company\n"
     				+ "2:Employee\n"
     				+ "3:Hospital\n"
     				+ "4:Instrument\n"
     				+ "5:Machinery\n"
     				+ "6:Material\n"
-    				+ "7:Warehouse\n");
+    				+ "7:Order\n"
+    				+ "8:Warehouse\n");
     		break;
     	case 5:
     		//Menu for the delete option
@@ -199,47 +200,9 @@ public class UserInterface
 	
 	public static void createTable()
 	{
-		System.out.println(" Do you want to create all the tables?\n");
-		
-		String a = writeString();
-		if(writeOption(a)){
+		System.out.println(" Creating all tables?\n");
 		jdbcManager.createTables();
 		//System.out.println(" Tables created succesfully\n");
-		}else{
-			System.out.println(" Select the table you want to create\n");
-			//See entity names
-			selectionMenu(1);
-			int op=0;
-			switch(op){
-				case 1: jdbcManager.createTableCompany();
-						//System.out.println(" Table of Company created succesfully\n");
-					break;
-				case 2: jdbcManager.createTableEmployee();
-						//System.out.println(" Table of Employee created succesfully\n");
-					break;
-				case 3: jdbcManager.createTableHospital();
-						//System.out.println(" Table of Hospital created succesfully\n");
-					break;
-				case 4: jdbcManager.createTableInstrument();
-						//System.out.println(" Table of Instrument created succesfully\n");
-					break;
-				case 5: jdbcManager.createTableMachinery();
-						//System.out.println(" Table of Machinery created succesfully\n");
-					break;
-				case 6: jdbcManager.createTableMaterial();
-						//System.out.println(" Table of Material created succesfully\n");
-					break;
-				case 7: jdbcManager.createTableOrder();
-						//System.out.println(" Table of Order created succesfully\n");
-					break;
-				case 8: jdbcManager.createTableWarehouse();
-						//System.out.println(" Table of Warehouse created succesfully\n");
-					break;
-			
-			}
-		}
-		
-
 	}
 
 	public static void listEntity()
@@ -254,7 +217,8 @@ public class UserInterface
 		switch(option)
 		{
 		case 1:
-			listCompanies(relationOption);
+			//listCompanies(relationOption);
+//			listCompanies(relationOption);
 			break;
 		case 2:
 			listEmployees(relationOption);
@@ -269,7 +233,8 @@ public class UserInterface
 			listMachineries(relationOption);
 			break;
 		case 6:
-			listMaterials(relationOption);
+			//listMaterials(relationOption);
+//			listMaterials(relationOption);
 			break;
 		case 7:
 			listOrders(relationOption);
@@ -288,9 +253,11 @@ public class UserInterface
 		switch(option)
 		{
 		case 1:
-			listCompanies(false);
+			//listCompanies(false);
+//			listCompanies(false);
 			System.out.printf("Select the ID of the company you want to see");
-			showCompany(writeNumber());
+			//showCompany(writeNumber());
+//			showCompany(writeNumber());
 			break;
 		case 2:
 			listEmployees(false);
@@ -313,9 +280,11 @@ public class UserInterface
 			showMachinery(writeNumber());
 			break;
 		case 6:
-			listMaterials(false);
+			//listMaterials(false);
+//			listMaterials(false);
 			System.out.printf("Select the ID of the material you want to see");
-			showMaterial(writeNumber());
+			//showMaterial(writeNumber());
+//			showMaterial(writeNumber());
 			break;
 		case 7:
 			listOrders(false);
@@ -332,13 +301,14 @@ public class UserInterface
 	{
 		System.out.println("What table do you want to insert the value to? \n");
 		selectionMenu(4);
-		int op=0;
-		
+		int op=writeNumber(8);
 		switch(op){
 		
 		case 1: //Company   
-		Company comp = createCompany();
-		jdbcManager.insert(comp);
+		//Company comp = createCompany();
+		//jdbcManager.insert(comp);
+//		Company comp = createCompany();
+	//	jdbcManager.insert(comp);
 			break;
 		case 2: //Employee
 			Employee emp = createEmployee();
@@ -357,10 +327,16 @@ public class UserInterface
 			jdbcManager.insert(mach);
 			break;
 		case 6: //Material
-		Material mat = createMaterial(); 
-		jdbcManager.insert(mat);
+		//Material mat = createMaterial(); 
+		//jdbcManager.insert(mat);
+//		Material mat = createMaterial(); 
+//		jdbcManager.insert(mat);
 			break;
-		case 7: // Warehouse 
+		case 7: //Order
+			Order ord = createOrder();
+			jdbcManager.insert(ord);
+			break;
+		case 8: // Warehouse 
 			Warehouse war = createWarehouse();
 			jdbcManager.insert(war);
 			break;
@@ -426,6 +402,7 @@ public class UserInterface
     
     public static void updValTable()
 {
+    //	hbcpi<uedshvpuih
 }
 
     
@@ -528,7 +505,6 @@ public class UserInterface
 		String bodyLocation=writeString();
 		System.out.println("Price of the instrument\n");
 		int price=writeNumber();
-		System.out.println("ID of the warehouse where the instrument is\n");
 		
 		Instrument inst = new Instrument (model,purpose,amount,numberUses,bodyLocation,price);
 		
@@ -819,7 +795,7 @@ public class UserInterface
     	inst.toString();
     	
     }
-    
+    //
     public static void listInstruments(boolean relation){
     	Instrument inst = new Instrument();
     	ArrayList<Instrument> instrumentList = new ArrayList<Instrument>();

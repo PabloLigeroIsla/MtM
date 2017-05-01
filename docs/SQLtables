@@ -136,21 +136,22 @@ instrument_ID INTEGER PRIMARY KEY AUTOINCREMENT,
 model TEXT NOT NULL,
 purpose TEXT NOT NULL,
 amount INTEGER NOT NULL,
-number_Uses INTEGER NOT NULL,
+number_uses INTEGER NOT NULL,
 body_location TEXT NOT NULL,
 price INTEGER NOT NULL,
-warehouse_location TEXT REFERENCES warehouse (warehouse_location));
+warehouse_location TEXT REFERENCES warehouse (warehouse_ID));
 
 insert into instrument(model,purpose,amount,number_uses,body_location,price,warehouse_location)values('Version 1', 'Cut',50,500, 'General',12,'Chamberi Street 6, 28002 Madrid');
 insert into instrument(model,purpose,amount,number_uses,body_location,price,warehouse_location) values('Version 2', 'Clean',200,1, 'General',5,'Chamberi Street 6, 28002 Madrid');
 insert into instrument(model,purpose,amount,number_uses,body_location,price,warehouse_location) values('Version 3', 'Absorb',10,100, 'Stomach',200,'Chamberi Street 6, 28002 Madrid');
 insert into instrument(model,purpose,amount,number_uses,body_location,price,warehouse_location) values('Version 4', 'Sew',3000,1, 'General',7,'Chamberi Street 6, 28002 Madrid');
 
-
+//
 
 
 CREATE TABLE warehouse(
-warehouse_location TEXT PRIMARY KEY NOT NULL,
+warehouse_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+warehouse_location TEXT NOT NULL,
 capacity INTEGER NOT NULL,
 filled_space INTEGER NOT NULL);
 
