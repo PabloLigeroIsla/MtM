@@ -161,7 +161,7 @@ public class JDBCDelete
 			}
 		}
 		
-		
+			
 			//Delete Relations
 		
 			public void deleteRelationNtoN(String table, String colPk,int pkCol)
@@ -181,5 +181,5 @@ public class JDBCDelete
 			}
 		}
 
-		
+			
 }

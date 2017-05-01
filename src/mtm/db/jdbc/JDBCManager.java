@@ -313,7 +313,17 @@ public class JDBCManager
 				deleteRelationHospitalOrder(primaryKey,colPk);
 			}
 			
-
+			
+			table = "instrument_orders";
+			pk1AtrivuteSearch = "order_ID";
+			pkAtrivuteCompere = "order_ID";
+			pkValueCompere = primaryKey;
+			if(!sharedRelation(table, pk1AtrivuteSearch, pkAtrivuteCompere, pkValueCompere))
+			{
+				String colPk = "order_ID";
+				deleteRelationInstrumentOrder(primaryKey,colPk);
+			}
+			
 		}
 		else
 		{
@@ -876,7 +886,19 @@ public class JDBCManager
 		
 	}
 	
+	public void setRelationInstrumentOrder(int inst, int ord)
+	{
+		JDBCInsert sqlInsert = new JDBCInsert(c);
+		sqlInsert.insertInstrumentOrderRelation(inst,ord);
+	}
 	
+	public void deleteRelationInstrumentOrder(int pkCol,String colPk)
+	{
+		String table = "instrument_orders";
+		
+		JDBCDelete sqlInsert = new JDBCDelete(c);
+		sqlInsert.deleteRelationNtoN(table,colPk,pkCol);
+	}
 	
 	public Hospital setHospitalRelations(Hospital hosp)
 	{
@@ -988,6 +1010,7 @@ public class JDBCManager
 	//Set ID's
 	//Alex
 	public Company setCompanyID(Company com){
+		
 		ArrayList <Company> arraycom = selectAllCompanies();
 		Iterator<Company> iter = arraycom.iterator();
 		int pkSearch = 0;
@@ -1000,6 +1023,31 @@ public class JDBCManager
 		return com;
 	}
 	
+	public Hospital setHospitalID(Hospital hosp)
+	{
+		ArrayList <Hospital> arrayHosp = selectHospitals();
+		Iterator<Hospital> iter = arrayHosp.iterator();
+		int pkSearch = 0;
+		while(iter.hasNext())
+		{
+			pkSearch = iter.next().getHospitalID();
+		} 
+		hosp.setHospitalID(pkSearch);
+		return hosp;
+	}
+	public Order setOrderID(Order ord)
+	{
+		ArrayList<Order> arrayOrd = selectAllOrders();
+		Iterator<Order> iter = arrayOrd.iterator();
+		int pkSearch = 0;
+		while(iter.hasNext())
+		{
+			pkSearch = iter.next().getOrderID();
+		}
+		
+		ord.setOrderID(pkSearch);
+		return ord;
+	}
 	//Relation Help Methods
 	public ArrayList<Integer> foundRelation(String table,String pk1AttributeSearch,String pkAttributeCompere ,int pkValueCompere)
 	{
@@ -1015,7 +1063,6 @@ public class JDBCManager
 		
 	}
 	
-
 	public boolean sharedRelation(String table,String pk1AtrivuteSearch,String pkAtrivuteCompere ,Integer pkValueCompere)
 	{
 		boolean a = false;

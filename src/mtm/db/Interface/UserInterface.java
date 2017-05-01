@@ -150,6 +150,7 @@ public class UserInterface
     				+ "4:Instrument\n"
     				+ "5:Machinery\n"
     				+ "6:Material\n"
+    				+ "7:Order"
     				+ "8:Warehouse\n");
     		break;
     	case 3:
@@ -172,8 +173,7 @@ public class UserInterface
     				+ "4:Instrument\n"
     				+ "5:Machinery\n"
     				+ "6:Material\n"
-    				+ "7:Order\n"
-    				+ "8:Warehouse\n");
+    				+ "7:Warehouse\n");
     		break;
     	case 5:
     		//Menu for the delete option
@@ -301,7 +301,7 @@ public class UserInterface
 	{
 		System.out.println("What table do you want to insert the value to? \n");
 		selectionMenu(4);
-		int op=writeNumber(8);
+		int op=writeNumber(7);
 		switch(op){
 		
 		case 1: //Company   
@@ -332,11 +332,7 @@ public class UserInterface
 //		Material mat = createMaterial(); 
 //		jdbcManager.insert(mat);
 			break;
-		case 7: //Order
-			Order ord = createOrder();
-			jdbcManager.insert(ord);
-			break;
-		case 8: // Warehouse 
+		case 7: // Warehouse 
 			Warehouse war = createWarehouse();
 			jdbcManager.insert(war);
 			break;
@@ -437,11 +433,20 @@ public class UserInterface
 					jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(),op,tao);
 				}else
 				{
+			    	System.out.println("Introduce the values:\n");
+			    	System.out.println("Select the Primary Key of the instrument you want to order\n");
+			    	listInstruments(false);
+			    	int opt = writeNumber();
+			    	
 					Order ord = createOrder();
 					jdbcManager.insert(ord);
+					jdbcManager.setOrderID(ord);
+					
 					System.out.println("Insert the amountOrder");
 					int tao = writeNumber();
+					
 					jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(),ord.getOrderID(),tao);
+					jdbcManager.setRelationInstrumentOrder(opt,ord.getOrderID());
 				}
 				System.out.println("Do you want to keep relating? YES,NO\n");
 				option = writeString();
@@ -459,8 +464,8 @@ public class UserInterface
 		return hosp;
     } 
     public static Order createOrder()
-    {
-    	System.out.println("Introduce the values\n");
+    {		
+    	
     	Order ord = new Order();
     	System.out.println("Total Amount of Instruments\n");
 		int d = writeNumber();
@@ -844,7 +849,6 @@ public class UserInterface
     	
     	
     }
-    
     
     public static void showMachinery(int pk)
     {
