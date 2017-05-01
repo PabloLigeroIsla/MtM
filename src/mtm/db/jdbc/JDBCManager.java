@@ -947,13 +947,8 @@ public class JDBCManager
 	
 	public Order setOrderRelations(Order ord)
 	{
-<<<<<<< HEAD
 	//Hacer create the tabla asociada instruments/order	
 		String pkAtributeCompere = "order_ID";
-=======
-		//Hacer create the tabla asociada instruments/order	
-		String pkAtrivuteCompere = "order_ID";
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 		int pkValueCompere = ord.getOrderID();
 		
 		//Hospital List
