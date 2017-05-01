@@ -177,10 +177,13 @@ public class UserInterface
     		break;
     	case 5:
     		//Menu for the delete option
-    		System.out.println("\n\nSelect the table where you want to delate a value:\n"
+    		System.out.println("\n\nSelect the table where you want to delete a value:\n"
     				+ "1:Company\n"
     				+ "2:Employee\n"
-    				+ "3:Order\n");
+    				+ "3:Hospital\n"
+    				+ "4:Instrument\n"
+    				+ "5:Machinery\n"
+    				+ "6:Material\n");
     		break;
     	case 6:
     		//Menu for the Update
@@ -384,12 +387,7 @@ public class UserInterface
 			int pk6 = writeNumber();
 			jdbcManager.deleteMaterial(pk6);
 			break;
-		case 7: // Warehouse
-			showWarehouse(1);
-			System.out.println("What warehouse do you want to delete from this table? \n");
-			int pk7 = writeNumber();
-			jdbcManager.deleteWarehouse(pk7);
-			break;
+		
 		}
 		
 	}
@@ -517,6 +515,8 @@ public class UserInterface
 
     public static Instrument createInstrument(){
     	
+    	System.out.println("Name of the instrument\n");
+    	String name=writeString();
     	System.out.println("Model of the instrument\n");
 		String model=writeString();
 		System.out.println("Purpose of the instrument\n");
@@ -530,7 +530,17 @@ public class UserInterface
 		System.out.println("Price of the instrument\n");
 		int price=writeNumber();
 		
-		Instrument inst = new Instrument (model,purpose,amount,numberUses,bodyLocation,price);
+		Instrument inst = new Instrument (name,model,purpose,amount,numberUses,bodyLocation,price);
+		inst.addWarehouse(jdbcManager.selectWarehouse(1));
+		jdbcManager.insert(inst);
+		inst = jdbcManager.setInstrumentID(inst); // to obtain the ID of the instrument
+		
+		
+		System.out.println("Select the machines this instrument has used?\n");
+		listMachineries(false);
+		int machID= writeNumber();
+		inst = jdbcManager.setRelationInstrumentMachinery(inst,machID);
+		
 		
 		return inst;
 		
@@ -819,7 +829,7 @@ public class UserInterface
     	inst.toString();
     	
     }
-    //
+    
     public static void listInstruments(boolean relation){
     	Instrument inst = new Instrument();
     	ArrayList<Instrument> instrumentList = new ArrayList<Instrument>();

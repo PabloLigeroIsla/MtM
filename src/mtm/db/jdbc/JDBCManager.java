@@ -368,57 +368,44 @@ public class JDBCManager
 	
 	public void deleteInstrument(int primaryKeyInstrument)
 	{
-		
+		//
 		String sqlQuery = "SELECT * FROM instrument WHERE instrumentID = ?";
 		if(valExist(sqlQuery,primaryKeyInstrument,null))
 		{
 			JDBCDelete sqlDelete = new JDBCDelete(c);
 			
-			sqlDelete.deleteHospital(primaryKeyInstrument);
 			
 			
 			// We also delete the relation with the order in which it is contained
-			//We also need to delete the relation between the order just deleted and the hospital which orders it
 			
-			// hago el metodo que me de la pk de los orders relacionados con ese instrument, elimino la relacion intrument-order
-			
+			String table = "instruments_order";
+			String pk1AtSearch = "order_ID";
+			String pk1Compare = "instrument_ID";
+			int pkValueCompare = primaryKeyInstrument;
+			if(!sharedRelation(table, pk1AtSearch, pk1Compare, pkValueCompare))
+			{
+				sqlDelete.deleteInstrument(primaryKeyInstrument);
+				
+				String colPk = "instrument_ID";
+				deleteRelationInstrumentOrder(primaryKeyInstrument,colPk);
+			}			
+
 		}
 		else
 		{
 			System.out.println("\n The instrument does not exist \n");
 		}
-		
 	}
 	
-	public void deleteWarehouse(int primaryKeyWarehouse)
-	{
-		
-		String sqlQuery = "SELECT * FROM instrument WHERE instrumentID = ?";
-		if(valExist(sqlQuery,primaryKeyWarehouse,null))
-		{
-			JDBCDelete sqlDelete = new JDBCDelete(c);
-			
-			sqlDelete.deleteHospital(primaryKeyWarehouse);
-			
-		}
-		else
-		{
-			System.out.println("\n The warehouse does not exist \n");
-		}
-		
-	}
+
 	
 	//Alex
 	public void deleteCompany(int primaryKey){
-		
-		String sqlQuery = "SELECT * FROM company WHERE company_ID = ?";
+		String sqlQuery = "SELECT * FROM company WHERE company_ID == ?";
 		if(valExist(sqlQuery,primaryKey,null))
 		{
 			JDBCDelete sqlDelete = new JDBCDelete(c);
 			sqlDelete.deleteCompany(primaryKey);
-			
-			//Delete the relations of the company
-			
 
 		}
 		else
@@ -846,6 +833,21 @@ public class JDBCManager
  	
 	//Charo
 
+ 	public void updateWarehouse(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
+ 	{
+ 		String table = "warehouse";
+ 		String selQuery = "SELECT name FROM "+table+" WHERE warehouse_ID = 1";
+ 		if(valExist(selQuery,pkSearch,null))
+ 		{
+ 			
+ 			JDBCUpdate sqlUpdate= new JDBCUpdate(c);
+ 			sqlUpdate.update(table,colChange,stringChange,intChange,colSearch,pkSearch);
+ 			
+ 			
+ 		}
+ 		
+ 	} 	
+
  	
  	//DB management Methods
 	
@@ -947,7 +949,6 @@ public class JDBCManager
 	
 	public Order setOrderRelations(Order ord)
 	{
-
 	//Hacer create the tabla asociada instruments/order	
 		String pkAtributeCompere = "order_ID";
 		int pkValueCompere = ord.getOrderID();
@@ -1067,8 +1068,15 @@ public class JDBCManager
 		
 		return mach;
 	}
+
 	
-	
+	public void deleteRelationInstrumentMachinery(int pkCol,String colPk)
+	{
+		String table = "instrument_machinery";
+		JDBCDelete sqlDelete = new JDBCDelete(c);
+		sqlDelete.deleteRelationNtoN( table, colPk, pkCol);
+		
+	}
 	
 	
 	
@@ -1104,7 +1112,6 @@ public class JDBCManager
 	//Set ID's
 	//Alex
 	public Company setCompanyID(Company com){
-		
 		ArrayList <Company> arraycom = selectAllCompanies();
 		Iterator<Company> iter = arraycom.iterator();
 		int pkSearch = 0;
@@ -1142,6 +1149,16 @@ public class JDBCManager
 		ord.setOrderID(pkSearch);
 		return ord;
 	}
+	public Instrument setInstrumentID(Instrument inst){
+		ArrayList<Instrument> arrayinst = selectAllInstruments();
+		Iterator<Instrument> iter = arrayinst.iterator();
+		int pkSearch = 0;
+		while(iter.hasNext()){
+			pkSearch = iter.next().getInstrumentID();
+		}
+		inst.setInstrumentID(pkSearch);
+		return inst;
+	}
 	//Relation Help Methods
 	public ArrayList<Integer> foundRelation(String table,String pk1AttributeSearch,String pkAttributeCompere ,int pkValueCompere)
 	{
@@ -1157,6 +1174,7 @@ public class JDBCManager
 		
 	}
 	
+
 	public boolean sharedRelation(String table,String pk1AtrivuteSearch,String pkAtrivuteCompere ,Integer pkValueCompere)
 	{
 		boolean a = false;
