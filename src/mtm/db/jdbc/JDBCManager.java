@@ -363,7 +363,6 @@ public class JDBCManager
 		{
 			JDBCDelete sqlDelete = new JDBCDelete(c);
 			
-			sqlDelete.deleteHospital(primaryKeyInstrument);
 			
 			
 			// We also delete the relation with the order in which it is contained
@@ -374,45 +373,20 @@ public class JDBCManager
 			int pkValueCompare = primaryKeyInstrument;
 			if(!sharedRelation(table, pk1AtSearch, pk1Compare, pkValueCompare))
 			{
-				String colPk = "_ID";
+				sqlDelete.deleteInstrument(primaryKeyInstrument);
+				
+				String colPk = "instrument_ID";
 				deleteRelationInstrumentOrder(primaryKeyInstrument,colPk);
-			}
-			
+			}			
 
-		}
-		else
-		{
-			System.out.println("\n The Order does not exist \n");
-		}
-			//We also need to delete the relation between the order just deleted and the hospital which orders it
-			
-			// hago el metodo que me de la pk de los orders relacionados con ese instrument, elimino la relacion intrument-order
-			
 		}
 		else
 		{
 			System.out.println("\n The instrument does not exist \n");
 		}
-		
 	}
 	
-	public void deleteWarehouse(int primaryKeyWarehouse)
-	{
-		
-		String sqlQuery = "SELECT * FROM instrument WHERE instrumentID = ?";
-		if(valExist(sqlQuery,primaryKeyWarehouse,null))
-		{
-			JDBCDelete sqlDelete = new JDBCDelete(c);
-			
-			sqlDelete.deleteHospital(primaryKeyWarehouse);
-			
-		}
-		else
-		{
-			System.out.println("\n The warehouse does not exist \n");
-		}
-		
-	}
+
 	
 	//Alex
 	public void deleteCompany(int primaryKey){
@@ -827,8 +801,20 @@ public class JDBCManager
  	
 	//Charo
 
- 	warehouse;
- 	
+ 	public void updateWarehouse(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
+ 	{
+ 		String table = "warehouse";
+ 		String selQuery = "SELECT name FROM "+table+" WHERE warehouse_ID = 1";
+ 		if(valExist(selQuery,pkSearch,null))
+ 		{
+ 			
+ 			JDBCUpdate sqlUpdate= new JDBCUpdate(c);
+ 			sqlUpdate.update(table,colChange,stringChange,intChange,colSearch,pkSearch);
+ 			
+ 			
+ 		}
+ 		
+ 	} 	
 
  	
  	//DB management Methods

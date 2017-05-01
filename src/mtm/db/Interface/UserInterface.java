@@ -177,10 +177,13 @@ public class UserInterface
     		break;
     	case 5:
     		//Menu for the delete option
-    		System.out.println("\n\nSelect the table where you want to delate a value:\n"
+    		System.out.println("\n\nSelect the table where you want to delete a value:\n"
     				+ "1:Company\n"
     				+ "2:Employee\n"
-    				+ "3:Order\n");
+    				+ "3:Hospital\n"
+    				+ "4:Instrument\n"
+    				+ "5:Machinery\n"
+    				+ "6:Material\n");
     		break;
     	case 6:
     		//Menu for the Update
@@ -388,12 +391,7 @@ public class UserInterface
 			int pk6 = writeNumber();
 			jdbcManager.deleteMaterial(pk6);
 			break;
-		case 7: // Warehouse
-			showWarehouse(1);
-			System.out.println("What warehouse do you want to delete from this table? \n");
-			int pk7 = writeNumber();
-			jdbcManager.deleteWarehouse(pk7);
-			break;
+		
 		}
 		
 	}
@@ -517,7 +515,7 @@ public class UserInterface
 		System.out.println("Select the machines this instrument has used?\n");
 		listMachineries(false);
 		int machID= writeNumber();
-		inst = jdbcManager.setInstrumentRelationMachinery(inst,machID);
+		inst = jdbcManager.setRelationInstrumentMachinery(inst,machID);
 		
 		
 		return inst;
