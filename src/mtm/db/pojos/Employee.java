@@ -55,7 +55,7 @@ public class Employee implements Serializable {
 	public Machinery getMachineryType() {
 		return machineryType;
 	}
-
+	
 	public void setMachineryType(Machinery machineryType) {
 		this.machineryType = machineryType;
 	}

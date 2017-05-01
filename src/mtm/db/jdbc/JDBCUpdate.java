@@ -55,8 +55,9 @@ public class JDBCUpdate
 		}
 		
 	}
-	public void updateMachinery(int pkSearch){
-		
+	public void updateMachinery(int pkSearch)
+	{
+		kbggñiu;
 	}
 
 	

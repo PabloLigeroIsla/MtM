@@ -848,6 +848,7 @@ public class UserInterface
     {
     	Employee emp = new Employee();
     	emp = jdbcManager.selectEmployee(pk);
+    	jdbcManager.setEmployeeRelations(emp);
     	emp.toString();
     }
     public static void listEmployees(boolean relation)
@@ -857,7 +858,7 @@ public class UserInterface
     	empList = jdbcManager.selectAllEmployees();
     	
     	int count = 0;
-    	
+    	jgjgluglug;
     	while(count < empList.size())
     	{
     		emp = empList.get(count);
@@ -889,7 +890,7 @@ public class UserInterface
     		mach =machList.get(count);
     		if(relation)
     		{
-    			jdbcManager.setMachineryRelation(mach);
+    			jdbcManager.setMachineryRelations(mach);
     			System.out.printf("id: %d, relation Instrument: %d, relation employee: %d, relation materials: %d\n",mach.getMachineryID(),mach.getemployeeList().toString(),mach.getmaterialList().toString());
     			
     		}else

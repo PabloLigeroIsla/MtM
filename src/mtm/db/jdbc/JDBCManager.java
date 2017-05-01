@@ -947,13 +947,9 @@ public class JDBCManager
 	
 	public Order setOrderRelations(Order ord)
 	{
-<<<<<<< HEAD
+
 	//Hacer create the tabla asociada instruments/order	
 		String pkAtributeCompere = "order_ID";
-=======
-		//Hacer create the tabla asociada instruments/order	
-		String pkAtrivuteCompere = "order_ID";
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 		int pkValueCompere = ord.getOrderID();
 		
 		//Hospital List
@@ -1034,7 +1030,7 @@ public class JDBCManager
 		Iterator<Employee> iter1 = allEmployees.iterator();
 		while(iter1.hasNext()){
 			Employee a = iter1.next();
-			if(a.getMachineryID() == mach.getMachineryID()){
+			if(a.getMachineryType().getMachineryID() == mach.getMachineryID()){
 				mach.addEmployee(a);
 			}
 		}
@@ -1051,30 +1047,22 @@ public class JDBCManager
 		
 		
 		//Instrument List
-		String relationalT = "machinery_instrument";
-		String pkAtributeS = "machinery_ID";
+		String relationalTable = "machinery_instrument";
+		String pkAtributeS = "instrument_ID";
+		
+		String pkAttCompare = "machinery_ID";
+		int pkValueCompare = mach.getMachineryID();
 		
 		ArrayList<Integer> machineryPkRelationFound = new ArrayList<Integer>();
-		machineryPkRelationFound = foundRelation(relationalT,pkAtributeS,pkAtributteComp,pkValComp);
+		machineryPkRelationFound = foundRelation(relationalTable,pkAtributeS, pkAttCompare, pkValueCompare);
 		
 		Iterator<Integer> iter = machineryPkRelationFound.iterator();
 		while(iter.hasNext())
 		{
 			int i = iter.next();
-			mach.addMachinery(selectMachinery(i));
-		}
-		//relation instrument
-		relationalT = "instrument_machinery";
-		pkAtributeS = "instrument_ID";
-		
-		ArrayList<Integer> instrumentPkRelationFound = new ArrayList<Integer>();
-		instrumentPkRelationFound = foundRelation(relationalT,pkAtributeS,pkAtributteComp,pkValComp);
-		Iterator<Integer> iter3 = instrumentPkRelationFound.iterator();
-		while(iter3.hasNext())
-		{
-			int i = iter3.next();
 			mach.addInstrument(selectInstrument(i));
 		}
+		
 	
 		
 		return mach;
@@ -1088,22 +1076,9 @@ public class JDBCManager
 	
 	public Employee setEmployeeRelations(Employee emp)
 	{
-		String pkAtComp = "employee_ID";
-		int pkValComp = emp.getEmployee_ID();
+		//Igual que la relacion n to 1!!!
 		
-		//Employee List
-		String relationalTable = "employee_machinery";
-		String pkAtributeSearch = "employee_ID";
-		
-		ArrayList<Integer> employeePkRelationFound = new ArrayList<Integer>();
-		employeePkRelationFound = foundRelation(relationalTable,pkAtributeSearch,pkAtComp,pkValComp);
-		
-		Iterator<Integer> iter = employeePkRelationFound.iterator();
-		while(iter.hasNext())
-		{
-			int i = iter.next();
-			emp.addEmployee(selectEmployee(i));
-		}
+	dwedcercer;
 	}
 		
 		
