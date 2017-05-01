@@ -368,12 +368,13 @@ public class JDBCManager
 	
 	public void deleteInstrument(int primaryKeyInstrument)
 	{
-		//
+		
 		String sqlQuery = "SELECT * FROM instrument WHERE instrumentID = ?";
 		if(valExist(sqlQuery,primaryKeyInstrument,null))
 		{
 			JDBCDelete sqlDelete = new JDBCDelete(c);
 			
+			sqlDelete.deleteHospital(primaryKeyInstrument);
 			
 			
 			// We also delete the relation with the order in which it is contained
@@ -397,7 +398,23 @@ public class JDBCManager
 		}
 	}
 	
-
+	public void deleteWarehouse(int primaryKeyWarehouse)
+	{
+		
+		String sqlQuery = "SELECT * FROM instrument WHERE instrumentID = ?";
+		if(valExist(sqlQuery,primaryKeyWarehouse,null))
+		{
+			JDBCDelete sqlDelete = new JDBCDelete(c);
+			
+			sqlDelete.deleteHospital(primaryKeyWarehouse);
+			
+		}
+		else
+		{
+			System.out.println("\n The warehouse does not exist \n");
+		}
+		
+	}
 	
 	//Alex
 	public void deleteCompany(int primaryKey){
@@ -406,6 +423,9 @@ public class JDBCManager
 		{
 			JDBCDelete sqlDelete = new JDBCDelete(c);
 			sqlDelete.deleteCompany(primaryKey);
+			
+			//Delete the relations of the company
+			
 
 		}
 		else
@@ -950,11 +970,7 @@ public class JDBCManager
 	public Order setOrderRelations(Order ord)
 	{
 	//Hacer create the tabla asociada instruments/order	
-<<<<<<< HEAD
 		String pkAtributeCompere = "order_ID";
-=======
-		String pkAtributeCompere = "order_ID";
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 		int pkValueCompere = ord.getOrderID();
 		
 		//Hospital List
