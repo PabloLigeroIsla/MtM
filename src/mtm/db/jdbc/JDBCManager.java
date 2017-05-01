@@ -777,19 +777,26 @@ public class JDBCManager
  	
  	
  	//Celia
- 	public void updateMachinery(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
+ 	public void updateMachinery(int pkSearch, int b)
  	{
+ 		String workingState=null;
+ 		if(b==1){
+ 			workingState="work";
+ 		}
+ 		else{
+ 			workingState="no work";
+ 			
+ 		}
  		String table = "machinery";
  		String selQuery = "SELECT name FROM "+table+" WHERE machinery_ID = ?";
  		if(valExist(selQuery,pkSearch,null))
  		{
  			
  			JDBCUpdate sqlUpdate= new JDBCUpdate(c);
- 			sqlUpdate.update(table,colChange,stringChange,intChange,colSearch,pkSearch);
- 			
- 			
+ 			sqlUpdate.updateMachinery(pkSearch);
+
  		}
- 		
+
  	}
  	
  	//Alex
@@ -895,13 +902,13 @@ public class JDBCManager
 	public Hospital setHospitalRelations(Hospital hosp)
 	{
 		String relationalTable = "hospital_orders";
-		String pk1AtrivuteSearch = "order_ID";
-		String pkAtrivuteCompere = "hospital_ID";
+		String pk1AtributeSearch = "order_ID";
+		String pkAtributeCompere = "hospital_ID";
 		int pkValueCompere = hosp.getHospitalID();
 		
 		
 		ArrayList<Integer> orderPkRelationFound = new ArrayList<Integer>();
-		orderPkRelationFound = foundRelation(relationalTable,pk1AtrivuteSearch,pkAtrivuteCompere,pkValueCompere);
+		orderPkRelationFound = foundRelation(relationalTable,pk1AtributeSearch,pkAtributeCompere,pkValueCompere);
 		Iterator<Integer> iter = orderPkRelationFound.iterator();
 		while(iter.hasNext())
 		{
@@ -914,15 +921,15 @@ public class JDBCManager
 	public Order setOrderRelations(Order ord)
 	{
 	//Hacer create the tabla asociada instruments/order	
-		String pkAtrivuteCompere = "order_ID";
+		String pkAtributeCompere = "order_ID";
 		int pkValueCompere = ord.getOrderID();
 		
 		//Hospital List
 		String relationalTable = "hospital_orders";
-		String pk1AtrivuteSearch = "hospital_ID";
+		String pk1AtributeSearch = "hospital_ID";
 		
 		ArrayList<Integer> hospitalPkRelationFound = new ArrayList<Integer>();
-		hospitalPkRelationFound = foundRelation(relationalTable,pk1AtrivuteSearch,pkAtrivuteCompere,pkValueCompere);
+		hospitalPkRelationFound = foundRelation(relationalTable,pk1AtributeSearch,pkAtributeCompere,pkValueCompere);
 		
 		Iterator<Integer> iter = hospitalPkRelationFound.iterator();
 		while(iter.hasNext())
@@ -934,10 +941,10 @@ public class JDBCManager
 		//Instrument List
 		
 		relationalTable = "instrument_orders";
-		pk1AtrivuteSearch = "instrument_ID";
+		pk1AtributeSearch = "instrument_ID";
 		
 		ArrayList<Integer> instrumentPkRelationFound = new ArrayList<Integer>();
-		instrumentPkRelationFound = foundRelation(relationalTable,pk1AtrivuteSearch,pkAtrivuteCompere,pkValueCompere);
+		instrumentPkRelationFound = foundRelation(relationalTable,pk1AtributeSearch,pkAtributeCompere,pkValueCompere);
 		Iterator<Integer> iter2 = instrumentPkRelationFound.iterator();
 		while(iter2.hasNext())
 		{
@@ -984,6 +991,94 @@ public class JDBCManager
 	}
 
 
+	//////////////////////////////
+
+
+	public Machinery setMachineryRelations(Machinery mach){
+		
+
+		//relation employee
+		ArrayList<Employee>allEmployees = selectAllEmployees();
+		Iterator<Employee> iter1 = allEmployees.iterator();
+		while(iter1.hasNext()){
+			Employee a = iter1.next();
+			if(a.getMachineryID() == mach.getMachineryID()){
+				mach.addEmployee(a);
+			}
+		}
+		
+		//relation material
+		ArrayList<Material>allMaterials = selectAllMaterials();
+		Iterator<Material> iter2 = allMaterials.iterator();
+		while(iter2.hasNext()){
+			Material b = iter2.next();
+			if(b.getMachineryID() == mach.getMachineryID()){
+				mach.addMaterial(b);
+			}
+		}
+		
+		
+		//Instrument List
+		String relationalT = "machinery_instrument";
+		String pkAtributeS = "machinery_ID";
+		
+		ArrayList<Integer> machineryPkRelationFound = new ArrayList<Integer>();
+		machineryPkRelationFound = foundRelation(relationalT,pkAtributeS,pkAtributteComp,pkValComp);
+		
+		Iterator<Integer> iter = machineryPkRelationFound.iterator();
+		while(iter.hasNext())
+		{
+			int i = iter.next();
+			mach.addMachinery(selectMachinery(i));
+		}
+		//relation instrument
+		relationalT = "instrument_machinery";
+		pkAtributeS = "instrument_ID";
+		
+		ArrayList<Integer> instrumentPkRelationFound = new ArrayList<Integer>();
+		instrumentPkRelationFound = foundRelation(relationalT,pkAtributeS,pkAtributteComp,pkValComp);
+		Iterator<Integer> iter3 = instrumentPkRelationFound.iterator();
+		while(iter3.hasNext())
+		{
+			int i = iter3.next();
+			mach.addInstrument(selectInstrument(i));
+		}
+	
+		
+		return mach;
+	}
+	
+	
+	
+	
+	
+	
+	
+	public Employee setEmployeeRelations(Employee emp)
+	{
+		String pkAtComp = "employee_ID";
+		int pkValComp = emp.getEmployee_ID();
+		
+		//Employee List
+		String relationalTable = "employee_machinery";
+		String pkAtributeSearch = "employee_ID";
+		
+		ArrayList<Integer> employeePkRelationFound = new ArrayList<Integer>();
+		employeePkRelationFound = foundRelation(relationalTable,pkAtributeSearch,pkAtComp,pkValComp);
+		
+		Iterator<Integer> iter = employeePkRelationFound.iterator();
+		while(iter.hasNext())
+		{
+			int i = iter.next();
+			emp.addEmployee(selectEmployee(i));
+		}
+	}
+		
+		
+		
+		
+	
+		
 	public Company setCompanyRelations(Company com){
 		//insert the materials
 		ArrayList<Material> allMaterials = selectAllMaterials();

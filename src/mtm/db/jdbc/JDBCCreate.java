@@ -118,7 +118,8 @@ public class JDBCCreate
 					
 				Statement sCt = c.createStatement();
 					String sqlc2= "CREATE TABLE machinery("
-					+ "machineryType TEXT PRIMARY KEY,"
+					+ "machinery_ID INTEGER PRIMARY KEY AUTOINCREMENT,"							
+					+ "machineryType TEXT,"
 					+ "stateofMachinery TEXT NOT NULL,"
 					+ "dateofInstallation DATE,"
 					+ "sizeofMachinery INTEGER)";
