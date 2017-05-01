@@ -294,31 +294,32 @@ public class JDBCManager
 	
 	public void deleteOrder(int primaryKey)
 	{
-		String sqlQuery = "SELECT * FROM orders WHERE order_ID == ?";
+		String sqlQuery = "SELECT * FROM orders WHERE order_ID = ?";
+		
 		if(valExist(sqlQuery,primaryKey,null))
 		{
 			JDBCDelete sqlDelete = new JDBCDelete(c);
 			
 			sqlDelete.deleteOrder(primaryKey);
 			
-			
 			//We also delete the relation
 			String table = "hospital_orders";
-			String  pk1AtrivuteSearch = "order_ID";
-			String pkAtrivuteCompere = "order_ID";
+			String  pk1AtributeSearch = "hospital_ID";
+			String pkAtributeCompere = "order_ID";
 			int pkValueCompere = primaryKey;
-			if(!sharedRelation(table, pk1AtrivuteSearch, pkAtrivuteCompere, pkValueCompere))
+			if(!sharedRelation(table, pk1AtributeSearch, pkAtributeCompere, pkValueCompere))
 			{
+				
 				String colPk = "order_ID";
 				deleteRelationHospitalOrder(primaryKey,colPk);
 			}
 			
 			
 			table = "instrument_orders";
-			pk1AtrivuteSearch = "order_ID";
-			pkAtrivuteCompere = "order_ID";
+			pk1AtributeSearch = "order_ID";
+			pkAtributeCompere = "order_ID";
 			pkValueCompere = primaryKey;
-			if(!sharedRelation(table, pk1AtrivuteSearch, pkAtrivuteCompere, pkValueCompere))
+			if(!sharedRelation(table, pk1AtributeSearch, pkAtributeCompere, pkValueCompere))
 			{
 				String colPk = "order_ID";
 				deleteRelationInstrumentOrder(primaryKey,colPk);
@@ -925,7 +926,7 @@ public class JDBCManager
 	
 	public Order setOrderRelations(Order ord)
 	{
-	//Hacer create the tabla asociada instruments/order	
+		//Hacer create the tabla asociada instruments/order	
 		String pkAtrivuteCompere = "order_ID";
 		int pkValueCompere = ord.getOrderID();
 		
