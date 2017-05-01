@@ -12,7 +12,7 @@ public class JDBCCreate
 	{
 		this.c = c;
 	}
-	
+	//
 	//Create
 			public void createTables()
 		{
@@ -85,16 +85,17 @@ public class JDBCCreate
 						+ "model TEXT NOT NULL,"
 						+ "purpose TEXT NOT NULL,"
 						+ "amount INTEGER NOT NULL,"
-						+ "number_Uses INTEGER NOT NULL,"
+						+ "number_uses INTEGER NOT NULL,"
 						+ "body_location TEXT NOT NULL,"
 						+ "price INTEGER NOT NULL,"
-						+ "warehouse_location TEXT REFERENCES warehouse (warehouse_location))";
+						+ "warehouse_location TEXT REFERENCES warehouse (warehouse_ID))";
 				fCht.executeUpdate(sqlch1);
 				fCht.close();
 				
 				Statement sCht = c.createStatement();
 				String sqlch2 = "CREATE TABLE warehouse("
-						+ "warehouse_location TEXT PRIMARY KEY NOT NULL,"
+						+ "warehouse_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+						+ "warehouse_location TEXT NOT NULL,"
 						+ "capacity INTEGER NOT NULL,"
 						+ "filled_space INTEGER NOT NULL)";
 				sCht.executeUpdate(sqlch2);
@@ -128,6 +129,7 @@ public class JDBCCreate
 				
 				
 				c.commit();
+				
 			}catch (Exception e)
 			{
 				e.printStackTrace();
@@ -183,7 +185,7 @@ public class JDBCCreate
 					+"material_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+"weight INTEGER NOT NULL,"
 					+"volume INTEGER NOT NULL,"
-					+"company_ID  TEXT REFERENCES company(company_id),"
+					+"company_ID  TEXT REFERENCES company(company_ID),"
 					+"machinery_ID TEXT REFERENCES machinery(machinery_id));";
 
 			sAt.executeUpdate(sqla2);
@@ -227,10 +229,10 @@ public class JDBCCreate
 						+ "model TEXT NOT NULL,"
 						+ "purpose TEXT NOT NULL,"
 						+ "amount INTEGER NOT NULL,"
-						+ "numberUses INTEGER NOT NULL,"
-						+ "bodyLocation TEXT NOT NULL,"
+						+ "number_uses INTEGER NOT NULL,"
+						+ "body_location TEXT NOT NULL,"
 						+ "price INTEGER NOT NULL,"
-						+ "warehouseID INTEGER REFERENCES warehouse (warehouseID))";
+						+ "warehouse_ID INTEGER REFERENCES warehouse (warehouse_ID))";
 				fCht.executeUpdate(sqlch1);
 				fCht.close();
 				
@@ -337,44 +339,5 @@ public class JDBCCreate
 			}
 		}
 		
-			public void createTableMaterial(Connection c){
-				try
-				{
-				Statement sAt = c.createStatement();
-				String sqla2 =  "CREATE TABLE materials ("
-								+"material_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
-								+"weight INTEGER NOT NULL,"
-								+"volume INTEGER NOT NULL,"
-								+"type TEXT"
-								+"material_ID  TEXT REFERENCES company(material_ID),"
-								+"machinery_ID TEXT REFERENCES machinery(machinery_ID));";
-				sAt.executeUpdate(sqla2);
-				sAt.close();
-				}catch (Exception e)
-				{
-					e.printStackTrace();
-					System.out.println("Conection Error, Ask Rodrigo for Help");
-				
-				}
-			}
-
-			public void createTableCompany(Connection c){
-				try
-				{
-					Statement fAt = c.createStatement();
-					String sqla1 = "CREATE TABLE company ("
-							+ "company_ID TEXT PRIMARY KEY,"
-							+ "location TEXT,"
-							+"company_name TEXT);";
-					fAt.executeUpdate(sqla1);
-					fAt.close();
-					
-				}catch (Exception e)
-				{
-					e.printStackTrace();
-					System.out.println("Conection Error, Ask Rodrigo for Help");
-				
-				}
-			}
-
+			
 }

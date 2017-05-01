@@ -3,11 +3,13 @@ package mtm.db.Interface;
 
 import static mtm.db.Interface.Validator.*;
 import java.util.ArrayList;
+import mtm.db.pojos.Company;
 import mtm.db.jdbc.JDBCManager;
 import mtm.db.pojos.Employee;
 import mtm.db.pojos.Hospital;
 import mtm.db.pojos.Instrument;
 import mtm.db.pojos.Machinery;
+import mtm.db.pojos.Material;
 import mtm.db.pojos.Order;
 import mtm.db.pojos.Warehouse;
 
@@ -70,7 +72,7 @@ public class UserInterface
 	public static int openMenu()
 	{
 		int option;
-		int numOptions = 6; //Numero de opciones que podemos seleccionar con esta funci�n
+		int numOptions = 7; //Numero de opciones que podemos seleccionar con esta funci�n
 		printMenu();
 		option = writeNumber(numOptions);
 		
@@ -163,14 +165,15 @@ public class UserInterface
     		break;
     	case 4:
     		//This case is used when you want to introduce a value in the dataBase
-    		System.out.println("\n\nSelect the table where ypu wsnt to insert the value:\n"
+    		System.out.println("\n\nSelect the table where you want to insert the value:\n"
     				+ "1:Company\n"
     				+ "2:Employee\n"
     				+ "3:Hospital\n"
     				+ "4:Instrument\n"
     				+ "5:Machinery\n"
     				+ "6:Material\n"
-    				+ "7:Warehouse\n");
+    				+ "7:Order\n"
+    				+ "8:Warehouse\n");
     		break;
     	case 5:
     		//Menu for the delete option
@@ -214,7 +217,8 @@ public class UserInterface
 		switch(option)
 		{
 		case 1:
-			listCompanies(relationOption);
+			//listCompanies(relationOption);
+//			listCompanies(relationOption);
 			break;
 		case 2:
 			listEmployees(relationOption);
@@ -229,7 +233,8 @@ public class UserInterface
 			listMachineries(relationOption);
 			break;
 		case 6:
-			listMaterials(relationOption);
+			//listMaterials(relationOption);
+//			listMaterials(relationOption);
 			break;
 		case 7:
 			listOrders(relationOption);
@@ -248,9 +253,11 @@ public class UserInterface
 		switch(option)
 		{
 		case 1:
-			listCompanies(false);
+			//listCompanies(false);
+//			listCompanies(false);
 			System.out.printf("Select the ID of the company you want to see");
-			showCompany(writeNumber());
+			//showCompany(writeNumber());
+//			showCompany(writeNumber());
 			break;
 		case 2:
 			listEmployees(false);
@@ -273,9 +280,11 @@ public class UserInterface
 			showMachinery(writeNumber());
 			break;
 		case 6:
-			listMaterials(false);
+			//listMaterials(false);
+//			listMaterials(false);
 			System.out.printf("Select the ID of the material you want to see");
-			showMaterial(writeNumber());
+			//showMaterial(writeNumber());
+//			showMaterial(writeNumber());
 			break;
 		case 7:
 			listOrders(false);
@@ -292,13 +301,14 @@ public class UserInterface
 	{
 		System.out.println("What table do you want to insert the value to? \n");
 		selectionMenu(4);
-		int op=0;
-		
+		int op=writeNumber(8);
 		switch(op){
 		
 		case 1: //Company   
-		Company comp = createCompany();
-		jdbcManager.insert(comp);
+		//Company comp = createCompany();
+		//jdbcManager.insert(comp);
+//		Company comp = createCompany();
+	//	jdbcManager.insert(comp);
 			break;
 		case 2: //Employee
 			Employee emp = createEmployee();
@@ -317,10 +327,16 @@ public class UserInterface
 			jdbcManager.insert(mach);
 			break;
 		case 6: //Material
-		Material mat = createMaterial(); 
-		jdbcManager.insert(mat);
+		//Material mat = createMaterial(); 
+		//jdbcManager.insert(mat);
+//		Material mat = createMaterial(); 
+//		jdbcManager.insert(mat);
 			break;
-		case 7: // Warehouse 
+		case 7: //Order
+			Order ord = createOrder();
+			jdbcManager.insert(ord);
+			break;
+		case 8: // Warehouse 
 			Warehouse war = createWarehouse();
 			jdbcManager.insert(war);
 			break;
@@ -386,6 +402,7 @@ public class UserInterface
     
     public static void updValTable()
 {
+    //	hbcpi<uedshvpuih
 }
 
     
@@ -488,7 +505,6 @@ public class UserInterface
 		String bodyLocation=writeString();
 		System.out.println("Price of the instrument\n");
 		int price=writeNumber();
-		System.out.println("ID of the warehouse where the instrument is\n");
 		
 		Instrument inst = new Instrument (model,purpose,amount,numberUses,bodyLocation,price);
 		
@@ -534,7 +550,179 @@ public class UserInterface
 		return mach;
 }
     
+    public static Company createCompany(){
+    	
+    	
+    	boolean aux = true;
+    	System.out.println("\nCompany location");
+    	String a=writeString();
+    	System.out.println("\nCompany name");
+    	String b=writeString();
+    	
+    	Company com = new Company(a,b);
+    	jdbcManager.insert(com);
+    	com = jdbcManager.setCompanyID(com);
+
+    	System.out.println("\nDo you want to add materials provided by the Company? YES or NO:\n");
+    	String answ = writeString();
+    	if(answ.equals("YES")){
+    		while(aux){
+    			Material mat = createMaterial(true,com.getCompanyID());
+    			com.addMaterial(mat);
+    			
+    			System.out.println("\nDo you want to add another material provided by the Company? YES or NO:\n");
+    			String answ2 = writeString();
+    			jdbcManager.insert(mat);
+    			if(answ2.equals("NO")){
+    				aux = false;
+    			}
+    	}
+    	}
+    	
+    	return com;
+    }
+    
+    public static Company createCompany(Boolean aux){
+    	System.out.println("\nCompany location");
+    	String a=writeString();
+    	System.out.println("\nCompany name");
+    	String b=writeString();
+    	
+    	Company com = new Company(a,b);
+    			
+    			
+    	jdbcManager.insert(com);
+    	jdbcManager.setCompanyID(com);
+    	return com;
+    }
+    
+    public static Material createMaterial()
+    {
+    	
+    	System.out.println("\nWeight");
+    	int a = writeNumber();
+    	System.out.println("\nVolume");
+    	int b = writeNumber();
+    	System.out.println("\nType");
+    	String c = writeString();
+    	Material mat = new Material(a,b,c);
+    	
+    	//company
+    	boolean aux = true;
+    	while(aux){
+    	System.out.println("This material is provided by a company from the database YES or NO: \n");
+    	String answ = writeString();
+    	if(answ.equals("YES")){
+    		listCompanies(true);
+    		System.out.println("Type the PK of the company:\n");
+    		int pk = writeNumber();
+    		mat.setCompanyID(pk);
+    		System.out.println("The material is attached to the company\n");
+    		aux = false;
+    		
+    	}else if(answ.equals("NO")){
+    		
+    		Company com = createCompany(true);
+    		mat.setCompanyID(com.getCompanyID());
+    		System.out.println("The material is attached to the company\n");
+    		aux = false;
+    		
+    	}else{
+    		System.out.println("Please type YES or NO\n");
+    	}
+    	}
+    	
+    	//machinery
+    	boolean aux2 = true;
+    	while(aux2){
+    	System.out.println("Do you want to attach the material to a machinery from the database YES or NO: \n");
+    	String answ = writeString();
+    	if(answ.equals("YES")){
+    		listMachineries(true);
+    		System.out.println("Type the PK of the machinery:\n");
+    		int pk = writeNumber();
+    		mat.setMachineryID(pk);
+    		aux2 = false;
+    		
+    	}else if(answ.equals("NO")){
+    		System.out.println("The material is attached no machinery\n");
+    		aux2 = false;
+    		
+    	}else{
+    		System.out.println("Please type YES or NO\n");
+    	}
+    	}
+    	
+		jdbcManager.insert(mat);
+    	return mat;
+    	
+    }
+
+    public static Material createMaterial(Boolean aux, int pk){
+    	System.out.println("\nWeight");
+    	int a = writeNumber();
+    	System.out.println("\nVolume");
+    	int b = writeNumber();
+    	System.out.println("\nType");
+    	String c = writeString();
+    	Material mat = new Material(a,b,c,pk);
+    	jdbcManager.insert(mat);
+    	
+    	return mat;
+    }
+    
     //Show the Objects
+    //Alex? Tiene utilidad poner la opción de relación en todas?
+    
+    public static void showCompany(int pk){
+    	Company com = new Company();
+		com = jdbcManager.selectCompany(pk);
+		com.toString();
+    }
+    public static void listCompanies(boolean relation){
+    	Company com = new Company();
+		ArrayList<Company> comList = new ArrayList<Company>();
+		comList = jdbcManager.selectAllCompanies();
+			
+		int count= 0;
+			
+		while(count < comList.size())
+		{
+			com = comList.get(count);
+			String name = com.getCompanyName();
+			int id = com.getCompanyID();
+			
+				System.out.printf("id: %d,name: %s\n",id,name);
+				count++;
+			}
+	}
+  
+    public static void showMaterial(int pk){
+    	Material mat = new Material();
+    	mat = jdbcManager.selectMaterial(pk);
+    	mat.toString();
+    }
+    public static void listMaterials(boolean relation){
+        	Material mat = new Material();
+        	ArrayList<Material> matList = new ArrayList<Material>();
+        	matList = jdbcManager.selectAllMaterials();
+        	
+        	int count = 0;
+        	
+        	while(count < matList.size())
+        	{
+        		mat = matList.get(count);
+        		if(relation)
+        		{
+        			System.out.printf("id: %d, type: %d relations: %d\n", mat.getMaterialID() , mat.getType(), mat.getCompanyID());
+        		}else
+        		{
+        			System.out.printf("id: %d, type: %d \n", mat.getMaterialID() , mat.getType());
+        		}
+        		
+        	}
+        	
+        }
     
     
     public static void showHospital(int pk)
@@ -607,7 +795,7 @@ public class UserInterface
     	inst.toString();
     	
     }
-    
+    //
     public static void listInstruments(boolean relation){
     	Instrument inst = new Instrument();
     	ArrayList<Instrument> instrumentList = new ArrayList<Instrument>();

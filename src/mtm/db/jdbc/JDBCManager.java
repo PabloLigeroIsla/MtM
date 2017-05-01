@@ -458,7 +458,7 @@ public class JDBCManager
 			return hosp;
 		}else
 		{
-			System.out.println("/nWe dont find the primary key/n");
+			System.out.println("We dont find the primary key\n");
 			
 			return null;
 		}
@@ -479,7 +479,7 @@ public class JDBCManager
 			return hosp;
 		}else
 		{
-			System.out.println("/nWe dont find the primary key/n");
+			System.out.println("We dont find the primary key\n");
 			
 			return null;
 		}
@@ -512,12 +512,14 @@ public class JDBCManager
 			return order;
 		}else
 		{
-			System.out.println("/nWe dont find the primary key/n");
+			System.out.println("We dont find the primary key\n");
 			return null;
 		}
 	}
  	//Alex
- 	public ArrayList<Company> selectCompanies(){
+ 	
+ 	//tengo que hacerlo tambien con String?
+ 	public ArrayList<Company> selectAllCompanies(){
  		ArrayList<Company> companiesList = new ArrayList<Company>();
  		JDBCSelect sqlSelect = new JDBCSelect(c);
  		
@@ -525,7 +527,7 @@ public class JDBCManager
 		
  		return companiesList;
  	}
- 	
+
  	public Company selectCompany(int primaryKey){
  		String selQuery = "SELECT * FROM company WHERE company_ID = ?";
 		
@@ -539,12 +541,12 @@ public class JDBCManager
 			return comp;
 		}else
 		{
-			System.out.println("/nWe dont find the primary key/n");
+			System.out.println("We dont find the primary key\n");
 			return null;
 		}
  	}
 
- 	public ArrayList<Material> selectMaterials(){
+ 	public ArrayList<Material> selectAllMaterials(){
  		ArrayList<Material> materialList = new ArrayList<Material>();
  		JDBCSelect sqlSelect = new JDBCSelect(c);
  		
@@ -567,7 +569,7 @@ public class JDBCManager
 			return mat;
 		}else
 		{
-			System.out.println("/nWe dont find the primary key/n");
+			System.out.println("We dont find the primary key\n");
 			return null;
 		}
  	}
@@ -586,7 +588,7 @@ public class JDBCManager
  	 	public Employee selectEmployee(int primaryKey)
  		{
  			String table = "employee";
- 			String selQuarry = "SELECT name FROM "+table+" WHERE employee_ID == ?";
+ 			String selQuarry = "SELECT * FROM "+table+" WHERE employee_ID = ?";
  			
  			
  			if(valExist(selQuarry,primaryKey,null))
@@ -599,7 +601,7 @@ public class JDBCManager
  				return emp;
  			}else
  			{
- 				System.out.println("/nWe dont find the primary key/n");
+ 				System.out.println("We dont find the primary key\n");
  				
  				return null;
  			}
@@ -618,7 +620,7 @@ public class JDBCManager
  				return emp;
  			}else
  			{
- 				System.out.println("/nWe dont find the primary key/n");
+ 				System.out.println("We dont find the primary key\n");
  				
  				return null;
  			}
@@ -639,7 +641,7 @@ public class JDBCManager
  	 	public Machinery selectMachinery(int primaryKey)
  		{
  			String table = "machinery";
- 			String selQuarry = "SELECT name FROM "+table+" WHERE machinery_ID == ?";
+ 			String selQuarry = "SELECT * FROM "+table+" WHERE machinery_ID = ?";
  			
  			
  			if(valExist(selQuarry,primaryKey,null))
@@ -652,14 +654,14 @@ public class JDBCManager
  				return mach;
  			}else
  			{
- 				System.out.println("/nWe dont find the primary key/n");
+ 				System.out.println("We dont find the primary key\n");
  				
  				return null;
  			}
  		}
  	 	public Machinery selectMachinery(String nameMachinery)
  	 	{
- 			String selQuarry = "SELECT location FROM machinery WHERE name LIKE ?";
+ 			String selQuarry = "SELECT * FROM machinery WHERE machinery_ID == ?";
  			
  			if(valExist(selQuarry,-1,nameMachinery))
  			{
@@ -671,7 +673,7 @@ public class JDBCManager
  				return mach;
  			}else
  			{
- 				System.out.println("/nWe dont find the primary key/n");
+ 				System.out.println("We dont find the primary key/n");
  				
  				return null;
  			}
@@ -682,7 +684,7 @@ public class JDBCManager
  	 	public Instrument selectInstrument(int primaryKey)
  		{
  			String table = "instrument";
- 			String selQuarry = "SELECT name FROM "+table+" WHERE instrumentID == ?";
+ 			String selQuarry = "SELECT * FROM "+table+" WHERE instrument_ID = ?";
  			
  			
  			if(valExist(selQuarry,primaryKey,null))
@@ -697,7 +699,7 @@ public class JDBCManager
  				return instrument;
  			}else
  			{
- 				System.out.println("/nWe dont find the primary key/n");
+ 				System.out.println("We dont find the primary key\n");
  				
  				return null;
  			}
@@ -715,26 +717,26 @@ public class JDBCManager
  	 		return instrumentList;
  	 	}
  	 	
- 	 	
+// 	 	
  	 	public Warehouse selectWarehouse(int primaryKey)
  		{
  			String table = "warehouse";
- 			String selQuarry = "SELECT name FROM "+table+" WHERE warehouseID == ?";
+ 			String selQuery = "SELECT warehouse_location FROM "+table+" WHERE warehouse_ID = ?";
  			
  			
- 			if(valExist(selQuarry,primaryKey,null))
+ 			if(valExist(selQuery,primaryKey,null))
  			{
  				JDBCSelect sqlSelect = new JDBCSelect(c);
  				Warehouse warehouse = new Warehouse();
  		 		
  				
- 				warehouse = sqlSelect.selectWarehouse(selQuarry,primaryKey);
+ 				warehouse = sqlSelect.selectWarehouse(selQuery,primaryKey);
  			
  				
  				return warehouse;
  			}else
  			{
- 				System.out.println("/nWe dont find the primary key/n");
+ 				System.out.println("/nWe dont find the primary key\n");
  				
  				return null;
  			}
@@ -773,7 +775,6 @@ public class JDBCManager
  		
  	}
  	
- 	//Charo
  	
  	//Celia
  	public void updateMachinery(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
@@ -792,6 +793,34 @@ public class JDBCManager
  	}
  	
  	//Alex
+ 	public void updateMaterial(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
+ 	{
+ 		String table = "material";
+ 		String selQuery = "SELECT name FROM "+table+" WHERE material_ID = ?";
+ 		if(valExist(selQuery,pkSearch,null))
+ 		{
+ 			
+ 			JDBCUpdate sqlUpdate= new JDBCUpdate(c);
+ 			sqlUpdate.update(table,colChange,stringChange,intChange,colSearch,pkSearch);
+ 			
+ 			
+ 		}
+ 		
+ 	}
+ 	public void updateCompany(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
+ 	{
+ 		String table = "company";
+ 		String selQuery = "SELECT * FROM o WHERE company_ID = ?";
+ 		if(valExist(selQuery,pkSearch,null))
+ 		{
+ 		
+ 			JDBCUpdate sqlUpdate= new JDBCUpdate(c);
+ 			sqlUpdate.update(table,colChange,stringChange,intChange,colSearch,pkSearch);
+ 		
+ 			
+ 		}
+ 		
+ 	}
  	
 	//Charo
 
@@ -954,6 +983,36 @@ public class JDBCManager
 		return inst;		
 	}
 
+
+	public Company setCompanyRelations(Company com){
+		//insert the materials
+		ArrayList<Material> allMaterials = selectAllMaterials();
+		
+		Iterator<Material> iter = allMaterials.iterator();
+		while(iter.hasNext()){
+			Material aux = iter.next();
+			if(aux.getCompanyID() == com.getCompanyID()){
+				com.addMaterial(aux);
+			}
+		}
+		return com;
+	}
+
+	
+	//Set ID's
+	//Alex
+	public Company setCompanyID(Company com){
+		ArrayList <Company> arraycom = selectAllCompanies();
+		Iterator<Company> iter = arraycom.iterator();
+		int pkSearch = 0;
+		while(iter.hasNext()){
+			pkSearch = iter.next().getCompanyID();
+		} 
+		
+		com.setCompanyID(pkSearch);
+		
+		return com;
+	}
 	
 	//Relation Help Methods
 	public ArrayList<Integer> foundRelation(String table,String pk1AttributeSearch,String pkAttributeCompere ,int pkValueCompere)
@@ -970,6 +1029,7 @@ public class JDBCManager
 		
 	}
 	
+
 	public boolean sharedRelation(String table,String pk1AtrivuteSearch,String pkAtrivuteCompere ,Integer pkValueCompere)
 	{
 		boolean a = false;

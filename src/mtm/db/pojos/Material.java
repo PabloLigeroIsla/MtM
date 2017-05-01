@@ -11,8 +11,8 @@ public class Material implements Serializable {
 	private Integer weight;
 	private Integer volume;
 	private String type;
-	private Company companyID; //FOREIGN KEY
-	private Machinery machineryID; //FOREIGN KEY
+	private int companyID; //FOREIGN KEY
+	private int machineryID; //FOREIGN KEY
 	
 	
 
@@ -22,7 +22,7 @@ public class Material implements Serializable {
 		super();
 	}
 	
-	public Material(Integer materialID, Integer weight, Integer volume, String type, Company c_id, Machinery m_id){
+	public Material(Integer materialID, Integer weight, Integer volume, String type, int c_id, int m_id){
 		super();
 		this.materialID= materialID;
 		this.weight = weight;
@@ -32,15 +32,22 @@ public class Material implements Serializable {
 		this.machineryID = m_id;
 	}
 	
-	public Material(Integer materialID, Integer weight, Integer volume, String type){
+	public Material(Integer weight, Integer volume, String type, Integer companyID){
 		super();
-		this.materialID= materialID;
+		this.weight = weight;
+		this.volume = volume;
+		this.type= type;
+		this.companyID = companyID;
+	}
+	
+	public Material(Integer weight, Integer volume, String type){
+		super();
 		this.weight = weight;
 		this.volume = volume;
 		this.type= type;
 	}
 
-	public Material(Integer weight2, Integer volume2, String type2, Company companyID2, Machinery machineryID2) {
+	public Material(Integer weight2, Integer volume2, String type2, int companyID2, int machineryID2) {
 		this.weight = weight2;
 		this.volume = volume2;
 		this.type = type2;
@@ -80,19 +87,19 @@ public class Material implements Serializable {
 		this.type = type;
 	}
 
-	public Company getCompanyID() {
+	public int getCompanyID() {
 		return companyID;
 	}
 
-	public void setCompanyID(Company companyID) {
+	public void setCompanyID(int companyID) {
 		this.companyID = companyID;
 	}
 
-	public Machinery getMachineryID() {
+	public int getMachineryID() {
 		return machineryID;
 	}
 
-	public void setMachineryID(Machinery machineryID) {
+	public void setMachineryID(int machineryID) {
 		this.machineryID = machineryID;
 	}
 
@@ -128,9 +135,6 @@ public class Material implements Serializable {
 	}
 	
 
-	
-	
-	
 	
 	
 }

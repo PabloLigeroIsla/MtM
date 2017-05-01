@@ -85,8 +85,8 @@ public class JDBCInsert
 				
 				Statement stmCh = c.createStatement();
 				String sqlCh;
-				sqlCh = "INSERT INTO instrument(model,purpose,amount,numberUses,bodyLocation,price,warehouseLocation)"
-						+ "VALUES ('" + instr.getModel() +"','" +instr.getPurpose() + "','"+ instr.getAmount() + "','"+ instr.getNumberUses() + "','"+ instr.getBodyLocation() + "','"+instr.getPrice()+"','"+instr.getWarehouseID()+"');";
+				sqlCh = "INSERT INTO instrument(model,purpose,amount,number_uses,body_location,price)"
+						+ "VALUES ('" + instr.getModel() +"','" +instr.getPurpose() + "','"+ instr.getAmount() + "','"+ instr.getNumberUses() + "','"+ instr.getBodyLocation() + "','"+instr.getPrice()+"');";
 				stmCh.executeUpdate(sqlCh);
 				stmCh.close();			
 				
@@ -97,7 +97,7 @@ public class JDBCInsert
 				e.printStackTrace();
 			}
 		}
-		
+		//
 		public void insert(Warehouse wareh) 
 		{
 			try
@@ -188,7 +188,7 @@ public class JDBCInsert
 					
 				}
 			}
-			public void insert(Material mat){
+		public void insert(Material mat){
 				try{
 
 								Statement stmt = c.createStatement();
@@ -211,6 +211,32 @@ public class JDBCInsert
 				}
 			}
 
+		//??A voy a hacer estos métodos para insertar las relaciones
+		//Como hacer para insertar en una company con ID concreto
+		
+		public void insert(Company com, Material mat){
+			
+			try{
+
+				Statement stmt = c.createStatement();
+				String sql;
+				sql = "INSERT INTO company(location,company_name)  VALUES ('"+com.getLocation()+",'"+com.getCompanyName()+"')"; 
+				stmt.executeUpdate(sql);					
+				stmt.close();
+				// End of transaction
+				c.commit();
+				System.out.println("Records inserted.");
+				// Insert new records: end
+
+				// Close database connection
+				c.close();
+				System.out.println("Database connection closed.");
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+	
+			}
+		}
 			//Relational Tables 
 		
 			public void insertHospitalOrderRelation( int pkHospital, int pkOrder, int tao)
@@ -321,6 +347,27 @@ public class JDBCInsert
 				
 				
 			}
-			
+
+			public void insertMaterialCompanyRelation(int pkMaterial, int pkCompany){
+				try
+				{
+					c.setAutoCommit(false);
+					
+					String sql = "INSERT INTO material(company_ID)"
+							+ "VALUES(?,?)";
+					
+					PreparedStatement prep = c.prepareStatement(sql);
+					prep.setInt(1,pkMaterial);
+					prep.setInt(2,pkCompany);
+					
+					prep.executeUpdate();
+					
+					c.commit();
+				}catch(SQLException e)
+				{
+					e.printStackTrace();
+				}
+				
+			}
 			
 }
