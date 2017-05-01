@@ -776,6 +776,20 @@ public class JDBCManager
  	//Charo
  	
  	//Celia
+ 	public void updateMachinery(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
+ 	{
+ 		String table = "machinery";
+ 		String selQuery = "SELECT name FROM "+table+" WHERE machinery_ID = ?";
+ 		if(valExist(selQuery,pkSearch,null))
+ 		{
+ 			
+ 			JDBCUpdate sqlUpdate= new JDBCUpdate(c);
+ 			sqlUpdate.update(table,colChange,stringChange,intChange,colSearch,pkSearch);
+ 			
+ 			
+ 		}
+ 		
+ 	}
  	
  	//Alex
  	
