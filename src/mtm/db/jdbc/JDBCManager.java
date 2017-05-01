@@ -409,11 +409,15 @@ public class JDBCManager
 	
 	//Alex
 	public void deleteCompany(int primaryKey){
-		String sqlQuery = "SELECT * FROM company WHERE company_ID == ?";
+		
+		String sqlQuery = "SELECT * FROM company WHERE company_ID = ?";
 		if(valExist(sqlQuery,primaryKey,null))
 		{
 			JDBCDelete sqlDelete = new JDBCDelete(c);
 			sqlDelete.deleteCompany(primaryKey);
+			
+			//Delete the relations of the company
+			
 
 		}
 		else

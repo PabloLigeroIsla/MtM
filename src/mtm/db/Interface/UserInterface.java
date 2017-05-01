@@ -130,7 +130,7 @@ public class UserInterface
     	{
     	case 1:
     		//This case is used to the method CreateTables
-    		System.out.println("\n\nThese are the tables in the data base:\n"
+    		System.out.println("\n\nThis are the tables in the data base:\n"
     				+ "1:Company\n"
     				+ "2:Employee\n"
     				+ "3:Hospital\n"
@@ -185,8 +185,8 @@ public class UserInterface
     	case 6:
     		//Menu for the Update
     		System.out.println("\n\nSelect the table you want to update:\n"
-    				+ "6:Machinery\n"
-    				+ "7:WareHouse\n");
+    				+ "1:Machinery\n"
+    				+ "2:WareHouse\n");
     		break;
     	case 7:
     		//Exit
@@ -398,7 +398,26 @@ public class UserInterface
     
     public static void updValTable()
 {
-    //	hbcpi<uedshvpuih
+    selectionMenu(6);
+    int op = writeNumber(2);
+    switch(op)
+    {
+    case 1:
+    	System.out.println("Select the primary key of the machinery you want to change:");
+    	listMachineries(false);
+    	int pk = writeNumber();
+    	//machinery
+    	System.out.println("You can only change the state of this machine, set the satate:\n"
+    			+ "1:Work\n"
+    			+ "2:No Work\n");
+    	int op2 = writeNumber(2);
+    	jdbcManager.updateMachinery(pk,op2);
+    	break;
+    case 2:
+    	break;
+    	
+    }
+    
 }
 
     
