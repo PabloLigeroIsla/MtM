@@ -294,26 +294,37 @@ public class JDBCManager
 	
 	public void deleteOrder(int primaryKey)
 	{
-		String sqlQuery = "SELECT * FROM orders WHERE order_ID == ?";
+		String sqlQuery = "SELECT * FROM orders WHERE order_ID = ?";
+		
 		if(valExist(sqlQuery,primaryKey,null))
 		{
 			JDBCDelete sqlDelete = new JDBCDelete(c);
 			
 			sqlDelete.deleteOrder(primaryKey);
 			
-			
 			//We also delete the relation
 			String table = "hospital_orders";
-			String  pk1AtrivuteSearch = "order_ID";
-			String pkAtrivuteCompere = "order_ID";
+			String  pk1AtributeSearch = "hospital_ID";
+			String pkAtributeCompere = "order_ID";
 			int pkValueCompere = primaryKey;
-			if(!sharedRelation(table, pk1AtrivuteSearch, pkAtrivuteCompere, pkValueCompere))
+			if(!sharedRelation(table, pk1AtributeSearch, pkAtributeCompere, pkValueCompere))
 			{
+				
 				String colPk = "order_ID";
 				deleteRelationHospitalOrder(primaryKey,colPk);
 			}
 			
-
+			
+			table = "instrument_orders";
+			pk1AtributeSearch = "order_ID";
+			pkAtributeCompere = "order_ID";
+			pkValueCompere = primaryKey;
+			if(!sharedRelation(table, pk1AtributeSearch, pkAtributeCompere, pkValueCompere))
+			{
+				String colPk = "order_ID";
+				deleteRelationInstrumentOrder(primaryKey,colPk);
+			}
+			
 		}
 		else
 		{
@@ -399,11 +410,15 @@ public class JDBCManager
 	
 	//Alex
 	public void deleteCompany(int primaryKey){
-		String sqlQuery = "SELECT * FROM company WHERE company_ID == ?";
+		
+		String sqlQuery = "SELECT * FROM company WHERE company_ID = ?";
 		if(valExist(sqlQuery,primaryKey,null))
 		{
 			JDBCDelete sqlDelete = new JDBCDelete(c);
 			sqlDelete.deleteCompany(primaryKey);
+			
+			//Delete the relations of the company
+			
 
 		}
 		else
@@ -897,7 +912,19 @@ public class JDBCManager
 		
 	}
 	
+	public void setRelationInstrumentOrder(int inst, int ord)
+	{
+		JDBCInsert sqlInsert = new JDBCInsert(c);
+		sqlInsert.insertInstrumentOrderRelation(inst,ord);
+	}
 	
+	public void deleteRelationInstrumentOrder(int pkCol,String colPk)
+	{
+		String table = "instrument_orders";
+		
+		JDBCDelete sqlInsert = new JDBCDelete(c);
+		sqlInsert.deleteRelationNtoN(table,colPk,pkCol);
+	}
 	
 	public Hospital setHospitalRelations(Hospital hosp)
 	{
@@ -920,8 +947,13 @@ public class JDBCManager
 	
 	public Order setOrderRelations(Order ord)
 	{
+<<<<<<< HEAD
 	//Hacer create the tabla asociada instruments/order	
 		String pkAtributeCompere = "order_ID";
+=======
+		//Hacer create the tabla asociada instruments/order	
+		String pkAtrivuteCompere = "order_ID";
+>>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 		int pkValueCompere = ord.getOrderID();
 		
 		//Hospital List
@@ -1097,6 +1129,7 @@ public class JDBCManager
 	//Set ID's
 	//Alex
 	public Company setCompanyID(Company com){
+		
 		ArrayList <Company> arraycom = selectAllCompanies();
 		Iterator<Company> iter = arraycom.iterator();
 		int pkSearch = 0;
@@ -1109,6 +1142,31 @@ public class JDBCManager
 		return com;
 	}
 	
+	public Hospital setHospitalID(Hospital hosp)
+	{
+		ArrayList <Hospital> arrayHosp = selectHospitals();
+		Iterator<Hospital> iter = arrayHosp.iterator();
+		int pkSearch = 0;
+		while(iter.hasNext())
+		{
+			pkSearch = iter.next().getHospitalID();
+		} 
+		hosp.setHospitalID(pkSearch);
+		return hosp;
+	}
+	public Order setOrderID(Order ord)
+	{
+		ArrayList<Order> arrayOrd = selectAllOrders();
+		Iterator<Order> iter = arrayOrd.iterator();
+		int pkSearch = 0;
+		while(iter.hasNext())
+		{
+			pkSearch = iter.next().getOrderID();
+		}
+		
+		ord.setOrderID(pkSearch);
+		return ord;
+	}
 	//Relation Help Methods
 	public ArrayList<Integer> foundRelation(String table,String pk1AttributeSearch,String pkAttributeCompere ,int pkValueCompere)
 	{
@@ -1124,7 +1182,6 @@ public class JDBCManager
 		
 	}
 	
-
 	public boolean sharedRelation(String table,String pk1AtrivuteSearch,String pkAtrivuteCompere ,Integer pkValueCompere)
 	{
 		boolean a = false;

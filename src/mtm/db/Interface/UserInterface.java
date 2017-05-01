@@ -130,7 +130,7 @@ public class UserInterface
     	{
     	case 1:
     		//This case is used to the method CreateTables
-    		System.out.println("\n\nThese are the tables in the data base:\n"
+    		System.out.println("\n\nThis are the tables in the data base:\n"
     				+ "1:Company\n"
     				+ "2:Employee\n"
     				+ "3:Hospital\n"
@@ -150,6 +150,7 @@ public class UserInterface
     				+ "4:Instrument\n"
     				+ "5:Machinery\n"
     				+ "6:Material\n"
+    				+ "7:Order"
     				+ "8:Warehouse\n");
     		break;
     	case 3:
@@ -172,8 +173,7 @@ public class UserInterface
     				+ "4:Instrument\n"
     				+ "5:Machinery\n"
     				+ "6:Material\n"
-    				+ "7:Order\n"
-    				+ "8:Warehouse\n");
+    				+ "7:Warehouse\n");
     		break;
     	case 5:
     		//Menu for the delete option
@@ -185,8 +185,8 @@ public class UserInterface
     	case 6:
     		//Menu for the Update
     		System.out.println("\n\nSelect the table you want to update:\n"
-    				+ "6:Machinery\n"
-    				+ "7:WareHouse\n");
+    				+ "1:Machinery\n"
+    				+ "2:WareHouse\n");
     		break;
     	case 7:
     		//Exit
@@ -301,7 +301,7 @@ public class UserInterface
 	{
 		System.out.println("What table do you want to insert the value to? \n");
 		selectionMenu(4);
-		int op=writeNumber(8);
+		int op=writeNumber(7);
 		switch(op){
 		
 		case 1: //Company   
@@ -332,11 +332,7 @@ public class UserInterface
 //		Material mat = createMaterial(); 
 //		jdbcManager.insert(mat);
 			break;
-		case 7: //Order
-			Order ord = createOrder();
-			jdbcManager.insert(ord);
-			break;
-		case 8: // Warehouse 
+		case 7: // Warehouse 
 			Warehouse war = createWarehouse();
 			jdbcManager.insert(war);
 			break;
@@ -402,7 +398,26 @@ public class UserInterface
     
     public static void updValTable()
 {
-    //	hbcpi<uedshvpuih
+    selectionMenu(6);
+    int op = writeNumber(2);
+    switch(op)
+    {
+    case 1:
+    	System.out.println("Select the primary key of the machinery you want to change:");
+    	listMachineries(false);
+    	int pk = writeNumber();
+    	//machinery
+    	System.out.println("You can only change the state of this machine, set the satate:\n"
+    			+ "1:Work\n"
+    			+ "2:No Work\n");
+    	int op2 = writeNumber(2);
+    	jdbcManager.updateMachinery(pk,op2);
+    	break;
+    case 2:
+    	break;
+    	
+    }
+    
 }
 
     
@@ -437,11 +452,20 @@ public class UserInterface
 					jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(),op,tao);
 				}else
 				{
+			    	System.out.println("Introduce the values:\n");
+			    	System.out.println("Select the Primary Key of the instrument you want to order\n");
+			    	listInstruments(false);
+			    	int opt = writeNumber();
+			    	
 					Order ord = createOrder();
 					jdbcManager.insert(ord);
+					jdbcManager.setOrderID(ord);
+					
 					System.out.println("Insert the amountOrder");
 					int tao = writeNumber();
+					
 					jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(),ord.getOrderID(),tao);
+					jdbcManager.setRelationInstrumentOrder(opt,ord.getOrderID());
 				}
 				System.out.println("Do you want to keep relating? YES,NO\n");
 				option = writeString();
@@ -459,8 +483,8 @@ public class UserInterface
 		return hosp;
     } 
     public static Order createOrder()
-    {
-    	System.out.println("Introduce the values\n");
+    {		
+    	
     	Order ord = new Order();
     	System.out.println("Total Amount of Instruments\n");
 		int d = writeNumber();
@@ -845,11 +869,11 @@ public class UserInterface
     	
     }
     
-    
     public static void showMachinery(int pk)
     {
     	Machinery mach = new Machinery();
     	mach = jdbcManager.selectMachinery(pk);
+    	jdbcManager.setMachineryRelations(mach);
     	mach.toString();
     }
     public static void listMachineries(boolean relation) {
@@ -863,7 +887,17 @@ public class UserInterface
     	while(count < machList.size()){
     		
     		mach =machList.get(count);
-    		System.out.printf("id: %d\n",mach.getMachineryID());
+    		if(relation)
+    		{
+    			jdbcManager.setMachineryRelation(mach);
+    			System.out.printf("id: %d, relation Instrument: %d, relation employee: %d, relation materials: %d\n",mach.getMachineryID(),mach.getemployeeList().toString(),mach.getmaterialList().toString());
+    			
+    		}else
+    		{
+    			System.out.printf("id: %d\n",mach.getMachineryID());
+    		}
+    		
+    		
     	}
     
     }
