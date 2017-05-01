@@ -358,7 +358,7 @@ public class JDBCManager
 	
 	public void deleteInstrument(int primaryKeyInstrument)
 	{
-		
+		//
 		String sqlQuery = "SELECT * FROM instrument WHERE instrumentID = ?";
 		if(valExist(sqlQuery,primaryKeyInstrument,null))
 		{
