@@ -3,12 +3,8 @@ package mtm.db.Interface;
 
 import static mtm.db.Interface.Validator.*;
 import java.util.ArrayList;
-<<<<<<< HEAD
-import mtm.db.jdbc.DbManager;
 import mtm.db.pojos.Company;
-=======
 import mtm.db.jdbc.JDBCManager;
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 import mtm.db.pojos.Employee;
 import mtm.db.pojos.Hospital;
 import mtm.db.pojos.Instrument;
@@ -586,15 +582,16 @@ public class UserInterface
     	String a=writeString();
     	System.out.println("\nCompany name");
     	String b=writeString();
-    	int pos = 0;
     	
-    	Company com = new Company();
+    	Company com = new Company(a,b);
+    	jdbcManager.insert(com);
+    	com = jdbcManager.setCompanyID(com);
 
     	System.out.println("\nDo you want to add materials provided by the Company? YES or NO:\n");
     	String answ = writeString();
     	if(answ.equals("YES")){
     		while(aux){
-    			Material mat = createMaterial();
+    			Material mat = createMaterial(true,com.getCompanyID());
     			com.addMaterial(mat);
     			
     			System.out.println("\nDo you want to add another material provided by the Company? YES or NO:\n");
@@ -605,7 +602,21 @@ public class UserInterface
     			}
     	}
     	}
+    	
+    	return com;
+    }
+    
+    public static Company createCompany(Boolean aux){
+    	System.out.println("\nCompany location");
+    	String a=writeString();
+    	System.out.println("\nCompany name");
+    	String b=writeString();
+    	
+    	Company com = new Company(a,b);
+    			
+    			
     	jdbcManager.insert(com);
+    	jdbcManager.setCompanyID(com);
     	return com;
     }
     
@@ -618,32 +629,103 @@ public class UserInterface
     	int b = writeNumber();
     	System.out.println("\nType");
     	String c = writeString();
+    	Material mat = new Material(a,b,c);
     	
+    	//company
+    	boolean aux = true;
+    	while(aux){
     	System.out.println("This material is provided by a company from the database YES or NO: \n");
     	String answ = writeString();
     	if(answ.equals("YES")){
+    		listCompanies(true);
+    		System.out.println("Type the PK of the company:\n");
+    		int pk = writeNumber();
+    		mat.setCompanyID(pk);
+    		System.out.println("The material is attached to the company\n");
+    		aux = false;
+    		
+    	}else if(answ.equals("NO")){
+    		
+    		Company com = createCompany(true);
+    		mat.setCompanyID(com.getCompanyID());
+    		System.out.println("The material is attached to the company\n");
+    		aux = false;
     		
     	}else{
-    		Company com = createCompany();
+    		System.out.println("Please type YES or NO\n");
+    	}
     	}
     	
-    	Material mat = new Material(a,b,c);
+    	//machinery
+    	boolean aux2 = true;
+    	while(aux2){
+    	System.out.println("Do you want to attach the material to a machinery from the database YES or NO: \n");
+    	String answ = writeString();
+    	if(answ.equals("YES")){
+    		listMachineries(true);
+    		System.out.println("Type the PK of the machinery:\n");
+    		int pk = writeNumber();
+    		mat.setMachineryID(pk);
+    		aux2 = false;
+    		
+    	}else if(answ.equals("NO")){
+    		System.out.println("The material is attached no machinery\n");
+    		aux2 = false;
+    		
+    	}else{
+    		System.out.println("Please type YES or NO\n");
+    	}
+    	}
     	
+		jdbcManager.insert(mat);
     	return mat;
     	
     }
 
-    
+    public static Material createMaterial(Boolean aux, int pk){
+    	System.out.println("\nWeight");
+    	int a = writeNumber();
+    	System.out.println("\nVolume");
+    	int b = writeNumber();
+    	System.out.println("\nType");
+    	String c = writeString();
+    	Material mat = new Material(a,b,c,pk);
+    	jdbcManager.insert(mat);
+    	
+    	return mat;
+    }
     
     //Show the Objects
+    //Alex? Tiene utilidad poner la opción de relación en todas?
     
     public static void showCompany(int pk){
     	Company com = new Company();
 		com = jdbcManager.selectCompany(pk);
-		jdbcManager.setCompanyRelations(com);
 		com.toString();
     }
-    
+    public static void listCompanies(boolean relation){
+    	Company com = new Company();
+		ArrayList<Company> comList = new ArrayList<Company>();
+		comList = jdbcManager.selectAllCompanies();
+			
+		int count= 0;
+			
+		while(count < comList.size())
+		{
+			com = comList.get(count);
+			String name = com.getCompanyName();
+			int id = com.getCompanyID();
+			
+				System.out.printf("id: %d,name: %s\n",id,name);
+				count++;
+			}
+	}
+  
+    public static void showMaterial(int pk){
+    	Material mat = new Material();
+    	mat = jdbcManager.selectMaterial(pk);
+    	mat.toString();
+    }
     public static void listMaterials(boolean relation){
         	Material mat = new Material();
         	ArrayList<Material> matList = new ArrayList<Material>();
@@ -653,14 +735,13 @@ public class UserInterface
         	
         	while(count < matList.size())
         	{
+        		mat = matList.get(count);
         		if(relation)
         		{
-        			jdbcManager.setOrderRelations(mat);
-        			System.out.printf("id: %d, relations: %d\n",ord.getOrderID(),ord.getHospitalList().toString());
+        			System.out.printf("id: %d, type: %d relations: %d\n", mat.getMaterialID() , mat.getType(), mat.getCompanyID());
         		}else
         		{
-        			ord = ordList.get(count);
-        			System.out.printf("id: %d\n",ord.getOrderID());
+        			System.out.printf("id: %d, type: %d \n", mat.getMaterialID() , mat.getType());
         		}
         		
         	}

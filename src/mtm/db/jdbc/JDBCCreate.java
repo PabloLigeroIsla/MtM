@@ -183,7 +183,7 @@ public class JDBCCreate
 					+"material_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+"weight INTEGER NOT NULL,"
 					+"volume INTEGER NOT NULL,"
-					+"company_ID  TEXT REFERENCES company(company_id),"
+					+"company_ID  TEXT REFERENCES company(company_ID),"
 					+"machinery_ID TEXT REFERENCES machinery(machinery_id));";
 
 			sAt.executeUpdate(sqla2);

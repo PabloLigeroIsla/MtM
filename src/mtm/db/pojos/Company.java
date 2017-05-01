@@ -15,13 +15,21 @@ public class Company implements Serializable {
 	private String location;
 	private String companyName;
 	
-	private List<Material>  materialList;
+	private ArrayList<Material>  materialList;
 	
+	public ArrayList<Material> getMaterialList() {
+		return materialList;
+	}
+
+	public void setMaterialList(ArrayList<Material> materialList) {
+		this.materialList = materialList;
+	}
+
 	public Company(){
 
 	}
 	
-	public Company(int company_id, String location, String companyName, List<Material> materialList){
+	public Company(int company_id, String location, String companyName, ArrayList<Material> materialList){
 		this.companyID= company_id;
 		this.location=location;
 		this.companyName=companyName;

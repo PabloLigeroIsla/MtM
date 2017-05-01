@@ -612,8 +612,10 @@ public class JDBCSelect
 				int weight = rs.getInt("weight");
 				int volume = rs.getInt("volume");
 				String type = rs.getString("type");
+				int companyID = rs.getInt("company_ID");
+				int machineryID = rs.getInt("machinery_ID");
 				
-				Material mat = new Material(materialID, weight, volume, type);
+				Material mat = new Material(materialID, weight, volume, type, companyID, machineryID);
 				materials.add(mat);
 			}
 			
@@ -645,8 +647,10 @@ public class JDBCSelect
 				weight = rs.getInt("weight");
 				volume = rs.getInt("volume");
 				type = rs.getString("type");
+				int companyID = rs.getInt("company_ID");
+				int machineryID = rs.getInt("machinery_ID");
 				
-				mat = new Material(materialID, weight, volume, type);
+				mat = new Material(materialID, weight, volume, type, companyID, machineryID);
 			}
 			
 			prep.close();

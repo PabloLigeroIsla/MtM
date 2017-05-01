@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.sql.Date;
+import java.awt.List;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -970,41 +971,35 @@ public class JDBCManager
 		return inst;		
 	}
 
-	public Material setMaterialRelations(Material mat){
-		//relation material-company
-				String relationalTable = "instrument_orders";
-				String pk1AttSearchOrder = "order_ID";
-				
-				String pkAttCompare = "instrument_ID";
-				int pkValueCompare = inst.getInstrumentID();
-				
-				ArrayList<Integer> instPkRelationFound = new ArrayList<Integer>();
-				instPkRelationFound = foundRelation(relationalTable, pk1AttSearchOrder, pkAttCompare, pkValueCompare);
-				Iterator<Integer> iter = instPkRelationFound.iterator();
-				while(iter.hasNext()){
-					int i = iter.next();
-					inst.addOrder(selectOrder(i));
-				}
-				
-				//relation instrument-machinery
-				//relation material-company
-				relationalTable = "Company";
-				String pkAttSearchMach = "material_ID";
-				
-				instPkRelationFound = foundRelation(relationalTable, pkAttSearchMach, pkAttCompare, pkValueCompare);
-				iter = instPkRelationFound.iterator();
-				while(iter.hasNext()){
-					int i = iter.next();
-					inst.addMachinery(selectMachinery(i));
-				}
-				
-				//relation instrument-warehouse
-				
-				inst.addWarehouse(selectWarehouse(1));
-				
-				return inst;		
-			
 
+	public Company setCompanyRelations(Company com){
+		//insert the materials
+		ArrayList<Material> allMaterials = selectAllMaterials();
+		
+		Iterator<Material> iter = allMaterials.iterator();
+		while(iter.hasNext()){
+			Material aux = iter.next();
+			if(aux.getCompanyID() == com.getCompanyID()){
+				com.addMaterial(aux);
+			}
+		}
+		return com;
+	}
+
+	
+	//Set ID's
+	//Alex
+	public Company setCompanyID(Company com){
+		ArrayList <Company> arraycom = selectAllCompanies();
+		Iterator<Company> iter = arraycom.iterator();
+		int pkSearch = 0;
+		while(iter.hasNext()){
+			pkSearch = iter.next().getCompanyID();
+		} 
+		
+		com.setCompanyID(pkSearch);
+		
+		return com;
 	}
 	
 	//Relation Help Methods
@@ -1022,6 +1017,7 @@ public class JDBCManager
 		
 	}
 	
+
 	public boolean sharedRelation(String table,String pk1AtrivuteSearch,String pkAtrivuteCompere ,Integer pkValueCompere)
 	{
 		boolean a = false;
