@@ -324,6 +324,8 @@ public class UserInterface
 		case 4: //Instrument
 			Instrument inst = createInstrument();
 			jdbcManager.insert(inst);
+			Warehouse war = jdbcManager.selectWarehouse(1);
+			jdbcManager.updateWarehouse((war.getFilledSpace()+5));
 			break;
 		case 5: //Machinery
 			Machinery mach = createMachinery();
@@ -336,8 +338,8 @@ public class UserInterface
 //		jdbcManager.insert(mat);
 			break;
 		case 7: // Warehouse 
-			Warehouse war = createWarehouse();
-			jdbcManager.insert(war);
+			Warehouse wareh = createWarehouse();
+			jdbcManager.insert(wareh);
 			break;
 		}
 		
@@ -539,12 +541,9 @@ public class UserInterface
 		System.out.println("Select the machines this instrument has used?\n");
 		listMachineries(false);
 		int machID= writeNumber();
-		inst = jdbcManager.setRelationInstrumentMachinery(inst,machID);
-		
+		jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(),machID);
 		
 		return inst;
-		
-    	
     }
     
     public static Employee createEmployee(){
@@ -853,7 +852,9 @@ public class UserInterface
     	war = jdbcManager.selectWarehouse(pk);    		
     	war.toString();
     }
-        
+      
+    //
+    
     public static void showEmployee(int pk)
     {
     	Employee emp = new Employee();

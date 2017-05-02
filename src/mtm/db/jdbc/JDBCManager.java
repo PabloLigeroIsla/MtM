@@ -853,18 +853,12 @@ public class JDBCManager
  	
 	//Charo
 
- 	public void updateWarehouse(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
+ 	public void updateWarehouse(int filledSpaceUpdated)
  	{
- 		String table = "warehouse";
- 		String selQuery = "SELECT name FROM "+table+" WHERE warehouse_ID = 1";
- 		if(valExist(selQuery,pkSearch,null))
- 		{
- 			
+ 		
  			JDBCUpdate sqlUpdate= new JDBCUpdate(c);
- 			sqlUpdate.update(table,colChange,stringChange,intChange,colSearch,pkSearch);
+ 			sqlUpdate.updateWarehouse(filledSpaceUpdated);
  			
- 			
- 		}
  		
  	} 	
 
@@ -1039,6 +1033,22 @@ public class JDBCManager
 		return inst;		
 	}
 
+public void setRelationInstrumentMachinery(int instID, int machID){
+		
+		JDBCInsert sqlInsert = new JDBCInsert(c);
+		sqlInsert.insertInstrumentOrderRelation(instID,machID);
+		
+	}
+	
+
+	public void deleteRelationInstrumentMachinery(int pkCol,String colPk)
+	{
+		String table = "instrument_machinery";
+		JDBCDelete sqlDelete = new JDBCDelete(c);
+		sqlDelete.deleteRelationNtoN( table, colPk, pkCol);
+		
+	}
+	
 	public Machinery setMachineryRelations(Machinery mach){
 		
 
@@ -1086,13 +1096,6 @@ public class JDBCManager
 	}
 
 	
-	public void deleteRelationInstrumentMachinery(int pkCol,String colPk)
-	{
-		String table = "instrument_machinery";
-		JDBCDelete sqlDelete = new JDBCDelete(c);
-		sqlDelete.deleteRelationtoN( table, colPk, pkCol);
-		
-	}
 	
 			
 	public Company setCompanyRelations(Company com){

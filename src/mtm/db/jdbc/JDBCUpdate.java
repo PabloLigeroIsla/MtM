@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class JDBCUpdate 
 {
@@ -77,6 +78,20 @@ public class JDBCUpdate
 		
 	}
 
+	public void updateWarehouse(int filledSpaceUpdated){
+		
+		Statement st;
+		try {
+			st = c.createStatement();
+			String sql = "UPDATE warehouse SET filledSpace = "+filledSpaceUpdated+" WHERE warehouse_ID=1";
+			st.executeUpdate(sql);
+			
+			st.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
 
-	
-
+}
