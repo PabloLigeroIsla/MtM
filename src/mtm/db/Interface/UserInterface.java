@@ -338,8 +338,8 @@ public class UserInterface
 //		jdbcManager.insert(mat);
 			break;
 		case 7: // Warehouse 
-			Warehouse war = createWarehouse();
-			jdbcManager.insert(war);
+			Warehouse wareh = createWarehouse();
+			jdbcManager.insert(wareh);
 			break;
 		}
 		
