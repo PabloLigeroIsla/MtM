@@ -76,8 +76,12 @@ public class JDBCUpdate
 			
 		}
 		
+<<<<<<< HEAD
 
 
+=======
+	
+>>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 	public void updateWarehouse(int filledSpaceUpdated){
 		
 		Statement st;
