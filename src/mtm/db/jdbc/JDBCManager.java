@@ -1040,9 +1040,23 @@ public class JDBCManager
 	}
 
 
-	//////////////////////////////
 
+	public void setRelationInstrumentMachinery(int instID, int machID){
+		
+		JDBCInsert sqlInsert = new JDBCInsert(c);
+		sqlInsert.insertInstrumentOrderRelation(instID,machID);
+		
+	}
+	
 
+	public void deleteRelationInstrumentMachinery(int pkCol,String colPk)
+	{
+		String table = "instrument_machinery";
+		JDBCDelete sqlDelete = new JDBCDelete(c);
+		sqlDelete.deleteRelationNtoN( table, colPk, pkCol);
+		
+	}
+	
 	public Machinery setMachineryRelations(Machinery mach){
 		
 
@@ -1090,13 +1104,6 @@ public class JDBCManager
 	}
 
 	
-	public void deleteRelationInstrumentMachinery(int pkCol,String colPk)
-	{
-		String table = "instrument_machinery";
-		JDBCDelete sqlDelete = new JDBCDelete(c);
-		sqlDelete.deleteRelationNtoN( table, colPk, pkCol);
-		
-	}
 	
 	
 	

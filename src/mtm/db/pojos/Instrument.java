@@ -5,15 +5,11 @@ import java.util.List;
 
 public class Instrument implements Serializable {
 
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 3782979999194436070L;
-	/**
-	 * 
-	 */
-
-
+	private static final long serialVersionUID = -8136208930132488298L;
 	//
 
 	
@@ -26,8 +22,8 @@ public class Instrument implements Serializable {
 	private String bodyLocation;
 	private Integer price;
 	private Warehouse warehouse;
-	private List<Integer> orderListIDs;
-	private List<Integer> machineryTypeListIDs;
+	private List<Order> orderList;
+	private List<Machinery> machineryTypeList;
 
 
 		
@@ -71,27 +67,27 @@ public class Instrument implements Serializable {
 
 
 
-	public void addOrder(int orderID) {
-		if (!orderListIDs.contains(orderID)) {
-			this.orderListIDs.add(orderID);
+	public void addOrder(Order order) {
+		if (!orderList.contains(order)) {
+			this.orderList.add(order);
 		}
 	}
 		
-	public void removeOrder(int orderID) {
-		if (orderListIDs.contains(orderID)) {
-			this.orderListIDs.remove(orderID);
+	public void removeOrder(Order order) {
+		if (orderList.contains(order)) {
+			this.orderList.remove(order);
 		}
 	}
 	
-	public void addMachinery(int machineryTypeID){
-		if (!machineryTypeListIDs.contains(machineryTypeID)) {
-			this.machineryTypeListIDs.add(machineryTypeID);
+	public void addMachinery(Machinery machineryType){
+		if (!machineryTypeList.contains(machineryType)) {
+			this.machineryTypeList.add(machineryType);
 		}
 	}
 	
-	public void removeMachinery(int machineryTypeID){
-		if (machineryTypeListIDs.contains(machineryTypeID)) {
-			this.machineryTypeListIDs.remove(machineryTypeID);
+	public void removeMachinery(Machinery machineryType){
+		if (machineryTypeList.contains(machineryType)) {
+			this.machineryTypeList.remove(machineryType);
 		}
 	}
 
@@ -302,29 +298,29 @@ public class Instrument implements Serializable {
 
 
 
-	public List<Integer> getOrderList() {
-		return orderListIDs;
+	public List<Order> getOrderList() {
+		return orderList;
 	}
 
 
 
 
-	public void setOrderList(List<Integer> orderList) {
-		this.orderListIDs = orderList;
+	public void setOrderList(List<Order> orderList) {
+		this.orderList = orderList;
 	}
 
 
 
 
-	public List<Integer> getMachineryTypeList() {
-		return machineryTypeListIDs;
+	public List<Machinery> getMachineryTypeList() {
+		return machineryTypeList;
 	}
 
 
 
 
-	public void setMachineryTypeList(List<Integer> machineryTypeList) {
-		this.machineryTypeListIDs = machineryTypeList;
+	public void setMachineryTypeList(List<Machinery> machineryTypeList) {
+		this.machineryTypeList = machineryTypeList;
 	}
 
 

@@ -539,12 +539,9 @@ public class UserInterface
 		System.out.println("Select the machines this instrument has used?\n");
 		listMachineries(false);
 		int machID= writeNumber();
-		inst = jdbcManager.setRelationInstrumentMachinery(inst,machID);
-		
+		jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(),machID);
 		
 		return inst;
-		
-    	
     }
     
     public static Employee createEmployee(){
