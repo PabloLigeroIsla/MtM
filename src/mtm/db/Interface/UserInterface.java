@@ -850,7 +850,9 @@ public class UserInterface
     	war = jdbcManager.selectWarehouse(pk);    		
     	war.toString();
     }
-        
+      
+    //
+    
     public static void showEmployee(int pk)
     {
     	Employee emp = new Employee();

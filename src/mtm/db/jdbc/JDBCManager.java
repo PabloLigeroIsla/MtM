@@ -1120,7 +1120,7 @@ public class JDBCManager
 		return com;
 	}
 
-	
+	//
 	//Set ID's
 	//Alex
 	public Company setCompanyID(Company com){
