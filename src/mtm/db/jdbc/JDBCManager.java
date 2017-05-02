@@ -1031,7 +1031,7 @@ public class JDBCManager implements DBInterface
 		
 		return inst;		
 	}
-
+//
 	public void setRelationInstrumentMachinery(int instID, int machID){
 		
 		JDBCInsert sqlInsert = new JDBCInsert(c);
