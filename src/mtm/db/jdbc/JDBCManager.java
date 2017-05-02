@@ -1,6 +1,7 @@
 package mtm.db.jdbc;
 
 import mtm.db.pojos.*;
+import mtm.db.Interface.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,7 +12,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 
-public class JDBCManager 
+public class JDBCManager implements DBInterface
 {
 	
 	public Connection c = null;
@@ -447,8 +448,6 @@ public class JDBCManager
 			System.out.println("\n The material does not exist \n");
 		}
 	}
-
-	
 	
 	//Method to Select
 	public ArrayList<Hospital> selectHospitals()
@@ -1033,7 +1032,7 @@ public class JDBCManager
 		return inst;		
 	}
 
-public void setRelationInstrumentMachinery(int instID, int machID){
+	public void setRelationInstrumentMachinery(int instID, int machID){
 		
 		JDBCInsert sqlInsert = new JDBCInsert(c);
 		sqlInsert.insertInstrumentOrderRelation(instID,machID);
@@ -1094,9 +1093,6 @@ public void setRelationInstrumentMachinery(int instID, int machID){
 		
 		return mach;
 	}
-
-	
-	
 			
 	public Company setCompanyRelations(Company com){
 		//insert the materials
