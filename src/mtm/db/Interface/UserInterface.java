@@ -419,8 +419,6 @@ public class UserInterface
     }
     
 }
-
-    //
     //Creation of Objects
     public static Hospital createHospital()
     {

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class JDBCSearch 
 {
 	private Connection c;
-	//
+	
 	public JDBCSearch(Connection c)
 	{
 		this.c = c;

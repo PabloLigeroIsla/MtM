@@ -114,7 +114,7 @@ public abstract class Validator
 				}
 				return numIntro;
 	}
-	//
+	
 	public static boolean writeOption(String option)
 	{
 		boolean a = false;

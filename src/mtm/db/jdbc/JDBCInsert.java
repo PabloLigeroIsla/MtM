@@ -119,7 +119,7 @@ public class JDBCInsert
 			}
 		}
 		
-			//Celiaa
+			//Celia
 		public void insert(Employee emp)
 		{
 			try
