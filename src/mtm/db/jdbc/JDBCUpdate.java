@@ -76,8 +76,7 @@ public class JDBCUpdate
 			
 		}
 		
-	}
-
+	
 	public void updateWarehouse(int filledSpaceUpdated){
 		
 		Statement st;
