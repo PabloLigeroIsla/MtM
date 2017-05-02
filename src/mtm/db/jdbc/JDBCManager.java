@@ -815,7 +815,7 @@ public class JDBCManager
  		{
  			
  			JDBCUpdate sqlUpdate= new JDBCUpdate(c);
- 			sqlUpdate.updateMachinery(pkSearch);
+ 			sqlUpdate.updateMachinery(pkSearch,workingState);
 
  		}
 
@@ -1039,10 +1039,6 @@ public class JDBCManager
 		return inst;		
 	}
 
-
-	//////////////////////////////
-
-
 	public Machinery setMachineryRelations(Machinery mach){
 		
 
@@ -1094,7 +1090,7 @@ public class JDBCManager
 	{
 		String table = "instrument_machinery";
 		JDBCDelete sqlDelete = new JDBCDelete(c);
-		sqlDelete.deleteRelationNtoN( table, colPk, pkCol);
+		sqlDelete.deleteRelationtoN( table, colPk, pkCol);
 		
 	}
 	

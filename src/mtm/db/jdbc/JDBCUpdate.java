@@ -55,11 +55,28 @@ public class JDBCUpdate
 		}
 		
 	}
-	public void updateMachinery(int pkSearch)
-	{
-		kbggñiu;
+	public void updateMachinery(int pkSearch, String stateofMachinery){
+		
+	try
+			{
+		String sql = "UPDATE machinery SET stateofMachinery LIKE ? WHERE machinery_ID = ? ";
+
+				PreparedStatement prep = c.prepareStatement(sql);
+				prep.setString(1, stateofMachinery);
+				prep.setInt(2, pkSearch);
+				prep.executeUpdate();
+				
+				prep.close();
+			}catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+			
+			
+		}
+		
 	}
+
 
 	
 
-}

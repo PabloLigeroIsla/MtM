@@ -858,7 +858,6 @@ public class UserInterface
     {
     	Employee emp = new Employee();
     	emp = jdbcManager.selectEmployee(pk);
-    	jdbcManager.setEmployeeRelations(emp);
     	emp.toString();
     }
     public static void listEmployees(boolean relation)
@@ -868,7 +867,6 @@ public class UserInterface
     	empList = jdbcManager.selectAllEmployees();
     	
     	int count = 0;
-    	jgjgluglug;
     	while(count < empList.size())
     	{
     		emp = empList.get(count);
