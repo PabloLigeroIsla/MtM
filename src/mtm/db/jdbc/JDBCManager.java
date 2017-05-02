@@ -1105,22 +1105,7 @@ public class JDBCManager
 
 	
 	
-	
-	
-	
-	
-	public Employee setEmployeeRelations(Employee emp)
-	{
-		//Igual que la relacion n to 1!!!
-		
-	dwedcercer;
-	}
-		
-		
-		
-		
-	
-		
+			
 	public Company setCompanyRelations(Company com){
 		//insert the materials
 		ArrayList<Material> allMaterials = selectAllMaterials();
