@@ -907,7 +907,6 @@ public class UserInterface
     			System.out.printf("id: %d\n",mach.getMachineryID());
     		}
     		
-    		
     	}
     
     }

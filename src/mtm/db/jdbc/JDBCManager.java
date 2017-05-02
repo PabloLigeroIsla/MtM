@@ -1159,6 +1159,20 @@ public class JDBCManager implements DBInterface
 		inst.setInstrumentID(pkSearch);
 		return inst;
 	}
+	public Machinery setMachineryID(Machinery mach)
+	{
+		ArrayList<Machinery> arrayMach = selectAllMachineries();
+		Iterator <Machinery> iter = arrayMach.iterator();
+		int pkSearch = 0;
+		while(iter.hasNext())
+		{
+			pkSearch = iter.next().getMachineryID();
+		}
+		
+		mach.setMachineryID(pkSearch);
+		return mach;
+	}
+	
 	//Relation Help Methods
 	public ArrayList<Integer> foundRelation(String table,String pk1AttributeSearch,String pkAttributeCompere ,int pkValueCompere)
 	{
