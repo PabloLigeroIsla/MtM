@@ -922,7 +922,6 @@ public class UserInterface
     			System.out.printf("id: %d, machinery type: %d\n",mach.getMachineryID(), mach.getMachineryType());
     		}
     		
-    		
     	}
     
     }
