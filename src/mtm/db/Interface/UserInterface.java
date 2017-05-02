@@ -565,7 +565,7 @@ public class UserInterface
 	{
 		mach=createMachinery();
 		jdbcManager.insert(mach);
-		mach=setMachineryID(mach);
+		mach = jdbcManager.setMachineryID(mach);
 		
 	}
 	
