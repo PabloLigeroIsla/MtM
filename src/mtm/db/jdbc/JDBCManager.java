@@ -853,18 +853,12 @@ public class JDBCManager
  	
 	//Charo
 
- 	public void updateWarehouse(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
+ 	public void updateWarehouse(int filledSpaceUpdated)
  	{
- 		String table = "warehouse";
- 		String selQuery = "SELECT name FROM "+table+" WHERE warehouse_ID = 1";
- 		if(valExist(selQuery,pkSearch,null))
- 		{
- 			
+ 		
  			JDBCUpdate sqlUpdate= new JDBCUpdate(c);
- 			sqlUpdate.update(table,colChange,stringChange,intChange,colSearch,pkSearch);
+ 			sqlUpdate.updateWarehouse(filledSpaceUpdated);
  			
- 			
- 		}
  		
  	} 	
 

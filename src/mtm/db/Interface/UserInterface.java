@@ -324,6 +324,8 @@ public class UserInterface
 		case 4: //Instrument
 			Instrument inst = createInstrument();
 			jdbcManager.insert(inst);
+			Warehouse war = jdbcManager.selectWarehouse(1);
+			jdbcManager.updateWarehouse((war.getFilledSpace()+5));
 			break;
 		case 5: //Machinery
 			Machinery mach = createMachinery();
