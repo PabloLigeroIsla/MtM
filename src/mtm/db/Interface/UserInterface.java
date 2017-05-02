@@ -203,7 +203,7 @@ public class UserInterface
 	
 	public static void createTable()
 	{
-		System.out.println(" Creating all tables?\n");
+		System.out.println("All tables created\n");
 		jdbcManager.createTables();
 		//System.out.println(" Tables created succesfully\n");
 	}
@@ -549,15 +549,30 @@ public class UserInterface
     public static Employee createEmployee(){
 
 	System.out.println("Name of the employee:\n");
-	String a = writeString();
+	String name = writeString();
 	System.out.println("Type of contract: \n");
-	String b = writeString();
-	System.out.println("Specialization type:\n");
-	String c = writeString();
-	System.out.println("In which machinery is the employee specializated in?\n");
+	String typec = writeString();
+	System.out.println("Does the machinery exist?\n");
+	String d = writeString();
+	Machinery mach=new Machinery();
+	if(writeOption(d)){
+		listMachineries(false);
+		System.out.println("Select the ID of the machinery the employee is spezialized in\n");
+		int e=writeNumber();
+		
+		mach=jdbcManager.selectMachinery(e);
+		
+	}
+	else
+	{
+		mach=createMachinery();
+		jdbcManager.insert(mach);
+		mach=setMachineryID(mach);
+		
+	}
 	
-
-	Employee emp = new Employee(a,b,c);
+	String st = mach.getMachineryType();
+	Employee emp = new Employee(name,st,typec,mach);
 	
 	return emp;
     
@@ -904,7 +919,7 @@ public class UserInterface
     			
     		}else
     		{
-    			System.out.printf("id: %d\n",mach.getMachineryID());
+    			System.out.printf("id: %d, machinery type: %d\n",mach.getMachineryID(), mach.getMachineryType());
     		}
     		
     		

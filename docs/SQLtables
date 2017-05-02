@@ -89,9 +89,11 @@ CREATE TABLE employee(
 employee_ID INTEGER PRIMARY KEY AUTOINCREMENT,
 name TEXT NOT NULL,
 typeofContract TEXT NOT NULL,
-specializationType TEXT NOT NULL,
+specializationType TEXT N
+OT NULL,
 machineryType TEXT,
-FOREIGN KEY (machineryType) REFERENCES machinery(machineryType) );
+machinery_ID INTEGER,
+FOREIGN KEY (machinery_ID) REFERENCES machinery(machinery_ID) );
 
 INSERT INTO employee (name,typeofContract,specializationType,machineryType)VALUES('Charo','Permanent','Laser','Laser');
 INSERT INTO employee (name,typeofContract,specializationType,machineryType)VALUES('Celia','Temporal','Grinder','Sterilization');
