@@ -40,7 +40,7 @@ public class JDBCSelect
 			String sql = "SELECT * FROM hospital";
 			ResultSet rs = stmt.executeQuery(sql);
 			
-			while(rs.next());
+			while(rs.next())
 			{
 				int hospitalID = rs.getInt("hospital_ID");
 				String name = rs.getString("name");
@@ -258,7 +258,7 @@ public class JDBCSelect
 			Statement stmt = c.createStatement();
 			String sql = "SELECT * FROM instrument";
 			ResultSet rs = stmt.executeQuery(sql);
-			while(rs.next());
+			while(rs.next())
 			{
 				int instrumentID = rs.getInt("instrument_ID");
 				String name = rs.getString("name");
@@ -340,7 +340,7 @@ public class JDBCSelect
 			Statement stmt = c.createStatement();
 			String sql = "SELECT * FROM employee";
 			ResultSet rs = stmt.executeQuery(sql);
-			while(rs.next());
+			while(rs.next())
 			{
 				int employeeID = rs.getInt("employee_ID");
 				String name = rs.getString("name");
@@ -545,7 +545,7 @@ public class JDBCSelect
 			Statement stmt = c.createStatement();
 			String sql = "SELECT * FROM company";
 			ResultSet rs = stmt.executeQuery(sql);
-			while(rs.next());
+			while(rs.next())
 			{
 				int companyID = rs.getInt("company_ID");
 				String location = rs.getString("location");
@@ -606,7 +606,7 @@ public class JDBCSelect
 			Statement stmt = c.createStatement();
 			String sql = "SELECT * FROM material";
 			ResultSet rs = stmt.executeQuery(sql);
-			while(rs.next());
+			while(rs.next())
 			{
 				int materialID = rs.getInt("material_ID");
 				int weight = rs.getInt("weight");
