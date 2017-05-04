@@ -455,9 +455,9 @@ public class JDBCManager implements DBInterface
 	//Method to Select
 	public ArrayList<Hospital> selectHospitals()
 	{
+		
 		ArrayList<Hospital> hosp = new ArrayList<Hospital>();
 		JDBCSelect sqlSelect = new JDBCSelect(c);
-		
 		
 		hosp = sqlSelect.selectAllHospitals();
 		
@@ -466,7 +466,7 @@ public class JDBCManager implements DBInterface
 	}
  	public Hospital selectHospital(int primaryKey)
 	{
-		String table = "hosital";
+		String table = "hospital";
 		String selQuery = "SELECT name FROM "+table+" WHERE hospital_ID = ?";
 		
 		

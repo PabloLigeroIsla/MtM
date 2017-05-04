@@ -39,6 +39,7 @@ public class UserInterface
 					//List Entities
 					listEntity();
 					waitEnter();
+					break;
 				case 3:
 					//show table
 					showTable();
