@@ -3,6 +3,7 @@ package mtm.db.jdbc;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class JDBCUpdate 
 {
@@ -52,6 +53,44 @@ public class JDBCUpdate
 			}
 			
 		}
+		
+	}
+	public void updateMachinery(int pkSearch, String stateofMachinery){
+		
+	try
+			{
+		String sql = "UPDATE machinery SET stateofMachinery LIKE ? WHERE machinery_ID = ? ";
+
+				PreparedStatement prep = c.prepareStatement(sql);
+				prep.setString(1, stateofMachinery);
+				prep.setInt(2, pkSearch);
+				prep.executeUpdate();
+				
+				prep.close();
+			}catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+			
+			
+		}
+		
+
+	
+
+	public void updateWarehouse(int filledSpaceUpdated){
+		
+		Statement st;
+		try {
+			st = c.createStatement();
+			String sql = "UPDATE warehouse SET filledSpace = "+filledSpaceUpdated+" WHERE warehouse_ID=1";
+			st.executeUpdate(sql);
+			
+			st.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		
 	}
 

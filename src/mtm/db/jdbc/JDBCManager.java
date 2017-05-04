@@ -1,6 +1,7 @@
 package mtm.db.jdbc;
 
 import mtm.db.pojos.*;
+import mtm.db.Interface.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,7 +12,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 
-public class JDBCManager 
+public class JDBCManager implements DBInterface
 {
 	
 	public Connection c = null;
@@ -294,26 +295,37 @@ public class JDBCManager
 	
 	public void deleteOrder(int primaryKey)
 	{
-		String sqlQuery = "SELECT * FROM orders WHERE order_ID == ?";
+		String sqlQuery = "SELECT * FROM orders WHERE order_ID = ?";
+		
 		if(valExist(sqlQuery,primaryKey,null))
 		{
 			JDBCDelete sqlDelete = new JDBCDelete(c);
 			
 			sqlDelete.deleteOrder(primaryKey);
 			
-			
 			//We also delete the relation
 			String table = "hospital_orders";
-			String  pk1AtrivuteSearch = "order_ID";
-			String pkAtrivuteCompere = "order_ID";
+			String  pk1AtributeSearch = "hospital_ID";
+			String pkAtributeCompere = "order_ID";
 			int pkValueCompere = primaryKey;
-			if(!sharedRelation(table, pk1AtrivuteSearch, pkAtrivuteCompere, pkValueCompere))
+			if(!sharedRelation(table, pk1AtributeSearch, pkAtributeCompere, pkValueCompere))
 			{
+				
 				String colPk = "order_ID";
 				deleteRelationHospitalOrder(primaryKey,colPk);
 			}
 			
-
+			
+			table = "instrument_orders";
+			pk1AtributeSearch = "order_ID";
+			pkAtributeCompere = "order_ID";
+			pkValueCompere = primaryKey;
+			if(!sharedRelation(table, pk1AtributeSearch, pkAtributeCompere, pkValueCompere))
+			{
+				String colPk = "order_ID";
+				deleteRelationInstrumentOrder(primaryKey,colPk);
+			}
+			
 		}
 		else
 		{
@@ -367,16 +379,24 @@ public class JDBCManager
 			
 			
 			// We also delete the relation with the order in which it is contained
-			//We also need to delete the relation between the order just deleted and the hospital which orders it
 			
-			// hago el metodo que me de la pk de los orders relacionados con ese instrument, elimino la relacion intrument-order
-			
+			String table = "instruments_order";
+			String pk1AtSearch = "order_ID";
+			String pk1Compare = "instrument_ID";
+			int pkValueCompare = primaryKeyInstrument;
+			if(!sharedRelation(table, pk1AtSearch, pk1Compare, pkValueCompare))
+			{
+				sqlDelete.deleteInstrument(primaryKeyInstrument);
+				
+				String colPk = "instrument_ID";
+				deleteRelationInstrumentOrder(primaryKeyInstrument,colPk);
+			}			
+
 		}
 		else
 		{
 			System.out.println("\n The instrument does not exist \n");
 		}
-		
 	}
 	
 	public void deleteWarehouse(int primaryKeyWarehouse)
@@ -431,8 +451,6 @@ public class JDBCManager
 			System.out.println("\n The material does not exist \n");
 		}
 	}
-
-	
 	
 	//Method to Select
 	public ArrayList<Hospital> selectHospitals()
@@ -783,6 +801,27 @@ public class JDBCManager
  	
  	
  	//Celia
+ 	public void updateMachinery(int pkSearch, int b)
+ 	{
+ 		String workingState=null;
+ 		if(b==1){
+ 			workingState="work";
+ 		}
+ 		else{
+ 			workingState="no work";
+ 			
+ 		}
+ 		String table = "machinery";
+ 		String selQuery = "SELECT name FROM "+table+" WHERE machinery_ID = ?";
+ 		if(valExist(selQuery,pkSearch,null))
+ 		{
+ 			
+ 			JDBCUpdate sqlUpdate= new JDBCUpdate(c);
+ 			sqlUpdate.updateMachinery(pkSearch,workingState);
+
+ 		}
+
+ 	}
  	
  	//Alex
  	public void updateMaterial(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
@@ -815,6 +854,15 @@ public class JDBCManager
  	}
  	
 	//Charo
+
+ 	public void updateWarehouse(int filledSpaceUpdated)
+ 	{
+ 		
+ 			JDBCUpdate sqlUpdate= new JDBCUpdate(c);
+ 			sqlUpdate.updateWarehouse(filledSpaceUpdated);
+ 			
+ 		
+ 	} 	
 
  	
  	//DB management Methods
@@ -882,16 +930,31 @@ public class JDBCManager
 		
 	}
 		
+	
+	public void setRelationInstrumentOrder(int inst, int ord)
+	{
+		JDBCInsert sqlInsert = new JDBCInsert(c);
+		sqlInsert.insertInstrumentOrderRelation(inst,ord);
+	}
+	
+	public void deleteRelationInstrumentOrder(int pkCol,String colPk)
+	{
+		String table = "instrument_orders";
+		
+		JDBCDelete sqlInsert = new JDBCDelete(c);
+		sqlInsert.deleteRelationNtoN(table,colPk,pkCol);
+	}
+	
 	public Hospital setHospitalRelations(Hospital hosp)
 	{
 		String relationalTable = "hospital_orders";
-		String pk1AtrivuteSearch = "order_ID";
-		String pkAtrivuteCompere = "hospital_ID";
+		String pk1AtributeSearch = "order_ID";
+		String pkAtributeCompere = "hospital_ID";
 		int pkValueCompere = hosp.getHospitalID();
 		
 		
 		ArrayList<Integer> orderPkRelationFound = new ArrayList<Integer>();
-		orderPkRelationFound = foundRelation(relationalTable,pk1AtrivuteSearch,pkAtrivuteCompere,pkValueCompere);
+		orderPkRelationFound = foundRelation(relationalTable,pk1AtributeSearch,pkAtributeCompere,pkValueCompere);
 		Iterator<Integer> iter = orderPkRelationFound.iterator();
 		while(iter.hasNext())
 		{
@@ -904,15 +967,15 @@ public class JDBCManager
 	public Order setOrderRelations(Order ord)
 	{
 	//Hacer create the tabla asociada instruments/order	
-		String pkAtrivuteCompere = "order_ID";
+		String pkAtributeCompere = "order_ID";
 		int pkValueCompere = ord.getOrderID();
 		
 		//Hospital List
 		String relationalTable = "hospital_orders";
-		String pk1AtrivuteSearch = "hospital_ID";
+		String pk1AtributeSearch = "hospital_ID";
 		
 		ArrayList<Integer> hospitalPkRelationFound = new ArrayList<Integer>();
-		hospitalPkRelationFound = foundRelation(relationalTable,pk1AtrivuteSearch,pkAtrivuteCompere,pkValueCompere);
+		hospitalPkRelationFound = foundRelation(relationalTable,pk1AtributeSearch,pkAtributeCompere,pkValueCompere);
 		
 		Iterator<Integer> iter = hospitalPkRelationFound.iterator();
 		while(iter.hasNext())
@@ -924,10 +987,10 @@ public class JDBCManager
 		//Instrument List
 		
 		relationalTable = "instrument_orders";
-		pk1AtrivuteSearch = "instrument_ID";
+		pk1AtributeSearch = "instrument_ID";
 		
 		ArrayList<Integer> instrumentPkRelationFound = new ArrayList<Integer>();
-		instrumentPkRelationFound = foundRelation(relationalTable,pk1AtrivuteSearch,pkAtrivuteCompere,pkValueCompere);
+		instrumentPkRelationFound = foundRelation(relationalTable,pk1AtributeSearch,pkAtributeCompere,pkValueCompere);
 		Iterator<Integer> iter2 = instrumentPkRelationFound.iterator();
 		while(iter2.hasNext())
 		{
@@ -973,6 +1036,68 @@ public class JDBCManager
 		return inst;		
 	}
 
+	public void setRelationInstrumentMachinery(int instID, int machID){
+		
+		JDBCInsert sqlInsert = new JDBCInsert(c);
+		sqlInsert.insertInstrumentOrderRelation(instID,machID);
+		
+	}
+	
+
+	public void deleteRelationInstrumentMachinery(int pkCol,String colPk)
+	{
+		String table = "instrument_machinery";
+		JDBCDelete sqlDelete = new JDBCDelete(c);
+		sqlDelete.deleteRelationNtoN( table, colPk, pkCol);
+		
+	}
+	
+	public Machinery setMachineryRelations(Machinery mach){
+		
+
+		//relation employee
+		ArrayList<Employee>allEmployees = selectAllEmployees();
+		Iterator<Employee> iter1 = allEmployees.iterator();
+		while(iter1.hasNext()){
+			Employee a = iter1.next();
+			if(a.getMachineryType().getMachineryID() == mach.getMachineryID()){
+				mach.addEmployee(a);
+			}
+		}
+		
+		//relation material
+		ArrayList<Material>allMaterials = selectAllMaterials();
+		Iterator<Material> iter2 = allMaterials.iterator();
+		while(iter2.hasNext()){
+			Material b = iter2.next();
+			if(b.getMachineryID() == mach.getMachineryID()){
+				mach.addMaterial(b);
+			}
+		}
+		
+		
+		//Instrument List
+		String relationalTable = "machinery_instrument";
+		String pkAtributeS = "instrument_ID";
+		
+		String pkAttCompare = "machinery_ID";
+		int pkValueCompare = mach.getMachineryID();
+		
+		ArrayList<Integer> machineryPkRelationFound = new ArrayList<Integer>();
+		machineryPkRelationFound = foundRelation(relationalTable,pkAtributeS, pkAttCompare, pkValueCompare);
+		
+		Iterator<Integer> iter = machineryPkRelationFound.iterator();
+		while(iter.hasNext())
+		{
+			int i = iter.next();
+			mach.addInstrument(selectInstrument(i));
+		}
+		
+	
+		
+		return mach;
+	}
+			
 	public Company setCompanyRelations(Company com){
 		//insert the materials
 		ArrayList<Material> allMaterials = selectAllMaterials();
@@ -1001,6 +1126,55 @@ public class JDBCManager
 		com.setCompanyID(pkSearch);
 		
 		return com;
+	}
+	
+	public Hospital setHospitalID(Hospital hosp)
+	{
+		ArrayList <Hospital> arrayHosp = selectHospitals();
+		Iterator<Hospital> iter = arrayHosp.iterator();
+		int pkSearch = 0;
+		while(iter.hasNext())
+		{
+			pkSearch = iter.next().getHospitalID();
+		} 
+		hosp.setHospitalID(pkSearch);
+		return hosp;
+	}
+	public Order setOrderID(Order ord)
+	{
+		ArrayList<Order> arrayOrd = selectAllOrders();
+		Iterator<Order> iter = arrayOrd.iterator();
+		int pkSearch = 0;
+		while(iter.hasNext())
+		{
+			pkSearch = iter.next().getOrderID();
+		}
+		
+		ord.setOrderID(pkSearch);
+		return ord;
+	}
+	public Instrument setInstrumentID(Instrument inst){
+		ArrayList<Instrument> arrayinst = selectAllInstruments();
+		Iterator<Instrument> iter = arrayinst.iterator();
+		int pkSearch = 0;
+		while(iter.hasNext()){
+			pkSearch = iter.next().getInstrumentID();
+		}
+		inst.setInstrumentID(pkSearch);
+		return inst;
+	}
+	public Machinery setMachineryID(Machinery mach)
+	{
+		ArrayList<Machinery> arrayMach = selectAllMachineries();
+		Iterator <Machinery> iter = arrayMach.iterator();
+		int pkSearch = 0;
+		while(iter.hasNext())
+		{
+			pkSearch = iter.next().getMachineryID();
+		}
+		
+		mach.setMachineryID(pkSearch);
+		return mach;
 	}
 	
 	//Relation Help Methods

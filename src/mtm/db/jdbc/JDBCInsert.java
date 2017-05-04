@@ -127,8 +127,9 @@ public class JDBCInsert
 				c.setAutoCommit(false);
 
 				Statement stmt = c.createStatement();
-				String sql = "INSERT INTO employee (name, typeofContract,specializationType) "
-						+ "VALUES ('" + emp.getName() + "', '" + emp.getTypeofContract()	+ "', '" + emp.getSpecializationType()	+ "');";
+				String sql = "INSERT INTO employee (name, typeofContract,specializationType,machinery_ID) "
+				+ "VALUES ('" + emp.getName() + "', '" + emp.getTypeofContract()	+ "', '" 
+						+ emp.getSpecializationType()	+ "', '" + emp.getMachineryType().getMachineryID()	+ "');";
 				stmt.executeUpdate(sql);
 				stmt.close();
 				System.out.println("Employee information processed");
