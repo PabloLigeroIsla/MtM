@@ -886,7 +886,6 @@ public class UserInterface
     }
     public static void showWarehouse(int pk){
     	Warehouse war = new Warehouse();
-    	war = jdbcManager.selectWarehouse(pk);    		
     	war.toString();
     }
     

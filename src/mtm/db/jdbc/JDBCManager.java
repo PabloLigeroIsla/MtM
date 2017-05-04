@@ -745,7 +745,7 @@ public class JDBCManager implements DBInterface
  	 	public Warehouse selectWarehouse(int primaryKey)
  		{
  			String table = "warehouse";
- 			String selQuery = "SELECT warehouse_location FROM "+table+" WHERE warehouse_ID = ?";
+ 			String selQuery = "SELECT * FROM "+table+" WHERE warehouse_ID = ?";
  			
  			
  			if(valExist(selQuery,primaryKey,null))
