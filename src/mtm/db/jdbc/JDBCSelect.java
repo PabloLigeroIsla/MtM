@@ -141,7 +141,7 @@ public class JDBCSelect
 			String sql = "SELECT * FROM hospital";
 			ResultSet rs = stmt.executeQuery(sql);
 			
-			while(rs.next());
+			while(rs.next())
 			{
 				int orderID = rs.getInt("order_ID");
 				int totalAmountInstruments = rs.getInt("total_amount_instruments");

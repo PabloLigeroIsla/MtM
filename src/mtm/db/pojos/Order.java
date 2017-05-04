@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDate;
 
 public class Order implements Serializable
 {
@@ -118,6 +119,12 @@ public class Order implements Serializable
 		this.instrumentList = instrumentList;
 	}
 	//Methods
+	private LocalDate dateTransform(java.sql.Date a)
+	{
+		LocalDate b = null;
+		b = a.toLocalDate();
+		return b;
+	}
 	
 	public void addHospital(Hospital hospital)
 	{
@@ -150,13 +157,18 @@ public class Order implements Serializable
 	}
 	
 	@Override
-	public String toString() 
+	public String toString()
 	{
-		return "Order [orderID=" + orderID + ", totalAmountInstruments=" + totalAmountInstruments
-				+ ", orderDate=" + orderDate + ", deliveryDate=" + deliveryDate + "]";
+		LocalDate a =dateTransform(this.getOrderDate());
+		LocalDate b =dateTransform(this.getDeliveryDate());
+		
+		return "Order [orderID=" + orderID + ", totalAmountInstruments=" + totalAmountInstruments + ", orderDate="
+				+ a + ", deliveryDate=" + b + ", hospitalList=" + hospitalList + ", instrumentList="
+				+ instrumentList + "]";
 	}
 	
 	//hashCode and equals
+	
 	
 	@Override
 	public int hashCode() 

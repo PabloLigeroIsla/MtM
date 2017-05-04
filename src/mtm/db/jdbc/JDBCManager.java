@@ -2,14 +2,14 @@ package mtm.db.jdbc;
 
 import mtm.db.pojos.*;
 import mtm.db.Interface.*;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.sql.Date;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 
 public class JDBCManager implements DBInterface
@@ -26,7 +26,7 @@ public class JDBCManager implements DBInterface
 
 	//Pablo
 	
-	public Order createPojoOrder(int number,int d11,int d12,int d13,int d21,int d22,int d23)
+	public Order createPojoOrder(int number,String d11,String d12,String d13,String d21,String d22,String d23)
 	{
 		Date date1SQL = dateConverterSQL(d13,d12,d11);
 		Date date2SQL = dateConverterSQL(d23,d22,d21);
@@ -37,7 +37,7 @@ public class JDBCManager implements DBInterface
 	//Celia
 	
 	
-	public Machinery createPojoMachinery(String machineryType, String stateofMachinery,int d,int m, int y, int sizeofMachinery){
+	public Machinery createPojoMachinery(String machineryType, String stateofMachinery,String d,String m, String y, int sizeofMachinery){
 		
 		Date date3SQL = dateConverterSQL(y,m,d);
 		Machinery mach = new Machinery (machineryType, stateofMachinery, date3SQL, sizeofMachinery);
@@ -867,12 +867,16 @@ public class JDBCManager implements DBInterface
  	
  	//DB management Methods
 	
-	private java.sql.Date dateConverterSQL(int year,int month,int day) 
+	private java.sql.Date dateConverterSQL(String year,String month,String day) 
 	{
 							    
-		    java.sql.Date apptDay = new java.sql.Date(year, month, day);
-		    
-		    return apptDay;
+		String dateinSQL = ""+year+"-"+month+"-"+day+"";
+		System.out.println(dateinSQL);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate localDate = LocalDate.parse(dateinSQL, formatter);
+		java.sql.Date apptDay = null;
+		apptDay = Date.valueOf(localDate);
+		return apptDay;
 			    
 	}
 	

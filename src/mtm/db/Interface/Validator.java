@@ -158,19 +158,36 @@ public abstract class Validator
 	
 	// More Functions
 
-	public static int[] createDate()
+	public static String[] createDate()
 		{
-			int [] date = new int [3];
+			String [] date = new String [3];
 			
 			System.out.println("\nDay:");
 			int day1 = writeNumber(31);
-			date[0]=day1;
+			String day1S;
+			if(day1 < 10)
+			{
+				day1S = "0"+day1+"";
+			}else
+			{
+				day1S = ""+day1+"";
+			}
+			date[0]=day1S;
 			System.out.println("\nMonth:");
 			int month1 = writeNumber(12);
-			date[1] = month1;
+			String month1S;
+			if(month1 < 10)
+			{
+				month1S = "0"+month1+"";
+			}else
+			{
+				month1S = ""+month1+"";
+			}
+			date[1] = month1S;
 			System.out.println("\nYear:");
 			int year1 = writeNumber(1999,2017);
-			date[2] = year1;
+			String year1S = ""+year1+"";
+			date[2] = year1S;
 			return date;
 		}
 		
