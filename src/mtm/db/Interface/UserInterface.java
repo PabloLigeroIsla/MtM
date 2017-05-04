@@ -69,6 +69,7 @@ public class UserInterface
 	}
 
 	// Menu
+	
 	public static int openMenu()
 	{
 		int option;
@@ -389,6 +390,7 @@ public class UserInterface
 		
 		
 	}
+	
 	public static void delValTable()
 	{
 		System.out.println("What table do you want to delete a value from? \n");
@@ -437,6 +439,7 @@ public class UserInterface
 		}
 		
 	}
+	
 	//Extra Methods
     
     
@@ -464,6 +467,7 @@ public class UserInterface
     
 }
     //Creation of Objects
+    
     public static Hospital createHospital()
     {
     	System.out.println("Name of the hosital:");
@@ -478,6 +482,7 @@ public class UserInterface
 		
 		return hosp;
     } 
+    
     public static Order createOrder()
     {		
     	
@@ -721,7 +726,6 @@ public class UserInterface
     }
     
     //Show the Objects
-    //Alex? Tiene utilidad poner la opción de relación en todas?
     
     public static void showCompany(int pk){
     	Company com = new Company();
@@ -868,8 +872,6 @@ public class UserInterface
     	war = jdbcManager.selectWarehouse(pk);    		
     	war.toString();
     }
-      
-    //
     
     public static void showEmployee(int pk)
     {

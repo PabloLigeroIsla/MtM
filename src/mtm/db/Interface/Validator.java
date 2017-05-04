@@ -13,7 +13,6 @@ public abstract class Validator
 	
 	// Writing Methods
 
-	
 	public static int writeNumber() 
 	{
 		//P Methods used to write an integer value without conditions (Just to be an Integer)
@@ -114,21 +113,7 @@ public abstract class Validator
 				}
 				return numIntro;
 	}
-	
-	public static boolean writeOption(String option)
-	{
-		boolean a = false;
-		if(option.compareTo("YES") == 0)
-		{
-			a = true;
-		}
-		else
-		{
-			a = false;
-		}
-		return a;
-	}
-	
+
 	public static String writeString()
 	{
 		String string="";
@@ -143,8 +128,6 @@ public abstract class Validator
 		return string;
 	}
 	
-
-	
 	// Validating Methods
 	public static boolean valNumString(String val) 
 	//Method used to validate if the value val is realy an integer or not
@@ -157,6 +140,20 @@ public abstract class Validator
         }
 
     }
+	
+	public static boolean writeOption(String option)
+	{
+		boolean a = false;
+		if(option.compareTo("YES") == 0)
+		{
+			a = true;
+		}
+		else
+		{
+			a = false;
+		}
+		return a;
+	}
 	
 	// More Functions
 
@@ -199,4 +196,5 @@ public abstract class Validator
         	ex.printStackTrace();
         }
     }
+
 }

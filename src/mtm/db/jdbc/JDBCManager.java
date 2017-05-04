@@ -35,7 +35,7 @@ public class JDBCManager implements DBInterface
 	}
 	
 	//Celia
-
+	
 	
 	public Machinery createPojoMachinery(String machineryType, String stateofMachinery,String d,String m, String y, int sizeofMachinery){
 		

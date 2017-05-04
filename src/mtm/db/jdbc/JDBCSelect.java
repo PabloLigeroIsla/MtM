@@ -31,18 +31,21 @@ public class JDBCSelect
 
 	public ArrayList<Hospital> selectAllHospitals()
 	{
+		
 		ArrayList<Hospital> hospitals = new ArrayList<Hospital>();
+		
 		try
 		{
 			Statement stmt = c.createStatement();
 			String sql = "SELECT * FROM hospital";
 			ResultSet rs = stmt.executeQuery(sql);
+			
 			while(rs.next());
 			{
 				int hospitalID = rs.getInt("hospital_ID");
 				String name = rs.getString("name");
 				String location = rs.getString("location");
-				String medicalSpecialization = rs.getString("medical_specializaton");
+				String medicalSpecialization = rs.getString("medical_specialization");
 				
 				Hospital hosp = new Hospital(hospitalID,name,location,medicalSpecialization);
 				hospitals.add(hosp);
@@ -76,7 +79,7 @@ public class JDBCSelect
 				hospitalID = rs.getInt("hospital_ID");
 				name = rs.getString("name");
 				location = rs.getString("location");
-				medicalSpecialization = rs.getString("medical_specializaton");
+				medicalSpecialization = rs.getString("medical_specialization");
 				
 				hosp = new Hospital(hospitalID,name,location,medicalSpecialization);
 			}
@@ -111,7 +114,7 @@ public class JDBCSelect
 				hospitalID = rs.getInt("hospital_ID");
 				name = rs.getString("name");
 				location = rs.getString("location");
-				medicalSpecialization = rs.getString("medical_specializaton");
+				medicalSpecialization = rs.getString("medical_specialization");
 				
 				hosp = new Hospital(hospitalID,name,location,medicalSpecialization);
 			}

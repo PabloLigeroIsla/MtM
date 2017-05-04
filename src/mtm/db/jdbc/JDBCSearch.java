@@ -35,13 +35,16 @@ public class JDBCSearch
 				}
 				
 				if(count == 0){
+					//We dont find the 
 					a = false;
 				}else
 				{
 					a = true;
 				}
+				
 				prep.close();
 				rs.close();
+				
 			} catch (SQLException e) 
 			{		
 				e.printStackTrace();
