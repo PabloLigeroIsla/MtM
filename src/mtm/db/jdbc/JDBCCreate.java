@@ -103,7 +103,16 @@ public class JDBCCreate
 				sCht.close();
 				
 				
+				Statement rCht = c.createStatement();
+				String sqlch3 = "CREATE TABLE instrument_machinery("
+						+ "instrument_ID INTEGER NOT NULL REFERENCES instrument(instrument_ID),"
+						+ "machinery_ID INTEGER NOT NULL REFERENCES machinery(machinery_ID),"
+						+ "timeofMade INTEGER,"
+						+ "PRIMARY KEY (instrument_ID,machinery_ID))";
+				rCht.executeUpdate(sqlch3);
+				rCht.close();
 				
+			
 				
 				//Celia
 				Statement fCt = c.createStatement();

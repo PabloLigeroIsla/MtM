@@ -531,17 +531,32 @@ public class UserInterface
 		String bodyLocation=writeString();
 		System.out.println("Price of the instrument\n");
 		int price=writeNumber();
-		
 		Instrument inst = new Instrument (name,model,purpose,amount,numberUses,bodyLocation,price);
-		inst.addWarehouse(jdbcManager.selectWarehouse(1));
-		jdbcManager.insert(inst);
 		inst = jdbcManager.setInstrumentID(inst); // to obtain the ID of the instrument
 		
 		
-		System.out.println("Select the machines this instrument has used?\n");
+		System.out.println("Now let´s see which machinery has created the instrument:\n");
 		listMachineries(false);
-		int machID= writeNumber();
-		jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(),machID);
+		
+		System.out.println("Does the machinery exist?\n");
+		String s = writeString();
+		Machinery mach=new Machinery();
+		if(writeOption(s)){
+			System.out.println("Select the ID of the machinery the instrument has been through:\n");
+			int machID=writeNumber();
+			mach=jdbcManager.selectMachinery(machID);
+			jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(),machID);
+		}
+		else
+		{
+			mach=createMachinery();
+			jdbcManager.insert(mach);
+			mach = jdbcManager.setMachineryID(mach);
+			jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(),mach.getMachineryID());
+			
+		}
+		
+		inst.addWarehouse(jdbcManager.selectWarehouse(1));
 		
 		return inst;
     }
