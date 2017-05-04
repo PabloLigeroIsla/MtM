@@ -112,9 +112,8 @@ public class JDBCCreate
 						+ "PRIMARY KEY (instrument_ID,machinery_ID))";
 				rCht.executeUpdate(sqlch3);
 				rCht.close();
-				
 			
-				
+			
 				//Celia
 				Statement fCt = c.createStatement();
 				String sqlc1= "CREATE TABLE employee("
