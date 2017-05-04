@@ -13,11 +13,20 @@ public class Material implements Serializable {
 	private String type;
 	private int companyID; //FOREIGN KEY
 	private int machineryID; //FOREIGN KEY
+	private int warehouseID; //FOREIGN KEY
 	
 	
 
 
 	
+	public int getWarehouseID() {
+		return warehouseID;
+	}
+
+	public void setWarehouseID(int warehouseID) {
+		this.warehouseID = warehouseID;
+	}
+
 	public Material (){
 		super();
 	}
@@ -104,10 +113,16 @@ public class Material implements Serializable {
 	}
 
 	@Override
+	public String toString() {
+		return "Material [materialID=" + materialID + ", weight=" + weight + ", volume=" + volume + ", type=" + type
+				+ ", companyID=" + companyID + ", machineryID=" + machineryID + ", warehouseID=" + warehouseID + "]";
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((materialID == null) ? 0 : materialID.hashCode());
+		result = prime * result + companyID;
 		return result;
 	}
 
@@ -120,20 +135,12 @@ public class Material implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Material other = (Material) obj;
-		if (materialID == null) {
-			if (other.materialID != null)
-				return false;
-		} else if (!materialID.equals(other.materialID))
+		if (companyID != other.companyID)
 			return false;
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Material [materialID=" + materialID + ", weight=" + weight + ", volume=" + volume + ", type=" + type
-				+ ", companyID=" + companyID + ", machineryID=" + machineryID + "]";
-	}
-	
+
 
 	
 	

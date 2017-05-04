@@ -194,17 +194,17 @@ public class JDBCInsert
 
 								Statement stmt = c.createStatement();
 								String sql;
-								sql = "INSERT INTO material(weight,volume,type,compnay_id,machinery_id) VALUES('"+mat.getWeight()+","+mat.getVolume()+","+mat.getCompanyID()+","+mat.getMachineryID()+"')";
+								sql = "INSERT INTO material(weight,volume,type,compnay_ID,machinery_ID,warehouse_ID) VALUES('"+mat.getWeight()+","+mat.getVolume()+","+mat.getCompanyID()+","+mat.getMachineryID()+","+mat.getWarehouseID()+"')";
 								stmt.executeUpdate(sql);
 								stmt.close();
 								// End of transaction
 								c.commit();
-								System.out.println("Records inserted.");
+								System.out.println("Records inserted.\n");
 								// Insert new records: end
 
 								// Close database connection
 								c.close();
-								System.out.println("Database connection closed.");
+								System.out.println("Database connection closed.\n");
 				}
 				catch (Exception e) {
 					e.printStackTrace();

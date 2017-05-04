@@ -425,9 +425,12 @@ public class JDBCManager implements DBInterface
 			JDBCDelete sqlDelete = new JDBCDelete(c);
 			sqlDelete.deleteCompany(primaryKey);
 			
-			//Delete the relations of the company
-			
-
+			//delete relations
+			ArrayList <Integer> arrayPks = foundRelation("material","material_ID","company_ID",primaryKey);
+			Iterator<Integer> iter = arrayPks.iterator();
+			while(iter.hasNext()){
+				deleteMaterial(iter.next());
+			}
 		}
 		else
 		{
@@ -926,6 +929,7 @@ public class JDBCManager implements DBInterface
 		sqlDelete.deleteRelationNtoN( table, colPk, pkCol);
 		
 	}
+		
 	
 	public void setRelationInstrumentOrder(int inst, int ord)
 	{
@@ -1174,15 +1178,15 @@ public class JDBCManager implements DBInterface
 	}
 	
 	//Relation Help Methods
-	public ArrayList<Integer> foundRelation(String table,String pk1AttributeSearch,String pkAttributeCompere ,int pkValueCompere)
+	public ArrayList<Integer> foundRelation(String table,String pk1AttributeSearch,String pkAttributeCompare ,int pkValueCompare)
 	{
-		String query = "SELECT "+pk1AttributeSearch+" FROM "+table+" WHERE "+pkAttributeCompere+" = ?";
+		String query = "SELECT "+pk1AttributeSearch+" FROM "+table+" WHERE "+pkAttributeCompare+" = ?";
 		
 		ArrayList<Integer> pkArray = new ArrayList<Integer>();
 		
 		JDBCSearch sqlSearch = new JDBCSearch(c);
 		
-		pkArray=sqlSearch.searchPkRelation(query, pkValueCompere, pk1AttributeSearch);
+		pkArray=sqlSearch.searchPkRelation(query, pkValueCompare, pk1AttributeSearch);
 		
 		return pkArray;
 		

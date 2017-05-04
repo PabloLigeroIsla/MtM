@@ -112,6 +112,7 @@ public class JDBCSearch
 			return a;
 		}
 
+			
 			public ArrayList<Integer> searchPkRelation(String query,int pk,String colAtSearch)
 		{
 			ArrayList<Integer> pkArray = new ArrayList<Integer>();

@@ -308,10 +308,8 @@ public class UserInterface
 		switch(op){
 		
 		case 1: //Company   
-		//Company comp = createCompany();
-		//jdbcManager.insert(comp);
-//		Company comp = createCompany();
-	//	jdbcManager.insert(comp);
+			Company comp = createCompany();
+			jdbcManager.insert(comp);
 			break;
 		case 2: //Employee
 			Employee emp = createEmployee();
@@ -380,10 +378,8 @@ public class UserInterface
 			jdbcManager.insert(mach);
 			break;
 		case 6: //Material
-		//Material mat = createMaterial(); 
-		//jdbcManager.insert(mat);
-//		Material mat = createMaterial(); 
-//		jdbcManager.insert(mat);
+			Material mat = createMaterial(); 
+			jdbcManager.insert(mat);
 			break;
 		case 7: // Warehouse 
 			Warehouse wareh = createWarehouse();
@@ -511,7 +507,8 @@ public class UserInterface
 		System.out.println("Filled space in the warehouse\n");
 		int filledSpace=writeNumber();
 		
-		Warehouse warehouse = new Warehouse( warehouseLocation,capacity,filledSpace);		
+		Warehouse warehouse = new Warehouse( warehouseLocation,capacity,filledSpace);	
+		
 		return warehouse;
     }
 
@@ -716,6 +713,9 @@ public class UserInterface
     	}
     	}
     	
+    	mat.setWarehouseID(1);
+    	
+    	System.out.println("The material is correctly attached to the database\n");
 		jdbcManager.insert(mat);
     	return mat;
     	
@@ -729,6 +729,7 @@ public class UserInterface
     	System.out.println("\nType");
     	String c = writeString();
     	Material mat = new Material(a,b,c,pk);
+    	mat.setWarehouseID(1);
     	jdbcManager.insert(mat);
     	
     	return mat;
@@ -777,7 +778,7 @@ public class UserInterface
         		mat = matList.get(count);
         		if(relation)
         		{
-        			System.out.printf("id: %d, type: %d relations: %d\n", mat.getMaterialID() , mat.getType(), mat.getCompanyID());
+        			System.out.printf("id: %d, type: %d relations: company id:%d machinery id:%d wharehouse id:%d\n", mat.getMaterialID() , mat.getType(), mat.getCompanyID(), mat.getMachineryID(), mat.getWarehouseID());
         		}else
         		{
         			System.out.printf("id: %d, type: %d \n", mat.getMaterialID() , mat.getType());
