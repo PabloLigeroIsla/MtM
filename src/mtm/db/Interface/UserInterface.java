@@ -491,8 +491,8 @@ public class UserInterface
     	System.out.println("Total Amount of Instruments\n");
 		int d = writeNumber();
 		
-		int []d1 = new int[2];
-		int []d2 = new int[2];
+		String []d1 = new String[2];
+		String []d2 = new String[2];
 		
 		System.out.println("Order Date\n");
 		d1 = createDate();
@@ -605,7 +605,7 @@ public class UserInterface
 		System.out.println("State of machinery");
 		String b=writeString();
 		System.out.println("Date of installation:");		
-		int []c1 = new int[2];	
+		String []c1 = new String[2];	
 		c1 = createDate();
 
 		System.out.println("Size of machinery");
