@@ -320,6 +320,54 @@ public class UserInterface
 		case 3: //Hospital 
 			Hospital hosp = createHospital();
 			jdbcManager.insert(hosp);
+			jdbcManager.setHospitalID(hosp);
+			
+			System.out.println("Do you want torelate an order with this hospital. YES or NO:\n");
+			String option = writeString();
+			if(writeOption(option))
+			{
+				boolean keepRelating = true;
+				while(keepRelating)
+				{
+					System.out.println("The Order allready exixt?. YES or NO");
+					option = writeString();
+					if(writeOption(option))
+					{
+						System.out.println("Select one of the Orders");
+						listOrders(false);
+						int op2 = writeNumber();
+						System.out.println("Insert the amountOrder");
+						int tao = writeNumber();
+						jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(),op2,tao);
+					}else
+					{
+				    	System.out.println("Introduce the values:\n");
+				    	
+						Order ord = createOrder();
+						jdbcManager.insert(ord);
+						jdbcManager.setOrderID(ord);
+						System.out.println("Select the Primary Key of the instrument you want to order\n");
+				    	listInstruments(false);
+				    	int opt = writeNumber();
+				    	
+						System.out.println("Insert the amountOrder");
+						int tao = writeNumber();
+						
+						jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(),ord.getOrderID(),tao);
+						jdbcManager.setRelationInstrumentOrder(opt,ord.getOrderID());
+					}
+					System.out.println("Do you want to keep relating? YES,NO\n");
+					option = writeString();
+					if(option.equals("NO"))
+					{
+						keepRelating = false;
+					}
+					
+				}
+			}else
+			{
+				System.out.println("No Order will be related");
+			}
 			break;
 		case 4: //Instrument
 			Instrument inst = createInstrument();
@@ -431,52 +479,6 @@ public class UserInterface
 		
 		Hospital hosp = new Hospital(a,b,c);
 		
-		System.out.println("Do you want to create an order for this hospital. YES or NO:\n");
-		String option = writeString();
-		if(option.equals("YES"))
-		{
-			boolean keepRelating = true;
-			while(keepRelating)
-			{
-				System.out.println("The Order allready exixt?. YES or NO");
-				option = writeString();
-				if(option.equals("YES"))
-				{
-					System.out.println("Select one of the Orders");
-					listOrders(false);
-					int op = writeNumber();
-					System.out.println("Insert the amountOrder");
-					int tao = writeNumber();
-					jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(),op,tao);
-				}else
-				{
-			    	System.out.println("Introduce the values:\n");
-			    	System.out.println("Select the Primary Key of the instrument you want to order\n");
-			    	listInstruments(false);
-			    	int opt = writeNumber();
-			    	
-					Order ord = createOrder();
-					jdbcManager.insert(ord);
-					jdbcManager.setOrderID(ord);
-					
-					System.out.println("Insert the amountOrder");
-					int tao = writeNumber();
-					
-					jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(),ord.getOrderID(),tao);
-					jdbcManager.setRelationInstrumentOrder(opt,ord.getOrderID());
-				}
-				System.out.println("Do you want to keep relating? YES,NO\n");
-				option = writeString();
-				if(option.equals("NO"))
-				{
-					keepRelating = false;
-				}
-				
-			}
-		}else
-		{
-			System.out.println("No Order will be related");
-		}
 		
 		return hosp;
     } 
