@@ -132,7 +132,6 @@ INSERT INTO instrument_machinery(instrument_ID,machinery_ID,timeofMade)VALUES(4,
 
 
 
-
 CREATE TABLE instrument(
 instrument_ID INTEGER PRIMARY KEY AUTOINCREMENT,
 name TEXT NOT NULL,
