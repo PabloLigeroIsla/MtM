@@ -67,7 +67,7 @@ public abstract class Validator
 				
 				if((numIntro > upperLim) || (numIntro < 0))//si hay 5 opciones no puedes poner 6
 				{	
-					System.out.println("Out of established limits\n");
+					System.out.printf("Out of established limits %d\n",upperLim);
 				}
 			}
 		}catch(Exception e)
@@ -157,32 +157,19 @@ public abstract class Validator
 	
 	// More Functions
 
-	public static String[] createDate()
+	public static int[] createDate()
 		{
-			String date[] = new String [2];
+			int [] date = new int [3];
 			
 			System.out.println("\nDay:");
 			int day1 = writeNumber(31);
-			if(day1 > 9)
-			{
-				date[0] = "" + day1;
-			}else
-			{
-				date[0] = "0" + day1;
-			}
+			date[0]=day1;
 			System.out.println("\nMonth:");
 			int month1 = writeNumber(12);
-			if(month1 > 9)
-			{
-				date[1] = "" + month1;
-			}else
-			{
-				date[1] = "0" + month1;
-			}
-			 date[1] = "" + month1;
+			date[1] = month1;
 			System.out.println("\nYear:");
 			int year1 = writeNumber(1999,2017);
-			date[2] = "" + year1;
+			date[2] = year1;
 			return date;
 		}
 		

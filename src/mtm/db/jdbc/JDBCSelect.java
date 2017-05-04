@@ -440,7 +440,7 @@ public class JDBCSelect
 			String sql = "SELECT * FROM machinery";
 			ResultSet rs = stmt.executeQuery(sql);
 			
-			while(rs.next());
+			while(rs.next())
 			{
 				int machineryID = rs.getInt("machinery_ID");
 				String machineryType = rs.getString("machineryType");

@@ -26,7 +26,7 @@ public class JDBCManager implements DBInterface
 
 	//Pablo
 	
-	public Order createPojoOrder(int number,String d11,String d12,String d13,String d21,String d22,String d23)
+	public Order createPojoOrder(int number,int d11,int d12,int d13,int d21,int d22,int d23)
 	{
 		Date date1SQL = dateConverterSQL(d13,d12,d11);
 		Date date2SQL = dateConverterSQL(d23,d22,d21);
@@ -37,7 +37,7 @@ public class JDBCManager implements DBInterface
 	//Celia
 	
 	
-	public Machinery createPojoMachinery(String machineryType, String stateofMachinery,String d,String m, String y, int sizeofMachinery){
+	public Machinery createPojoMachinery(String machineryType, String stateofMachinery,int d,int m, int y, int sizeofMachinery){
 		
 		Date date3SQL = dateConverterSQL(y,m,d);
 		Machinery mach = new Machinery (machineryType, stateofMachinery, date3SQL, sizeofMachinery);
@@ -867,27 +867,13 @@ public class JDBCManager implements DBInterface
  	
  	//DB management Methods
 	
-	private Date dateConverterSQL(String a,String b,String c) 
+	private java.sql.Date dateConverterSQL(int year,int month,int day) 
 	{
-		java.sql.Date finalDate = null;
-		try
-		{
-			String input = "/"+a+"/"+b+"/"+c+"";
-			
-			java.sql.Date apptDay = null;
-		    DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+							    
+		    java.sql.Date apptDay = new java.sql.Date(year, month, day);
 		    
-		    apptDay = (Date) df.parse(input);
-		    
-		    finalDate = new Date(apptDay.getTime());
-		}catch(ParseException e)
-		{
-			e.printStackTrace();
-			System.out.println("Error in conversion");
-		}
-		
-	    
-		return finalDate;
+		    return apptDay;
+			    
 	}
 	
 	public boolean valExist (String query, int pkInt, String pkString)
