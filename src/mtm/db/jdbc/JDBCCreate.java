@@ -66,7 +66,7 @@ public class JDBCCreate
 			fAt.close();
 			
 			Statement sAt = c.createStatement();
-			String sqla2 =  "CREATE TABLE materials ("
+			String sqla2 =  "CREATE TABLE material ("
 							+"material_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
 							+"weight INTEGER,"
 							+"volume INTEGER,"
@@ -187,7 +187,7 @@ public class JDBCCreate
 	try
 	{
 		Statement sAt = c.createStatement();
-		String sqla2 =  "CREATE TABLE materials ("
+		String sqla2 =  "CREATE TABLE material ("
 						+"material_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
 						+"weight INTEGER,"
 						+"volume INTEGER,"

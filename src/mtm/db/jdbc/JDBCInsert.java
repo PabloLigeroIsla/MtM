@@ -176,71 +176,61 @@ public class JDBCInsert
 			//Alex
 		
 		public void insert(Company com){
-				try{
-
-								Statement stmt = c.createStatement();
-								String sql;
-								sql = "INSERT INTO company (location,company_name) " + " VALUES ('" + com.getLocation()+ "','" + com.getCompanyName() + "');"; 
-								stmt.executeUpdate(sql);					
-								stmt.close();
-								System.out.println("Records inserted.");
-
-								c.commit();
-				}
-				catch (Exception e) {
-					e.printStackTrace();
-					
-				}
-			}
-		public void insert(Material mat){
-				try{
-
-								Statement stmt = c.createStatement();
-								String sql;
-								sql = "INSERT INTO material(weight,volume,type,compnay_ID,machinery_ID,warehouse_ID) VALUES('"+mat.getWeight()+","+mat.getVolume()+","+mat.getCompanyID()+","+mat.getMachineryID()+","+mat.getWarehouseID()+"')";
-								stmt.executeUpdate(sql);
-								stmt.close();
-								// End of transaction
-								c.commit();
-								System.out.println("Records inserted.\n");
-								// Insert new records: end
-
-								// Close database connection
-								c.close();
-								System.out.println("Database connection closed.\n");
-				}
-				catch (Exception e) {
-					e.printStackTrace();
-					
-				}
-			}
-
-		//??A voy a hacer estos métodos para insertar las relaciones
-		//Como hacer para insertar en una company con ID concreto
-		
-		public void insert(Company com, Material mat){
-			
 			try{
 
-				Statement stmt = c.createStatement();
-				String sql;
-				sql = "INSERT INTO company(location,company_name)  VALUES ('"+com.getLocation()+",'"+com.getCompanyName()+"')"; 
-				stmt.executeUpdate(sql);					
-				stmt.close();
-				// End of transaction
-				c.commit();
-				System.out.println("Records inserted.");
-				// Insert new records: end
+							c.setAutoCommit(false);
+				
+							String sql;
+							sql = "INSERT INTO company(location,company_name)" + "VALUES(?,?);"; 
+							PreparedStatement prep = c.prepareStatement(sql);
+							prep.setString(1,com.getLocation());
+							prep.setString(2,com.getCompanyName());
+							
+							prep.executeUpdate();
+							
+							
+							prep.close();
+							
+							System.out.println("Records inserted.");
 
-				// Close database connection
-				c.close();
-				System.out.println("Database connection closed.");
+							c.commit();
 			}
 			catch (Exception e) {
 				e.printStackTrace();
-	
+				
 			}
 		}
+		public void insert(Material mat){
+			try{
+
+							c.setAutoCommit(false);
+							String sql;
+							sql = "INSERT INTO material(weight,volume,type,company_ID,machinery_ID,warehouse_ID) VALUES(?,?,?,?,?,?);";
+							PreparedStatement prep = c.prepareStatement(sql);
+							prep.setInt(1,mat.getWeight());
+							prep.setInt(2,mat.getVolume());
+							prep.setString(3,mat.getType());
+							prep.setInt(4,mat.getCompanyID());
+							prep.setInt(5,mat.getMachineryID());
+							prep.setInt(6,mat.getWarehouseID());
+							
+							prep.executeUpdate();
+							
+							
+							prep.close();
+							
+							System.out.println("Records inserted.");
+
+							c.commit();
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+				
+			}
+		}
+
+		
+		
 			//Relational Tables 
 		
 			public void insertHospitalOrderRelation( int pkHospital, int pkOrder, int tao)
