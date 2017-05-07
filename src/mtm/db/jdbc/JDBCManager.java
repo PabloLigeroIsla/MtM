@@ -174,6 +174,7 @@ public class JDBCManager implements DBInterface
 	{
 		JDBCInsert codeInsert = new JDBCInsert(c);
 		String selQuery = "SELECT * FROM hospital WHERE name LIKE ?";
+		
 		if(valExist(selQuery,-1,obj.getName()))
 		{
 			System.out.println("This Hospital exist");
@@ -185,13 +186,12 @@ public class JDBCManager implements DBInterface
 		}
 		
 	}
+	
 	public void insert(Order obj)
 	{
 		JDBCInsert codeInsert = new JDBCInsert(c);
-		java.sql.Date delDate = LocaltoSqlDate(obj.getDeliveryDate());
-		java.sql.Date ordDate = LocaltoSqlDate(obj.getOrderDate());
 		
-		codeInsert.insertOrder(obj,ordDate,delDate);
+		codeInsert.insert(obj);
 		
 	}
 	
@@ -867,14 +867,6 @@ public class JDBCManager implements DBInterface
 
  	
  	//DB management Methods
-	
-	private java.sql.Date LocaltoSqlDate(LocalDate locDate) 
-	{
-		java.sql.Date sqlDate = null;
-		java.sql.Date.valueOf(locDate);
-		return sqlDate;
-			    
-	}
 	
 	
 	private LocalDate StringtoLocalDate(String year,String month,String day)

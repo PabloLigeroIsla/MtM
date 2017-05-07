@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 
 import mtm.db.pojos.Company;
 import mtm.db.pojos.Employee;
@@ -25,7 +26,7 @@ public class JDBCInsert
 	}
 	
 	//Insert
-		public void insert(Hospital hosp) 
+		public void insert(Hospital obj) 
 		{
 			try
 			{
@@ -36,9 +37,9 @@ public class JDBCInsert
 						+ "VALUES(?,?,?);";
 				
 				PreparedStatement prep = c.prepareStatement(sql);
-				prep.setString(1,hosp.getName());
-				prep.setString(2,hosp.getLocation());
-				prep.setString(3,hosp.getMedicalSpecialization());
+				prep.setString(1,obj.getName());
+				prep.setString(2,obj.getLocation());
+				prep.setString(3,obj.getMedicalSpecialization());
 				prep.executeUpdate();
 				
 				
@@ -50,7 +51,8 @@ public class JDBCInsert
 				e.printStackTrace();
 			}
 		}
-		public void insertOrder(Order ord,java.sql.Date ordDate, java.sql.Date delDate)
+		
+		public void insert(Order ord)
 		{
 			try
 			{
@@ -58,6 +60,9 @@ public class JDBCInsert
 				
 				String sql = "INSERT INTO orders(total_amount_instruments,order_date,delivery_date)"
 						+ "VALUES(?,?,?);";
+				
+				java.sql.Date delDate = LocaltoSqlDate(ord.getDeliveryDate());
+				java.sql.Date ordDate = LocaltoSqlDate(ord.getOrderDate());
 				
 				PreparedStatement prep = c.prepareStatement(sql);
 				prep.setDouble(1, ord.getTotalAmountInstruments());
@@ -371,4 +376,13 @@ public class JDBCInsert
 				
 			}
 			
+	//Help Methods
+	
+	private java.sql.Date LocaltoSqlDate(LocalDate locDate) 
+	{
+		java.sql.Date sqlDate = null;
+		java.sql.Date.valueOf(locDate);
+		return sqlDate;
+		    
+	}
 }
