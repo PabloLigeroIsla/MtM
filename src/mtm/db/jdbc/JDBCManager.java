@@ -17,7 +17,7 @@ public class JDBCManager implements DBInterface
 	
 	public Connection c = null;
 	
-	
+	//
 	//7 8 Objects//
 	//Different Methods to interact with the dataBase
 	//Different Methods to create the Objects

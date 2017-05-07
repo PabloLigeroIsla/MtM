@@ -17,7 +17,7 @@ import mtm.db.pojos.Warehouse;
 public class UserInterface 
 {
 
-	 
+	 //
 	static JDBCManager jdbcManager = new JDBCManager();
 	static JPAManager jpaManager = new JPAManager();
 	 
