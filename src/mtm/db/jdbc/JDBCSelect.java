@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import mtm.db.pojos.Company;
@@ -148,7 +149,7 @@ public class JDBCSelect
 				java.sql.Date orderDate = rs.getDate("order_date");
 				java.sql.Date deliveryDate = rs.getDate("delivery_date");
 				
-				Order order = new Order(orderID,totalAmountInstruments,orderDate,deliveryDate);
+				Order order = new Order(orderID,totalAmountInstruments,SqltoLocalDate(orderDate),SqltoLocalDate(deliveryDate));
 				orderList.add(order);
 			}
 			
@@ -181,7 +182,7 @@ public class JDBCSelect
 				java.sql.Date orderDate = rs.getDate("order_date");
 				java.sql.Date deliveryDate = rs.getDate("delivery_date");
 				
-				order = new Order(orderID,totalAmountInstruments,orderDate,deliveryDate);
+				order = new Order(orderID,totalAmountInstruments,SqltoLocalDate(orderDate),SqltoLocalDate(deliveryDate));
 				
 			}
 			
@@ -665,5 +666,13 @@ public class JDBCSelect
 	
 }
 
+	//Help Methods
+	private LocalDate SqltoLocalDate(java.sql.Date sqlDate)
+	{
+
+		LocalDate locDate = sqlDate.toLocalDate();
+		return locDate;
+		
+	}
 	
 }

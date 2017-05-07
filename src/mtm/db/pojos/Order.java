@@ -1,7 +1,6 @@
 package mtm.db.pojos;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
@@ -13,8 +12,8 @@ public class Order implements Serializable
 	
 	private int orderID;
 	private int totalAmountInstruments;
-	private Date orderDate;
-	private Date deliveryDate;
+	private LocalDate orderDate;
+	private LocalDate deliveryDate;
 	
 	private List <Hospital> hospitalList;
 	private List <Instrument> instrumentList;
@@ -59,20 +58,20 @@ public class Order implements Serializable
 		this.totalAmountInstruments = totalAmountInstruments;
 	}
 	
-	public Date getOrderDate()
+	public LocalDate getOrderDate()
 	{
 		return orderDate;
 	}
-	public void setOrderDate(Date orderDate) 
+	public void setOrderDate(LocalDate orderDate) 
 	{
 		this.orderDate = orderDate;
 	}
 	
-	public Date getDeliveryDate() 
+	public LocalDate getDeliveryDate() 
 	{
 		return deliveryDate;
 	}
-	public void setDeliveryDate(Date deliveryDate) 
+	public void setDeliveryDate(LocalDate deliveryDate) 
 	{
 		this.deliveryDate = deliveryDate;
 	}
@@ -87,7 +86,7 @@ public class Order implements Serializable
 	}
 
 
-	public Order(int orderID,int totalAmountInstruments, java.sql.Date orderDate, java.sql.Date deliveryDate)
+	public Order(int orderID,int totalAmountInstruments, LocalDate orderDate, LocalDate deliveryDate)
 	{
 		super();
 		this.orderID = orderID;
@@ -98,7 +97,7 @@ public class Order implements Serializable
 		this.instrumentList = new ArrayList<Instrument>();
 	}
 	
-	public Order(int totalAmountInstruments, java.sql.Date orderDate, java.sql.Date deliveryDate)
+	public Order(int totalAmountInstruments, LocalDate orderDate, LocalDate deliveryDate)
 	{
 		super();
 		this.totalAmountInstruments = totalAmountInstruments;
@@ -108,7 +107,7 @@ public class Order implements Serializable
 		this.instrumentList = new ArrayList<Instrument>();
 	}
 	
-	public Order(int orderID, int totalAmountInstruments, java.sql.Date orderDate, java.sql.Date deliveryDate, List<Hospital> hospitalList, List<Instrument> instrumentList)
+	public Order(int orderID, int totalAmountInstruments, LocalDate orderDate, LocalDate deliveryDate, List<Hospital> hospitalList, List<Instrument> instrumentList)
 	{
 		super();
 		this.orderID = orderID;
@@ -119,12 +118,6 @@ public class Order implements Serializable
 		this.instrumentList = instrumentList;
 	}
 	//Methods
-	private LocalDate dateTransform(java.sql.Date a)
-	{
-		LocalDate b = null;
-		b = a.toLocalDate();
-		return b;
-	}
 	
 	public void addHospital(Hospital hospital)
 	{
@@ -156,19 +149,16 @@ public class Order implements Serializable
 		}
 	}
 	
+	
 	@Override
-	public String toString()
+	public String toString() 
 	{
-		LocalDate a =dateTransform(this.getOrderDate());
-		LocalDate b =dateTransform(this.getDeliveryDate());
-		
 		return "Order [orderID=" + orderID + ", totalAmountInstruments=" + totalAmountInstruments + ", orderDate="
-				+ a + ", deliveryDate=" + b + ", hospitalList=" + hospitalList + ", instrumentList="
+				+ orderDate + ", deliveryDate=" + deliveryDate + ", hospitalList=" + hospitalList + ", instrumentList="
 				+ instrumentList + "]";
 	}
 	
 	//hashCode and equals
-	
 	
 	@Override
 	public int hashCode() 

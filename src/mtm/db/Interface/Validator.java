@@ -77,8 +77,7 @@ public abstract class Validator
 		}
 		return numIntro;
 	}
-	
-	
+		
 	public static int writeNumber(int lowerLim, int upperLim)
 	{
 		//P Method used to set one limit, the upper limit

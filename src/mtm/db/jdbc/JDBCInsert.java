@@ -50,7 +50,7 @@ public class JDBCInsert
 				e.printStackTrace();
 			}
 		}
-		public void insert(Order ord)
+		public void insertOrder(Order ord,java.sql.Date ordDate, java.sql.Date delDate)
 		{
 			try
 			{
@@ -61,8 +61,8 @@ public class JDBCInsert
 				
 				PreparedStatement prep = c.prepareStatement(sql);
 				prep.setDouble(1, ord.getTotalAmountInstruments());
-				prep.setDate(2,ord.getDeliveryDate());
-				prep.setDate(3, ord.getOrderDate());
+				prep.setDate(2,ordDate);
+				prep.setDate(3, delDate);
 				
 				prep.executeUpdate();
 				

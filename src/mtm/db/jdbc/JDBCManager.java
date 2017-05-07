@@ -5,10 +5,10 @@ import mtm.db.Interface.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.sql.Date;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.time.LocalDate;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
 import java.time.format.DateTimeFormatter;
 
 
@@ -28,8 +28,8 @@ public class JDBCManager implements DBInterface
 	
 	public Order createPojoOrder(int number,String d11,String d12,String d13,String d21,String d22,String d23)
 	{
-		Date date1SQL = dateConverterSQL(d13,d12,d11);
-		Date date2SQL = dateConverterSQL(d23,d22,d21);
+		LocalDate date1SQL = StringtoLocalDate(d13,d12,d11);
+		LocalDate date2SQL = StringtoLocalDate(d23,d22,d21);
 		Order ord = new Order(number,date1SQL,date2SQL);
 		return ord;
 	}
@@ -39,7 +39,7 @@ public class JDBCManager implements DBInterface
 	
 	public Machinery createPojoMachinery(String machineryType, String stateofMachinery,String d,String m, String y, int sizeofMachinery){
 		
-		Date date3SQL = dateConverterSQL(y,m,d);
+		LocalDate date3SQL = StringtoLocalDate(y,m,d);
 		Machinery mach = new Machinery (machineryType, stateofMachinery, date3SQL, sizeofMachinery);
 		return mach;
 		
@@ -188,9 +188,10 @@ public class JDBCManager implements DBInterface
 	public void insert(Order obj)
 	{
 		JDBCInsert codeInsert = new JDBCInsert(c);
+		java.sql.Date delDate = LocaltoSqlDate(obj.getDeliveryDate());
+		java.sql.Date ordDate = LocaltoSqlDate(obj.getOrderDate());
 		
-	
-		codeInsert.insert(obj);
+		codeInsert.insertOrder(obj,ordDate,delDate);
 		
 	}
 	
@@ -867,18 +868,23 @@ public class JDBCManager implements DBInterface
  	
  	//DB management Methods
 	
-	private java.sql.Date dateConverterSQL(String year,String month,String day) 
+	private java.sql.Date LocaltoSqlDate(LocalDate locDate) 
 	{
-							    
-		String dateinSQL = ""+year+"-"+month+"-"+day+"";
-		System.out.println(dateinSQL);
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDate localDate = LocalDate.parse(dateinSQL, formatter);
-		java.sql.Date apptDay = null;
-		apptDay = Date.valueOf(localDate);
-		return apptDay;
+		java.sql.Date sqlDate = null;
+		java.sql.Date.valueOf(locDate);
+		return sqlDate;
 			    
 	}
+	
+	
+	private LocalDate StringtoLocalDate(String year,String month,String day)
+	{
+		String fullDate = ""+year+"-"+month+"-"+day+"";
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(fullDate);
+		LocalDate locDate = LocalDate.parse(fullDate, formatter);
+		return locDate;
+	}
+	
 	
 	public boolean valExist (String query, int pkInt, String pkString)
 	{
