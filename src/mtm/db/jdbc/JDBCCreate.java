@@ -23,7 +23,7 @@ public class JDBCCreate
 				// fPt -->firstPablotable , sqlp1 --> sqlpablo1//
 				Statement fPt = c.createStatement();
 				String sqlp1 = "CREATE TABLE hospital("
-					+ "hospital_ID    INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ "hospital_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ "name TEXT NOT NULL,"
 					+ "location TEXT NOT NULL,"
 					+ "medical_specialization TEXT NOT NULL)";
