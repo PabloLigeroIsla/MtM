@@ -3,8 +3,9 @@ package mtm.db.Interface;
 
 import static mtm.db.Interface.Validator.*;
 import java.util.ArrayList;
-import mtm.db.pojos.Company;
 import mtm.db.jdbc.JDBCManager;
+import mtm.db.jpa.JPAManager;
+import mtm.db.pojos.Company;
 import mtm.db.pojos.Employee;
 import mtm.db.pojos.Hospital;
 import mtm.db.pojos.Instrument;
@@ -18,6 +19,7 @@ public class UserInterface
 
 	 
 	static JDBCManager jdbcManager = new JDBCManager();
+	static JPAManager jpaManager = new JPAManager();
 	 
 	public static void main(String args[]) 
 	{
@@ -611,7 +613,7 @@ public class UserInterface
 		System.out.println("Size of machinery");
 		int d=writeNumber();
 
-		mach = jdbcManager.createPojoMachinery(a,b,c1[0],c1[1],c1[2],d);
+		//mach = jdbcManager.createPojoMachinery(a,b,c1[0],c1[1],c1[2],d);
 		
 		return mach;
 }
