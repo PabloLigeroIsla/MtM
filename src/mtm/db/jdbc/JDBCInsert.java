@@ -177,17 +177,12 @@ public class JDBCInsert
 
 								Statement stmt = c.createStatement();
 								String sql;
-								sql = "INSERT INTO company(location,company_name)  VALUES ('"+com.getLocation()+",'"+com.getCompanyName()+"')"; 
+								sql = "INSERT INTO company (location,company_name) " + " VALUES ('" + com.getLocation()+ "','" + com.getCompanyName() + "');"; 
 								stmt.executeUpdate(sql);					
 								stmt.close();
-								// End of transaction
-								c.commit();
 								System.out.println("Records inserted.");
-								// Insert new records: end
 
-								// Close database connection
-								c.close();
-								System.out.println("Database connection closed.");
+								c.commit();
 				}
 				catch (Exception e) {
 					e.printStackTrace();

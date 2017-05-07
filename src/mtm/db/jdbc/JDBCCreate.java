@@ -187,13 +187,14 @@ public class JDBCCreate
 	try
 	{
 		Statement sAt = c.createStatement();
-		String sqla2 =  "CREATE TABLE material ("
-			+"material_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
-			+"weight INTEGER NOT NULL,"
-				+"volume INTEGER NOT NULL,"
-				+"company_ID  TEXT REFERENCES company(company_ID),"
-				+"machinery_ID TEXT REFERENCES machinery(machinery_id));";
-			sAt.executeUpdate(sqla2);
+		String sqla2 =  "CREATE TABLE materials ("
+						+"material_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+						+"weight INTEGER,"
+						+"volume INTEGER,"
+						+"company_ID  TEXT REFERENCES company(company_ID),"
+						+"machinery_ID TEXT REFERENCES machinery(machinery_ID),"
+						+"warehouse_ID TEXT REFERENCES warehouse(warehouse_ID))";
+		sAt.executeUpdate(sqla2);
 		sAt.close();
 		}catch (Exception e)
 	{
@@ -207,11 +208,11 @@ public class JDBCCreate
 		{
 			Statement fAt = c.createStatement();
 			String sqla1 = "CREATE TABLE company ("
-					+ "company_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ "company_ID INTEGER PRIMARY KEY,"
 					+ "location TEXT,"
 					+"company_name TEXT);";
-				fAt.executeUpdate(sqla1);
-				fAt.close();
+			fAt.executeUpdate(sqla1);
+			fAt.close();
 				
 			}catch (Exception e)
 			{
