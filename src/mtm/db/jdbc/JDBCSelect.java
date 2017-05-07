@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import mtm.db.pojos.Company;
@@ -31,18 +32,21 @@ public class JDBCSelect
 
 	public ArrayList<Hospital> selectAllHospitals()
 	{
+		
 		ArrayList<Hospital> hospitals = new ArrayList<Hospital>();
+		
 		try
 		{
 			Statement stmt = c.createStatement();
 			String sql = "SELECT * FROM hospital";
 			ResultSet rs = stmt.executeQuery(sql);
-			while(rs.next());
+			
+			while(rs.next())
 			{
 				int hospitalID = rs.getInt("hospital_ID");
 				String name = rs.getString("name");
 				String location = rs.getString("location");
-				String medicalSpecialization = rs.getString("medical_specializaton");
+				String medicalSpecialization = rs.getString("medical_specialization");
 				
 				Hospital hosp = new Hospital(hospitalID,name,location,medicalSpecialization);
 				hospitals.add(hosp);
@@ -76,7 +80,7 @@ public class JDBCSelect
 				hospitalID = rs.getInt("hospital_ID");
 				name = rs.getString("name");
 				location = rs.getString("location");
-				medicalSpecialization = rs.getString("medical_specializaton");
+				medicalSpecialization = rs.getString("medical_specialization");
 				
 				hosp = new Hospital(hospitalID,name,location,medicalSpecialization);
 			}
@@ -111,7 +115,7 @@ public class JDBCSelect
 				hospitalID = rs.getInt("hospital_ID");
 				name = rs.getString("name");
 				location = rs.getString("location");
-				medicalSpecialization = rs.getString("medical_specializaton");
+				medicalSpecialization = rs.getString("medical_specialization");
 				
 				hosp = new Hospital(hospitalID,name,location,medicalSpecialization);
 			}
@@ -138,14 +142,14 @@ public class JDBCSelect
 			String sql = "SELECT * FROM hospital";
 			ResultSet rs = stmt.executeQuery(sql);
 			
-			while(rs.next());
+			while(rs.next())
 			{
 				int orderID = rs.getInt("order_ID");
 				int totalAmountInstruments = rs.getInt("total_amount_instruments");
 				java.sql.Date orderDate = rs.getDate("order_date");
 				java.sql.Date deliveryDate = rs.getDate("delivery_date");
 				
-				Order order = new Order(orderID,totalAmountInstruments,orderDate,deliveryDate);
+				Order order = new Order(orderID,totalAmountInstruments,SqltoLocalDate(orderDate),SqltoLocalDate(deliveryDate));
 				orderList.add(order);
 			}
 			
@@ -178,7 +182,7 @@ public class JDBCSelect
 				java.sql.Date orderDate = rs.getDate("order_date");
 				java.sql.Date deliveryDate = rs.getDate("delivery_date");
 				
-				order = new Order(orderID,totalAmountInstruments,orderDate,deliveryDate);
+				order = new Order(orderID,totalAmountInstruments,SqltoLocalDate(orderDate),SqltoLocalDate(deliveryDate));
 				
 			}
 			
@@ -255,7 +259,7 @@ public class JDBCSelect
 			Statement stmt = c.createStatement();
 			String sql = "SELECT * FROM instrument";
 			ResultSet rs = stmt.executeQuery(sql);
-			while(rs.next());
+			while(rs.next())
 			{
 				int instrumentID = rs.getInt("instrument_ID");
 				String name = rs.getString("name");
@@ -337,7 +341,7 @@ public class JDBCSelect
 			Statement stmt = c.createStatement();
 			String sql = "SELECT * FROM employee";
 			ResultSet rs = stmt.executeQuery(sql);
-			while(rs.next());
+			while(rs.next())
 			{
 				int employeeID = rs.getInt("employee_ID");
 				String name = rs.getString("name");
@@ -437,7 +441,7 @@ public class JDBCSelect
 			String sql = "SELECT * FROM machinery";
 			ResultSet rs = stmt.executeQuery(sql);
 			
-			while(rs.next());
+			while(rs.next())
 			{
 				int machineryID = rs.getInt("machinery_ID");
 				String machineryType = rs.getString("machineryType");
@@ -542,7 +546,7 @@ public class JDBCSelect
 			Statement stmt = c.createStatement();
 			String sql = "SELECT * FROM company";
 			ResultSet rs = stmt.executeQuery(sql);
-			while(rs.next());
+			while(rs.next())
 			{
 				int companyID = rs.getInt("company_ID");
 				String location = rs.getString("location");
@@ -603,7 +607,7 @@ public class JDBCSelect
 			Statement stmt = c.createStatement();
 			String sql = "SELECT * FROM material";
 			ResultSet rs = stmt.executeQuery(sql);
-			while(rs.next());
+			while(rs.next())
 			{
 				int materialID = rs.getInt("material_ID");
 				int weight = rs.getInt("weight");
@@ -662,5 +666,13 @@ public class JDBCSelect
 	
 }
 
+	//Help Methods
+	private LocalDate SqltoLocalDate(java.sql.Date sqlDate)
+	{
+
+		LocalDate locDate = sqlDate.toLocalDate();
+		return locDate;
+		
+	}
 	
 }

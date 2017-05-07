@@ -13,7 +13,6 @@ public abstract class Validator
 	
 	// Writing Methods
 
-	
 	public static int writeNumber() 
 	{
 		//P Methods used to write an integer value without conditions (Just to be an Integer)
@@ -68,7 +67,7 @@ public abstract class Validator
 				
 				if((numIntro > upperLim) || (numIntro < 0))//si hay 5 opciones no puedes poner 6
 				{	
-					System.out.println("Out of established limits\n");
+					System.out.printf("Out of established limits %d\n",upperLim);
 				}
 			}
 		}catch(Exception e)
@@ -78,7 +77,7 @@ public abstract class Validator
 		}
 		return numIntro;
 	}
-	
+		
 	public static int writeNumber(int lowerLim, int upperLim)
 	{
 		//P Method used to set one limit, the upper limit
@@ -114,6 +113,33 @@ public abstract class Validator
 				}
 				return numIntro;
 	}
+
+	public static String writeString()
+	{
+		String string="";
+		System.out.println("Introduce a word/sentence in CAPITAL letters");
+		try
+		{
+			string = c.readLine();
+		}catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+		return string;
+	}
+	
+	// Validating Methods
+	public static boolean valNumString(String val) 
+	//Method used to validate if the value val is realy an integer or not
+	{
+        try {
+            Integer.parseInt(val);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+
+    }
 	
 	public static boolean writeOption(String option)
 	{
@@ -129,63 +155,38 @@ public abstract class Validator
 		return a;
 	}
 	
-	public static String writeString()
-	{
-		String string="";
-		System.out.println("Introduce a word/sentence in CAPITAL letters");
-		try
-		{
-			string = c.readLine();
-		}catch(IOException e)
-		{
-			e.printStackTrace();
-		}
-		return string;
-	}
-	
-
-	
-	// Validating Methods
-	public static boolean valNumString(String val) 
-	//Method used to validate if the value val is realy an integer or not
-	{
-        try {
-            Integer.parseInt(val);
-            return true;
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
-
-    }
-	
 	// More Functions
 
 	public static String[] createDate()
 		{
-			String date[] = new String [2];
+			String [] date = new String [3];
 			
 			System.out.println("\nDay:");
 			int day1 = writeNumber(31);
-			if(day1 > 9)
+			String day1S;
+			if(day1 < 10)
 			{
-				date[0] = "" + day1;
+				day1S = "0"+day1+"";
 			}else
 			{
-				date[0] = "0" + day1;
+				day1S = ""+day1+"";
 			}
+			date[0]=day1S;
 			System.out.println("\nMonth:");
 			int month1 = writeNumber(12);
-			if(month1 > 9)
+			String month1S;
+			if(month1 < 10)
 			{
-				date[1] = "" + month1;
+				month1S = "0"+month1+"";
 			}else
 			{
-				date[1] = "0" + month1;
+				month1S = ""+month1+"";
 			}
-			 date[1] = "" + month1;
+			date[1] = month1S;
 			System.out.println("\nYear:");
 			int year1 = writeNumber(1999,2017);
-			date[2] = "" + year1;
+			String year1S = ""+year1+"";
+			date[2] = year1S;
 			return date;
 		}
 		
@@ -199,4 +200,5 @@ public abstract class Validator
         	ex.printStackTrace();
         }
     }
+
 }

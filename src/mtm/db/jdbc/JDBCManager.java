@@ -2,14 +2,14 @@ package mtm.db.jdbc;
 
 import mtm.db.pojos.*;
 import mtm.db.Interface.*;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
+import java.time.format.DateTimeFormatter;
 
 
 public class JDBCManager implements DBInterface
@@ -28,18 +28,18 @@ public class JDBCManager implements DBInterface
 	
 	public Order createPojoOrder(int number,String d11,String d12,String d13,String d21,String d22,String d23)
 	{
-		Date date1SQL = dateConverterSQL(d13,d12,d11);
-		Date date2SQL = dateConverterSQL(d23,d22,d21);
+		LocalDate date1SQL = StringtoLocalDate(d13,d12,d11);
+		LocalDate date2SQL = StringtoLocalDate(d23,d22,d21);
 		Order ord = new Order(number,date1SQL,date2SQL);
 		return ord;
 	}
 	
 	//Celia
-
+	
 	
 	public Machinery createPojoMachinery(String machineryType, String stateofMachinery,String d,String m, String y, int sizeofMachinery){
 		
-		Date date3SQL = dateConverterSQL(y,m,d);
+		LocalDate date3SQL = StringtoLocalDate(y,m,d);
 		Machinery mach = new Machinery (machineryType, stateofMachinery, date3SQL, sizeofMachinery);
 		return mach;
 		
@@ -174,6 +174,7 @@ public class JDBCManager implements DBInterface
 	{
 		JDBCInsert codeInsert = new JDBCInsert(c);
 		String selQuery = "SELECT * FROM hospital WHERE name LIKE ?";
+		
 		if(valExist(selQuery,-1,obj.getName()))
 		{
 			System.out.println("This Hospital exist");
@@ -185,11 +186,11 @@ public class JDBCManager implements DBInterface
 		}
 		
 	}
+	
 	public void insert(Order obj)
 	{
 		JDBCInsert codeInsert = new JDBCInsert(c);
 		
-	
 		codeInsert.insert(obj);
 		
 	}
@@ -455,9 +456,9 @@ public class JDBCManager implements DBInterface
 	//Method to Select
 	public ArrayList<Hospital> selectHospitals()
 	{
+		
 		ArrayList<Hospital> hosp = new ArrayList<Hospital>();
 		JDBCSelect sqlSelect = new JDBCSelect(c);
-		
 		
 		hosp = sqlSelect.selectAllHospitals();
 		
@@ -466,7 +467,7 @@ public class JDBCManager implements DBInterface
 	}
  	public Hospital selectHospital(int primaryKey)
 	{
-		String table = "hosital";
+		String table = "hospital";
 		String selQuery = "SELECT name FROM "+table+" WHERE hospital_ID = ?";
 		
 		
@@ -745,7 +746,7 @@ public class JDBCManager implements DBInterface
  	 	public Warehouse selectWarehouse(int primaryKey)
  		{
  			String table = "warehouse";
- 			String selQuery = "SELECT warehouse_location FROM "+table+" WHERE warehouse_ID = ?";
+ 			String selQuery = "SELECT * FROM "+table+" WHERE warehouse_ID = ?";
  			
  			
  			if(valExist(selQuery,primaryKey,null))
@@ -867,28 +868,15 @@ public class JDBCManager implements DBInterface
  	
  	//DB management Methods
 	
-	private Date dateConverterSQL(String a,String b,String c) 
+	
+	private LocalDate StringtoLocalDate(String year,String month,String day)
 	{
-		java.sql.Date finalDate = null;
-		try
-		{
-			String input = "/"+a+"/"+b+"/"+c+"";
-			
-			java.sql.Date apptDay = null;
-		    DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
-		    
-		    apptDay = (Date) df.parse(input);
-		    
-		    finalDate = new Date(apptDay.getTime());
-		}catch(ParseException e)
-		{
-			e.printStackTrace();
-			System.out.println("Error in conversion");
-		}
-		
-	    
-		return finalDate;
+		String fullDate = ""+year+"-"+month+"-"+day+"";
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(fullDate);
+		LocalDate locDate = LocalDate.parse(fullDate, formatter);
+		return locDate;
 	}
+	
 	
 	public boolean valExist (String query, int pkInt, String pkString)
 	{

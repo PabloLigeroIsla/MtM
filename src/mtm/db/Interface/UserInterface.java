@@ -39,6 +39,7 @@ public class UserInterface
 					//List Entities
 					listEntity();
 					waitEnter();
+					break;
 				case 3:
 					//show table
 					showTable();
@@ -69,6 +70,7 @@ public class UserInterface
 	}
 
 	// Menu
+	
 	public static int openMenu()
 	{
 		int option;
@@ -381,6 +383,7 @@ public class UserInterface
 		
 		
 	}
+	
 	public static void delValTable()
 	{
 		System.out.println("What table do you want to delete a value from? \n");
@@ -429,6 +432,7 @@ public class UserInterface
 		}
 		
 	}
+	
 	//Extra Methods
     
     
@@ -456,6 +460,7 @@ public class UserInterface
     
 }
     //Creation of Objects
+    
     public static Hospital createHospital()
     {
     	System.out.println("Name of the hosital:");
@@ -470,6 +475,7 @@ public class UserInterface
 		
 		return hosp;
     } 
+    
     public static Order createOrder()
     {		
     	
@@ -477,8 +483,8 @@ public class UserInterface
     	System.out.println("Total Amount of Instruments\n");
 		int d = writeNumber();
 		
-		String d1[] = new String[2];
-		String d2[] = new String[2];
+		String []d1 = new String[2];
+		String []d2 = new String[2];
 		
 		System.out.println("Order Date\n");
 		d1 = createDate();
@@ -520,17 +526,32 @@ public class UserInterface
 		String bodyLocation=writeString();
 		System.out.println("Price of the instrument\n");
 		int price=writeNumber();
-		
 		Instrument inst = new Instrument (name,model,purpose,amount,numberUses,bodyLocation,price);
-		inst.addWarehouse(jdbcManager.selectWarehouse(1));
-		jdbcManager.insert(inst);
 		inst = jdbcManager.setInstrumentID(inst); // to obtain the ID of the instrument
 		
 		
-		System.out.println("Select the machines this instrument has used?\n");
+		System.out.println("Now let´s see which machinery has created the instrument:\n");
 		listMachineries(false);
-		int machID= writeNumber();
-		jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(),machID);
+		
+		System.out.println("Does the machinery exist?\n");
+		String s = writeString();
+		Machinery mach=new Machinery();
+		if(writeOption(s)){
+			System.out.println("Select the ID of the machinery the instrument has been through:\n");
+			int machID=writeNumber();
+			mach=jdbcManager.selectMachinery(machID);
+			jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(),machID);
+		}
+		else
+		{
+			mach=createMachinery();
+			jdbcManager.insert(mach);
+			mach = jdbcManager.setMachineryID(mach);
+			jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(),mach.getMachineryID());
+			
+		}
+		
+		inst.addWarehouse(jdbcManager.selectWarehouse(1));
 		
 		return inst;
     }
@@ -576,7 +597,7 @@ public class UserInterface
 		System.out.println("State of machinery");
 		String b=writeString();
 		System.out.println("Date of installation:");		
-		String c1[] = new String[2];	
+		String []c1 = new String[2];	
 		c1 = createDate();
 
 		System.out.println("Size of machinery");
@@ -586,6 +607,7 @@ public class UserInterface
 		
 		return mach;
 }
+    
     
     public static Company createCompany(){
     	
@@ -713,7 +735,6 @@ public class UserInterface
     }
     
     //Show the Objects
-    //Alex? Tiene utilidad poner la opción de relación en todas?
     
     public static void showCompany(int pk){
     	Company com = new Company();
@@ -857,11 +878,8 @@ public class UserInterface
     }
     public static void showWarehouse(int pk){
     	Warehouse war = new Warehouse();
-    	war = jdbcManager.selectWarehouse(pk);    		
     	war.toString();
     }
-      
-    //
     
     public static void showEmployee(int pk)
     {

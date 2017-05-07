@@ -24,6 +24,103 @@ public class JDBCCreate
 				Statement fPt = c.createStatement();
 				String sqlp1 = "CREATE TABLE hospital("
 					+ "hospital_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+			c.setAutoCommit(false);
+			//Pablo
+			// fPt -->firstPablotable , sqlp1 --> sqlpablo1//
+			Statement fPt = c.createStatement();
+			String sqlp1 = "CREATE TABLE hospital("
+				+ "hospital_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+				+ "name TEXT NOT NULL,"
+				+ "location TEXT NOT NULL,"
+				+ "medical_specialization TEXT NOT NULL)";
+			fPt.executeUpdate(sqlp1);
+			fPt.close();
+				Statement sPt = c.createStatement();
+			String sqlp2 = "CREATE TABLE orders("
+				+ "order_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+				+ "total_amount_instruments INTEGER NOT NULL,"
+				+ "order_date DATE NOT NULL,"
+				+ "delivery_date DATE NOT NULL)";
+			sPt.executeUpdate(sqlp2);
+			sPt.close();
+			
+			Statement tPt = c.createStatement();
+			String sqlp3 = "CREATE TABLE hospital_orders("
+					+ "hospital_ID INTEGER REFERENCES hospital(hospital_ID),"
+					+ "order_ID INTEGER REFERENCES orders(order_ID),"
+					+ "PRIMARY KEY(hospital_ID,order_ID))";
+			tPt.executeUpdate(sqlp3);
+			tPt.close();
+			
+			Statement fPt2 = c.createStatement();
+			String sqlp4 = "CREATE TABLE instrument_orders("
+					+ "order_ID INTEGER REFERENCES orders(order_ID),"
+					+ "instrument_ID INTEGER REFERENCES instrument(instrument_ID),"
+					+ "amount_order INTEGER,"
+					+ "PRIMARY KEY(order_ID,instrument_ID))";
+			fPt2.executeUpdate(sqlp4);
+			fPt2.close();
+			
+			//Alex
+			// fAt -->firstAlextable // sqla1 --> sqlalex1
+			Statement fAt = c.createStatement();
+			String sqla1 = "CREATE TABLE company ("
+					+ "company_ID INTEGER PRIMARY KEY,"
+					+ "location TEXT,"
+					+"company_name TEXT);";
+			fAt.executeUpdate(sqla1);
+			fAt.close();
+			
+			Statement sAt = c.createStatement();
+			String sqla2 =  "CREATE TABLE materials ("
+							+"material_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+							+"weight INTEGER,"
+							+"volume INTEGER,"
+							+"company_ID  TEXT REFERENCES company(company_ID),"
+							+"machinery_ID TEXT REFERENCES machinery(machinery_ID),"
+							+"warehouse_ID TEXT REFERENCES warehouse(warehouse_ID))";
+			sAt.executeUpdate(sqla2);
+			sAt.close();
+			
+			
+			//Charo
+			// fCht -->firstCharotable //sqlch1 --> sqlcharo1
+			Statement fCht = c.createStatement();
+			String sqlch1 = "CREATE TABLE instrument("
+					+ "instrument_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ "name TEXT NOT NULL,"
+					+ "model TEXT NOT NULL,"
+					+ "purpose TEXT NOT NULL,"
+					+ "amount INTEGER NOT NULL,"
+					+ "number_uses INTEGER NOT NULL,"
+					+ "body_location TEXT NOT NULL,"
+					+ "price INTEGER NOT NULL,"
+					+ "warehouse_location INTEGER REFERENCES warehouse (warehouse_ID))";
+			fCht.executeUpdate(sqlch1);
+			fCht.close();
+			
+			Statement rCht = c.createStatement();
+			String sqlch3 = "CREATE TABLE instrument_machinery("
+					+ "instrument_ID INTEGER NOT NULL REFERENCES instrument(instrument_ID),"
+					+ "machinery_ID INTEGER NOT NULL REFERENCES machinery(machinery_ID),"
+					+ "timeofMade INTEGER,"
+					+ "PRIMARY KEY (instrument_ID,machinery_ID))";
+			rCht.executeUpdate(sqlch3);
+			rCht.close();
+			
+			Statement sCht = c.createStatement();
+			String sqlch2 = "CREATE TABLE warehouse("
+					+ "warehouse_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ "warehouse_location TEXT NOT NULL,"
+					+ "capacity INTEGER NOT NULL,"
+					+ "filled_space INTEGER NOT NULL)";
+			sCht.executeUpdate(sqlch2);
+			sCht.close();
+			
+			//Celia
+			Statement fCt = c.createStatement();
+			String sqlc1= "CREATE TABLE employee("
+					+ "employee_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ "name TEXT NOT NULL,"
 					+ "location TEXT NOT NULL,"
 					+ "medical_specialization TEXT NOT NULL)";
