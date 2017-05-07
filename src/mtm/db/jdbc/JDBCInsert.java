@@ -1,6 +1,7 @@
 package mtm.db.jdbc;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -151,6 +152,8 @@ public class JDBCInsert
 		}
 		public void insert(Machinery mach)
 		{
+			//Tienes que hacer un prepare statement, mira como he hecho yo para order, tienes que usar el método que tines más abajo
+			aaaa;
 			try
 			{
 				c.setAutoCommit(false);
@@ -375,8 +378,8 @@ public class JDBCInsert
 	
 	private java.sql.Date LocaltoSqlDate(LocalDate locDate) 
 	{
-		java.sql.Date sqlDate = null;
-		java.sql.Date.valueOf(locDate);
+		java.sql.Date sqlDate;
+		sqlDate = java.sql.Date.valueOf(locDate);
 		return sqlDate;
 		    
 	}

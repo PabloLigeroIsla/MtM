@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.time.LocalDate;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.time.format.DateTimeFormatter;
 
@@ -37,13 +36,13 @@ public class JDBCManager implements DBInterface
 	//Celia
 	
 	
-	//public Machinery createPojoMachinery(String machineryType, String stateofMachinery,String d,String m, String y, int sizeofMachinery){
+	public Machinery createPojoMachinery(String machineryType, String stateofMachinery,String d,String m, String y, int sizeofMachinery){
 		
-		//LocalDate date3SQL = StringtoLocalDate(y,m,d);
-		//Machinery mach = new Machinery (machineryType, stateofMachinery, date3SQL, sizeofMachinery);
-		//return mach;
+		LocalDate date3SQL = StringtoLocalDate(y,m,d);
+		Machinery mach = new Machinery (machineryType, stateofMachinery, date3SQL, sizeofMachinery);
+		return mach;
 		
-	//}
+	}
 
 
 	
@@ -877,8 +876,7 @@ public class JDBCManager implements DBInterface
 		return locDate;
 	}
 	
-	
-	public boolean valExist (String query, int pkInt, String pkString)
+	public boolean valExist(String query, int pkInt, String pkString)
 	{
 		
 		boolean a;
