@@ -65,16 +65,7 @@ public class JDBCCreate
 			fAt.executeUpdate(sqla1);
 			fAt.close();
 			
-			Statement sAt = c.createStatement();
-			String sqla2 =  "CREATE TABLE materials ("
-							+"material_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
-							+"weight INTEGER,"
-							+"volume INTEGER,"
-							+"company_ID  TEXT REFERENCES company(company_ID),"
-							+"machinery_ID TEXT REFERENCES machinery(machinery_ID),"
-							+"warehouse_ID TEXT REFERENCES warehouse(warehouse_ID))";
-			sAt.executeUpdate(sqla2);
-			sAt.close();
+			
 			
 			
 			//Charo
@@ -133,8 +124,23 @@ public class JDBCCreate
 					sCt.executeUpdate(sqlc2);
 				sCt.close();	
 				
+				
+			//Alex
+				Statement sAt = c.createStatement();
+				String sqla2 =  "CREATE TABLE material ("
+								+"material_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+								+"weight INTEGER,"
+								+"volume INTEGER,"
+								+"type TEXT,"
+								+"company_ID  TEXT REFERENCES company(company_ID),"
+								+"machinery_ID TEXT REFERENCES machinery(machinery_ID),"
+								+"warehouse_ID TEXT REFERENCES warehouse(warehouse_ID))";
+				sAt.executeUpdate(sqla2);
+				sAt.close();
 			
 			c.commit();
+			
+			
 			
 		}catch (Exception e)
 		{
@@ -187,10 +193,11 @@ public class JDBCCreate
 	try
 	{
 		Statement sAt = c.createStatement();
-		String sqla2 =  "CREATE TABLE materials ("
+		String sqla2 =  "CREATE TABLE material("
 						+"material_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
 						+"weight INTEGER,"
 						+"volume INTEGER,"
+						+"type TEXT,"
 						+"company_ID  TEXT REFERENCES company(company_ID),"
 						+"machinery_ID TEXT REFERENCES machinery(machinery_ID),"
 						+"warehouse_ID TEXT REFERENCES warehouse(warehouse_ID))";

@@ -716,8 +716,10 @@ public class UserInterface
     	
     	mat.setWarehouseID(1);
     	
-    	System.out.println("The material is correctly attached to the database\n");
+    	
 		jdbcManager.insert(mat);
+		System.out.println("The material is correctly attached to the database\n");
+		
     	return mat;
     	
     }
