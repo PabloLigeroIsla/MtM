@@ -152,6 +152,11 @@ public class JDBCInsert
 		}
 		public void insert(Machinery mach)
 		{
+<<<<<<< HEAD
+=======
+			//Tienes que hacer un prepare statement, mira como he hecho yo para order, tienes que usar el m�todo que tines m�s abajo
+//			aaaa;
+>>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 			try
 			{
 								
