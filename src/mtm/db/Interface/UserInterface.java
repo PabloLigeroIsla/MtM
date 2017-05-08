@@ -154,7 +154,7 @@ public class UserInterface
     				+ "4:Instrument\n"
     				+ "5:Machinery\n"
     				+ "6:Material\n"
-    				+ "7:Order"
+    				+ "7:Order\n"
     				+ "8:Warehouse\n");
     		break;
     	case 3:
@@ -214,7 +214,7 @@ public class UserInterface
 
 	public static void listEntity()
 	{
-		System.out.println("Do you want to see the relations? Write YES or NOT");
+		System.out.println("Do you want to see the relations? Write YES or NO");
 		boolean relationOption = writeOption(writeString());
 		
 		System.out.println("What table do you want to list?");
@@ -888,6 +888,7 @@ public class UserInterface
     }
     public static void showWarehouse(int pk){
     	Warehouse war = new Warehouse();
+    	war = jdbcManager.selectWarehouse(pk);
     	war.toString();
     }
     

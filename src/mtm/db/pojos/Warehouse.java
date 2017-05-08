@@ -5,11 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Warehouse implements Serializable {
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = -554480961908721094L;
 //
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 36589304371700078L;
+	
+	
+	
+	
 	private Integer warehouseID;
 	private String warehouseLocation;
 	private Integer capacity;
@@ -139,8 +146,7 @@ public class Warehouse implements Serializable {
 	@Override
 	public String toString() {
 		return "Warehouse [warehouseID=" + warehouseID + ", warehouseLocation=" + warehouseLocation + ", capacity="
-				+ capacity + ", filledSpace=" + filledSpace + ", instrumentList=" + instrumentList
-				+ ", materialTypeList=" + materialTypeList + "]";
+				+ capacity + ", filledSpace=" + filledSpace + "]";
 	}
 
 	

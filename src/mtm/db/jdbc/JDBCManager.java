@@ -747,7 +747,6 @@ public class JDBCManager implements DBInterface
  			String table = "warehouse";
  			String selQuery = "SELECT * FROM "+table+" WHERE warehouse_ID = ?";
  			
- 			
  			if(valExist(selQuery,primaryKey,null))
  			{
  				JDBCSelect sqlSelect = new JDBCSelect(c);

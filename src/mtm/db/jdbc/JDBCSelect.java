@@ -301,22 +301,26 @@ public class JDBCSelect
 		try
 		{
 			String sql = query;
-			PreparedStatement prep = c.prepareStatement(sql);
-			prep.setInt(1, pkWarehouse);
-			ResultSet rs = prep.executeQuery();
+			//PreparedStatement prep = c.prepareStatement(sql);
+			Statement stmt = c.createStatement();
+			//prep.setInt(1, pkWarehouse);
+			ResultSet rs = stmt.executeQuery(sql);
 			
 			while (rs.next()) 
 			{
 				warehouseID = rs.getInt("warehouse_ID");
+				System.out.printf("Id metido, es: %d",warehouseID);
 				warehouseLocation = rs.getString("warehouse_location");
 				capacity = rs.getInt("capacity");
 				filledSpace = rs.getInt("filled_space");
 			
 				warehouse = new Warehouse(warehouseID,warehouseLocation,capacity,filledSpace);
+				
 			}
 			
-			prep.close();
+			//prep.close();
 			rs.close();
+			stmt.close();
 			
 		}catch(SQLException e)
 		{

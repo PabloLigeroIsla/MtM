@@ -152,8 +152,8 @@ public class JDBCInsert
 		}
 		public void insert(Machinery mach)
 		{
-			//Tienes que hacer un prepare statement, mira como he hecho yo para order, tienes que usar el método que tines más abajo
-			aaaa;
+			//Tienes que hacer un prepare statement, mira como he hecho yo para order, tienes que usar el mï¿½todo que tines mï¿½s abajo
+//			aaaa;
 			try
 			{
 				c.setAutoCommit(false);
