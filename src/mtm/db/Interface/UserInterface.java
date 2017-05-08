@@ -747,12 +747,12 @@ public class UserInterface
     //Show the Objects
     
     public static void showCompany(int pk){
-    	Company com = new Company();
+    	Company com;
 		com = jdbcManager.selectCompany(pk);
 		com.toString();
     }
     public static void listCompanies(boolean relation){
-    	Company com = new Company();
+    	Company com;
 		ArrayList<Company> comList = new ArrayList<Company>();
 		comList = jdbcManager.selectAllCompanies();
 			
@@ -770,12 +770,12 @@ public class UserInterface
 	}
   
     public static void showMaterial(int pk){
-    	Material mat = new Material();
+    	Material mat;
     	mat = jdbcManager.selectMaterial(pk);
     	mat.toString();
     }
     public static void listMaterials(boolean relation){
-        	Material mat = new Material();
+        	Material mat;
         	ArrayList<Material> matList = new ArrayList<Material>();
         	matList = jdbcManager.selectAllMaterials();
         	
@@ -799,14 +799,14 @@ public class UserInterface
     
     public static void showHospital(int pk)
     {
-    	Hospital hosp = new Hospital();
+    	Hospital hosp;
 		hosp = jdbcManager.selectHospital(pk);
 		jdbcManager.setHospitalRelations(hosp);
 		hosp.toString();
     }
     public static void listHospitals(boolean relation)
     {
-    	Hospital hosp = new Hospital();
+    	Hospital hosp;
 		ArrayList<Hospital> hospList = new ArrayList<Hospital>();
 		hospList = jdbcManager.selectHospitals();
 			
@@ -831,7 +831,7 @@ public class UserInterface
     
     public static void showOrder(int pk)
     {
-    	Order ord = new Order();
+    	Order ord;
     	ord = jdbcManager.selectOrder(pk);
     	jdbcManager.setOrderRelations(ord);
     	ord.toString();
@@ -861,7 +861,7 @@ public class UserInterface
     }
         
     public static void showInstrument(int pk){
-    	Instrument inst = new Instrument();
+    	Instrument inst;
     	inst = jdbcManager.selectInstrument(pk);
     	jdbcManager.setInstrumentRelations(inst);
     	inst.toString();
@@ -887,20 +887,21 @@ public class UserInterface
     	}		
     }
     public static void showWarehouse(int pk){
-    	Warehouse war = new Warehouse();
+    	Warehouse war;
     	war = jdbcManager.selectWarehouse(pk);
-    	war.toString();
+    	war.printWarehouse();
+    	//war.toString();
     }
     
     public static void showEmployee(int pk)
     {
-    	Employee emp = new Employee();
+    	Employee emp;
     	emp = jdbcManager.selectEmployee(pk);
     	emp.toString();
     }
     public static void listEmployees(boolean relation)
     {
-    	Employee emp = new Employee();
+    	Employee emp;
     	ArrayList<Employee> empList = new ArrayList<Employee>();
     	empList = jdbcManager.selectAllEmployees();
     	
@@ -918,14 +919,14 @@ public class UserInterface
     
     public static void showMachinery(int pk)
     {
-    	Machinery mach = new Machinery();
+    	Machinery mach;
     	mach = jdbcManager.selectMachinery(pk);
     	jdbcManager.setMachineryRelations(mach);
     	mach.toString();
     }
     public static void listMachineries(boolean relation) {
     	
-    	Machinery mach = new Machinery();
+    	Machinery mach;
     	ArrayList<Machinery> machList = new ArrayList<Machinery>();
     	machList = jdbcManager.selectAllMachineries();
     	

@@ -2,8 +2,9 @@
 4.- Cambiar de Public a Private los m�todos de SQL....
 5.- Cambiar las PK de las tablas que tengan una PK de String a INTEGER
 6.- 
-NOS HA DICHO RODRIGO QUE NO TIENE SENTIDO CREAR TABLAS SOLAS!!!
 7.- booramos 
 
 
 Celia, prepare Statement de Machinery para Date.
+
+Charo, tengo que hacer mas de un warehouse---listar etc.
