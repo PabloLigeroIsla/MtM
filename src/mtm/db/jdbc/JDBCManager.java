@@ -750,11 +750,9 @@ public class JDBCManager implements DBInterface
  			if(valExist(selQuery,primaryKey,null))
  			{
  				JDBCSelect sqlSelect = new JDBCSelect(c);
- 				Warehouse warehouse = new Warehouse();
- 		 		
  				
+ 				Warehouse warehouse = new Warehouse();
  				warehouse = sqlSelect.selectWarehouse(selQuery,primaryKey);
- 			
  				
  				return warehouse;
  			}else

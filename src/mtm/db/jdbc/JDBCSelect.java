@@ -292,6 +292,7 @@ public class JDBCSelect
 		Warehouse warehouse = null;
 		
 		//attributes of warehouse
+		
 		int warehouseID;
 		String warehouseLocation;
 		Integer capacity;
