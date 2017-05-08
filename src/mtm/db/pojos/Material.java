@@ -10,7 +10,7 @@ public class Material implements Serializable {
 
 	private static final long serialVersionUID = -5060012550789129173L;
 	
-//	@material_ID //This attribute is going to be the primary key of the DataBase
+	@Id //This attribute is going to be the primary key of the DataBase
 	@GeneratedValue(generator="material")
 	@TableGenerator(name="material", table="sqlite_sequence", valueColumnName="seq", pkColumnValue="material")
 	
@@ -18,8 +18,11 @@ public class Material implements Serializable {
 	private Integer weight;
 	private Integer volume;
 	private String type;
+	@JoinColumn(name = "company_ID")
 	private int companyID; //FOREIGN KEY
+	@JoinColumn(name = "machinery_ID")
 	private int machineryID; //FOREIGN KEY
+	@JoinColumn(name = "warehouse_ID")
 	private int warehouseID; //FOREIGN KEY
 	
 	

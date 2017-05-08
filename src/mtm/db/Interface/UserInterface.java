@@ -909,11 +909,18 @@ public class UserInterface
     	while(count < empList.size())
     	{
     		emp = empList.get(count);
-    		System.out.printf("id: %d\n",emp.getEmployee_ID());
+    		if(relation){
+        		System.out.printf("id: %d, mach: %d\n",emp.getEmployee_ID(),emp.getMachineryType().getMachineryType());
+    		
+    		}
+    		else{
+        		System.out.printf("id: %d\n",emp.getEmployee_ID());
+    			
+    		}
     	}
     	
     	
-    	
+    	count ++;
     	
     }
     
@@ -944,6 +951,7 @@ public class UserInterface
     		{
     			System.out.printf("id: %d, machinery type: %d\n",mach.getMachineryID(), mach.getMachineryType());
     		}
+    		count ++;
     		
     	}
     

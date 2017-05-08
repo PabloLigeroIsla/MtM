@@ -1,10 +1,17 @@
 1.- Hacer en la interfaz la instancia de los POJOS, unicamnete ORDER y MACHINERY en la base de datos 
 4.- Cambiar de Public a Private los m�todos de SQL....
+<<<<<<< HEAD
 5.- Cambiar las PK de las tablas que tengan una PK de String a INTEGER
 6.- 
 7.- booramos 
+=======
+ 
+>>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 
 
+<<<<<<< HEAD
 Celia, prepare Statement de Machinery para Date.
 
 Charo, tengo que hacer mas de un warehouse---listar etc.
+=======
+>>>>>>> branch 'master' of https://github.com/papsers/MtM.git
