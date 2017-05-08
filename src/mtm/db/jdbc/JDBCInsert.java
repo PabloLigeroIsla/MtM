@@ -152,21 +152,27 @@ public class JDBCInsert
 		}
 		public void insert(Machinery mach)
 		{
-			//Tienes que hacer un prepare statement, mira como he hecho yo para order, tienes que usar el método que tines más abajo
-			aaaa;
 			try
 			{
+								
+								
 				c.setAutoCommit(false);
-
-				Statement stmt = c.createStatement();
 				
 				String sql = "INSERT INTO machinery (machineryType, stateofMachinery,dateofInstallation,sizeofMachinery) "
-						+ "VALUES ('" + mach.getMachineryType() + "', '" + mach.getStateofMachinery()	+ "', '" + mach.getDateofInstallation()	+ "', '" + mach.getSizeofMachinery()	+ "');";
-				stmt.executeUpdate(sql);
-				stmt.close();
-				System.out.println("Machinery information processed");
-				System.out.println("Records inserted.");
+						+ "VALUES (?,?,?,?);";
+				
+				java.sql.Date InstallationDate = LocaltoSqlDate(mach.getDateofInstallation());
+				PreparedStatement prep = c.prepareStatement(sql);
+
+				prep.setString(1, mach.getMachineryType());
+				prep.setString(2, mach.getStateofMachinery());
+				prep.setDate(3, InstallationDate);
+				prep.setInt(4, mach.getSizeofMachinery());
+				
 				c.commit();
+				prep.executeUpdate();
+				
+				prep.close();
 
 			}catch(SQLException e)
 			{
