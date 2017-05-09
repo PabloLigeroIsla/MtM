@@ -14,8 +14,9 @@ public class JDBCCreate
 	}
 	////
 	//Create
-	public void createTables()
+	public boolean createTables()
 	{
+		boolean act;
 		try
 		{
 			c.setAutoCommit(false);
@@ -141,14 +142,14 @@ public class JDBCCreate
 			c.commit();
 			
 			
-			
+			act = true;
 		}catch (Exception e)
 		{
-			e.printStackTrace();
-			System.out.println("Conection Error, Ask Rodrigo for Help");
+			act = false;
+			
 		
 		}
-		
+		return act;
 	}
 	
 			//Pablo

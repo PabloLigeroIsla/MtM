@@ -2,9 +2,11 @@ package mtm.db.jpa;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import mtm.db.Interface.*;
 import mtm.db.pojos.*;
+
 
 public class JPAManager implements DBInterface
 {
@@ -23,11 +25,14 @@ public class JPAManager implements DBInterface
 	}
 	
 	
-	//Material
+	//Materialalex
 	public Material selectMaterial(int primaryKey)
 	{
 		Material mat = new Material();
-		String sql = "SELECT * FROM material WHERE material_ID = ?";
+		Query sql = em.createNativeQuery("SELECT * FROM material WHERE material_ID = ?",Material.class);
+		sql.setParameter(1, primaryKey);
+		
+		mat = (Material) sql.getSingleResult();
 		
 		return mat;
 	}
@@ -49,12 +54,15 @@ public class JPAManager implements DBInterface
 	public Machinery selectMachinery(int primaryKey)
 	{
 		Machinery mach = new Machinery();
+		
 		return mach;
 	}
 	
 	public void insert(Machinery obj)
 	{
-		
+		em.getTransaction().begin();
+		em.persist(obj);
+		em.getTransaction().commit();
 	}
 	
 	public void deleteMachinery(int primaryKey)
