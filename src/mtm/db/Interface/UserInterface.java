@@ -71,6 +71,7 @@ public class UserInterface
 					break;
 				case 7:
 					jdbcManager.closeConnection();
+					jpaManager.closeJPAConnection();
 					waitEnter();
 					break;
 				}
@@ -862,11 +863,12 @@ public class UserInterface
 			{
 				jdbcManager.setHospitalRelations(hosp);
 				System.out.printf("id: %d,name: %s, relation: %d\n",id,name,hosp.getOrderList().toString());
-				count++;
-			}else{
-				System.out.printf("id: %d,name: %s\n",id,name);
-				count++;
+
+			}else
+			{
+				System.out.printf("id: %d,name: %s\n",id,name);				
 			}
+			count++;
 		}
     }
     
@@ -896,7 +898,7 @@ public class UserInterface
     			ord = ordList.get(count);
     			System.out.printf("id: %d\n",ord.getOrderID());
     		}
-    		
+    		count++;
     	}
     	
     }
