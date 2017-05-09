@@ -606,6 +606,7 @@ public class UserInterface
 		return inst;
     }
     
+    
     public static Employee createEmployee(){
 
 	System.out.println("Name of the employee:\n");
