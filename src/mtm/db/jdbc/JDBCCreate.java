@@ -12,7 +12,7 @@ public class JDBCCreate
 	{
 		this.c = c;
 	}
-	//
+	////
 	//Create
 	public void createTables()
 	{
