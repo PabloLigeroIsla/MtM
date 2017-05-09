@@ -10,9 +10,10 @@ public class Material implements Serializable {
 
 	private static final long serialVersionUID = -5060012550789129173L;
 	
-	@Id //This attribute is going to be the primary key of the DataBase
+	@Id 
 	@GeneratedValue(generator="material")
-	@TableGenerator(name="material", table="sqlite_sequence", valueColumnName="seq", pkColumnValue="material")
+	@TableGenerator(name="material", table="sqlite_sequence",
+	    pkColumnName="materialID", valueColumnName="seq", pkColumnValue="material")
 	
 	private Integer materialID; //PRIMARY KEY
 	private Integer weight;

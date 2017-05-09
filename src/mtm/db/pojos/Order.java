@@ -3,12 +3,26 @@ package mtm.db.pojos;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+
 import java.time.LocalDate;
 
+
+@Entity
+@Table(name = "orders")
 public class Order implements Serializable
 {
 	
 	private static final long serialVersionUID = 1821406767918661646L;
+	@Id 
+	@GeneratedValue(generator="orders")
+	@TableGenerator(name="orders", table="sqlite_sequence",
+	    pkColumnName="order_ID", valueColumnName="seq", pkColumnValue="orders")
 	
 	private int orderID;
 	private int totalAmountInstruments;

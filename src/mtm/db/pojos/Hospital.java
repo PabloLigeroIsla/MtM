@@ -3,17 +3,25 @@ package mtm.db.pojos;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "hospital")
 public class Hospital implements Serializable
 {
-
+	
 	private static final long serialVersionUID = 3198781709673295324L;
 
+	@Id 
+	@GeneratedValue(generator="hospital")
+	@TableGenerator(name="hospital", table="sqlite_sequence",
+	    pkColumnName="hospitalID", valueColumnName="seq", pkColumnValue="hospital")
+	
 	private int hospitalID; 
 	private String name;
 	private String location;
 	private String medicalSpecialization;
-	
+	@ManyToMany(mappedBy = "hospital_orders")
 	private List<Order> orderList;
 	//Primary Key --> hospitalID
 	//Foreign Key --> orderList
