@@ -340,7 +340,7 @@ public class UserInterface
 				{
 					boolean keepRelating = true;
 					while(keepRelating)
-					{
+					{//
 						System.out.println("The Order allready exixt?. YES or NO");
 						option = writeString();
 						if(writeOption(option))
@@ -390,8 +390,6 @@ public class UserInterface
 		case 4: //Instrument
 			Instrument inst = createInstrument();
 			jdbcManager.insert(inst);
-			Warehouse war = jdbcManager.selectWarehouse(1);
-			jdbcManager.updateWarehouse((war.getFilledSpace()+5));
 			break;
 		case 5: //Machinery
 			Machinery mach = createMachinery();
@@ -576,7 +574,33 @@ public class UserInterface
 			
 		}
 		
-		inst.addWarehouse(jdbcManager.selectWarehouse(1));
+		inst.addMachinery(mach);
+		
+		
+		System.out.println("Now let´s see in which warehouse is the instrument stored:\n");
+		listWarehouses(false);
+		
+		System.out.println("Does the warehouse exist?\n");
+		String st = writeString();
+		Warehouse war = new Warehouse();
+		if(writeOption(st)){
+			System.out.println("Select the ID of the warehouse you want to insert the instrument into:\n");
+			int warID=writeNumber();
+			war=jdbcManager.selectWarehouse(warID);
+			jdbcManager.setRelationInstrumentWarehouse(inst.getInstrumentID(),warID);
+			jdbcManager.updateWarehouse(warID, inst.getAmount());
+		}
+		else
+		{
+			war=createWarehouse();
+			jdbcManager.insert(war);
+			war = jdbcManager.setWarehouseID(war);
+			jdbcManager.setRelationInstrumentWarehouse(inst.getInstrumentID(),war.getWarehouseID());
+			jdbcManager.updateWarehouse(war.getWarehouseID(), inst.getAmount());
+
+		}
+		
+		inst.addWarehouse(war);
 		
 		return inst;
     }
@@ -896,7 +920,7 @@ public class UserInterface
     			jdbcManager.setInstrumentRelations(inst);
     			System.out.printf("id: %d, relations: %d\n",inst.getInstrumentID(),inst.getOrderList().toString());
     			System.out.printf("id: %d, relations: %d\n",inst.getInstrumentID(),inst.getMachineryTypeList().toString());
-    			System.out.printf("id: %d, relations: %d\n",inst.getInstrumentID(),inst.getWarehouseID().toString());	
+    			System.out.printf("id: %d, relations: %d\n",inst.getInstrumentID(),inst.getWarehouseList().toString());	
     		}else{
     			inst = instrumentList.get(count);
     			System.out.printf("id: %d\n",inst.getInstrumentID());
@@ -908,6 +932,23 @@ public class UserInterface
     	war = jdbcManager.selectWarehouse(pk);
     	war.printWarehouse();
     	//war.toString();
+    }
+    
+    public static void listWarehouses(boolean relation){
+    	Warehouse war = new Warehouse();
+    	ArrayList<Warehouse> warehouseList = new ArrayList<Warehouse>();
+    	warehouseList = jdbcManager.selectAllWarehouses();
+    	int count = 0;
+    	
+    	while(count < warehouseList.size())
+		{
+			war = warehouseList.get(count);
+			String warehouseLocation = war.getWarehouseLocation();
+			int id = war.getWarehouseID();
+			
+				System.out.printf("Id of the warehouse: %d,location of the warehouse: %s\n",id,warehouseLocation);
+				count++;
+			}
     }
     
     public static void showEmployee(int pk)
