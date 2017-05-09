@@ -852,11 +852,17 @@ public class JDBCManager implements DBInterface
  	
 	//Charo
 
- 	public void updateWarehouse(int filledSpaceUpdated)
- 	{
+ 	public void updateWarehouse(int pkSearch, int filledSpaceUpdated)
+ 	{ 	
+ 		
+ 		String table = "warehouse";
+		String selQuery = "SELECT warehouse_ID FROM "+table+" WHERE warehouse_ID = ?";
+		if(valExist(selQuery,pkSearch,null))
+		{
  		
  			JDBCUpdate sqlUpdate= new JDBCUpdate(c);
- 			sqlUpdate.updateWarehouse(filledSpaceUpdated);
+ 			sqlUpdate.updateWarehouse(pkSearch,filledSpaceUpdated);
+		}
  			
  		
  	} 	
