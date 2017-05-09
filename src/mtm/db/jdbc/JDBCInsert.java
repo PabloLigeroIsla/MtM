@@ -179,64 +179,62 @@ public class JDBCInsert
 				e.printStackTrace();
 			}
 		}
+
 			//Alex
 		
 		public void insert(Company com){
 			try{
 
-							c.setAutoCommit(false);
-				
-							String sql;
-							sql = "INSERT INTO company(location,company_name)" + "VALUES(?,?);"; 
-							PreparedStatement prep = c.prepareStatement(sql);
-							prep.setString(1,com.getLocation());
-							prep.setString(2,com.getCompanyName());
-							
-							prep.executeUpdate();
-							
-							
-							prep.close();
-							
-							System.out.println("Records inserted.");
+								c.setAutoCommit(false);
+					
+								String sql;
+								sql = "INSERT INTO company(location,company_name)" + "VALUES(?,?);"; 
+								PreparedStatement prep = c.prepareStatement(sql);
+								prep.setString(1,com.getLocation());
+								prep.setString(2,com.getCompanyName());
+								
+								prep.executeUpdate();
+								
+								
+								prep.close();
+								
+								System.out.println("Records inserted.");
 
-							c.commit();
+								c.commit();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+					
+				}
 			}
-			catch (Exception e) {
-				e.printStackTrace();
-				
-			}
-		}
 		public void insert(Material mat){
-			try{
+				try{
 
-							c.setAutoCommit(false);
-							String sql;
-							sql = "INSERT INTO material(weight,volume,type,company_ID,machinery_ID,warehouse_ID) VALUES(?,?,?,?,?,?);";
-							PreparedStatement prep = c.prepareStatement(sql);
-							prep.setInt(1,mat.getWeight());
-							prep.setInt(2,mat.getVolume());
-							prep.setString(3,mat.getType());
-							prep.setInt(4,mat.getCompanyID());
-							prep.setInt(5,mat.getMachineryID());
-							prep.setInt(6,mat.getWarehouseID());
-							
-							prep.executeUpdate();
-							
-							
-							prep.close();
-							
-							System.out.println("Records inserted.");
+								c.setAutoCommit(false);
+								String sql;
+								sql = "INSERT INTO material(weight,volume,type,company_ID,machinery_ID,warehouse_ID) VALUES(?,?,?,?,?,?);";
+								PreparedStatement prep = c.prepareStatement(sql);
+								prep.setInt(1,mat.getWeight());
+								prep.setInt(2,mat.getVolume());
+								prep.setString(3,mat.getType());
+								prep.setInt(4,mat.getCompanyID());
+								prep.setInt(5,mat.getMachineryID());
+								prep.setInt(6,mat.getWarehouseID());
+								
+								prep.executeUpdate();
+								
+								
+								prep.close();
+								
+								System.out.println("Records inserted.");
 
-							c.commit();
+								c.commit();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+					
+				}
 			}
-			catch (Exception e) {
-				e.printStackTrace();
-				
-			}
-		}
-
-		
-		
 			//Relational Tables 
 		
 			public void insertHospitalOrderRelation( int pkHospital, int pkOrder, int tao)
