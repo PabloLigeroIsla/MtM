@@ -1,6 +1,6 @@
 package mtm.db.Interface;
 
-
+//bro
 import static mtm.db.Interface.Validator.*;
 import java.util.ArrayList;
 import mtm.db.jdbc.JDBCManager;
@@ -26,15 +26,21 @@ public class UserInterface
 		
 		int option;
 		jdbcManager.openConnection();
+		
+		boolean dbCreated;
+		
+		dbCreated = allreadyExistDb();
+		
 		do{
 			//Start of the db
-			option = openMenu();
+			option = openMenu(dbCreated);
 		
 			switch(option)
 				{
 				case 1:
 					//Create tables
 					createTable();
+					jpaManager.openJPAConnection();
 					waitEnter();
 					break;
 				case 2:
@@ -73,57 +79,66 @@ public class UserInterface
 
 	// Menu
 	
-	public static int openMenu()
+	public static int openMenu(boolean dbCreated)
 	{
 		int option;
 		int numOptions = 7; //Numero de opciones que podemos seleccionar con esta funci�n
-		printMenu();
+		printMenu(dbCreated);
 		option = writeNumber(numOptions);
 		
 		return option;
 	}
     
-    public static void printMenu()
+    public static void printMenu(boolean dbCreated)
 	{
-		//Si a�ades opciones, recuerda mirar el metodo abrirMenu
-				System.out.println(""
-						+ "Option 1.- Create Tables\n" 
-							//Option 1.1: all the tables?
-							//Option 1.2: One table //y se las ense�as
-								//option 1.2.1: Select the table
+		if(dbCreated)
+		{
+			//Si a�ades opciones, recuerda mirar el metodo abrirMenu
+			System.out.println(""
+					+ "Option 1.- Create Tables\n" 
+						//Option 1.1: all the tables?
+						//Option 1.2: One table //y se las ense�as
+							//option 1.2.1: Select the table
+						
+					+ "Option 2.- List entities\n"
+						//Option: Do you want to see all the relations? (Condition)					
+							//Option 2.1: What table do you want to see? //y se las ense�as
+								//Listas el objeto 
+								//Seleccioname 1 
+								//muestras
+					+ "Option 3.- Show table\n"
+						//Seleccioname la tabla que quieres ver
+						//Muestramela con todo (relaciones incluidas)
+					
+					+ "Option 4.- Introduce value to a table\n"
+						//Option 3.1: What table do you want to insert the value to? //y se las ense�as
+							//Listas tablas
+							//Select the table
+							//Introduces
 							
-						+ "Option 2.- List entities\n"
-							//Option: Do you want to see all the relations? (Condition)					
-								//Option 2.1: What table do you want to see? //y se las ense�as
-									//Listas el objeto 
-									//Seleccioname 1 
-									//muestras
-						+ "Option 3.- Show table\n"
-							//Seleccioname la tabla que quieres ver
-							//Muestramela con todo (relaciones incluidas)
-						
-						+ "Option 4.- Introduce value to a table\n"
-							//Option 3.1: What table do you want to insert the value to? //y se las ense�as
-								//Listas tablas
-								//Select the table
-								//Introduces
-								
-						//aqui ademas se debe llamar a UPDATE la tabla, y la relacion con otra tabla si la tiene
-						
-						+ "Option 5.- Delete value of a Table\n"
-							///Option 4.1: What table do you want to delete a value from? //y se las ense�as
-								//Select the table
-						
-						+ "Option 6.- Modify value\n"
-							//mostrar entidades
-							//Option 6.1: Select a table to madify a value
-							// mostrar valores d la tabla
-							// seleccionar la fila 
-							// seleccionas la columna
-							// Das el valor
-							// update
+					//aqui ademas se debe llamar a UPDATE la tabla, y la relacion con otra tabla si la tiene
+					
+					+ "Option 5.- Delete value of a Table\n"
+						///Option 4.1: What table do you want to delete a value from? //y se las ense�as
+							//Select the table
+					
+					+ "Option 6.- Modify value\n"
+						//mostrar entidades
+						//Option 6.1: Select a table to madify a value
+						// mostrar valores d la tabla
+						// seleccionar la fila 
+						// seleccionas la columna
+						// Das el valor
+						// update
 
-						+ "Option 7.- Exit \n");
+					+ "Option 7.- Exit \n");
+		}else
+		{
+			System.out.println(""
+					+ "Option 1.- Create Tables\n" );
+		}
+    	
+    	
 
 	}
 	
@@ -724,8 +739,10 @@ public class UserInterface
     	
     	mat.setWarehouseID(1);
     	
-    	System.out.println("The material is correctly attached to the database\n");
+    	
 		jdbcManager.insert(mat);
+		System.out.println("The material is correctly attached to the database\n");
+		
     	return mat;
     	
     }
@@ -956,4 +973,12 @@ public class UserInterface
     	}
     
     }
+    
+    public static boolean allreadyExistDb()
+    {
+    	boolean op;
+    	op = jdbcManager.createTables();
+    	return op;
+    }
+    
 }

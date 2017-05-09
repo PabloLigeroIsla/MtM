@@ -328,8 +328,34 @@ public class JDBCSelect
 		return warehouse;
 	}
 	
-	//no me hace falta una lista de Warehouse porque solo hay uno en el que está todo, instruments and materials
-	
+	public ArrayList<Warehouse> selectAllWarehouses()
+	{
+		ArrayList<Warehouse> warehouseList = new ArrayList<Warehouse>();
+		try
+		{
+			Statement stmt = c.createStatement();
+			String sql = "SELECT * FROM warehouse";
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next())
+			{
+				int warehouseID = rs.getInt("warehouse_ID");
+				String warehouseLocation = rs.getString("warehouse_location");
+				int capacity = rs.getInt("capacity");
+				int filledSpace = rs.getInt("filled_space");
+				
+				Warehouse warehouse = new Warehouse(warehouseID,warehouseLocation,capacity,filledSpace);
+				warehouseList.add(warehouse);
+			}
+			
+			stmt.close();
+			rs.close();
+			
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return warehouseList;
+	}
 	
 	//Celia
 	//Employee

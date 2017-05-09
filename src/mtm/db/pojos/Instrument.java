@@ -9,7 +9,11 @@ public class Instrument implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -8136208930132488298L;
+	private static final long serialVersionUID = 7459904311726694833L;
+	/**
+	 * 
+	 */
+	
 	//
 
 	
@@ -21,7 +25,7 @@ public class Instrument implements Serializable {
 	private Integer numberUses;
 	private String bodyLocation;
 	private Integer price;
-	private Warehouse warehouse;
+	private List<Warehouse> warehouseList;
 	private List<Order> orderList;
 	private List<Machinery> machineryTypeList;
 
@@ -93,12 +97,15 @@ public class Instrument implements Serializable {
 
 
 	public void addWarehouse(Warehouse warehouse) {
-		this.warehouse = warehouse;
+		if (!warehouseList.contains(warehouse)) {
+			this.warehouseList.add(warehouse);
+		}
 	}
 
 	public void removeWarehouse(Warehouse warehouse){
-		this.warehouse = null;
-	}
+		if (warehouseList.contains(warehouse)) {
+			this.warehouseList.remove(warehouse);
+		}	}
 	
 
 
@@ -177,15 +184,17 @@ public class Instrument implements Serializable {
 
 
 
-	public Warehouse getWarehouse() {
-		return warehouse;
+
+
+	public List<Warehouse> getWarehouseList() {
+		return warehouseList;
 	}
 
 
 
 
-	public void setWarehouse(Warehouse warehouse) {
-		this.warehouse = warehouse;
+	public void setWarehouseList(List<Warehouse> warehouseList) {
+		this.warehouseList = warehouseList;
 	}
 
 
@@ -283,17 +292,6 @@ public class Instrument implements Serializable {
 	
 
 
-
-	public Warehouse getWarehouseID() {
-		return warehouse;
-	}
-
-
-
-
-	public void setWarehouseID(Warehouse warehouseID) {
-		this.warehouse = warehouseID;
-	}
 
 
 

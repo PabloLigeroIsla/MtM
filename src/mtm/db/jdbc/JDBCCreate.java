@@ -3,7 +3,7 @@ package mtm.db.jdbc;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-//
+
 public class JDBCCreate 
 {
 	private Connection c;
@@ -12,10 +12,11 @@ public class JDBCCreate
 	{
 		this.c = c;
 	}
-	//
+	////
 	//Create
-	public void createTables()
+	public boolean createTables()
 	{
+		boolean act;
 		try
 		{
 			c.setAutoCommit(false);
@@ -65,16 +66,7 @@ public class JDBCCreate
 			fAt.executeUpdate(sqla1);
 			fAt.close();
 			
-			Statement sAt = c.createStatement();
-			String sqla2 =  "CREATE TABLE material ("
-							+"material_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
-							+"weight INTEGER,"
-							+"volume INTEGER,"
-							+"company_ID  TEXT REFERENCES company(company_ID),"
-							+"machinery_ID TEXT REFERENCES machinery(machinery_ID),"
-							+"warehouse_ID TEXT REFERENCES warehouse(warehouse_ID))";
-			sAt.executeUpdate(sqla2);
-			sAt.close();
+			
 			
 			
 			//Charo
@@ -133,16 +125,31 @@ public class JDBCCreate
 					sCt.executeUpdate(sqlc2);
 				sCt.close();	
 				
+				
+			//Alex
+				Statement sAt = c.createStatement();
+				String sqla2 =  "CREATE TABLE material ("
+								+"material_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+								+"weight INTEGER,"
+								+"volume INTEGER,"
+								+"type TEXT,"
+								+"company_ID  TEXT REFERENCES company(company_ID),"
+								+"machinery_ID TEXT REFERENCES machinery(machinery_ID),"
+								+"warehouse_ID TEXT REFERENCES warehouse(warehouse_ID))";
+				sAt.executeUpdate(sqla2);
+				sAt.close();
 			
 			c.commit();
 			
+			
+			act = true;
 		}catch (Exception e)
 		{
-			e.printStackTrace();
-			System.out.println("Conection Error, Ask Rodrigo for Help");
+			act = false;
+			
 		
 		}
-		
+		return act;
 	}
 	
 			//Pablo
@@ -187,10 +194,11 @@ public class JDBCCreate
 	try
 	{
 		Statement sAt = c.createStatement();
-		String sqla2 =  "CREATE TABLE material ("
+		String sqla2 =  "CREATE TABLE material("
 						+"material_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
 						+"weight INTEGER,"
 						+"volume INTEGER,"
+						+"type TEXT,"
 						+"company_ID  TEXT REFERENCES company(company_ID),"
 						+"machinery_ID TEXT REFERENCES machinery(machinery_ID),"
 						+"warehouse_ID TEXT REFERENCES warehouse(warehouse_ID))";
@@ -255,7 +263,8 @@ public class JDBCCreate
 		{
 			Statement sCht = c.createStatement();
 			String sqlch2 = "CREATE TABLE warehouse("
-					+ "warehouse_location TEXT PRIMARY KEY NOT NULL,"
+					+"warehouse_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ "warehouse_location TEXT NOT NULL,"
 					+ "capacity INTEGER NOT NULL,"
 					+ "filledSpace INTEGER NOT NULL)";
 			sCht.executeUpdate(sqlch2);
