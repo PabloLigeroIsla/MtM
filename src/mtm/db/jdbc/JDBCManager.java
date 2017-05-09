@@ -76,13 +76,11 @@ public class JDBCManager implements DBInterface
 	}
 	//Methods to Create the tables
 	
-	public void createTables()
+	public boolean createTables()
 	{
+		
 		JDBCCreate codeCreate = new JDBCCreate(c);
-		
-
-		codeCreate.createTables();
-		
+		return codeCreate.createTables();
 		
 	}
 	public void createTableHospital()
