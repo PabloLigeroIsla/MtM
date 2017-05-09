@@ -25,7 +25,7 @@ public class JPAManager implements DBInterface
 	}
 	
 	
-	//Material
+	//Materialalex
 	public Material selectMaterial(int primaryKey)
 	{
 		Material mat = new Material();
