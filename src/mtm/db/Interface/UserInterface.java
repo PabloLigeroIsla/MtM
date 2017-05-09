@@ -71,6 +71,7 @@ public class UserInterface
 					break;
 				case 7:
 					jdbcManager.closeConnection();
+					jpaManager.closeJPAConnection();
 					waitEnter();
 					break;
 				}

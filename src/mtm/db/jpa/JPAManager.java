@@ -52,8 +52,12 @@ public class JPAManager implements DBInterface
 	//Machinery
 	
 	public Machinery selectMachinery(int primaryKey)
-	{
-		Machinery mach = new Machinery();
+	{	
+		Query sql = em.createNativeQuery("SELECT * FROM machinery WHERE machinery_ID = ?",Machinery.class);
+		sql.setParameter(1, primaryKey);
+		
+		Machinery mach = (Machinery) sql.getSingleResult();
+		
 		
 		return mach;
 	}
@@ -67,11 +71,30 @@ public class JPAManager implements DBInterface
 	
 	public void deleteMachinery(int primaryKey)
 	{
+	
+		Machinery mach = selectMachinery(primaryKey);
 		
+		em.getTransaction().begin();
+		em.remove(mach);
+		em.getTransaction().commit();
 	}
 	
 	public void updateMachinery(int pkSearch, int b)
 	{
+		
+		String workingState;
+		Machinery mach = selectMachinery(pkSearch);
+		
+		if(b==1){
+ 			workingState="work";
+ 		}
+ 		else{
+ 			workingState="no work";
+ 			
+ 		}
+		em.getTransaction().begin();
+		mach.setStateofMachinery(workingState);
+		em.getTransaction().commit();
 		
 	}
 	
