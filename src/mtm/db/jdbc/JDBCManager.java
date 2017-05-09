@@ -865,7 +865,7 @@ public class JDBCManager implements DBInterface
  		
  	} 	
 
- 	
+ 	//
  	//DB management Methods
 	
 	
