@@ -1,6 +1,7 @@
 package mtm.db.jdbc;
-//hola
+
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -102,7 +103,7 @@ public class JDBCInsert
 				e.printStackTrace();
 			}
 		}
-		//
+		
 		public void insert(Warehouse wareh) 
 		{
 			try
@@ -153,27 +154,36 @@ public class JDBCInsert
 		{
 			try
 			{
+								
+								
 				c.setAutoCommit(false);
-
-				Statement stmt = c.createStatement();
 				
 				String sql = "INSERT INTO machinery (machineryType, stateofMachinery,dateofInstallation,sizeofMachinery) "
-						+ "VALUES ('" + mach.getMachineryType() + "', '" + mach.getStateofMachinery()	+ "', '" + mach.getDateofInstallation()	+ "', '" + mach.getSizeofMachinery()	+ "');";
-				stmt.executeUpdate(sql);
-				stmt.close();
-				System.out.println("Machinery information processed");
-				System.out.println("Records inserted.");
+						+ "VALUES (?,?,?,?);";
+				
+				java.sql.Date InstallationDate = LocaltoSqlDate(mach.getDateofInstallation());
+				PreparedStatement prep = c.prepareStatement(sql);
+
+				prep.setString(1, mach.getMachineryType());
+				prep.setString(2, mach.getStateofMachinery());
+				prep.setDate(3, InstallationDate);
+				prep.setInt(4, mach.getSizeofMachinery());
+				
 				c.commit();
+				prep.executeUpdate();
+				
+				prep.close();
 
 			}catch(SQLException e)
 			{
 				e.printStackTrace();
 			}
 		}
+
 			//Alex
 		
 		public void insert(Company com){
-				try{
+			try{
 
 								c.setAutoCommit(false);
 					
@@ -225,31 +235,6 @@ public class JDBCInsert
 					
 				}
 			}
-
-		
-		public void insert(Company com, Material mat){
-			
-			try{
-
-				Statement stmt = c.createStatement();
-				String sql;
-				sql = "INSERT INTO company(location,company_name)  VALUES ('"+com.getLocation()+",'"+com.getCompanyName()+"')"; 
-				stmt.executeUpdate(sql);					
-				stmt.close();
-				// End of transaction
-				c.commit();
-				System.out.println("Records inserted.");
-				// Insert new records: end
-
-				// Close database connection
-				c.close();
-				System.out.println("Database connection closed.");
-			}
-			catch (Exception e) {
-				e.printStackTrace();
-	
-			}
-		}
 			//Relational Tables 
 		
 			public void insertHospitalOrderRelation( int pkHospital, int pkOrder, int tao)
@@ -387,8 +372,8 @@ public class JDBCInsert
 	
 	private java.sql.Date LocaltoSqlDate(LocalDate locDate) 
 	{
-		java.sql.Date sqlDate = null;
-		java.sql.Date.valueOf(locDate);
+		java.sql.Date sqlDate;
+		sqlDate = java.sql.Date.valueOf(locDate);
 		return sqlDate;
 		    
 	}

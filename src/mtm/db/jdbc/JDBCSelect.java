@@ -139,7 +139,7 @@ public class JDBCSelect
 		try
 		{
 			Statement stmt = c.createStatement();
-			String sql = "SELECT * FROM hospital";
+			String sql = "SELECT * FROM orders";
 			ResultSet rs = stmt.executeQuery(sql);
 			
 			while(rs.next())
@@ -290,8 +290,8 @@ public class JDBCSelect
 	public Warehouse selectWarehouse( String query, int pkWarehouse)
 	{
 		Warehouse warehouse = null;
-		
 		//attributes of warehouse
+		
 		int warehouseID;
 		String warehouseLocation;
 		Integer capacity;
@@ -304,7 +304,7 @@ public class JDBCSelect
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setInt(1, pkWarehouse);
 			ResultSet rs = prep.executeQuery();
-			
+
 			while (rs.next()) 
 			{
 				warehouseID = rs.getInt("warehouse_ID");
@@ -313,6 +313,7 @@ public class JDBCSelect
 				filledSpace = rs.getInt("filled_space");
 			
 				warehouse = new Warehouse(warehouseID,warehouseLocation,capacity,filledSpace);
+				
 			}
 			
 			prep.close();
@@ -446,8 +447,10 @@ public class JDBCSelect
 				int machineryID = rs.getInt("machinery_ID");
 				String machineryType = rs.getString("machineryType");
 				String stateofMachinery = rs.getString("stateofMachinery");				
-				java.sql.Date machineryDate = rs.getDate("dateofInstallation");
+				java.sql.Date machiDate = rs.getDate("dateofInstallation");
 				int sizeofMachinery = rs.getInt("sizeofMachinery");
+				
+				LocalDate machineryDate = SqltoLocalDate(machiDate);
 				
 				Machinery machinery = new Machinery(machineryID,machineryType,stateofMachinery,machineryDate,sizeofMachinery);
 				machineryList.add(machinery);
@@ -481,8 +484,10 @@ public class JDBCSelect
 				int machineryID = rs.getInt("machinery_ID");
 				String machineryType = rs.getString("machineryType");
 				String stateofMachinery = rs.getString("stateofMachinery");				
-				java.sql.Date machineryDate = rs.getDate("dateofInstallation");
+				java.sql.Date machiDate = rs.getDate("dateofInstallation");
 				int sizeofMachinery = rs.getInt("sizeofMachinery");
+				
+				LocalDate machineryDate = SqltoLocalDate(machiDate);
 				
 				machinery = new Machinery(machineryID,machineryType,stateofMachinery,machineryDate,sizeofMachinery);
 				
@@ -518,9 +523,11 @@ public class JDBCSelect
 				machineryID = rs.getInt("machinery_ID");
 				machineryType = rs.getString("machineryType");
 				stateofMachinery = rs.getString("stateofMachinery");
-				java.sql.Date dateMachinery = rs.getDate("order_date");
+				java.sql.Date dateMach = rs.getDate("order_date");
 				sizeofMachinery = rs.getInt("sizeofMachinery");
 
+				LocalDate dateMachinery = SqltoLocalDate(dateMach);
+				
 				mach = new Machinery(machineryID,machineryType,stateofMachinery,dateMachinery,sizeofMachinery);	
 			}
 			

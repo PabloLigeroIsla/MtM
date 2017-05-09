@@ -9,6 +9,8 @@ public class JPAManager implements DBInterface
 	public Material selectMaterial(int primaryKey)
 	{
 		Material mat = new Material();
+		String sql = "SELECT * FROM material WHERE material_ID = ?";
+		
 		return mat;
 	}
 	

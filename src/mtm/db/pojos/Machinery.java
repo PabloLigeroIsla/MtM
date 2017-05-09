@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class Machinery implements Serializable {
 	/**
@@ -15,7 +16,7 @@ public class Machinery implements Serializable {
 	private int machineryID;
 	private String machineryType;
 	private String stateofMachinery;
-	private Date dateofInstallation;
+	private LocalDate dateofInstallation;
 	private int sizeofMachinery;
 
 	private List<Instrument> instrumentList;
@@ -48,11 +49,11 @@ public class Machinery implements Serializable {
 		this.stateofMachinery = stateofMachinery;
 	}
 
-	public Date getDateofInstallation() {
+	public LocalDate getDateofInstallation() {
 		return dateofInstallation;
 	}
 
-	public void setDateofInstallation(Date dateofInstallation) {
+	public void setDateofInstallation(LocalDate dateofInstallation) {
 		this.dateofInstallation = dateofInstallation;
 	}
 
@@ -98,7 +99,7 @@ public class Machinery implements Serializable {
 	
 	}
 	
-	public Machinery(String machineryType, String stateofMachinery, java.sql.Date dateofInstallation, int sizeofMachinery) {
+	public Machinery(String machineryType, String stateofMachinery, LocalDate dateofInstallation, int sizeofMachinery) {
 		super();
 		this.machineryType = machineryType;
 		this.stateofMachinery = stateofMachinery;
@@ -107,7 +108,7 @@ public class Machinery implements Serializable {
 		
 	}
 	
-	public Machinery(int machineryID,String machineryType, String stateofMachinery, Date dateofInstallation, int sizeofMachinery) {
+	public Machinery(int machineryID,String machineryType, String stateofMachinery, LocalDate dateofInstallation, int sizeofMachinery) {
 		super();
 		this.machineryID = machineryID;
 		this.machineryType = machineryType;
@@ -120,7 +121,7 @@ public class Machinery implements Serializable {
 		this.employeeList = new ArrayList<Employee>();
 	}	
 	
-	public Machinery(int machineryID,String machineryType, String stateofMachinery, Date dateofInstallation, 
+	public Machinery(int machineryID,String machineryType, String stateofMachinery, LocalDate dateofInstallation, 
 			int sizeofMachinery, List<Instrument> instrumentList, List<Material> materialList, List<Employee> employeeList) {
 		super();
 		this.machineryID = machineryID;

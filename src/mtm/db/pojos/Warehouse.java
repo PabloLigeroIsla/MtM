@@ -5,11 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Warehouse implements Serializable {
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = -554480961908721094L;
 //
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 36589304371700078L;
+	
+	
+	
+	
 	private Integer warehouseID;
 	private String warehouseLocation;
 	private Integer capacity;
@@ -27,8 +34,13 @@ public class Warehouse implements Serializable {
 	}
 	
 	
-	public Warehouse(int warehouseID2, String warehouseLocation2, Integer capacity2, Integer filledSpace2) {
-		// TODO Auto-generated constructor stub
+	public Warehouse(int warehouseID, String warehouseLocation, Integer capacity, Integer filledSpace) {
+		super();
+		this.warehouseID = warehouseID;
+		this.warehouseLocation = warehouseLocation;
+		this.capacity = capacity;
+		this.filledSpace = filledSpace;
+		
 	}
 
 
@@ -131,7 +143,13 @@ public class Warehouse implements Serializable {
 	}
 
 	
-	
+	public void printWarehouse(){
+		System.out.printf("the warehouse ID is: %d\n", this.warehouseID);
+		System.out.printf("the warehouse location is: %s\n", this.warehouseLocation);
+		System.out.printf("the warehouse capacity is: %d\n", this.capacity);
+		System.out.printf("the warehouse has already a filled space of: %d\n", this.filledSpace);
+
+	}
 	
 	
 	
@@ -139,8 +157,7 @@ public class Warehouse implements Serializable {
 	@Override
 	public String toString() {
 		return "Warehouse [warehouseID=" + warehouseID + ", warehouseLocation=" + warehouseLocation + ", capacity="
-				+ capacity + ", filledSpace=" + filledSpace + ", instrumentList=" + instrumentList
-				+ ", materialTypeList=" + materialTypeList + "]";
+				+ capacity + ", filledSpace=" + filledSpace + "]";
 	}
 
 	

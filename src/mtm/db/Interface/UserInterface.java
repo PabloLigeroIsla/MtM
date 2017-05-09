@@ -154,7 +154,7 @@ public class UserInterface
     				+ "4:Instrument\n"
     				+ "5:Machinery\n"
     				+ "6:Material\n"
-    				+ "7:Order"
+    				+ "7:Order\n"
     				+ "8:Warehouse\n");
     		break;
     	case 3:
@@ -214,7 +214,7 @@ public class UserInterface
 
 	public static void listEntity()
 	{
-		System.out.println("Do you want to see the relations? Write YES or NOT");
+		System.out.println("Do you want to see the relations? Write YES or NO");
 		boolean relationOption = writeOption(writeString());
 		
 		System.out.println("What table do you want to list?");
@@ -317,52 +317,60 @@ public class UserInterface
 			jdbcManager.insert(hosp);
 			jdbcManager.setHospitalID(hosp);
 			
-			System.out.println("Do you want torelate an order with this hospital. YES or NO:\n");
+			System.out.println("Do you want to relate an order with this hospital. YES or NO:\n");
 			String option = writeString();
 			if(writeOption(option))
 			{
-				boolean keepRelating = true;
-				while(keepRelating)
+				if(jdbcManager.valExist("SELECT * FROM instrument WHERE instrument_ID = ?",1,null))
 				{
-					System.out.println("The Order allready exixt?. YES or NO");
-					option = writeString();
-					if(writeOption(option))
+					boolean keepRelating = true;
+					while(keepRelating)
 					{
-						System.out.println("Select one of the Orders");
-						listOrders(false);
-						int op2 = writeNumber();
-						System.out.println("Insert the amountOrder");
-						int tao = writeNumber();
-						jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(),op2,tao);
-					}else
-					{
-				    	System.out.println("Introduce the values:\n");
-				    	
-						Order ord = createOrder();
-						jdbcManager.insert(ord);
-						jdbcManager.setOrderID(ord);
-						System.out.println("Select the Primary Key of the instrument you want to order\n");
-				    	listInstruments(false);
-				    	int opt = writeNumber();
-				    	
-						System.out.println("Insert the amountOrder");
-						int tao = writeNumber();
+						System.out.println("The Order allready exixt?. YES or NO");
+						option = writeString();
+						if(writeOption(option))
+						{
+							System.out.println("Select one of the Orders");
+							listOrders(false);
+							int op2 = writeNumber();
+							System.out.println("Insert the amountOrder");
+							int tao = writeNumber();
+							jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(),op2,tao);
+						}else
+						{
+					    	System.out.println("Introduce the values:\n");
+					    	
+							Order ord = createOrder();
+
+							jdbcManager.setOrderID(ord);
+							System.out.println("Select the Primary Key of the instrument you want to order\n");
+					    	listInstruments(false);
+					    	int opt = writeNumber();
+					    	
+							System.out.println("Insert the amountOrder");
+							int tao = writeNumber();
+							
+							jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(),ord.getOrderID(),tao);
+							jdbcManager.setRelationInstrumentOrder(opt,ord.getOrderID());
+						}
+						System.out.println("Do you want to keep relating? YES,NO\n");
+						option = writeString();
+						if(option.equals("NO"))
+						{
+							keepRelating = false;
+						}
 						
-						jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(),ord.getOrderID(),tao);
-						jdbcManager.setRelationInstrumentOrder(opt,ord.getOrderID());
 					}
-					System.out.println("Do you want to keep relating? YES,NO\n");
-					option = writeString();
-					if(option.equals("NO"))
-					{
-						keepRelating = false;
-					}
-					
+				}else
+				{
+					System.out.println("No intruments exist, therefore, you cant perform an order");
 				}
+				
 			}else
 			{
 				System.out.println("No Order will be related");
 			}
+			
 			break;
 		case 4: //Instrument
 			Instrument inst = createInstrument();
@@ -605,7 +613,7 @@ public class UserInterface
 		System.out.println("Size of machinery");
 		int d=writeNumber();
 
-		//mach = jdbcManager.createPojoMachinery(a,b,c1[0],c1[1],c1[2],d);
+		mach = jdbcManager.createPojoMachinery(a,b,c1[0],c1[1],c1[2],d);
 		
 		return mach;
 }
@@ -741,12 +749,12 @@ public class UserInterface
     //Show the Objects
     
     public static void showCompany(int pk){
-    	Company com = new Company();
+    	Company com;
 		com = jdbcManager.selectCompany(pk);
 		com.toString();
     }
     public static void listCompanies(boolean relation){
-    	Company com = new Company();
+    	Company com;
 		ArrayList<Company> comList = new ArrayList<Company>();
 		comList = jdbcManager.selectAllCompanies();
 			
@@ -764,12 +772,12 @@ public class UserInterface
 	}
   
     public static void showMaterial(int pk){
-    	Material mat = new Material();
+    	Material mat;
     	mat = jdbcManager.selectMaterial(pk);
     	mat.toString();
     }
     public static void listMaterials(boolean relation){
-        	Material mat = new Material();
+        	Material mat;
         	ArrayList<Material> matList = new ArrayList<Material>();
         	matList = jdbcManager.selectAllMaterials();
         	
@@ -793,14 +801,14 @@ public class UserInterface
     
     public static void showHospital(int pk)
     {
-    	Hospital hosp = new Hospital();
+    	Hospital hosp;
 		hosp = jdbcManager.selectHospital(pk);
 		jdbcManager.setHospitalRelations(hosp);
 		hosp.toString();
     }
     public static void listHospitals(boolean relation)
     {
-    	Hospital hosp = new Hospital();
+    	Hospital hosp;
 		ArrayList<Hospital> hospList = new ArrayList<Hospital>();
 		hospList = jdbcManager.selectHospitals();
 			
@@ -825,7 +833,7 @@ public class UserInterface
     
     public static void showOrder(int pk)
     {
-    	Order ord = new Order();
+    	Order ord;
     	ord = jdbcManager.selectOrder(pk);
     	jdbcManager.setOrderRelations(ord);
     	ord.toString();
@@ -855,7 +863,7 @@ public class UserInterface
     }
         
     public static void showInstrument(int pk){
-    	Instrument inst = new Instrument();
+    	Instrument inst;
     	inst = jdbcManager.selectInstrument(pk);
     	jdbcManager.setInstrumentRelations(inst);
     	inst.toString();
@@ -881,19 +889,21 @@ public class UserInterface
     	}		
     }
     public static void showWarehouse(int pk){
-    	Warehouse war = new Warehouse();
-    	war.toString();
+    	Warehouse war;
+    	war = jdbcManager.selectWarehouse(pk);
+    	war.printWarehouse();
+    	//war.toString();
     }
     
     public static void showEmployee(int pk)
     {
-    	Employee emp = new Employee();
+    	Employee emp;
     	emp = jdbcManager.selectEmployee(pk);
     	emp.toString();
     }
     public static void listEmployees(boolean relation)
     {
-    	Employee emp = new Employee();
+    	Employee emp;
     	ArrayList<Employee> empList = new ArrayList<Employee>();
     	empList = jdbcManager.selectAllEmployees();
     	
@@ -901,24 +911,31 @@ public class UserInterface
     	while(count < empList.size())
     	{
     		emp = empList.get(count);
-    		System.out.printf("id: %d\n",emp.getEmployee_ID());
+    		if(relation){
+        		System.out.printf("id: %d, mach: %d\n",emp.getEmployee_ID(),emp.getMachineryType().getMachineryType());
+    		
+    		}
+    		else{
+        		System.out.printf("id: %d\n",emp.getEmployee_ID());
+    			
+    		}
     	}
     	
     	
-    	
+    	count ++;
     	
     }
     
     public static void showMachinery(int pk)
     {
-    	Machinery mach = new Machinery();
+    	Machinery mach;
     	mach = jdbcManager.selectMachinery(pk);
     	jdbcManager.setMachineryRelations(mach);
     	mach.toString();
     }
     public static void listMachineries(boolean relation) {
     	
-    	Machinery mach = new Machinery();
+    	Machinery mach;
     	ArrayList<Machinery> machList = new ArrayList<Machinery>();
     	machList = jdbcManager.selectAllMachineries();
     	
@@ -936,6 +953,7 @@ public class UserInterface
     		{
     			System.out.printf("id: %d, machinery type: %d\n",mach.getMachineryID(), mach.getMachineryType());
     		}
+    		count ++;
     		
     	}
     

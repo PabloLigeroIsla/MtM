@@ -1,18 +1,29 @@
 package mtm.db.pojos;
 
 import java.io.Serializable;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "material") //sql table name  (Compatible with JDBC)
 public class Material implements Serializable {
+	
 
 	private static final long serialVersionUID = -5060012550789129173L;
-
+	
+	@Id 
+	@GeneratedValue(generator="material")
+	@TableGenerator(name="material", table="sqlite_sequence",
+	    pkColumnName="materialID", valueColumnName="seq", pkColumnValue="material")
 	
 	private Integer materialID; //PRIMARY KEY
 	private Integer weight;
 	private Integer volume;
 	private String type;
+	@JoinColumn(name = "company_ID")
 	private int companyID; //FOREIGN KEY
+	@JoinColumn(name = "machinery_ID")
 	private int machineryID; //FOREIGN KEY
+	@JoinColumn(name = "warehouse_ID")
 	private int warehouseID; //FOREIGN KEY
 	
 	
