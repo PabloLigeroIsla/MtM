@@ -8,7 +8,7 @@ import mtm.db.pojos.*;
 
 public class JPAManager implements DBInterface
 {
-	
+	//
 	EntityManager em = Persistence.createEntityManagerFactory("MtM").createEntityManager();
 	
 	public void openJPAConnection()
