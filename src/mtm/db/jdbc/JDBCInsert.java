@@ -133,7 +133,7 @@ public class JDBCInsert
 				c.setAutoCommit(false);
 
 				Statement stmt = c.createStatement();
-				String sql = "INSERT INTO employee (name, typeofContract,specializationType,machinery_ID) "
+				String sql = "INSERT INTO employee(name,typeofContract,specializationType,machinery_ID) "
 				+ "VALUES ('" + emp.getName() + "', '" + emp.getTypeofContract()	+ "', '" 
 						+ emp.getSpecializationType()	+ "', '" + emp.getMachineryType().getMachineryID()	+ "');";
 				stmt.executeUpdate(sql);
@@ -158,7 +158,7 @@ public class JDBCInsert
 								
 				c.setAutoCommit(false);
 				
-				String sql = "INSERT INTO machinery (machineryType, stateofMachinery,dateofInstallation,sizeofMachinery) "
+				String sql = "INSERT INTO machinery(machineryType,stateofMachinery,dateofInstallation,sizeofMachinery) "
 						+ "VALUES (?,?,?,?);";
 				
 				java.sql.Date InstallationDate = LocaltoSqlDate(mach.getDateofInstallation());

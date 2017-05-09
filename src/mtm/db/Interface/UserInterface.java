@@ -259,7 +259,7 @@ public class UserInterface
 		{
 		case 1:
 			listCompanies(false);
-			System.out.printf("Select the ID of the company you want to see");
+			System.out.println("Select the ID of the company you want to see\n");
 			showCompany(writeNumber());
 			break;
 		case 2:
@@ -949,7 +949,7 @@ public class UserInterface
     			
     		}else
     		{
-    			System.out.printf("id: %d, machinery type: %d\n",mach.getMachineryID(), mach.getMachineryType());
+    			System.out.printf("id: %d, machinery type: %d\n",mach.getMachineryID(),mach.getMachineryType());
     		}
     		count ++;
     		
