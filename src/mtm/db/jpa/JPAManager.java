@@ -54,12 +54,15 @@ public class JPAManager implements DBInterface
 	public Machinery selectMachinery(int primaryKey)
 	{
 		Machinery mach = new Machinery();
+		
 		return mach;
 	}
 	
 	public void insert(Machinery obj)
 	{
-		
+		em.getTransaction().begin();
+		em.persist(obj);
+		em.getTransaction().commit();
 	}
 	
 	public void deleteMachinery(int primaryKey)

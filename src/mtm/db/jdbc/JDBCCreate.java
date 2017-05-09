@@ -12,10 +12,11 @@ public class JDBCCreate
 	{
 		this.c = c;
 	}
-	//
+	////
 	//Create
-	public void createTables()
+	public boolean createTables()
 	{
+		boolean act;
 		try
 		{
 			c.setAutoCommit(false);
@@ -141,14 +142,14 @@ public class JDBCCreate
 			c.commit();
 			
 			
-			
+			act = true;
 		}catch (Exception e)
 		{
-			e.printStackTrace();
-			System.out.println("Conection Error, Ask Rodrigo for Help");
+			act = false;
+			
 		
 		}
-		
+		return act;
 	}
 	
 			//Pablo
@@ -262,7 +263,8 @@ public class JDBCCreate
 		{
 			Statement sCht = c.createStatement();
 			String sqlch2 = "CREATE TABLE warehouse("
-					+ "warehouse_location TEXT PRIMARY KEY NOT NULL,"
+					+"warehouse_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ "warehouse_location TEXT NOT NULL,"
 					+ "capacity INTEGER NOT NULL,"
 					+ "filledSpace INTEGER NOT NULL)";
 			sCht.executeUpdate(sqlch2);
