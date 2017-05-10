@@ -207,7 +207,7 @@ public class UserInterface
     		break;
     	case 6:
     		//Menu for the Update
-    		System.out.println("\n\nSelect the table you want to update:\n"
+    		System.out.println("\nSelect the table you want to modify:\n"
     				+ "1:Machinery\n"
     				+ "2:WareHouse\n");
     		break;
@@ -261,7 +261,7 @@ public class UserInterface
 			listOrders(relationOption);
 			break;
 		case 8:
-			showWarehouse(1);
+			listWarehouses(relationOption);
 			break;
 		}
 		
@@ -275,41 +275,43 @@ public class UserInterface
 		{
 		case 1:
 			listCompanies(false);
-			System.out.printf("Select the ID of the company you want to see");
+			System.out.printf("Select the ID of the company you want to see\n");
 			showCompany(writeNumber());
 			break;
 		case 2:
 			listEmployees(false);
-			System.out.printf("Select the ID of the employee you want to see");
+			System.out.printf("Select the ID of the employee you want to see\n");
 			showEmployee(writeNumber());
 			break;
 		case 3:
 			listHospitals(false);
-			System.out.printf("Select the ID of the hospital you want to see");
+			System.out.printf("Select the ID of the hospital you want to see\n");
 			showHospital(writeNumber());
 			break;
 		case 4:
 			listInstruments(false);
-			System.out.printf("Select the ID of the instrument you want to see");
+			System.out.printf("Select the ID of the instrument you want to see\n");
 			showInstrument(writeNumber());
 			break;
 		case 5:
 			listMachineries(false);
-			System.out.printf("Select the ID of the machinery you want to see");
+			System.out.printf("Select the ID of the machinery you want to see\n");
 			showMachinery(writeNumber());
 			break;
 		case 6:
 			listMaterials(false);
-			System.out.printf("Select the ID of the material you want to see");
+			System.out.printf("Select the ID of the material you want to see\n");
 			showMaterial(writeNumber());
 			break;
 		case 7:
 			listOrders(false);
-			System.out.printf("Select the ID of the order you want to see");
+			System.out.printf("Select the ID of the order you want to see\n");
 			showOrder(writeNumber());
 			break;
 		case 8:
-			showWarehouse(1);
+			listWarehouses(false);
+			System.out.printf("Select the ID of the warehouse you want to see\n");
+			showWarehouse(writeNumber());
 			break;
 		}
 	}
@@ -411,7 +413,7 @@ public class UserInterface
 	public static void delValTable()
 	{
 		System.out.println("What table do you want to delete a value from? \n");
-		selectionMenu(1);
+		selectionMenu(5);
 		int op=0;
 		
 		switch(op){
@@ -478,6 +480,13 @@ public class UserInterface
     	jdbcManager.updateMachinery(pk,op2);
     	break;
     case 2:
+    	System.out.println("Select the primary key of the warehouse you want to modify:");
+    	listWarehouses(false);
+    	int pkWar = writeNumber();
+    	Warehouse war = jdbcManager.selectWarehouse(pkWar);
+    	System.out.println("Select the number of new instruments and materials you want to store in the warehouse:");
+    	int num = writeNumber();
+    	jdbcManager.updateWarehouse(pkWar, ((war.getFilledSpace())+num));
     	break;
     	
     }
