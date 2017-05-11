@@ -1058,6 +1058,6 @@ public class UserInterface
     		jdbcManager.setOrderID(ord);
     		jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(), ord.getOrderID(), 0);
     	}
-    	
+    	 
     }
 }
