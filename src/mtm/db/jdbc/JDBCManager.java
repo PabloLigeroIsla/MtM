@@ -25,7 +25,6 @@ public class JDBCManager implements DBInterface
 	//Methods to create the Pojos
 
 	//Pablo
-	
 	public Order createPojoOrder(int number,String d11,String d12,String d13,String d21,String d22,String d23)
 	{
 		LocalDate date1SQL = StringtoLocalDate(d13,d12,d11);
@@ -35,8 +34,6 @@ public class JDBCManager implements DBInterface
 	}
 	
 	//Celia
-	
-	
 	public Machinery createPojoMachinery(String machineryType, String stateofMachinery,String d,String m, String y, int sizeofMachinery){
 		
 		LocalDate date3SQL = StringtoLocalDate(y,m,d);
@@ -45,8 +42,6 @@ public class JDBCManager implements DBInterface
 		
 	}
 
-
-	
 	//Methods to connect with the DataBase
 	//Connection
 	public Connection openConnection()
@@ -75,8 +70,8 @@ public class JDBCManager implements DBInterface
 			e.printStackTrace();
 		}
 	}
-	//Methods to Create the tables
 	
+	//Methods to Create the tables
 	public boolean createTables()
 	{
 		

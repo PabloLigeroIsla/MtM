@@ -1,6 +1,5 @@
 package mtm.db.Interface;
 
-//bro
 import static mtm.db.Interface.Validator.*;
 import java.util.ArrayList;
 
@@ -20,8 +19,6 @@ import mtm.db.pojos.Warehouse;
 
 public class UserInterface 
 {
-
-	 //
 	static JDBCManager jdbcManager = new JDBCManager();
 	static JPAManager jpaManager = new JPAManager();
 	static XMLManager xmlManager = new XMLManager();
@@ -104,7 +101,7 @@ public class UserInterface
 		
 			//Si a�ades opciones, recuerda mirar el metodo abrirMenu
 			System.out.println(""
-						
+					
 					+ "Option 1.- List entities\n"
 						//Option: Do you want to see all the relations? (Condition)					
 							//Option 2.1: What table do you want to see? //y se las ense�as
@@ -135,10 +132,8 @@ public class UserInterface
 						// seleccionas la columna
 						// Das el valor
 						// update
-
 					+ "Option 6.- Create XML of the Pojos \n"
-					+ "Option 7.- Exit ");
-		
+					+ "Option 7.- Exit \n");
 
 	}
 	
@@ -342,7 +337,7 @@ public class UserInterface
 				{
 					boolean keepRelating = true;
 					while(keepRelating)
-					{//
+					{
 						System.out.println("The Order allready exixt?. YES or NO");
 						option = writeString();
 						if(writeOption(option))
@@ -459,7 +454,6 @@ public class UserInterface
 	}
 	
 	//Extra Methods
-    
     
     public static void updValTable()
 {
@@ -612,7 +606,6 @@ public class UserInterface
 		
 		return inst;
     }
-    
     
     public static Employee createEmployee(){
 
@@ -845,8 +838,7 @@ public class UserInterface
         	}
         	
         }
-    
-    
+     
     public static void showHospital(int pk)
     {
     	Hospital hosp;
@@ -918,7 +910,6 @@ public class UserInterface
     	inst.toString();
     	
     }
-    
     public static void listInstruments(boolean relation){
     	Instrument inst = new Instrument();
     	ArrayList<Instrument> instrumentList = new ArrayList<Instrument>();
@@ -937,6 +928,7 @@ public class UserInterface
     		}
     	}		
     }
+    
     public static void showWarehouse(int pk){
     	Warehouse war;
     	war = jdbcManager.selectWarehouse(pk);
@@ -977,19 +969,18 @@ public class UserInterface
     	while(count < empList.size())
     	{
     		emp = empList.get(count);
+    		String name = emp.getName();
+			int id = emp.getEmployee_ID();
+    		emp = empList.get(count);
     		if(relation){
         		System.out.printf("id: %d, mach: %d\n",emp.getEmployee_ID(),emp.getMachineryType().getMachineryType());
-    		
+            	
     		}
     		else{
-        		System.out.printf("id: %d\n",emp.getEmployee_ID());
-    			
+        		System.out.printf("id: %d, name: %d\n",id,name);
     		}
-    	}
-    	
-    	
-    	count ++;
-    	
+    		count ++;
+    	} 	
     }
     
     public static void showMachinery(int pk)
@@ -1003,24 +994,26 @@ public class UserInterface
     	
     	Machinery mach;
     	ArrayList<Machinery> machList = new ArrayList<Machinery>();
-    	machList = jdbcManager.selectAllMachineries();
-    	
     	int count = 0;
     	
     	while(count < machList.size()){
     		
     		mach =machList.get(count);
+
+        	machList = jdbcManager.selectAllMachineries();
+        	String machineryType = mach.getMachineryType();
+    		int id = mach.getMachineryID();
+
     		if(relation)
     		{
     			jdbcManager.setMachineryRelations(mach);
     			System.out.printf("id: %d, relation Instrument: %d, relation employee: %d, relation materials: %d\n",mach.getMachineryID(),mach.getemployeeList().toString(),mach.getmaterialList().toString());
-    			
+        		count ++;
     		}else
     		{
-    			System.out.printf("id: %d, machinery type: %d\n",mach.getMachineryID(), mach.getMachineryType());
-    		}
-    		count ++;
-    		
+    			System.out.printf("id: %d, machinery type: %d\n",id,machineryType);
+    		}    		
+        	count ++;
     	}
     
     }

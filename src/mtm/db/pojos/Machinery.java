@@ -6,6 +6,7 @@ import java.util.List;
 import java.sql.Date;
 import java.time.LocalDate;
 
+
 public class Machinery implements Serializable {
 	/**
 	 * 
