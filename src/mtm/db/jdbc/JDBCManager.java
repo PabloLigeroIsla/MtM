@@ -859,6 +859,7 @@ public class JDBCManager implements DBInterface
  		
  	}
  	
+ 	
 	//Charo
 
  	public void updateWarehouse(int pkSearch, int filledSpaceUpdated)
