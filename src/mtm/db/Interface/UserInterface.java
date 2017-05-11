@@ -5,6 +5,7 @@ import static mtm.db.Interface.Validator.*;
 import java.util.ArrayList;
 import mtm.db.jdbc.JDBCManager;
 import mtm.db.jpa.JPAManager;
+import mtm.db.xmls.XMLSManager;
 import mtm.db.pojos.Company;
 import mtm.db.pojos.Employee;
 import mtm.db.pojos.Hospital;
@@ -20,6 +21,7 @@ public class UserInterface
 	 //
 	static JDBCManager jdbcManager = new JDBCManager();
 	static JPAManager jpaManager = new JPAManager();
+	static XMLSManager xmlManager = new XMLSManager();
 	 
 	public static void main(String args[]) 
 	{
@@ -65,12 +67,14 @@ public class UserInterface
 					waitEnter();
 					break;
 				case 6:
+					xmlManager.createXML();
+				case 7:
 					jdbcManager.closeConnection();
 					jpaManager.closeJPAConnection();
 					waitEnter();
 					break;
 				}
-		}while(option!=6);
+		}while(option!=7);
 	}
 
 	// Menu
@@ -78,7 +82,7 @@ public class UserInterface
 	public static int openMenu(boolean dbCreated)
 	{
 		int option;
-		int numOptions = 6; //Numero de opciones que podemos seleccionar con esta funci�n
+		int numOptions = 7; //Numero de opciones que podemos seleccionar con esta funci�n
 		printMenu(dbCreated);
 		option = writeNumber(numOptions);
 		
@@ -128,7 +132,8 @@ public class UserInterface
 						// Das el valor
 						// update
 
-					+ "Option 6.- Exit \n");
+					+ "Option 6.- Create XML of the Pojos \n"
+					+ "Option 7.- Exit ");
 		
 
 	}
