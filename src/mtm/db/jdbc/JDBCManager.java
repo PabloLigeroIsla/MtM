@@ -875,6 +875,21 @@ public class JDBCManager implements DBInterface
  			
  		
  	} 	
+ 	
+ 	public void updateWarehouseL(int pkSearch, String locationUpdated)
+ 	{ 	
+ 		
+ 		String table = "warehouse";
+		String selQuery = "SELECT warehouse_ID FROM "+table+" WHERE warehouse_ID = ?";
+		if(valExist(selQuery,pkSearch,null))
+		{
+ 		
+ 			JDBCUpdate sqlUpdate= new JDBCUpdate(c);
+ 			sqlUpdate.updateWarehouseL(pkSearch,locationUpdated);
+		}
+ 			
+ 		
+ 	} 	
 
  	//
  	//DB management Methods

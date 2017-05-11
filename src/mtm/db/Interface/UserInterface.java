@@ -483,10 +483,9 @@ public class UserInterface
     	System.out.println("Select the primary key of the warehouse you want to modify:");
     	listWarehouses(false);
     	int pkWar = writeNumber();
-    	Warehouse war = jdbcManager.selectWarehouse(pkWar);
-    	System.out.println("Select the number of new instruments and materials you want to store in the warehouse:");
-    	int num = writeNumber();
-    	jdbcManager.updateWarehouse(pkWar, ((war.getFilledSpace())+num));
+    	System.out.println("Write the new location of the warehouse you want to change:");
+    	String loc = writeString();
+    	jdbcManager.updateWarehouseL(pkWar,loc);
     	break;
     	
     }
