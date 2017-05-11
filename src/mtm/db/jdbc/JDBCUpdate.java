@@ -14,6 +14,7 @@ public class JDBCUpdate
 		this.c = c;
 	}
 	
+	
 	//
 	//Update
 	public void update(String table, String colChange, String stringChange, int intChange, String colSearch, int pkSearch)
@@ -78,16 +79,35 @@ public class JDBCUpdate
 		
 
 	
-
+	//Update Warehouse filledSpace
 	public void updateWarehouse(int pkSearch,int filledSpaceUpdated){
 		
 		try {
 			
-			String sql = "UPDATE warehouse SET filledSpace = "+filledSpaceUpdated+" WHERE warehouse_ID=?";
+			String sql = "UPDATE warehouse SET filled_space = "+filledSpaceUpdated+" WHERE warehouse_ID=?";
 			
 			PreparedStatement prep = c.prepareStatement(sql);
-			prep.setInt(1, filledSpaceUpdated);
-			prep.setInt(2, pkSearch);
+			prep.setInt(1, pkSearch);
+			prep.executeUpdate();
+			
+			prep.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	//Update Warehouse lication
+	
+public void updateWarehouseL(int pkSearch,String locationUpdated){
+		
+		try {
+			
+			String sql = "UPDATE warehouse SET filled_space LIKE "+locationUpdated+" WHERE warehouse_ID=?";
+			
+			PreparedStatement prep = c.prepareStatement(sql);
+			prep.setInt(1, pkSearch);
 			prep.executeUpdate();
 			
 			prep.close();

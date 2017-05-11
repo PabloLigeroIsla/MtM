@@ -142,10 +142,10 @@ public class JDBCCreate
 			c.commit();
 			
 			
-			act = true;
+			act = false;
 		}catch (Exception e)
 		{
-			act = false;
+			act = true;
 			
 		
 		}

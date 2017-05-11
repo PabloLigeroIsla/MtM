@@ -4,6 +4,7 @@ import static mtm.db.Interface.Validator.*;
 import java.util.ArrayList;
 import mtm.db.jdbc.JDBCManager;
 import mtm.db.jpa.JPAManager;
+import mtm.db.xmls.XMLSManager;
 import mtm.db.pojos.Company;
 import mtm.db.pojos.Employee;
 import mtm.db.pojos.Hospital;
@@ -17,6 +18,7 @@ public class UserInterface
 {
 	static JDBCManager jdbcManager = new JDBCManager();
 	static JPAManager jpaManager = new JPAManager();
+	static XMLSManager xmlManager = new XMLSManager();
 	 
 	public static void main(String args[]) 
 	{
@@ -27,6 +29,7 @@ public class UserInterface
 		boolean dbCreated;
 		
 		dbCreated = allreadyExistDb();
+		jpaManager.openJPAConnection();
 		
 		do{
 			//Start of the db
@@ -35,39 +38,36 @@ public class UserInterface
 			switch(option)
 				{
 				case 1:
-					//Create tables
-					createTable();
-					jpaManager.openJPAConnection();
-					waitEnter();
-					break;
-				case 2:
 					//List Entities
 					listEntity();
 					waitEnter();
 					break;
-				case 3:
+				case 2:
 					//show table
 					showTable();
 					waitEnter();
 					break;
-				case 4:
+				case 3:
 					//Introduce Value
 					intValTable();
 					waitEnter();
 					break;
-				case 5:
+				case 4:
 					//DeleteOption//
 					delValTable();
 					waitEnter();
 					break;
 
-				case 6:
+				case 5:
 					//Modify
 					updValTable();
 					waitEnter();
 					break;
+				case 6:
+					xmlManager.createXML();
 				case 7:
 					jdbcManager.closeConnection();
+					jpaManager.closeJPAConnection();
 					waitEnter();
 					break;
 				}
@@ -88,25 +88,27 @@ public class UserInterface
     
     public static void printMenu(boolean dbCreated)
 	{
-		if(dbCreated)
-		{
+    	
+    	if(dbCreated)
+    	{
+    		System.out.println("\nTables created before\n");
+    	}
+		
+		
 			//Si a�ades opciones, recuerda mirar el metodo abrirMenu
 			System.out.println(""
-					+ "Option 1.- Create Tables\n" 
-						//Option 1.1: all the tables?
-							//option 1.2.1: Select the table
-						
-					+ "Option 2.- List entities\n"
+					
+					+ "Option 1.- List entities\n"
 						//Option: Do you want to see all the relations? (Condition)					
 							//Option 2.1: What table do you want to see? //y se las ense�as
 								//Listas el objeto 
 								//Seleccioname 1 
 								//muestras
-					+ "Option 3.- Show table\n"
+					+ "Option 2.- Show table\n"
 						//Seleccioname la tabla que quieres ver
 						//Muestramela con todo (relaciones incluidas)
 					
-					+ "Option 4.- Introduce value to a table\n"
+					+ "Option 3.- Introduce value to a table\n"
 						//Option 3.1: What table do you want to insert the value to? //y se las ense�as
 							//Listas tablas
 							//Select the table
@@ -114,11 +116,11 @@ public class UserInterface
 							
 					//aqui ademas se debe llamar a UPDATE la tabla, y la relacion con otra tabla si la tiene
 					
-					+ "Option 5.- Delete value of a Table\n"
+					+ "Option 4.- Delete value of a Table\n"
 						///Option 4.1: What table do you want to delete a value from? //y se las ense�as
 							//Select the table
 					
-					+ "Option 6.- Modify value\n"
+					+ "Option 5.- Modify value\n"
 						//mostrar entidades
 						//Option 6.1: Select a table to madify a value
 						// mostrar valores d la tabla
@@ -126,13 +128,9 @@ public class UserInterface
 						// seleccionas la columna
 						// Das el valor
 						// update
-
+					+ "Option 6.- Create XML of the Pojos \n"
 					+ "Option 7.- Exit \n");
-		}else
-		{
-			System.out.println(""
-					+ "Option 1.- Create Tables\n" );
-		}
+
 	}
 	
     public static void selectionMenu(int option)
@@ -199,7 +197,7 @@ public class UserInterface
     		break;
     	case 6:
     		//Menu for the Update
-    		System.out.println("\n\nSelect the table you want to update:\n"
+    		System.out.println("\nSelect the table you want to modify:\n"
     				+ "1:Machinery\n"
     				+ "2:WareHouse\n");
     		break;
@@ -217,7 +215,7 @@ public class UserInterface
 	{
 		System.out.println("All tables created\n");
 		jdbcManager.createTables();
-		System.out.println(" Tables created succesfully\n");
+		//System.out.println(" Tables created succesfully\n");
 	}
 
 	public static void listEntity()
@@ -253,7 +251,7 @@ public class UserInterface
 			listOrders(relationOption);
 			break;
 		case 8:
-			showWarehouse(1);
+			listWarehouses(relationOption);
 			break;
 		}
 		
@@ -267,41 +265,43 @@ public class UserInterface
 		{
 		case 1:
 			listCompanies(false);
-			System.out.println("Select the ID of the company you want to see\n");
+			System.out.printf("Select the ID of the company you want to see\n");
 			showCompany(writeNumber());
 			break;
 		case 2:
 			listEmployees(false);
-			System.out.printf("Select the ID of the employee you want to see");
+			System.out.printf("Select the ID of the employee you want to see\n");
 			showEmployee(writeNumber());
 			break;
 		case 3:
 			listHospitals(false);
-			System.out.printf("Select the ID of the hospital you want to see");
+			System.out.printf("Select the ID of the hospital you want to see\n");
 			showHospital(writeNumber());
 			break;
 		case 4:
 			listInstruments(false);
-			System.out.printf("Select the ID of the instrument you want to see");
+			System.out.printf("Select the ID of the instrument you want to see\n");
 			showInstrument(writeNumber());
 			break;
 		case 5:
 			listMachineries(false);
-			System.out.printf("Select the ID of the machinery you want to see");
+			System.out.printf("Select the ID of the machinery you want to see\n");
 			showMachinery(writeNumber());
 			break;
 		case 6:
 			listMaterials(false);
-			System.out.printf("Select the ID of the material you want to see");
+			System.out.printf("Select the ID of the material you want to see\n");
 			showMaterial(writeNumber());
 			break;
 		case 7:
 			listOrders(false);
-			System.out.printf("Select the ID of the order you want to see");
+			System.out.printf("Select the ID of the order you want to see\n");
 			showOrder(writeNumber());
 			break;
 		case 8:
-			showWarehouse(1);
+			listWarehouses(false);
+			System.out.printf("Select the ID of the warehouse you want to see\n");
+			showWarehouse(writeNumber());
 			break;
 		}
 	}
@@ -318,7 +318,7 @@ public class UserInterface
 			break;
 		case 2: //Employee
 			Employee emp = createEmployee();
-			jdbcManager.insert(emp);					
+			jdbcManager.insert(emp);
 			break;
 		case 3: //Hospital 
 			Hospital hosp = createHospital();
@@ -383,8 +383,6 @@ public class UserInterface
 		case 4: //Instrument
 			Instrument inst = createInstrument();
 			jdbcManager.insert(inst);
-			Warehouse war = jdbcManager.selectWarehouse(1);
-			//jdbcManager.updateWarehouse((war.getFilledSpace()+5));
 			break;
 		case 5: //Machinery
 			Machinery mach = createMachinery();
@@ -405,7 +403,7 @@ public class UserInterface
 	public static void delValTable()
 	{
 		System.out.println("What table do you want to delete a value from? \n");
-		selectionMenu(1);
+		selectionMenu(5);
 		int op=0;
 		
 		switch(op){
@@ -471,10 +469,12 @@ public class UserInterface
     	jdbcManager.updateMachinery(pk,op2);
     	break;
     case 2:
-    	System.out.println("Select the primary key of the material you want to change:");
-    	listMaterials(false);
-    	int pk2 = writeNumber();
-    	//material
+    	System.out.println("Select the primary key of the warehouse you want to modify:");
+    	listWarehouses(false);
+    	int pkWar = writeNumber();
+    	System.out.println("Write the new location of the warehouse you want to change:");
+    	String loc = writeString();
+    	jdbcManager.updateWarehouseL(pkWar,loc);
     	break;
     	
     }
@@ -572,7 +572,33 @@ public class UserInterface
 			
 		}
 		
-		inst.addWarehouse(jdbcManager.selectWarehouse(1));
+		inst.addMachinery(mach);
+		
+		
+		System.out.println("Now let´s see in which warehouse is the instrument stored:\n");
+		listWarehouses(false);
+		
+		System.out.println("Does the warehouse exist?\n");
+		String st = writeString();
+		Warehouse war = new Warehouse();
+		if(writeOption(st)){
+			System.out.println("Select the ID of the warehouse you want to insert the instrument into:\n");
+			int warID=writeNumber();
+			war=jdbcManager.selectWarehouse(warID);
+			jdbcManager.setRelationInstrumentWarehouse(inst.getInstrumentID(),warID);
+			jdbcManager.updateWarehouse(warID, inst.getAmount());
+		}
+		else
+		{
+			war=createWarehouse();
+			jdbcManager.insert(war);
+			war = jdbcManager.setWarehouseID(war);
+			jdbcManager.setRelationInstrumentWarehouse(inst.getInstrumentID(),war.getWarehouseID());
+			jdbcManager.updateWarehouse(war.getWarehouseID(), inst.getAmount());
+
+		}
+		
+		inst.addWarehouse(war);
 		
 		return inst;
     }
@@ -833,11 +859,12 @@ public class UserInterface
 			{
 				jdbcManager.setHospitalRelations(hosp);
 				System.out.printf("id: %d,name: %s, relation: %d\n",id,name,hosp.getOrderList().toString());
-				count++;
-			}else{
-				System.out.printf("id: %d,name: %s\n",id,name);
-				count++;
+
+			}else
+			{
+				System.out.printf("id: %d,name: %s\n",id,name);				
 			}
+			count++;
 		}
     }
     
@@ -867,7 +894,7 @@ public class UserInterface
     			ord = ordList.get(count);
     			System.out.printf("id: %d\n",ord.getOrderID());
     		}
-    		
+    		count++;
     	}
     	
     }
@@ -890,7 +917,7 @@ public class UserInterface
     			jdbcManager.setInstrumentRelations(inst);
     			System.out.printf("id: %d, relations: %d\n",inst.getInstrumentID(),inst.getOrderList().toString());
     			System.out.printf("id: %d, relations: %d\n",inst.getInstrumentID(),inst.getMachineryTypeList().toString());
-    			//System.out.printf("id: %d, relations: %d\n",inst.getInstrumentID(),inst.getWarehouseID().toString());	
+    			System.out.printf("id: %d, relations: %d\n",inst.getInstrumentID(),inst.getWarehouseList().toString());	
     		}else{
     			inst = instrumentList.get(count);
     			System.out.printf("id: %d\n",inst.getInstrumentID());
@@ -903,6 +930,23 @@ public class UserInterface
     	war = jdbcManager.selectWarehouse(pk);
     	war.printWarehouse();
     	//war.toString();
+    }
+    
+    public static void listWarehouses(boolean relation){
+    	Warehouse war = new Warehouse();
+    	ArrayList<Warehouse> warehouseList = new ArrayList<Warehouse>();
+    	warehouseList = jdbcManager.selectAllWarehouses();
+    	int count = 0;
+    	
+    	while(count < warehouseList.size())
+		{
+			war = warehouseList.get(count);
+			String warehouseLocation = war.getWarehouseLocation();
+			int id = war.getWarehouseID();
+			
+				System.out.printf("Id of the warehouse: %d,location of the warehouse: %s\n",id,warehouseLocation);
+				count++;
+			}
     }
     
     public static void showEmployee(int pk)
@@ -926,13 +970,12 @@ public class UserInterface
     		emp = empList.get(count);
     		if(relation){
         		System.out.printf("id: %d, mach: %d\n",emp.getEmployee_ID(),emp.getMachineryType().getMachineryType());
-            	count ++;
-
+            	
     		}
     		else{
         		System.out.printf("id: %d, name: %d\n",id,name);
-            	count ++;
     		}
+    		count ++;
     	} 	
     }
     
@@ -965,8 +1008,8 @@ public class UserInterface
     		}else
     		{
     			System.out.printf("id: %d, machinery type: %d\n",id,machineryType);
-        		count ++;
     		}    		
+        	count ++;
     	}
     
     }

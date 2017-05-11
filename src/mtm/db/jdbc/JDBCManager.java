@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.time.LocalDate;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.time.format.DateTimeFormatter;
 
 
@@ -330,7 +331,7 @@ public class JDBCManager implements DBInterface
 	public void deleteEmployee(int primaryKey)
 	{
 		
-		String sqlQuery = "SELECT * FROM employee WHERE employee_ID == ?";
+		String sqlQuery = "SELECT * FROM employee WHERE employee_ID = ?";
 		if(valExist(sqlQuery,primaryKey,null))
 		{
 			JDBCDelete sql = new JDBCDelete(c);
@@ -345,7 +346,7 @@ public class JDBCManager implements DBInterface
 	
 	public void deleteMachinery(int primaryKey)
 	{
-		String sqlQuery = "SELECT * FROM orders WHERE machineryID == ?";
+		String sqlQuery = "SELECT * FROM orders WHERE machineryID = ?";
 		if(valExist(sqlQuery,primaryKey,null))
 		{
 			JDBCDelete sql = new JDBCDelete(c);
@@ -412,7 +413,7 @@ public class JDBCManager implements DBInterface
 	
 	//Alex
 	public void deleteCompany(int primaryKey){
-		String sqlQuery = "SELECT * FROM company WHERE company_ID == ?";
+		String sqlQuery = "SELECT * FROM company WHERE company_ID = ?";
 		if(valExist(sqlQuery,primaryKey,null))
 		{
 			JDBCDelete sqlDelete = new JDBCDelete(c);
@@ -432,7 +433,7 @@ public class JDBCManager implements DBInterface
 	}
 
 	public void deleteMaterial(int primaryKey){
-		String sqlQuery = "SELECT * FROM material WHERE material_ID == ?";
+		String sqlQuery = "SELECT * FROM material WHERE material_ID = ?";
 		if(valExist(sqlQuery,primaryKey,null))
 		{
 			JDBCDelete sqlDelete = new JDBCDelete(c);
@@ -678,7 +679,7 @@ public class JDBCManager implements DBInterface
  		}
  	 	public Machinery selectMachinery(String nameMachinery)
  	 	{
- 			String selQuarry = "SELECT * FROM machinery WHERE machinery_ID == ?";
+ 			String selQuarry = "SELECT * FROM machinery WHERE machinery_ID = ?";
  			
  			if(valExist(selQuarry,-1,nameMachinery))
  			{
@@ -756,7 +757,17 @@ public class JDBCManager implements DBInterface
  			}
  		}
  	 	
- 	
+ 	 	public ArrayList<Warehouse> selectAllWarehouses()
+ 	 	{
+ 	 		ArrayList<Warehouse> warehouseList = new ArrayList<Warehouse>();
+ 	 		JDBCSelect sqlSelect = new JDBCSelect(c);
+ 	 		
+ 	 		warehouseList = sqlSelect.selectAllWarehouses();
+ 			
+ 	 		return warehouseList;
+ 	 	}
+ 	 	 	 	
+ 	 	
  	// Update
  	
  	//Pablo
@@ -843,6 +854,7 @@ public class JDBCManager implements DBInterface
  		
  	}
  	
+ 	
 	//Charo
 
  	public void updateWarehouse(int pkSearch, int filledSpaceUpdated)
@@ -855,6 +867,21 @@ public class JDBCManager implements DBInterface
  		
  			JDBCUpdate sqlUpdate= new JDBCUpdate(c);
  			sqlUpdate.updateWarehouse(pkSearch,filledSpaceUpdated);
+		}
+ 			
+ 		
+ 	} 	
+ 	
+ 	public void updateWarehouseL(int pkSearch, String locationUpdated)
+ 	{ 	
+ 		
+ 		String table = "warehouse";
+		String selQuery = "SELECT warehouse_ID FROM "+table+" WHERE warehouse_ID = ?";
+		if(valExist(selQuery,pkSearch,null))
+		{
+ 		
+ 			JDBCUpdate sqlUpdate= new JDBCUpdate(c);
+ 			sqlUpdate.updateWarehouseL(pkSearch,locationUpdated);
 		}
  			
  		
@@ -1021,7 +1048,7 @@ public class JDBCManager implements DBInterface
 	public void setRelationInstrumentMachinery(int instID, int machID){
 		
 		JDBCInsert sqlInsert = new JDBCInsert(c);
-		sqlInsert.insertInstrumentOrderRelation(instID,machID);
+		sqlInsert.insertMachineryInstrumentRelation(machID,instID);
 		
 	}
 	
@@ -1034,6 +1061,24 @@ public class JDBCManager implements DBInterface
 		
 	}
 	
+	public void setRelationInstrumentWarehouse(int instID, int warID){
+		JDBCInsert sqlInsert = new JDBCInsert(c);
+		sqlInsert.insertInstrumentWarehouseRelation(instID,warID);
+		
+	}
+	
+	public void deleteRelationInstrumentWarehouse(int instID, int warID){
+		try {
+		String table = "instrument_warehouse";
+		String sql = "DELETE FROM"+table+"WHERE instrument_ID="+instID;
+		PreparedStatement prep = c.prepareStatement(sql);
+		prep.setInt(1, warID);
+		prep.executeUpdate();
+		
+		} catch (Exception e) {
+		System.out.println(e.getMessage());
+		}
+	}
 	public Machinery setMachineryRelations(Machinery mach){
 		
 
@@ -1145,6 +1190,18 @@ public class JDBCManager implements DBInterface
 		inst.setInstrumentID(pkSearch);
 		return inst;
 	}
+	
+	public Warehouse setWarehouseID(Warehouse war){
+		ArrayList<Warehouse> arrayWar = selectAllWarehouses();
+		Iterator<Warehouse> iter = arrayWar.iterator();
+		int pkSearch = 0;
+		while(iter.hasNext()){
+			pkSearch = iter.next().getWarehouseID();
+		}
+		war.setWarehouseID(pkSearch);
+		return war;
+	}
+
 	public Machinery setMachineryID(Machinery mach)
 	{
 		ArrayList<Machinery> arrayMach = selectAllMachineries();
