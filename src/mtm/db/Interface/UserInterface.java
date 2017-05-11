@@ -30,6 +30,7 @@ public class UserInterface
 		boolean dbCreated;
 		
 		dbCreated = allreadyExistDb();
+		jpaManager.openJPAConnection();
 		
 		do{
 			//Start of the db
@@ -38,44 +39,38 @@ public class UserInterface
 			switch(option)
 				{
 				case 1:
-					//Create tables
-					createTable();
-					jpaManager.openJPAConnection();
-					waitEnter();
-					break;
-				case 2:
 					//List Entities
 					listEntity();
 					waitEnter();
 					break;
-				case 3:
+				case 2:
 					//show table
 					showTable();
 					waitEnter();
 					break;
-				case 4:
+				case 3:
 					//Introduce Value
 					intValTable();
 					waitEnter();
 					break;
-				case 5:
+				case 4:
 					//DeleteOption//
 					delValTable();
 					waitEnter();
 					break;
 
-				case 6:
+				case 5:
 					//Modify
 					updValTable();
 					waitEnter();
 					break;
-				case 7:
+				case 6:
 					jdbcManager.closeConnection();
 					jpaManager.closeJPAConnection();
 					waitEnter();
 					break;
 				}
-		}while(option!=7);
+		}while(option!=6);
 	}
 
 	// Menu
@@ -83,7 +78,7 @@ public class UserInterface
 	public static int openMenu(boolean dbCreated)
 	{
 		int option;
-		int numOptions = 7; //Numero de opciones que podemos seleccionar con esta funci�n
+		int numOptions = 6; //Numero de opciones que podemos seleccionar con esta funci�n
 		printMenu(dbCreated);
 		option = writeNumber(numOptions);
 		
@@ -92,26 +87,27 @@ public class UserInterface
     
     public static void printMenu(boolean dbCreated)
 	{
-		if(dbCreated)
-		{
+    	
+    	if(dbCreated)
+    	{
+    		System.out.println("\nTables created before\n");
+    	}
+		
+		
 			//Si a�ades opciones, recuerda mirar el metodo abrirMenu
 			System.out.println(""
-					+ "Option 1.- Create Tables\n" 
-						//Option 1.1: all the tables?
-						//Option 1.2: One table //y se las ense�as
-							//option 1.2.1: Select the table
 						
-					+ "Option 2.- List entities\n"
+					+ "Option 1.- List entities\n"
 						//Option: Do you want to see all the relations? (Condition)					
 							//Option 2.1: What table do you want to see? //y se las ense�as
 								//Listas el objeto 
 								//Seleccioname 1 
 								//muestras
-					+ "Option 3.- Show table\n"
+					+ "Option 2.- Show table\n"
 						//Seleccioname la tabla que quieres ver
 						//Muestramela con todo (relaciones incluidas)
 					
-					+ "Option 4.- Introduce value to a table\n"
+					+ "Option 3.- Introduce value to a table\n"
 						//Option 3.1: What table do you want to insert the value to? //y se las ense�as
 							//Listas tablas
 							//Select the table
@@ -119,11 +115,11 @@ public class UserInterface
 							
 					//aqui ademas se debe llamar a UPDATE la tabla, y la relacion con otra tabla si la tiene
 					
-					+ "Option 5.- Delete value of a Table\n"
+					+ "Option 4.- Delete value of a Table\n"
 						///Option 4.1: What table do you want to delete a value from? //y se las ense�as
 							//Select the table
 					
-					+ "Option 6.- Modify value\n"
+					+ "Option 5.- Modify value\n"
 						//mostrar entidades
 						//Option 6.1: Select a table to madify a value
 						// mostrar valores d la tabla
@@ -132,14 +128,8 @@ public class UserInterface
 						// Das el valor
 						// update
 
-					+ "Option 7.- Exit \n");
-		}else
-		{
-			System.out.println(""
-					+ "Option 1.- Create Tables\n" );
-		}
-    	
-    	
+					+ "Option 6.- Exit \n");
+		
 
 	}
 	
