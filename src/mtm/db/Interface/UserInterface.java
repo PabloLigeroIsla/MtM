@@ -1,6 +1,5 @@
 package mtm.db.Interface;
 
-//bro
 import static mtm.db.Interface.Validator.*;
 import java.util.ArrayList;
 import mtm.db.jdbc.JDBCManager;
@@ -16,8 +15,6 @@ import mtm.db.pojos.Warehouse;
 
 public class UserInterface 
 {
-
-	 //
 	static JDBCManager jdbcManager = new JDBCManager();
 	static JPAManager jpaManager = new JPAManager();
 	 
@@ -97,7 +94,6 @@ public class UserInterface
 			System.out.println(""
 					+ "Option 1.- Create Tables\n" 
 						//Option 1.1: all the tables?
-						//Option 1.2: One table //y se las ense�as
 							//option 1.2.1: Select the table
 						
 					+ "Option 2.- List entities\n"
@@ -137,9 +133,6 @@ public class UserInterface
 			System.out.println(""
 					+ "Option 1.- Create Tables\n" );
 		}
-    	
-    	
-
 	}
 	
     public static void selectionMenu(int option)
@@ -224,7 +217,7 @@ public class UserInterface
 	{
 		System.out.println("All tables created\n");
 		jdbcManager.createTables();
-		//System.out.println(" Tables created succesfully\n");
+		System.out.println(" Tables created succesfully\n");
 	}
 
 	public static void listEntity()
@@ -325,7 +318,7 @@ public class UserInterface
 			break;
 		case 2: //Employee
 			Employee emp = createEmployee();
-			jdbcManager.insert(emp);
+			jdbcManager.insert(emp);					
 			break;
 		case 3: //Hospital 
 			Hospital hosp = createHospital();
@@ -391,7 +384,7 @@ public class UserInterface
 			Instrument inst = createInstrument();
 			jdbcManager.insert(inst);
 			Warehouse war = jdbcManager.selectWarehouse(1);
-			jdbcManager.updateWarehouse((war.getFilledSpace()+5));
+			//jdbcManager.updateWarehouse((war.getFilledSpace()+5));
 			break;
 		case 5: //Machinery
 			Machinery mach = createMachinery();
@@ -460,7 +453,6 @@ public class UserInterface
 	
 	//Extra Methods
     
-    
     public static void updValTable()
 {
     selectionMenu(6);
@@ -479,6 +471,10 @@ public class UserInterface
     	jdbcManager.updateMachinery(pk,op2);
     	break;
     case 2:
+    	System.out.println("Select the primary key of the material you want to change:");
+    	listMaterials(false);
+    	int pk2 = writeNumber();
+    	//material
     	break;
     	
     }
@@ -812,8 +808,7 @@ public class UserInterface
         	}
         	
         }
-    
-    
+     
     public static void showHospital(int pk)
     {
     	Hospital hosp;
@@ -884,7 +879,6 @@ public class UserInterface
     	inst.toString();
     	
     }
-    
     public static void listInstruments(boolean relation){
     	Instrument inst = new Instrument();
     	ArrayList<Instrument> instrumentList = new ArrayList<Instrument>();
@@ -896,13 +890,14 @@ public class UserInterface
     			jdbcManager.setInstrumentRelations(inst);
     			System.out.printf("id: %d, relations: %d\n",inst.getInstrumentID(),inst.getOrderList().toString());
     			System.out.printf("id: %d, relations: %d\n",inst.getInstrumentID(),inst.getMachineryTypeList().toString());
-    			System.out.printf("id: %d, relations: %d\n",inst.getInstrumentID(),inst.getWarehouseID().toString());	
+    			//System.out.printf("id: %d, relations: %d\n",inst.getInstrumentID(),inst.getWarehouseID().toString());	
     		}else{
     			inst = instrumentList.get(count);
     			System.out.printf("id: %d\n",inst.getInstrumentID());
     		}
     	}		
     }
+    
     public static void showWarehouse(int pk){
     	Warehouse war;
     	war = jdbcManager.selectWarehouse(pk);
@@ -926,19 +921,19 @@ public class UserInterface
     	while(count < empList.size())
     	{
     		emp = empList.get(count);
+    		String name = emp.getName();
+			int id = emp.getEmployee_ID();
+    		emp = empList.get(count);
     		if(relation){
         		System.out.printf("id: %d, mach: %d\n",emp.getEmployee_ID(),emp.getMachineryType().getMachineryType());
-    		
+            	count ++;
+
     		}
     		else{
-        		System.out.printf("id: %d\n",emp.getEmployee_ID());
-    			
+        		System.out.printf("id: %d, name: %d\n",id,name);
+            	count ++;
     		}
-    	}
-    	
-    	
-    	count ++;
-    	
+    	} 	
     }
     
     public static void showMachinery(int pk)
@@ -952,24 +947,26 @@ public class UserInterface
     	
     	Machinery mach;
     	ArrayList<Machinery> machList = new ArrayList<Machinery>();
-    	machList = jdbcManager.selectAllMachineries();
-    	
     	int count = 0;
     	
     	while(count < machList.size()){
     		
     		mach =machList.get(count);
+
+        	machList = jdbcManager.selectAllMachineries();
+        	String machineryType = mach.getMachineryType();
+    		int id = mach.getMachineryID();
+
     		if(relation)
     		{
     			jdbcManager.setMachineryRelations(mach);
     			System.out.printf("id: %d, relation Instrument: %d, relation employee: %d, relation materials: %d\n",mach.getMachineryID(),mach.getemployeeList().toString(),mach.getmaterialList().toString());
-    			
+        		count ++;
     		}else
     		{
-    			System.out.printf("id: %d, machinery type: %d\n",mach.getMachineryID(),mach.getMachineryType());
-    		}
-    		count ++;
-    		
+    			System.out.printf("id: %d, machinery type: %d\n",id,machineryType);
+        		count ++;
+    		}    		
     	}
     
     }
