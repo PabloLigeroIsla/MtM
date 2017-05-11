@@ -92,8 +92,13 @@ public class UserInterface
     
     public static void printMenu(boolean dbCreated)
 	{
-		if(dbCreated)
-		{
+    	
+    	if(dbCreated)
+    	{
+    		System.out.println("\nTables created before\n");
+    	}
+		
+		
 			//Si a�ades opciones, recuerda mirar el metodo abrirMenu
 			System.out.println(""
 					+ "Option 1.- Create Tables\n" 
@@ -133,11 +138,10 @@ public class UserInterface
 						// update
 
 					+ "Option 7.- Exit \n");
-		}else
-		{
+		
 			System.out.println(""
 					+ "Option 1.- Create Tables\n" );
-		}
+		
     	
     	
 
