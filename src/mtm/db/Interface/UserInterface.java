@@ -3,9 +3,12 @@ package mtm.db.Interface;
 //bro
 import static mtm.db.Interface.Validator.*;
 import java.util.ArrayList;
+
+import java.util.Iterator;
+
 import mtm.db.jdbc.JDBCManager;
 import mtm.db.jpa.JPAManager;
-import mtm.db.xmls.XMLSManager;
+import mtm.db.xmls.XMLManager;
 import mtm.db.pojos.Company;
 import mtm.db.pojos.Employee;
 import mtm.db.pojos.Hospital;
@@ -21,7 +24,7 @@ public class UserInterface
 	 //
 	static JDBCManager jdbcManager = new JDBCManager();
 	static JPAManager jpaManager = new JPAManager();
-	static XMLSManager xmlManager = new XMLSManager();
+	static XMLManager xmlManager = new XMLManager();
 	 
 	public static void main(String args[]) 
 	{
@@ -67,7 +70,8 @@ public class UserInterface
 					waitEnter();
 					break;
 				case 6:
-					xmlManager.createXML();
+					createXML();
+					waitEnter();
 				case 7:
 					jdbcManager.closeConnection();
 					jpaManager.closeJPAConnection();
@@ -1028,4 +1032,39 @@ public class UserInterface
     	return op;
     }
     
+    public static void createXML()
+    {
+    	System.out.println("Introduce the path to the file that will store the DB");
+    	String path = writeString();
+    	System.out.println("Select the hospital you want to convert into XML");
+    	listHospitals(false);
+    	int op = writeNumber();
+    	Hospital hosp = jdbcManager.selectHospital(op);
+    	
+    	xmlManager.marshallHospital(path, hosp);
+    	
+    	
+    	
+    }
+
+    public static void openXML()
+    {
+    	System.out.println("Introduce the path to the file that contains the DB");
+    	String path = writeString();
+    	
+    	Hospital hosp = xmlManager.unmarshallHospital(path);
+    	Iterator <Order> iter = hosp.getOrderList().iterator();
+    	
+    	jdbcManager.insert(hosp);
+    	jdbcManager.setHospitalID(hosp);
+    	
+    	while(iter.hasNext())
+    	{
+    		Order ord = iter.next();
+    		jdbcManager.insert(ord);
+    		jdbcManager.setOrderID(ord);
+    		jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(), ord.getOrderID(), 0);
+    	}
+    	
+    }
 }
