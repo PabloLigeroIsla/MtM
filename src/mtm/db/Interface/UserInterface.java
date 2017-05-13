@@ -723,7 +723,7 @@ public class UserInterface
     	System.out.println("This material is provided by a company from the database YES or NO: \n");
     	String answ = writeString();
     	if(answ.equals("YES")){
-    		listCompanies(true);
+    		listCompanies(false);
     		System.out.println("Type the PK of the company:\n");
     		int pk = writeNumber();
     		mat.setCompanyID(pk);
@@ -764,7 +764,7 @@ public class UserInterface
     	}
     	
     	mat.setWarehouseID(1);
-    	
+    	System.out.println(mat.getMachineryID());
     	
 		jdbcManager.insert(mat);
 		System.out.println("The material is correctly attached to the database\n");
