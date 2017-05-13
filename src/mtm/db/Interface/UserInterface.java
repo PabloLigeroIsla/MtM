@@ -23,6 +23,7 @@ public class UserInterface
 	static JPAManager jpaManager = new JPAManager();
 	static XMLManager xmlManager = new XMLManager();
 	 
+	//Main
 	public static void main(String args[]) 
 	{
 		
@@ -396,7 +397,7 @@ public class UserInterface
 			break;
 		case 5: //Machinery
 			Machinery mach = createMachinery();
-			jdbcManager.insert(mach);
+			jpaManager.insert(mach);
 			break;
 		case 6: //Material
 			createMaterial(); 
@@ -446,20 +447,19 @@ public class UserInterface
 			listMachineries(false);
 			System.out.println("What machinery do you want to delete from this table? \n");
 			int pk5 = writeNumber();
-			jdbcManager.deleteMachinery(pk5);
+			jdbcManager.deleteRelationInstrumentMachinery(pk5, "machinery_ID");
+			jdbcManager.deleteRelationMachineryEmployee(pk5);
+			jpaManager.deleteMachinery(pk5);
 			break;
 		case 6: //Material
-	//		listMaterials(false);
+			listMaterials(false);
 			System.out.println("What material do you want to delete from this table? \n");
 			int pk6 = writeNumber();
-			jdbcManager.deleteMaterial(pk6);
-			break;
-		
+			jpaManager.deleteMaterial(pk6);
+			break;	
 		}
 		
 	}
-	
-	//Extra Methods
     
     public static void updValTable()
 {
@@ -467,7 +467,7 @@ public class UserInterface
     int op = writeNumber(2);
     switch(op)
     {
-    case 1:
+    case 1://Machinery
     	System.out.println("Select the primary key of the machinery you want to change:");
     	listMachineries(false);
     	int pk = writeNumber();
@@ -476,9 +476,9 @@ public class UserInterface
     			+ "1:Work\n"
     			+ "2:No Work\n");
     	int op2 = writeNumber(2);
-    	jdbcManager.updateMachinery(pk,op2);
+    	jpaManager.updateMachinery(pk,op2);
     	break;
-    case 2:
+    case 2://warehouse
     	System.out.println("Select the primary key of the warehouse you want to modify:");
     	listWarehouses(false);
     	int pkWar = writeNumber();
@@ -490,6 +490,7 @@ public class UserInterface
     }
     
 }
+    
     //Creation of Objects
     
     public static Hospital createHospital()
@@ -570,7 +571,7 @@ public class UserInterface
 		if(writeOption(s)){
 			System.out.println("Select the ID of the machinery the instrument has been through:\n");
 			int machID=writeNumber();
-			mach=jdbcManager.selectMachinery(machID);
+			mach = jpaManager.selectMachinery(machID);
 			jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(),machID);
 		}
 		else
@@ -627,7 +628,7 @@ public class UserInterface
 		System.out.println("Select the ID of the machinery the employee is spezialized in\n");
 		int e=writeNumber();
 		
-		mach=jdbcManager.selectMachinery(e);
+		mach=jpaManager.selectMachinery(e);
 		
 	}
 	else
@@ -664,7 +665,6 @@ public class UserInterface
 		
 		return mach;
 }
-    
     
     public static Company createCompany(){
     	
@@ -772,7 +772,7 @@ public class UserInterface
     	mat.setWarehouseID(1);
     	
     	
-		jdbcManager.insert(mat);
+		jpaManager.insert(mat);
 		System.out.println("The material is correctly attached to the database\n");
 		
     	return mat;
@@ -788,7 +788,7 @@ public class UserInterface
     	String c = writeString();
     	Material mat = new Material(a,b,c,pk);
     	mat.setWarehouseID(1);
-    	jdbcManager.insert(mat);
+    	jpaManager.insert(mat);
     	
     	return mat;
     }
@@ -820,7 +820,7 @@ public class UserInterface
   
     public static void showMaterial(int pk){
     	Material mat;
-    	mat = jdbcManager.selectMaterial(pk);
+    	mat = jpaManager.selectMaterial(pk);
     	mat.toString();
     }
     public static void listMaterials(boolean relation){
@@ -934,7 +934,6 @@ public class UserInterface
     	war.printWarehouse();
     	//war.toString();
     }
-    
     public static void listWarehouses(boolean relation){
     	Warehouse war = new Warehouse();
     	ArrayList<Warehouse> warehouseList = new ArrayList<Warehouse>();
@@ -985,7 +984,7 @@ public class UserInterface
     public static void showMachinery(int pk)
     {
     	Machinery mach;
-    	mach = jdbcManager.selectMachinery(pk);
+    	mach = jpaManager.selectMachinery(pk);
     	jdbcManager.setMachineryRelations(mach);
     	mach.toString();
     }
@@ -1017,13 +1016,7 @@ public class UserInterface
     
     }
     
-    public static boolean allreadyExistDb()
-    {
-    	boolean op;
-    	op = jdbcManager.createTables();
-    	return op;
-    }
-    
+    //XML
     public static void createXML()
     {
     	System.out.println("Introduce the path to the file that will store the DB");
@@ -1058,5 +1051,13 @@ public class UserInterface
     		jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(), ord.getOrderID(), 0);
     	}
     	 
+    }
+
+    //Management Methods
+    public static boolean allreadyExistDb()
+    {
+    	boolean op;
+    	op = jdbcManager.createTables();
+    	return op;
     }
 }

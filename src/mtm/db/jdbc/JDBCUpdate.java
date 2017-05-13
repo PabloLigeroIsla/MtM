@@ -14,9 +14,7 @@ public class JDBCUpdate
 		this.c = c;
 	}
 	
-	
-	//
-	//Update
+
 	public void update(String table, String colChange, String stringChange, int intChange, String colSearch, int pkSearch)
 	{
 		
@@ -57,10 +55,11 @@ public class JDBCUpdate
 		}
 		
 	}
+	
 	public void updateMachinery(int pkSearch, String stateofMachinery){
 		
 	try
-			{
+	{
 		String sql = "UPDATE machinery SET stateofMachinery LIKE ? WHERE machinery_ID = ? ";
 
 				PreparedStatement prep = c.prepareStatement(sql);
@@ -76,8 +75,6 @@ public class JDBCUpdate
 			
 			
 		}
-		
-
 	
 	//Update Warehouse filledSpace
 	public void updateWarehouse(int pkSearch,int filledSpaceUpdated){
@@ -98,9 +95,9 @@ public class JDBCUpdate
 		
 	}
 	
-	//Update Warehouse lication
+	//Update Warehouse location
 	
-public void updateWarehouseL(int pkSearch,String locationUpdated){
+	public void updateWarehouseL(int pkSearch,String locationUpdated){
 		
 		try {
 			

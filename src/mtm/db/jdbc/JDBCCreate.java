@@ -12,7 +12,6 @@ public class JDBCCreate
 	{
 		this.c = c;
 	}
-	////
 	//Create
 	public boolean createTables()
 	{
@@ -152,7 +151,6 @@ public class JDBCCreate
 		return act;
 	}
 	
-			//Pablo
 	public void createTableHospital()
 	{
 		try
@@ -171,6 +169,7 @@ public class JDBCCreate
 		}
 	
 	}
+	
 	public void createTableOrder()
 	{
 		try
@@ -189,7 +188,6 @@ public class JDBCCreate
 		}
 	}
 	
-		//Alex
 	public void createTableMaterial(){
 	try
 	{
@@ -211,6 +209,7 @@ public class JDBCCreate
 		
 		}
 	}	
+	
 	public void createTableCompany(){
 		try
 		{
@@ -230,8 +229,6 @@ public class JDBCCreate
 			}
 		}
 		
-		//Charo
-	
 	public void createTableInstrument()
 	{
 		try
@@ -257,6 +254,7 @@ public class JDBCCreate
 		
 		}
 	}	
+	
 	public void createTableWarehouse()
 	{
 		try
@@ -278,7 +276,6 @@ public class JDBCCreate
 		}
 	}
 		
-			//Celia
 	public void createTableEmployee()
 	{
 		try
@@ -299,6 +296,7 @@ public class JDBCCreate
 		}
 			
 	}
+	
 	public void createTableMachinery()
 	{
 		try
@@ -317,7 +315,7 @@ public class JDBCCreate
 		}
 	}
 			
-			//Relational Tables 
+	//Relational Tables 
 		
 	public void createTableHospitalOrders()
 	{

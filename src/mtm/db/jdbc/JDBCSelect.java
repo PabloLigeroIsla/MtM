@@ -26,41 +26,7 @@ public class JDBCSelect
 		this.c = c;
 	}
 	
-	//Select
-	
-	//Pablo
-
-	public ArrayList<Hospital> selectAllHospitals()
-	{
-		
-		ArrayList<Hospital> hospitals = new ArrayList<Hospital>();
-		
-		try
-		{
-			Statement stmt = c.createStatement();
-			String sql = "SELECT * FROM hospital";
-			ResultSet rs = stmt.executeQuery(sql);
-			
-			while(rs.next())
-			{
-				int hospitalID = rs.getInt("hospital_ID");
-				String name = rs.getString("name");
-				String location = rs.getString("location");
-				String medicalSpecialization = rs.getString("medical_specialization");
-				
-				Hospital hosp = new Hospital(hospitalID,name,location,medicalSpecialization);
-				hospitals.add(hosp);
-			}
-			
-			stmt.close();
-			rs.close();
-			
-		}catch(SQLException e)
-		{
-			e.printStackTrace();
-		}
-		return hospitals;
-	}
+	//Pojos
 	
 	public Hospital selectHospital( String query, int pk)
 	{
@@ -132,37 +98,6 @@ public class JDBCSelect
 		return hosp;
 	}
 	
-	public ArrayList<Order> selectAllOrders()
-	{
-		ArrayList<Order> orderList = new ArrayList<Order>();
-		
-		try
-		{
-			Statement stmt = c.createStatement();
-			String sql = "SELECT * FROM orders";
-			ResultSet rs = stmt.executeQuery(sql);
-			
-			while(rs.next())
-			{
-				int orderID = rs.getInt("order_ID");
-				int totalAmountInstruments = rs.getInt("total_amount_instruments");
-				java.sql.Date orderDate = rs.getDate("order_date");
-				java.sql.Date deliveryDate = rs.getDate("delivery_date");
-				
-				Order order = new Order(orderID,totalAmountInstruments,SqltoLocalDate(orderDate),SqltoLocalDate(deliveryDate));
-				orderList.add(order);
-			}
-			
-			stmt.close();
-			rs.close();
-			
-		}catch(SQLException e)
-		{
-			e.printStackTrace();
-		}
-		return orderList;
-	}
-	
 	public Order selectOrder(String query, int pk)
 	{
 		
@@ -196,10 +131,6 @@ public class JDBCSelect
 		}
 		return order;
 	}
-
-	//Charo
-	
-
 	
 	public Instrument selectInstrument(String query, int pkInstrument)
 	{
@@ -249,44 +180,6 @@ public class JDBCSelect
 		return instrument;
 	}
 	
-	//
-	
-	public ArrayList<Instrument> selectAllInstruments()
-	{
-		ArrayList<Instrument> instrumentList = new ArrayList<Instrument>();
-		try
-		{
-			Statement stmt = c.createStatement();
-			String sql = "SELECT * FROM instrument";
-			ResultSet rs = stmt.executeQuery(sql);
-			while(rs.next())
-			{
-				int instrumentID = rs.getInt("instrument_ID");
-				String name = rs.getString("name");
-				String model = rs.getString("model");
-				String purpose = rs.getString("purpose");
-				int amount = rs.getInt("amount");
-				int numberUses = rs.getInt("number_uses");
-				String bodyLocation = rs.getString("body_location");
-				int price = rs.getInt("price");
-				
-				//debo hacer la relacion para meter el objeto
-				//warehouseLocation = rs.getString("warehouseLocation");
-				
-				Instrument instrument = new Instrument(instrumentID,name,model,purpose,amount,numberUses,bodyLocation,price);
-				instrumentList.add(instrument);
-			}
-			
-			stmt.close();
-			rs.close();
-			
-		}catch(SQLException e)
-		{
-			e.printStackTrace();
-		}
-		return instrumentList;
-	}
-	
 	public Warehouse selectWarehouse( String query, int pkWarehouse)
 	{
 		Warehouse warehouse = null;
@@ -326,67 +219,6 @@ public class JDBCSelect
 
 		
 		return warehouse;
-	}
-	
-	public ArrayList<Warehouse> selectAllWarehouses()
-	{
-		ArrayList<Warehouse> warehouseList = new ArrayList<Warehouse>();
-		try
-		{
-			Statement stmt = c.createStatement();
-			String sql = "SELECT * FROM warehouse";
-			ResultSet rs = stmt.executeQuery(sql);
-			while(rs.next())
-			{
-				int warehouseID = rs.getInt("warehouse_ID");
-				String warehouseLocation = rs.getString("warehouse_location");
-				int capacity = rs.getInt("capacity");
-				int filledSpace = rs.getInt("filled_space");
-				
-				Warehouse warehouse = new Warehouse(warehouseID,warehouseLocation,capacity,filledSpace);
-				warehouseList.add(warehouse);
-			}
-			
-			stmt.close();
-			rs.close();
-			
-		}catch(SQLException e)
-		{
-			e.printStackTrace();
-		}
-		return warehouseList;
-	}
-	
-	//Celia
-	//Employee
-	
-	public ArrayList<Employee> selectAllEmployee(){
-		
-		ArrayList<Employee> employee = new ArrayList<Employee>();
-		try
-		{
-			Statement stmt = c.createStatement();
-			String sql = "SELECT * FROM employee";
-			ResultSet rs = stmt.executeQuery(sql);
-			while(rs.next())
-			{
-				int employeeID = rs.getInt("employee_ID");
-				String name = rs.getString("name");
-				String specializationType = rs.getString("specializationType");
-				String typeofContract = rs.getString("typeofContract");
-				
-				Employee emp = new Employee(employeeID,name,specializationType,typeofContract);
-				employee.add(emp);
-			}
-			
-			stmt.close();
-			rs.close();
-			
-		}catch(SQLException e)
-		{
-			e.printStackTrace();
-		}
-		return employee;
 	}
 	
 	public Employee selectEmployee( String query, int pk)
@@ -455,41 +287,6 @@ public class JDBCSelect
 
 		
 		return emp;
-	}
-	
-	//Machinery
-	public ArrayList<Machinery> selectAllMachinery()
-	{
-		ArrayList<Machinery> machineryList = new ArrayList<Machinery>();
-		
-		try
-		{
-			Statement stmt = c.createStatement();
-			String sql = "SELECT * FROM machinery";
-			ResultSet rs = stmt.executeQuery(sql);
-			
-			while(rs.next())
-			{
-				int machineryID = rs.getInt("machinery_ID");
-				String machineryType = rs.getString("machineryType");
-				String stateofMachinery = rs.getString("stateofMachinery");				
-				java.sql.Date machiDate = rs.getDate("dateofInstallation");
-				int sizeofMachinery = rs.getInt("sizeofMachinery");
-				
-				LocalDate machineryDate = SqltoLocalDate(machiDate);
-				
-				Machinery machinery = new Machinery(machineryID,machineryType,stateofMachinery,machineryDate,sizeofMachinery);
-				machineryList.add(machinery);
-			}
-			
-			stmt.close();
-			rs.close();
-			
-		}catch(SQLException e)
-		{
-			e.printStackTrace();
-		}
-		return machineryList;
 	}
 	
 	public Machinery selectMachinery(String query, int pk)
@@ -569,36 +366,6 @@ public class JDBCSelect
 		return mach;
 	}
 
-	
-	//Alex
-	public ArrayList<Company> selectAllCompanies()
-	{
-		ArrayList<Company> companies = new ArrayList<Company>();
-		try
-		{
-			Statement stmt = c.createStatement();
-			String sql = "SELECT * FROM company";
-			ResultSet rs = stmt.executeQuery(sql);
-			while(rs.next())
-			{
-				int companyID = rs.getInt("company_ID");
-				String location = rs.getString("location");
-				String name = rs.getString("company_name");
-				
-				Company com = new Company(companyID, location, name);
-				companies.add(com);
-			}
-			
-			stmt.close();
-			rs.close();
-			
-		}catch(SQLException e)
-		{
-			e.printStackTrace();
-		}
-		return companies;
-	}
-
 	public Company selectCompany(String query, int pk){
 			Company comp = null;
 			int companyID;
@@ -630,37 +397,6 @@ public class JDBCSelect
 
 			return comp;
 		
-	}
-
-	public  ArrayList<Material> selectAllMaterials()
-	{
-		ArrayList<Material> materials = new ArrayList<Material>();
-		try
-		{
-			Statement stmt = c.createStatement();
-			String sql = "SELECT * FROM material";
-			ResultSet rs = stmt.executeQuery(sql);
-			while(rs.next())
-			{
-				int materialID = rs.getInt("material_ID");
-				int weight = rs.getInt("weight");
-				int volume = rs.getInt("volume");
-				String type = rs.getString("type");
-				int companyID = rs.getInt("company_ID");
-				int machineryID = rs.getInt("machinery_ID");
-				
-				Material mat = new Material(materialID, weight, volume, type, companyID, machineryID);
-				materials.add(mat);
-			}
-			
-			stmt.close();
-			rs.close();
-			
-		}catch(SQLException e)
-		{
-			e.printStackTrace();
-		}
-		return materials;
 	}
 
 	public Material selectMaterial(String query, int pk){
@@ -698,6 +434,259 @@ public class JDBCSelect
 		return mat;
 	
 }
+
+	
+	//Arrays
+	
+	public ArrayList<Hospital> selectAllHospitals()
+	{
+		
+		ArrayList<Hospital> hospitals = new ArrayList<Hospital>();
+		
+		try
+		{
+			Statement stmt = c.createStatement();
+			String sql = "SELECT * FROM hospital";
+			ResultSet rs = stmt.executeQuery(sql);
+			
+			while(rs.next())
+			{
+				int hospitalID = rs.getInt("hospital_ID");
+				String name = rs.getString("name");
+				String location = rs.getString("location");
+				String medicalSpecialization = rs.getString("medical_specialization");
+				
+				Hospital hosp = new Hospital(hospitalID,name,location,medicalSpecialization);
+				hospitals.add(hosp);
+			}
+			
+			stmt.close();
+			rs.close();
+			
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return hospitals;
+	}
+	
+	public ArrayList<Order> selectAllOrders()
+	{
+		ArrayList<Order> orderList = new ArrayList<Order>();
+		
+		try
+		{
+			Statement stmt = c.createStatement();
+			String sql = "SELECT * FROM orders";
+			ResultSet rs = stmt.executeQuery(sql);
+			
+			while(rs.next())
+			{
+				int orderID = rs.getInt("order_ID");
+				int totalAmountInstruments = rs.getInt("total_amount_instruments");
+				java.sql.Date orderDate = rs.getDate("order_date");
+				java.sql.Date deliveryDate = rs.getDate("delivery_date");
+				
+				Order order = new Order(orderID,totalAmountInstruments,SqltoLocalDate(orderDate),SqltoLocalDate(deliveryDate));
+				orderList.add(order);
+			}
+			
+			stmt.close();
+			rs.close();
+			
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return orderList;
+	}
+	
+	public ArrayList<Instrument> selectAllInstruments()
+	{
+		ArrayList<Instrument> instrumentList = new ArrayList<Instrument>();
+		try
+		{
+			Statement stmt = c.createStatement();
+			String sql = "SELECT * FROM instrument";
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next())
+			{
+				int instrumentID = rs.getInt("instrument_ID");
+				String name = rs.getString("name");
+				String model = rs.getString("model");
+				String purpose = rs.getString("purpose");
+				int amount = rs.getInt("amount");
+				int numberUses = rs.getInt("number_uses");
+				String bodyLocation = rs.getString("body_location");
+				int price = rs.getInt("price");
+				
+				//debo hacer la relacion para meter el objeto
+				//warehouseLocation = rs.getString("warehouseLocation");
+				
+				Instrument instrument = new Instrument(instrumentID,name,model,purpose,amount,numberUses,bodyLocation,price);
+				instrumentList.add(instrument);
+			}
+			
+			stmt.close();
+			rs.close();
+			
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return instrumentList;
+	}
+	
+	public ArrayList<Warehouse> selectAllWarehouses()
+	{
+		ArrayList<Warehouse> warehouseList = new ArrayList<Warehouse>();
+		try
+		{
+			Statement stmt = c.createStatement();
+			String sql = "SELECT * FROM warehouse";
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next())
+			{
+				int warehouseID = rs.getInt("warehouse_ID");
+				String warehouseLocation = rs.getString("warehouse_location");
+				int capacity = rs.getInt("capacity");
+				int filledSpace = rs.getInt("filled_space");
+				
+				Warehouse warehouse = new Warehouse(warehouseID,warehouseLocation,capacity,filledSpace);
+				warehouseList.add(warehouse);
+			}
+			
+			stmt.close();
+			rs.close();
+			
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return warehouseList;
+	}
+	
+	public ArrayList<Employee> selectAllEmployee(){
+		
+		ArrayList<Employee> employee = new ArrayList<Employee>();
+		try
+		{
+			Statement stmt = c.createStatement();
+			String sql = "SELECT * FROM employee";
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next())
+			{
+				int employeeID = rs.getInt("employee_ID");
+				String name = rs.getString("name");
+				String specializationType = rs.getString("specializationType");
+				String typeofContract = rs.getString("typeofContract");
+				
+				Employee emp = new Employee(employeeID,name,specializationType,typeofContract);
+				employee.add(emp);
+			}
+			
+			stmt.close();
+			rs.close();
+			
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return employee;
+	}
+	
+	public ArrayList<Machinery> selectAllMachinery()
+	{
+		ArrayList<Machinery> machineryList = new ArrayList<Machinery>();
+		
+		try
+		{
+			Statement stmt = c.createStatement();
+			String sql = "SELECT * FROM machinery";
+			ResultSet rs = stmt.executeQuery(sql);
+			
+			while(rs.next())
+			{
+				int machineryID = rs.getInt("machinery_ID");
+				String machineryType = rs.getString("machineryType");
+				String stateofMachinery = rs.getString("stateofMachinery");				
+				java.sql.Date machiDate = rs.getDate("dateofInstallation");
+				int sizeofMachinery = rs.getInt("sizeofMachinery");
+				
+				LocalDate machineryDate = SqltoLocalDate(machiDate);
+				
+				Machinery machinery = new Machinery(machineryID,machineryType,stateofMachinery,machineryDate,sizeofMachinery);
+				machineryList.add(machinery);
+			}
+			
+			stmt.close();
+			rs.close();
+			
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return machineryList;
+	}
+	
+	public ArrayList<Company> selectAllCompanies()
+	{
+		ArrayList<Company> companies = new ArrayList<Company>();
+		try
+		{
+			Statement stmt = c.createStatement();
+			String sql = "SELECT * FROM company";
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next())
+			{
+				int companyID = rs.getInt("company_ID");
+				String location = rs.getString("location");
+				String name = rs.getString("company_name");
+				
+				Company com = new Company(companyID, location, name);
+				companies.add(com);
+			}
+			
+			stmt.close();
+			rs.close();
+			
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return companies;
+	}
+	
+	public  ArrayList<Material> selectAllMaterials()
+	{
+		ArrayList<Material> materials = new ArrayList<Material>();
+		try
+		{
+			Statement stmt = c.createStatement();
+			String sql = "SELECT * FROM material";
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next())
+			{
+				int materialID = rs.getInt("material_ID");
+				int weight = rs.getInt("weight");
+				int volume = rs.getInt("volume");
+				String type = rs.getString("type");
+				int companyID = rs.getInt("company_ID");
+				int machineryID = rs.getInt("machinery_ID");
+				
+				Material mat = new Material(materialID, weight, volume, type, companyID, machineryID);
+				materials.add(mat);
+			}
+			
+			stmt.close();
+			rs.close();
+			
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return materials;
+	}
 
 	//Help Methods
 	private LocalDate SqltoLocalDate(java.sql.Date sqlDate)

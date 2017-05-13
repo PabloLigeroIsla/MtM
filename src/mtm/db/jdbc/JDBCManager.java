@@ -17,14 +17,8 @@ public class JDBCManager implements DBInterface
 	
 	public Connection c = null;
 	
-	//
-	//7 8 Objects//
-	//Different Methods to interact with the dataBase
-	//Different Methods to create the Objects
-	
 	//Methods to create the Pojos
-
-	//Pablo
+	
 	public Order createPojoOrder(int number,String d11,String d12,String d13,String d21,String d22,String d23)
 	{
 		LocalDate date1SQL = StringtoLocalDate(d13,d12,d11);
@@ -33,7 +27,6 @@ public class JDBCManager implements DBInterface
 		return ord;
 	}
 	
-	//Celia
 	public Machinery createPojoMachinery(String machineryType, String stateofMachinery,String d,String m, String y, int sizeofMachinery){
 		
 		LocalDate date3SQL = StringtoLocalDate(y,m,d);
@@ -42,8 +35,7 @@ public class JDBCManager implements DBInterface
 		
 	}
 
-	//Methods to connect with the DataBase
-	//Connection
+	//Connection Methods
 	public Connection openConnection()
 {
 	try
@@ -71,7 +63,7 @@ public class JDBCManager implements DBInterface
 		}
 	}
 	
-	//Methods to Create the tables
+	//Create the tables
 	public boolean createTables()
 	{
 		
@@ -144,7 +136,7 @@ public class JDBCManager implements DBInterface
 		codeCreate.createTableWarehouse();
 		
 	}
-		//Relational Tables
+	//Relational Tables
 	public void createTableHospitalOrder()
 	{
 		JDBCCreate codeCreate = new JDBCCreate(c);
@@ -160,9 +152,8 @@ public class JDBCManager implements DBInterface
 		
 	}
 	
-	//Methods to Insert
+	//Insert
 	
-	//Pablo
 	public void insert(Hospital obj)
 	{
 		JDBCInsert codeInsert = new JDBCInsert(c);
@@ -188,8 +179,6 @@ public class JDBCManager implements DBInterface
 		
 	}
 	
-	//Charo
-	
 	public void insert(Instrument obj)
 	{
 		JDBCInsert codeInsert = new JDBCInsert(c);
@@ -207,7 +196,6 @@ public class JDBCManager implements DBInterface
 		codeInsert.insert(obj);
 		
 	}
-	//Alex
 	
 	public void insert(Company obj)
 	{
@@ -225,10 +213,6 @@ public class JDBCManager implements DBInterface
 		codeInsert.insert(obj);
 	}
 
-	
-	
-	//Celia
-	
 	public void insert(Employee obj)
 	{
 		JDBCInsert codeInsert = new JDBCInsert(c);
@@ -238,6 +222,7 @@ public class JDBCManager implements DBInterface
 			
 		
 	}
+	
 	public void insert(Machinery obj)
 	{
 		JDBCInsert codeInsert = new JDBCInsert(c);
@@ -247,9 +232,9 @@ public class JDBCManager implements DBInterface
 		
 	}
 	
-	//Methods to Delete
+	//Delete
 	
-	//Pablo
+	//Pojos
 	public void deleteHospital(int primaryKey)
 	{
 		
@@ -269,12 +254,17 @@ public class JDBCManager implements DBInterface
 			
 			ArrayList<Integer> orderPkRelationFound = new ArrayList<Integer>();
 			orderPkRelationFound = foundRelation(relationalTable,pk1AttributeSearch,pkAttributeCompere,pkValueCompare);
+			boolean Shear = sharedRelation(relationalTable,pk1AttributeSearch,pkAttributeCompere,pkValueCompare);
 			
 			Iterator<Integer> iter = orderPkRelationFound.iterator();
+			
 			while(iter.hasNext())
 			{
 				int i = iter.next();
-				deleteOrder(i);
+				if(!Shear)
+				{
+					deleteOrder(i);
+				}
 				deleteRelationHospitalOrder(i,pk1AttributeSearch);
 			}
 			
@@ -327,7 +317,6 @@ public class JDBCManager implements DBInterface
 		}
 	}
 	
-	//Celia
 	public void deleteEmployee(int primaryKey)
 	{
 		
@@ -358,9 +347,6 @@ public class JDBCManager implements DBInterface
 		}
 	}
 
-	
-	//Charo
-	
 	public void deleteInstrument(int primaryKeyInstrument)
 	{
 		
@@ -411,7 +397,6 @@ public class JDBCManager implements DBInterface
 		
 	}
 	
-	//Alex
 	public void deleteCompany(int primaryKey){
 		String sqlQuery = "SELECT * FROM company WHERE company_ID = ?";
 		if(valExist(sqlQuery,primaryKey,null))
@@ -446,19 +431,63 @@ public class JDBCManager implements DBInterface
 		}
 	}
 	
-	//Method to Select
-	public ArrayList<Hospital> selectHospitals()
+	//Relations
+	
+	public void deleteRelationHospitalOrder(int pkCol,String colPk)
 	{
-		
-		ArrayList<Hospital> hosp = new ArrayList<Hospital>();
-		JDBCSelect sqlSelect = new JDBCSelect(c);
-		
-		hosp = sqlSelect.selectAllHospitals();
-		
-		
-		return hosp;
+		String table = "hospital_orders";
+	
+		JDBCDelete sqlDelete = new JDBCDelete(c);
+		sqlDelete.deleteRelationNtoN( table, colPk, pkCol);
 	}
- 	public Hospital selectHospital(int primaryKey)
+	
+	public void deleteRelationInstrumentOrder(int pkCol,String colPk)
+	{
+		String table = "instrument_orders";
+		
+		JDBCDelete sqlInsert = new JDBCDelete(c);
+		sqlInsert.deleteRelationNtoN(table,colPk,pkCol);
+	}
+	
+	public void deleteRelationInstrumentMachinery(int pkCol,String colPk)
+	{
+		String table = "instrument_machinery";
+		JDBCDelete sqlDelete = new JDBCDelete(c);
+		sqlDelete.deleteRelationNtoN( table, colPk, pkCol);
+		
+	}
+	
+	public void deleteRelationMachineryEmployee(int pkMachinery)
+	{
+		ArrayList<Employee> emplist = selectAllEmployees();
+		Iterator<Employee> iter = emplist.iterator();
+		while(iter.hasNext())
+		{
+			Employee emp = iter.next();
+			if(emp.getMachineryType().getMachineryID() == pkMachinery)
+			{
+				deleteEmployee(pkMachinery);
+			}
+		}
+	}
+	
+ 	public void deleteRelationInstrumentWarehouse(int instID, int warID){
+		try {
+		String table = "instrument_warehouse";
+		String sql = "DELETE FROM"+table+"WHERE instrument_ID="+instID;
+		PreparedStatement prep = c.prepareStatement(sql);
+		prep.setInt(1, warID);
+		prep.executeUpdate();
+		
+		} catch (Exception e) {
+		System.out.println(e.getMessage());
+		}
+	}
+	
+	//Select
+	
+	//Pojos
+	public Hospital selectHospital(int primaryKey)
 	{
 		String table = "hospital";
 		String selQuery = "SELECT name FROM "+table+" WHERE hospital_ID = ?";
@@ -481,7 +510,8 @@ public class JDBCManager implements DBInterface
 			return null;
 		}
 	}
- 	public Hospital selectHospital(String nameHospital)
+ 	
+	public Hospital selectHospital(String nameHospital)
  	{
 		String selQuarry = "SELECT location FROM hospital WHERE name LIKE ?";
 		
@@ -503,17 +533,7 @@ public class JDBCManager implements DBInterface
 		}
  		
  	}
- 	
- 	public ArrayList<Order> selectAllOrders()
- 	{
- 		ArrayList<Order> orderList = new ArrayList<Order>();
- 		JDBCSelect sqlSelect = new JDBCSelect(c);
- 		
- 		
-		orderList = sqlSelect.selectAllOrders();
-		
- 		return orderList;
- 	}
+
  	public Order selectOrder(int primaryKey)
 	{
 		String selQuery = "SELECT * FROM orders WHERE order_ID = ?";
@@ -534,17 +554,6 @@ public class JDBCManager implements DBInterface
 			return null;
 		}
 	}
- 	//Alex
- 	
- 	//tengo que hacerlo tambien con String?
- 	public ArrayList<Company> selectAllCompanies(){
- 		ArrayList<Company> companiesList = new ArrayList<Company>();
- 		JDBCSelect sqlSelect = new JDBCSelect(c);
- 		
-		companiesList = sqlSelect.selectAllCompanies();
-		
- 		return companiesList;
- 	}
 
  	public Company selectCompany(int primaryKey){
  		String selQuery = "SELECT * FROM company WHERE company_ID = ?";
@@ -564,15 +573,6 @@ public class JDBCManager implements DBInterface
 		}
  	}
 
- 	public ArrayList<Material> selectAllMaterials(){
- 		ArrayList<Material> materialList = new ArrayList<Material>();
- 		JDBCSelect sqlSelect = new JDBCSelect(c);
- 		
-		materialList = sqlSelect.selectAllMaterials();
-
-		
- 		return materialList;
- 	}
  	public Material selectMaterial(int primaryKey){
  		String selQuery = "SELECT * FROM material WHERE material_ID = ?";
 		
@@ -591,186 +591,226 @@ public class JDBCManager implements DBInterface
 			return null;
 		}
  	}
- 	//Celia
- 	//Employee
- 	
- 	 	public ArrayList<Employee> selectAllEmployees(){
- 	 		
- 			ArrayList<Employee> emp = new ArrayList<Employee>();
+
+ 	public Employee selectEmployee(int primaryKey)
+ 	{
+ 		String table = "employee";
+ 		String selQuarry = "SELECT * FROM "+table+" WHERE employee_ID = ?";
+ 		
+ 		
+ 		if(valExist(selQuarry,primaryKey,null))
+ 		{
  			JDBCSelect sqlSelect = new JDBCSelect(c);
- 			
- 			emp = sqlSelect.selectAllEmployee();
+ 	 		Employee emp = new Employee();
+ 	 		
+ 			emp = sqlSelect.selectEmployee(selQuarry,primaryKey);
  			
  			return emp;
- 		}
- 	 	public Employee selectEmployee(int primaryKey)
+ 		}else
  		{
- 			String table = "employee";
- 			String selQuarry = "SELECT * FROM "+table+" WHERE employee_ID = ?";
+ 			System.out.println("We dont find the primary key\n");
  			
- 			
- 			if(valExist(selQuarry,primaryKey,null))
- 			{
- 				JDBCSelect sqlSelect = new JDBCSelect(c);
- 		 		Employee emp = new Employee();
- 		 		
- 				emp = sqlSelect.selectEmployee(selQuarry,primaryKey);
- 				
- 				return emp;
- 			}else
- 			{
- 				System.out.println("We dont find the primary key\n");
- 				
- 				return null;
- 			}
+ 			return null;
  		}
- 	 	public Employee selectEmployee(String nameEmployee)
- 	 	{
- 			String selQuarry = "SELECT location FROM employee WHERE name LIKE ?";
- 			
- 			if(valExist(selQuarry,-1,nameEmployee))
- 			{
- 				JDBCSelect sqlSelect = new JDBCSelect(c);
- 		 		Employee emp = new Employee();
- 		 		
- 				emp = sqlSelect.selectEmployee(selQuarry,nameEmployee);
- 				
- 				return emp;
- 			}else
- 			{
- 				System.out.println("We dont find the primary key\n");
- 				
- 				return null;
- 			}
- 	 		
- 	 	}
- 	 	
- 	 	
- 	 //Machinery
- 	 	public ArrayList<Machinery> selectAllMachineries()
+ 	}
+
+ 	public Employee selectEmployee(String nameEmployee)
+ 	{
+ 		String selQuarry = "SELECT location FROM employee WHERE name LIKE ?";
+ 		
+ 		if(valExist(selQuarry,-1,nameEmployee))
  		{
- 			ArrayList<Machinery> mach = new ArrayList<Machinery>();
  			JDBCSelect sqlSelect = new JDBCSelect(c);
+ 	 		Employee emp = new Employee();
+ 	 		
+ 			emp = sqlSelect.selectEmployee(selQuarry,nameEmployee);
  			
- 			mach = sqlSelect.selectAllMachinery();
+ 			return emp;
+ 		}else
+ 		{
+ 			System.out.println("We dont find the primary key\n");
+ 			
+ 			return null;
+ 		}
+ 			
+ 	}
+ 		
+ 	public Machinery selectMachinery(int primaryKey)
+ 	{
+ 		String table = "machinery";
+ 		String selQuarry = "SELECT * FROM "+table+" WHERE machinery_ID = ?";
+ 		
+ 		
+ 		if(valExist(selQuarry,primaryKey,null))
+ 		{
+ 			JDBCSelect sqlSelect = new JDBCSelect(c);
+ 			Machinery mach = new Machinery();
+ 	 		
+ 			mach = sqlSelect.selectMachinery(selQuarry,primaryKey);
  			
  			return mach;
- 		}
- 	 	public Machinery selectMachinery(int primaryKey)
+ 		}else
  		{
- 			String table = "machinery";
- 			String selQuarry = "SELECT * FROM "+table+" WHERE machinery_ID = ?";
+ 			System.out.println("We dont find the primary key\n");
  			
- 			
- 			if(valExist(selQuarry,primaryKey,null))
- 			{
- 				JDBCSelect sqlSelect = new JDBCSelect(c);
- 				Machinery mach = new Machinery();
- 		 		
- 				mach = sqlSelect.selectMachinery(selQuarry,primaryKey);
- 				
- 				return mach;
- 			}else
- 			{
- 				System.out.println("We dont find the primary key\n");
- 				
- 				return null;
- 			}
+ 			return null;
  		}
- 	 	public Machinery selectMachinery(String nameMachinery)
- 	 	{
- 			String selQuarry = "SELECT * FROM machinery WHERE machinery_ID = ?";
- 			
- 			if(valExist(selQuarry,-1,nameMachinery))
- 			{
- 				JDBCSelect sqlSelect = new JDBCSelect(c);
- 				Machinery mach = new Machinery();
- 		 		
- 				mach = sqlSelect.selectMachinery(selQuarry,nameMachinery);
- 				
- 				return mach;
- 			}else
- 			{
- 				System.out.println("We dont find the primary key/n");
- 				
- 				return null;
- 			}
+ 	}
+ 	
+ 	public Machinery selectMachinery(String nameMachinery)
+ 	{
+ 		String selQuarry = "SELECT * FROM machinery WHERE machinery_ID = ?";
+ 		
+ 		if(valExist(selQuarry,-1,nameMachinery))
+ 		{
+ 			JDBCSelect sqlSelect = new JDBCSelect(c);
+ 			Machinery mach = new Machinery();
  	 		
- 	 	}
+ 			mach = sqlSelect.selectMachinery(selQuarry,nameMachinery);
+ 			
+ 			return mach;
+ 		}else
+ 		{
+ 			System.out.println("We dont find the primary key/n");
+ 			
+ 			return null;
+ 		}
+ 			
+ 	}
 
- 	 	
- 	 	public Instrument selectInstrument(int primaryKey)
+ 	public Instrument selectInstrument(int primaryKey)
+ 	{
+ 		String table = "instrument";
+ 		String selQuarry = "SELECT * FROM "+table+" WHERE instrument_ID = ?";
+ 		
+ 		
+ 		if(valExist(selQuarry,primaryKey,null))
  		{
- 			String table = "instrument";
- 			String selQuarry = "SELECT * FROM "+table+" WHERE instrument_ID = ?";
+ 			JDBCSelect sqlSelect = new JDBCSelect(c);
+ 	 		Instrument instrument = new Instrument();
+ 	 		
+ 			
+ 			instrument = sqlSelect.selectInstrument(selQuarry,primaryKey);
  			
  			
- 			if(valExist(selQuarry,primaryKey,null))
- 			{
- 				JDBCSelect sqlSelect = new JDBCSelect(c);
- 		 		Instrument instrument = new Instrument();
- 		 		
- 				
- 				instrument = sqlSelect.selectInstrument(selQuarry,primaryKey);
- 				
- 				
- 				return instrument;
- 			}else
- 			{
- 				System.out.println("We dont find the primary key\n");
- 				
- 				return null;
- 			}
+ 			return instrument;
+ 		}else
+ 		{
+ 			System.out.println("We dont find the primary key\n");
+ 			
+ 			return null;
  		}
+ 	}
+ 	
+ 	public Warehouse selectWarehouse(int primaryKey)
+ 	{
+ 		String table = "warehouse";
+ 		String selQuery = "SELECT * FROM "+table+" WHERE warehouse_ID = ?";
+ 			
+ 		if(valExist(selQuery,primaryKey,null))
+ 		{
+ 			JDBCSelect sqlSelect = new JDBCSelect(c);
+ 				
+ 			Warehouse warehouse = new Warehouse();
+ 			warehouse = sqlSelect.selectWarehouse(selQuery,primaryKey);
+ 			
+ 			return warehouse;
+ 		}else
+ 		{
+ 			System.out.println("/nWe dont find the primary key\n");
+ 				
+ 			return null;
+ 		}
+ 	}
+	
+ 	//Arrays of Pojos
+	
+	public ArrayList<Hospital> selectHospitals()
+	{
+		
+		ArrayList<Hospital> hosp = new ArrayList<Hospital>();
+		JDBCSelect sqlSelect = new JDBCSelect(c);
+		
+		hosp = sqlSelect.selectAllHospitals();
+		
+		
+		return hosp;
+	}
+ 	
+ 	public ArrayList<Order> selectAllOrders()
+ 	{
+ 		ArrayList<Order> orderList = new ArrayList<Order>();
+ 		JDBCSelect sqlSelect = new JDBCSelect(c);
+ 		
+ 		
+		orderList = sqlSelect.selectAllOrders();
+		
+ 		return orderList;
+ 	}
 
- 	 	public ArrayList<Instrument> selectAllInstruments()
- 	 	{
- 	 		ArrayList<Instrument> instrumentList = new ArrayList<Instrument>();
- 	 		JDBCSelect sqlSelect = new JDBCSelect(c);
+ 	public ArrayList<Company> selectAllCompanies(){
+ 		ArrayList<Company> companiesList = new ArrayList<Company>();
+ 		JDBCSelect sqlSelect = new JDBCSelect(c);
+ 		
+		companiesList = sqlSelect.selectAllCompanies();
+		
+ 		return companiesList;
+ 	}
+ 	
+ 	public ArrayList<Material> selectAllMaterials(){
+ 		ArrayList<Material> materialList = new ArrayList<Material>();
+ 		JDBCSelect sqlSelect = new JDBCSelect(c);
+ 		
+		materialList = sqlSelect.selectAllMaterials();
+
+		
+ 		return materialList;
+ 	}
+ 	
+ 	public ArrayList<Employee> selectAllEmployees(){
+	 		
+		ArrayList<Employee> emp = new ArrayList<Employee>();
+		JDBCSelect sqlSelect = new JDBCSelect(c);
+		
+		emp = sqlSelect.selectAllEmployee();
+		
+		return emp;
+	}
+	
+ 	public ArrayList<Machinery> selectAllMachineries()
+	{
+		ArrayList<Machinery> mach = new ArrayList<Machinery>();
+		JDBCSelect sqlSelect = new JDBCSelect(c);
+		
+		mach = sqlSelect.selectAllMachinery();
+		
+		return mach;
+	}
+ 	
+ 	public ArrayList<Instrument> selectAllInstruments()
+ 	{
+ 		ArrayList<Instrument> instrumentList = new ArrayList<Instrument>();
+ 		JDBCSelect sqlSelect = new JDBCSelect(c);
  	 		
  	 	
- 	 		instrumentList = sqlSelect.selectAllInstruments();
+ 		instrumentList = sqlSelect.selectAllInstruments();
  			
  			
- 	 		return instrumentList;
- 	 	}
- 	 	
-// 	 	
- 	 	public Warehouse selectWarehouse(int primaryKey)
- 		{
- 			String table = "warehouse";
- 			String selQuery = "SELECT * FROM "+table+" WHERE warehouse_ID = ?";
- 			
- 			if(valExist(selQuery,primaryKey,null))
- 			{
- 				JDBCSelect sqlSelect = new JDBCSelect(c);
- 				
- 				Warehouse warehouse = new Warehouse();
- 				warehouse = sqlSelect.selectWarehouse(selQuery,primaryKey);
- 				
- 				return warehouse;
- 			}else
- 			{
- 				System.out.println("/nWe dont find the primary key\n");
- 				
- 				return null;
- 			}
- 		}
- 	 	
- 	 	public ArrayList<Warehouse> selectAllWarehouses()
- 	 	{
- 	 		ArrayList<Warehouse> warehouseList = new ArrayList<Warehouse>();
- 	 		JDBCSelect sqlSelect = new JDBCSelect(c);
- 	 		
- 	 		warehouseList = sqlSelect.selectAllWarehouses();
- 			
- 	 		return warehouseList;
- 	 	}
- 	 	 	 	
- 	 	
+ 		return instrumentList;
+ 	}
+ 	
+ 	public ArrayList<Warehouse> selectAllWarehouses()
+	{
+		ArrayList<Warehouse> warehouseList = new ArrayList<Warehouse>();
+		JDBCSelect sqlSelect = new JDBCSelect(c);
+		
+		warehouseList = sqlSelect.selectAllWarehouses();
+	
+		return warehouseList;
+	}
+ 	 		 	
  	// Update
  	
- 	//Pablo
  	public void updateHospital(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
  	{
  		String table = "hospital";
@@ -785,6 +825,7 @@ public class JDBCManager implements DBInterface
  		}
  		
  	}
+ 	
  	public void updateOrder(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
  	{
  		String table = "orders";
@@ -800,8 +841,6 @@ public class JDBCManager implements DBInterface
  		
  	}
  	
- 	
- 	//Celia
  	public void updateMachinery(int pkSearch, int b)
  	{
  		String workingState=null;
@@ -824,7 +863,6 @@ public class JDBCManager implements DBInterface
 
  	}
  	
- 	//Alex
  	public void updateMaterial(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
  	{
  		String table = "material";
@@ -839,6 +877,7 @@ public class JDBCManager implements DBInterface
  		}
  		
  	}
+ 	
  	public void updateCompany(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
  	{
  		String table = "company";
@@ -853,9 +892,6 @@ public class JDBCManager implements DBInterface
  		}
  		
  	}
- 	
- 	
-	//Charo
 
  	public void updateWarehouse(int pkSearch, int filledSpaceUpdated)
  	{ 	
@@ -887,73 +923,89 @@ public class JDBCManager implements DBInterface
  		
  	} 	
 
- 	//
- 	//DB management Methods
-	
-	
-	private LocalDate StringtoLocalDate(String year,String month,String day)
-	{
-		String fullDate = ""+year+"-"+month+"-"+day+"";
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDate locDate = LocalDate.parse(fullDate, formatter);
-		return locDate;
-	}
-	
-	public boolean valExist(String query, int pkInt, String pkString)
-	{
-		
-		boolean a;
-		
-		 JDBCSearch sel = new JDBCSearch(c);
-		
-		
-		if(pkString == null)
-		{
-			a = sel.valPKInt(query,pkInt);
-		}
-		else
-		{
-			a = sel.valPKString(query,pkString);
-		}
-		
-	
-		return a;
-		
-	}
 		
 	//Relations
-	public void setRelationHospitalOrder(int hosp, int order, int tao)
-	{
+ 	
+	//Set ID's
+	public Company setCompanyID(Company com){
+		ArrayList <Company> arraycom = selectAllCompanies();
+		Iterator<Company> iter = arraycom.iterator();
+		int pkSearch = 0;
+		while(iter.hasNext()){
+			pkSearch = iter.next().getCompanyID();
+		} 
 		
-		JDBCInsert sqlInsert = new JDBCInsert(c);
-		sqlInsert.insertHospitalOrderRelation( hosp, order, tao);
+		com.setCompanyID(pkSearch);
 		
+		return com;
 	}
 	
-	public void deleteRelationHospitalOrder(int pkCol,String colPk)
+	public Hospital setHospitalID(Hospital hosp)
 	{
-		String table = "hospital_orders";
-	
-		JDBCDelete sqlDelete = new JDBCDelete(c);
-		sqlDelete.deleteRelationNtoN( table, colPk, pkCol);
-		
+		ArrayList <Hospital> arrayHosp = selectHospitals();
+		Iterator<Hospital> iter = arrayHosp.iterator();
+		int pkSearch = 0;
+		while(iter.hasNext())
+		{
+			pkSearch = iter.next().getHospitalID();
+		} 
+		hosp.setHospitalID(pkSearch);
+		return hosp;
 	}
-		
-	
-	public void setRelationInstrumentOrder(int inst, int ord)
+
+	public Order setOrderID(Order ord)
 	{
-		JDBCInsert sqlInsert = new JDBCInsert(c);
-		sqlInsert.insertInstrumentOrderRelation(inst,ord);
-	}
-	
-	public void deleteRelationInstrumentOrder(int pkCol,String colPk)
-	{
-		String table = "instrument_orders";
+		ArrayList<Order> arrayOrd = selectAllOrders();
+		Iterator<Order> iter = arrayOrd.iterator();
+		int pkSearch = 0;
+		while(iter.hasNext())
+		{
+			pkSearch = iter.next().getOrderID();
+		}
 		
-		JDBCDelete sqlInsert = new JDBCDelete(c);
-		sqlInsert.deleteRelationNtoN(table,colPk,pkCol);
+		ord.setOrderID(pkSearch);
+		return ord;
 	}
 	
+	public Instrument setInstrumentID(Instrument inst){
+		ArrayList<Instrument> arrayinst = selectAllInstruments();
+		Iterator<Instrument> iter = arrayinst.iterator();
+		int pkSearch = 0;
+		while(iter.hasNext()){
+			pkSearch = iter.next().getInstrumentID();
+		}
+		inst.setInstrumentID(pkSearch);
+		return inst;
+	}
+	
+	public Warehouse setWarehouseID(Warehouse war){
+		ArrayList<Warehouse> arrayWar = selectAllWarehouses();
+		Iterator<Warehouse> iter = arrayWar.iterator();
+		int pkSearch = 0;
+		while(iter.hasNext()){
+			pkSearch = iter.next().getWarehouseID();
+		}
+		war.setWarehouseID(pkSearch);
+		return war;
+	}
+
+	public Machinery setMachineryID(Machinery mach)
+	{
+		ArrayList<Machinery> arrayMach = selectAllMachineries();
+		Iterator <Machinery> iter = arrayMach.iterator();
+		int pkSearch = 0;
+		while(iter.hasNext())
+		{
+			pkSearch = iter.next().getMachineryID();
+		}
+		
+		mach.setMachineryID(pkSearch);
+		return mach;
+	}
+	
+	//SetRelations
+	
+	//Pojos
 	public Hospital setHospitalRelations(Hospital hosp)
 	{
 		String relationalTable = "hospital_orders";
@@ -1008,9 +1060,8 @@ public class JDBCManager implements DBInterface
 		}
 	return ord;
 	}
-		
+	
 	public Instrument setInstrumentRelations(Instrument inst){
-		
 		
 		//relation instrument-orders
 		String relationalTable = "instrument_orders";
@@ -1044,44 +1095,8 @@ public class JDBCManager implements DBInterface
 		
 		return inst;		
 	}
-
-	public void setRelationInstrumentMachinery(int instID, int machID){
-		
-		JDBCInsert sqlInsert = new JDBCInsert(c);
-		sqlInsert.insertMachineryInstrumentRelation(machID,instID);
-		
-	}
 	
-
-	public void deleteRelationInstrumentMachinery(int pkCol,String colPk)
-	{
-		String table = "instrument_machinery";
-		JDBCDelete sqlDelete = new JDBCDelete(c);
-		sqlDelete.deleteRelationNtoN( table, colPk, pkCol);
-		
-	}
-	
-	public void setRelationInstrumentWarehouse(int instID, int warID){
-		JDBCInsert sqlInsert = new JDBCInsert(c);
-		sqlInsert.insertInstrumentWarehouseRelation(instID,warID);
-		
-	}
-	
-	public void deleteRelationInstrumentWarehouse(int instID, int warID){
-		try {
-		String table = "instrument_warehouse";
-		String sql = "DELETE FROM"+table+"WHERE instrument_ID="+instID;
-		PreparedStatement prep = c.prepareStatement(sql);
-		prep.setInt(1, warID);
-		prep.executeUpdate();
-		
-		} catch (Exception e) {
-		System.out.println(e.getMessage());
-		}
-	}
 	public Machinery setMachineryRelations(Machinery mach){
-		
-
 		//relation employee
 		ArrayList<Employee>allEmployees = selectAllEmployees();
 		Iterator<Employee> iter1 = allEmployees.iterator();
@@ -1124,7 +1139,7 @@ public class JDBCManager implements DBInterface
 		
 		return mach;
 	}
-			
+	
 	public Company setCompanyRelations(Company com){
 		//insert the materials
 		ArrayList<Material> allMaterials = selectAllMaterials();
@@ -1138,84 +1153,36 @@ public class JDBCManager implements DBInterface
 		}
 		return com;
 	}
-
 	
-	//Set ID's
-	//Alex
-	public Company setCompanyID(Company com){
-		ArrayList <Company> arraycom = selectAllCompanies();
-		Iterator<Company> iter = arraycom.iterator();
-		int pkSearch = 0;
-		while(iter.hasNext()){
-			pkSearch = iter.next().getCompanyID();
-		} 
-		
-		com.setCompanyID(pkSearch);
-		
-		return com;
-	}
+	//Insert relations Tables
 	
-	public Hospital setHospitalID(Hospital hosp)
+	public void setRelationHospitalOrder(int hosp, int order, int tao)
 	{
-		ArrayList <Hospital> arrayHosp = selectHospitals();
-		Iterator<Hospital> iter = arrayHosp.iterator();
-		int pkSearch = 0;
-		while(iter.hasNext())
-		{
-			pkSearch = iter.next().getHospitalID();
-		} 
-		hosp.setHospitalID(pkSearch);
-		return hosp;
-	}
-	public Order setOrderID(Order ord)
-	{
-		ArrayList<Order> arrayOrd = selectAllOrders();
-		Iterator<Order> iter = arrayOrd.iterator();
-		int pkSearch = 0;
-		while(iter.hasNext())
-		{
-			pkSearch = iter.next().getOrderID();
-		}
 		
-		ord.setOrderID(pkSearch);
-		return ord;
+		JDBCInsert sqlInsert = new JDBCInsert(c);
+		sqlInsert.insertHospitalOrderRelation( hosp, order, tao);
+		
 	}
-	public Instrument setInstrumentID(Instrument inst){
-		ArrayList<Instrument> arrayinst = selectAllInstruments();
-		Iterator<Instrument> iter = arrayinst.iterator();
-		int pkSearch = 0;
-		while(iter.hasNext()){
-			pkSearch = iter.next().getInstrumentID();
-		}
-		inst.setInstrumentID(pkSearch);
-		return inst;
+		
+	public void setRelationInstrumentOrder(int inst, int ord)
+	{
+		JDBCInsert sqlInsert = new JDBCInsert(c);
+		sqlInsert.insertInstrumentOrderRelation(inst,ord);
+	}
+		
+	public void setRelationInstrumentMachinery(int instID, int machID){
+		
+		JDBCInsert sqlInsert = new JDBCInsert(c);
+		sqlInsert.insertMachineryInstrumentRelation(machID,instID);
+		
 	}
 	
-	public Warehouse setWarehouseID(Warehouse war){
-		ArrayList<Warehouse> arrayWar = selectAllWarehouses();
-		Iterator<Warehouse> iter = arrayWar.iterator();
-		int pkSearch = 0;
-		while(iter.hasNext()){
-			pkSearch = iter.next().getWarehouseID();
-		}
-		war.setWarehouseID(pkSearch);
-		return war;
-	}
-
-	public Machinery setMachineryID(Machinery mach)
-	{
-		ArrayList<Machinery> arrayMach = selectAllMachineries();
-		Iterator <Machinery> iter = arrayMach.iterator();
-		int pkSearch = 0;
-		while(iter.hasNext())
-		{
-			pkSearch = iter.next().getMachineryID();
-		}
+	public void setRelationInstrumentWarehouse(int instID, int warID){
+		JDBCInsert sqlInsert = new JDBCInsert(c);
+		sqlInsert.insertInstrumentWarehouseRelation(instID,warID);
 		
-		mach.setMachineryID(pkSearch);
-		return mach;
 	}
-	
+			
 	//Relation Help Methods
 	public ArrayList<Integer> foundRelation(String table,String pk1AttributeSearch,String pkAttributeCompare ,int pkValueCompare)
 	{
@@ -1230,8 +1197,7 @@ public class JDBCManager implements DBInterface
 		return pkArray;
 		
 	}
-	
-
+		
 	public boolean sharedRelation(String table,String pk1AtrivuteSearch,String pkAtrivuteCompere ,Integer pkValueCompere)
 	{
 		boolean a = false;
@@ -1247,5 +1213,37 @@ public class JDBCManager implements DBInterface
 		return a;
 	}
 	
+	
+ 	//DB management Methods
+	
+	private LocalDate StringtoLocalDate(String year,String month,String day)
+	{
+		String fullDate = ""+year+"-"+month+"-"+day+"";
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate locDate = LocalDate.parse(fullDate, formatter);
+		return locDate;
+	}
+	
+	public boolean valExist(String query, int pkInt, String pkString)
+	{
+		
+		boolean a;
+		
+		 JDBCSearch sel = new JDBCSearch(c);
+		
+		
+		if(pkString == null)
+		{
+			a = sel.valPKInt(query,pkInt);
+		}
+		else
+		{
+			a = sel.valPKString(query,pkString);
+		}
+		
+	
+		return a;
+		
+	}
 	
 }
