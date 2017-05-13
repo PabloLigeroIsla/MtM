@@ -41,12 +41,18 @@ public class JPAManager implements DBInterface
 	
 	public void insert(Material obj)
 	{
-		
+		em.getTransaction().begin();
+		em.persist(obj);
+		em.getTransaction().commit();
 	}
 	
 	public void deleteMaterial(int primaryKey)
 	{
+		Material mat = selectMaterial(primaryKey);
 		
+		em.getTransaction().begin();
+		em.remove(mat);
+		em.getTransaction().commit();
 	}
 	
 	//Machinery
