@@ -7,7 +7,6 @@ import mtm.db.pojos.*;
 public class XMLManager 
 {
 	
-	
 	public void marshallHospital(String route,Hospital hosp)
 	{
 		File file = new File(route);
@@ -27,4 +26,5 @@ public class XMLManager
 		
 		return hosp;
 	}
+
 }

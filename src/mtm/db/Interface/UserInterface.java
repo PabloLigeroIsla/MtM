@@ -69,13 +69,18 @@ public class UserInterface
 				case 6:
 					createXML();
 					waitEnter();
+					break;
 				case 7:
+					openXML();
+					waitEnter();
+					break;
+				case 8:
 					jdbcManager.closeConnection();
 					jpaManager.closeJPAConnection();
 					waitEnter();
 					break;
 				}
-		}while(option!=7);
+		}while(option!=8);
 	}
 
 	// Menu
@@ -83,7 +88,7 @@ public class UserInterface
 	public static int openMenu(boolean dbCreated)
 	{
 		int option;
-		int numOptions = 7; //Numero de opciones que podemos seleccionar con esta funci�n
+		int numOptions = 8; //Numero de opciones que podemos seleccionar con esta funci�n
 		printMenu(dbCreated);
 		option = writeNumber(numOptions);
 		
@@ -133,7 +138,8 @@ public class UserInterface
 						// Das el valor
 						// update
 					+ "Option 6.- Create XML of the Pojos \n"
-					+ "Option 7.- Exit \n");
+					+ "Option 7.- Open the XML of the pojos"
+					+ "Option 8.- Exit \n");
 
 	}
 	
@@ -844,31 +850,26 @@ public class UserInterface
     	Hospital hosp;
 		hosp = jdbcManager.selectHospital(pk);
 		jdbcManager.setHospitalRelations(hosp);
-		hosp.toString();
+		hosp.printHospital(true);;
     }
     public static void listHospitals(boolean relation)
     {
     	Hospital hosp;
-		ArrayList<Hospital> hospList = new ArrayList<Hospital>();
-		hospList = jdbcManager.selectHospitals();
-			
-		int count= 0;
-			
-		while(count < hospList.size())
+		ArrayList<Hospital> hospList = jdbcManager.selectHospitals();
+		Iterator <Hospital> iter = hospList.iterator();
+		
+		while(iter.hasNext())
 		{
-			hosp = hospList.get(count);
-			String name = hosp.getName();
-			int id = hosp.getHospitalID();
+			hosp = iter.next();
 			if(relation)
 			{
 				jdbcManager.setHospitalRelations(hosp);
-				System.out.printf("id: %d,name: %s, relation: %d\n",id,name,hosp.getOrderList().toString());
+				System.out.printf("id: %d,name: %s, Order relations: %d\n",hosp.getHospitalID(),hosp.getName(),hosp.getOrderList().toString());
 
 			}else
 			{
-				System.out.printf("id: %d,name: %s\n",id,name);				
+				System.out.printf("id: %d,name: %s\n",hosp.getHospitalID(),hosp.getName());				
 			}
-			count++;
 		}
     }
     
@@ -877,28 +878,26 @@ public class UserInterface
     	Order ord;
     	ord = jdbcManager.selectOrder(pk);
     	jdbcManager.setOrderRelations(ord);
-    	ord.toString();
+    	ord.printOrder(true);
     }
     public static void listOrders(boolean relation)
     {
-    	Order ord = new Order();
+    	Order ord;;
     	ArrayList<Order> ordList = new ArrayList<Order>();
     	ordList = jdbcManager.selectAllOrders();
+    	Iterator <Order> iter = ordList.iterator();
     	
-    	int count = 0;
-    	
-    	while(count < ordList.size())
+    	while(iter.hasNext())
     	{
+    		ord = iter.next();
+    		jdbcManager.setOrderRelations(ord);
     		if(relation)
     		{
-    			jdbcManager.setOrderRelations(ord);
     			System.out.printf("id: %d, relations: %d\n",ord.getOrderID(),ord.getHospitalList().toString());
     		}else
     		{
-    			ord = ordList.get(count);
     			System.out.printf("id: %d\n",ord.getOrderID());
     		}
-    		count++;
     	}
     	
     }
