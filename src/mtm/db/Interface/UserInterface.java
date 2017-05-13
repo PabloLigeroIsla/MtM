@@ -1032,9 +1032,27 @@ public class UserInterface
     	{
     		
     		ArrayList<Company> compList = jdbcManager.selectAllCompanies();
+
     		ArrayList<Hospital> hospList = jdbcManager.selectAllHospitals();
+    		Iterator<Hospital> hospIter = hospList.iterator();
+    		while(hospIter.hasNext())
+    		{
+    			jdbcManager.setHospitalRelations(hospIter.next());
+    		}
+    		
     		ArrayList<Machinery> machList = jdbcManager.selectAllMachineries();
+    		Iterator<Machinery> machIter = machList.iterator();
+    		while(machIter.hasNext())
+    		{
+    			jdbcManager.setMachineryRelations(machIter.next());
+    		}
+    		
     		ArrayList<Warehouse> wareList = jdbcManager.selectAllWarehouses();
+    		Iterator<Warehouse> wareIter = wareList.iterator();
+    		while(wareIter.hasNext())
+    		{
+    			jdbcManager.setWarehouseRelations(wareIter.next());
+    		}
     		
     		MtM mtmObj = new MtM(compList,hospList,machList,wareList);
     		

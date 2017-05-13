@@ -21,6 +21,7 @@ public class Warehouse implements Serializable {
 	private String warehouseLocation;
 	private Integer capacity;
 	private Integer filledSpace;
+	
 	private List<Instrument> instrumentList;
 	private List<Material> materialTypeList;
 	
