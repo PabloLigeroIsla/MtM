@@ -21,8 +21,8 @@ import javax.xml.bind.annotation.XmlType;
 public class Hospital implements Serializable
 {
 	
-	private static final long serialVersionUID = 3198781709673295324L;
-
+	private static final long serialVersionUID = -5262203984422829331L;
+	
 	@Id 
 	@GeneratedValue(generator="hospital")
 	@TableGenerator(name="hospital", table="sqlite_sequence",

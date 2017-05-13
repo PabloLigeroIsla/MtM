@@ -3,7 +3,6 @@ package mtm.db.pojos;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.Date;
 import java.time.LocalDate;
 
 
@@ -12,7 +11,7 @@ public class Machinery implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -5275135022867594008L;
-	//Atributes
+	//Attributes
 
 	private int machineryID;
 	private String machineryType;

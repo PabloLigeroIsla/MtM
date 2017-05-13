@@ -8,14 +8,7 @@ import java.util.Iterator;
 import mtm.db.jdbc.JDBCManager;
 import mtm.db.jpa.JPAManager;
 import mtm.db.xmls.XMLManager;
-import mtm.db.pojos.Company;
-import mtm.db.pojos.Employee;
-import mtm.db.pojos.Hospital;
-import mtm.db.pojos.Instrument;
-import mtm.db.pojos.Machinery;
-import mtm.db.pojos.Material;
-import mtm.db.pojos.Order;
-import mtm.db.pojos.Warehouse;
+import mtm.db.pojos.*;
 
 public class UserInterface 
 {
@@ -867,7 +860,7 @@ public class UserInterface
     public static void listHospitals(boolean relation)
     {
     	Hospital hosp;
-		ArrayList<Hospital> hospList = jdbcManager.selectHospitals();
+		ArrayList<Hospital> hospList = jdbcManager.selectAllHospitals();
 		Iterator <Hospital> iter = hospList.iterator();
 		
 		while(iter.hasNext())
@@ -1031,16 +1024,31 @@ public class UserInterface
     //XML
     public static void createXML()
     {
+    	System.out.println("Do you want to:\n1:Create XML ofthe DataBase\n2:Create Xml of a Hospital");
+    	int opt = writeNumber(2);
     	System.out.println("Introduce the path to the file that will store the DB");
     	String path = writeString();
-    	System.out.println("Select the hospital you want to convert into XML");
-    	listHospitals(false);
-    	int op = writeNumber();
-    	Hospital hosp = jdbcManager.selectHospital(op);
+    	if(opt == 1)
+    	{
+    		
+    		ArrayList<Company> compList = jdbcManager.selectAllCompanies();
+    		ArrayList<Hospital> hospList = jdbcManager.selectAllHospitals();
+    		ArrayList<Machinery> machList = jdbcManager.selectAllMachineries();
+    		ArrayList<Warehouse> wareList = jdbcManager.selectAllWarehouses();
+    		
+    		MtM mtmObj = new MtM(compList,hospList,machList,wareList);
+    		
+    		xmlManager.marshalMtM(path,mtmObj);
+    		
+    	}else
+    	{
+    		System.out.println("Select the hospital you want to convert into XML");
+    		listHospitals(false);
+    		int op = writeNumber();
+    		Hospital hosp = jdbcManager.selectHospital(op);
     	
-    	xmlManager.marshallHospital(path, hosp);
-    	
-    	
+    		xmlManager.marshallHospital(path, hosp);
+    	}
     	
     }
 

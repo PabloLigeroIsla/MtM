@@ -6,7 +6,7 @@ import mtm.db.pojos.*;
 
 public class XMLManager 
 {
-	
+	//Marshall
 	public void marshallHospital(String route,Hospital hosp)
 	{
 		File file = new File(route);
@@ -16,6 +16,14 @@ public class XMLManager
 		
 	}
 	
+	public void marshalMtM(String route,MtM mtm)
+	{
+		File file = new File(route);
+		Java2Xml j2x = new Java2Xml();
+		j2x.createXML(file,mtm);
+	}
+	
+	//Unmarshall
 	public Hospital unmarshallHospital(String route)
 	{
 		Hospital hosp;

@@ -28,5 +28,22 @@ public class Java2Xml
 		
 	}
 	
+	public void createXML(File marshallFile, MtM mtm)
+	{
+		try
+		{
+			JAXBContext jaxbContext = JAXBContext.newInstance(Hospital.class);
+			Marshaller marshaller = jaxbContext.createMarshaller();
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,Boolean.TRUE);
+			
+			marshaller.marshal(mtm,marshallFile);
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+	}
+	
 	
 }

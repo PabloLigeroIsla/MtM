@@ -1,0 +1,8 @@
+Tareas:
+
+
+Actualizar el UML
+Actualizar el ultimo esquema ese que tenias que poner losmetodos
+Hacer el Esquema de XML
+
+Hacer XML de todos los objetos (mirar el objeto MtM para saber que hay que guardar en cada objeto y que no para evitar bucles infinitos)

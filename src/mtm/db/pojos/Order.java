@@ -28,8 +28,9 @@ import java.time.LocalDate;
 @XmlType(propOrder = { "orderId", "TotalAmountInstruments", "orderDate", "deliveryDate", "instrumentList" })
 public class Order implements Serializable
 {
+
+	private static final long serialVersionUID = -1476135363454640411L;
 	
-	private static final long serialVersionUID = 1821406767918661646L;
 	@Id 
 	@GeneratedValue(generator="orders")
 	@TableGenerator(name="orders", table="sqlite_sequence",

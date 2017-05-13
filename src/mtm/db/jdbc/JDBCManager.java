@@ -725,7 +725,7 @@ public class JDBCManager implements DBInterface
 	
  	//Arrays of Pojos
 	
-	public ArrayList<Hospital> selectHospitals()
+	public ArrayList<Hospital> selectAllHospitals()
 	{
 		
 		ArrayList<Hospital> hosp = new ArrayList<Hospital>();
@@ -942,7 +942,7 @@ public class JDBCManager implements DBInterface
 	
 	public Hospital setHospitalID(Hospital hosp)
 	{
-		ArrayList <Hospital> arrayHosp = selectHospitals();
+		ArrayList <Hospital> arrayHosp = selectAllHospitals();
 		Iterator<Hospital> iter = arrayHosp.iterator();
 		int pkSearch = 0;
 		while(iter.hasNext())
