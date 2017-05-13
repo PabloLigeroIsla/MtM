@@ -73,7 +73,7 @@ public class JDBCSelect
 		{
 			String sql = query;
 			PreparedStatement prep = c.prepareStatement(sql);
-			prep.setString(1, nameHosp);
+			prep.setString(1, "%"+nameHosp+"%");
 			ResultSet rs = prep.executeQuery();
 			
 			while (rs.next()) 

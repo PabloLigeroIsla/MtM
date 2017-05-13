@@ -285,9 +285,21 @@ public class UserInterface
 			showEmployee(writeNumber());
 			break;
 		case 3:
+			System.out.println("Search by:\n 1:Id\n2:Name\n\n");
 			listHospitals(false);
-			System.out.printf("Select the ID of the hospital you want to see\n");
-			showHospital(writeNumber());
+			int opt = writeNumber(2);
+			if(opt==1)
+			{
+				System.out.printf("Select the ID of the hospital you want to see\n");
+				showHospital(writeNumber());
+			}else
+			{
+				System.out.println("Introduce the name of the hospital:");
+				String hospName = writeString();
+				Hospital hosp = jdbcManager.selectHospital(hospName);
+				showHospital(hosp.getHospitalID());
+			}
+			
 			break;
 		case 4:
 			listInstruments(false);

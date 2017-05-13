@@ -62,7 +62,7 @@ public class JDBCSearch
 			
 			String sql = query;
 			PreparedStatement prep = c.prepareStatement(sql);
-			prep.setString(1, string);
+			prep.setString(1, "%"+string+"%");
 			ResultSet rs = prep.executeQuery();
 			
 			while(rs.next())
