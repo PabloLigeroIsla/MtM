@@ -74,7 +74,7 @@ public class JPAManager implements DBInterface
 		em.persist(obj);
 		em.getTransaction().commit();
 	}
-	/////////Falta este
+	
 	public void deleteMachinery(int primaryKey)
 	{
 	
