@@ -239,7 +239,7 @@ public class JDBCInsert
 	
 	//Relational Tables 
 		
-	public void insertHospitalOrderRelation( int pkHospital, int pkOrder, int tao)
+	public void insertHospitalOrderRelation( int pkHospital, int pkOrder, int amOrd)
 	{
 		try
 		{
@@ -251,7 +251,7 @@ public class JDBCInsert
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setInt(1,pkHospital);
 			prep.setInt(2,pkOrder);
-			prep.setInt(3,tao);
+			prep.setInt(3,amOrd);
 			
 			prep.executeUpdate();
 				
