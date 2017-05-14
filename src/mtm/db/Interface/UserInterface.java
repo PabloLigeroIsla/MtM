@@ -1080,7 +1080,7 @@ public class UserInterface
     		Iterator<Warehouse> wareIter = wareList.iterator();
     		while(wareIter.hasNext())
     		{
-    		//	jdbcManager.setWarehouseRelations(wareIter.next());
+    			jdbcManager.setWarehouseRelations(wareIter.next());
     		}
     		
     		MtM mtmObj = new MtM(compList,hospList,machList,wareList);

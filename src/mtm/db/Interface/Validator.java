@@ -90,7 +90,7 @@ public abstract class Validator
 					{
 						 do 
 			        	 {
-			                 System.out.println("Introduce a number between %d and %d \n");
+			                 System.out.printf("Introduce a number between %d and %d \n",lowerLim,upperLim);
 			   
 			                     stringNumber = c.readLine();
 			                     if (valNumString(stringNumber)) 

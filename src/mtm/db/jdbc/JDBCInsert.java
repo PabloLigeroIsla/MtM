@@ -282,7 +282,7 @@ public class JDBCInsert
 								c.setAutoCommit(false);
 
 								Statement stmt = c.createStatement();
-								String sql ="INSERT INTO machinery_instrument(machinery_ID,instrument_ID)"
+								String sql ="INSERT INTO instrument_machinery(machinery_ID,instrument_ID)"
 										+ "VALUES('" + pkMachinery + "','" + pkInstrument+ "');";
 								stmt.executeUpdate(sql);
 								stmt.close();
