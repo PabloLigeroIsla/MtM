@@ -359,21 +359,23 @@ public class UserInterface
 				if(jdbcManager.valExist("SELECT * FROM instrument WHERE instrument_ID = ?",1,null))
 				{
 					boolean keepRelating = true;
+					listOrders(false);
 					while(keepRelating)
 					{
 						System.out.println("The Order allready exixt?. YES or NO");
 						option = writeString();
 						if(writeOption(option))
 						{
-							System.out.println("Select one of the Orders");
+							System.out.println("Select one of the following Orders\n");
 							listOrders(false);
 							int op2 = writeNumber();
+							hosp.addOrder(jdbcManager.selectOrder(op2));
 							System.out.println("Insert the amountOrder");
-							int tao = writeNumber();
-							jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(),op2,tao);
+							int amOrd = writeNumber();
+							jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(),op2,amOrd);
 						}else
 						{
-					    	System.out.println("Introduce the values:\n");
+					    	System.out.println("Introduce the values of the New Order:\n");
 					    	
 							Order ord = createOrder();
 
@@ -381,8 +383,8 @@ public class UserInterface
 							System.out.println("Select the Primary Key of the instrument you want to order\n");
 					    	listInstruments(false);
 					    	int opt = writeNumber();
-					    	
-							System.out.println("Insert the amountOrder");
+					    	ord.addInstrument(jdbcManager.selectInstrument(opt));
+							System.out.println("Insert the amountOrder\n");
 							int tao = writeNumber();
 							
 							jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(),ord.getOrderID(),tao);
@@ -390,7 +392,7 @@ public class UserInterface
 						}
 						System.out.println("Do you want to keep relating? YES,NO\n");
 						option = writeString();
-						if(option.equals("NO"))
+						if(!writeOption(option))
 						{
 							keepRelating = false;
 						}

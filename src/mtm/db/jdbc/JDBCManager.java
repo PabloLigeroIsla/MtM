@@ -1155,11 +1155,11 @@ public class JDBCManager implements DBInterface
 	
 	//Insert relations Tables
 	
-	public void setRelationHospitalOrder(int hosp, int order, int tao)
+	public void setRelationHospitalOrder(int hosp, int order, int amOrd)
 	{
 		
 		JDBCInsert sqlInsert = new JDBCInsert(c);
-		sqlInsert.insertHospitalOrderRelation( hosp, order, tao);
+		sqlInsert.insertHospitalOrderRelation( hosp, order, amOrd);
 		
 	}
 		
