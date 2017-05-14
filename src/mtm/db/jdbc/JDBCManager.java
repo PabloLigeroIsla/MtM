@@ -490,7 +490,7 @@ public class JDBCManager implements DBInterface
 	public Hospital selectHospital(int primaryKey)
 	{
 		String table = "hospital";
-		String selQuery = "SELECT name FROM "+table+" WHERE hospital_ID = ?";
+		String selQuery = "SELECT * FROM "+table+" WHERE hospital_ID = ?";
 		
 		
 		if(valExist(selQuery,primaryKey,null))
@@ -513,7 +513,7 @@ public class JDBCManager implements DBInterface
  	
 	public Hospital selectHospital(String nameHospital)
  	{
-		String selQuarry = "SELECT location FROM hospital WHERE name LIKE ?";
+		String selQuarry = "SELECT * FROM hospital WHERE name LIKE ?";
 		
 		if(valExist(selQuarry,-1,nameHospital))
 		{

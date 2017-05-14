@@ -90,7 +90,7 @@ public abstract class Validator
 					{
 						 do 
 			        	 {
-			                 System.out.println("Introduce a number\n");
+			                 System.out.println("Introduce a number between %d and %d \n");
 			   
 			                     stringNumber = c.readLine();
 			                     if (valNumString(stringNumber)) 
@@ -103,7 +103,7 @@ public abstract class Validator
 						
 						if((numIntro > upperLim) || (numIntro < 0))//si hay 5 opciones no puedes poner 6
 						{	
-							System.out.println("Out of established limits "+upperLim+","+lowerLim+"\n");
+							System.out.println("Out of established limits ["+upperLim+","+lowerLim+"]\n");
 						}
 					}
 				}catch(Exception e)
@@ -117,7 +117,7 @@ public abstract class Validator
 	public static String writeString()
 	{
 		String string="";
-		System.out.println("Introduce a word/sentence in CAPITAL letters");
+		System.out.println("Introduce a word/sentence\n");
 		try
 		{
 			string = c.readLine();
@@ -144,7 +144,7 @@ public abstract class Validator
 	public static boolean writeOption(String option)
 	{
 		boolean a = false;
-		if(option.compareTo("YES") == 0)
+		if(option.compareTo("YES") == 0 || option.compareTo("yes") == 0)
 		{
 			a = true;
 		}

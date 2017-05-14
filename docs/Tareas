@@ -1,7 +1,8 @@
 Tareas:
 
 ¡¡¡¡¡¡¡Hacer metodo setWharehouseRelation(WareHouse warehouse) en JDBCManager!!!!!!
-
+Hacer el pojo de Machinery a JPA
+Descomentar los métodos de UserInterface de JPA y comentar los de JDBC (buscar en refractor @JPAChange para ver donde estan comentados) 
 
 Actualizar el UML
 Actualizar el ultimo esquema ese que tenias que poner losmetodos
