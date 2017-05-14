@@ -116,7 +116,6 @@ public class JDBCManager implements DBInterface
 	{
 		JDBCCreate codeCreate = new JDBCCreate(c);
 		
-		
 		codeCreate.createTableMachinery();
 		
 	}

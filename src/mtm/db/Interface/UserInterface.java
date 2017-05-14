@@ -16,6 +16,8 @@ public class UserInterface
 	static JPAManager jpaManager = new JPAManager();
 	static XMLManager xmlManager = new XMLManager();
 	 
+	static boolean openDbBefore = false;
+	
 	//Main
 	public static void main(String args[]) 
 	{
@@ -91,11 +93,19 @@ public class UserInterface
     
     public static void printMenu(boolean dbCreated)
 	{
-    	
-    	if(dbCreated)
+    	if(!openDbBefore)
     	{
-    		System.out.println("\nTables created before\n");
+    		if(dbCreated)
+    		{
+    			System.out.println("\nTables created before\n");
+    			openDbBefore = true;
+    		}else
+    		{
+    			System.out.println("\n New Data Base");
+    			openDbBefore = true;
+    		}
     	}
+    	
 		
 		
 			//Si a�ades opciones, recuerda mirar el metodo abrirMenu
@@ -659,17 +669,28 @@ public class UserInterface
    
     public static Machinery createMachinery(){
     	
-	Machinery mach = new Machinery();
+	Machinery mach;
 	
-    	System.out.println("Type of Machinery (Laser,Milling)");
+    	System.out.println("Type of Machinery (Laser,Milling...)");
 		String a=writeString();
-		System.out.println("State of machinery:");
-		String b=writeString();
+		System.out.println("State of machinery:\n1.-Working\n2.-No Working\n");
+		int op = writeNumber(2);
+		String b;
+		if(op == 1)
+		{
+			b= "Working";
+			System.out.println("The machinery State will be set as Working\n");
+		}else
+		{
+			b= "No Working";
+			System.out.println("The machinery State will be set as NO working\n");
+		}
+		
 		System.out.println("Date of installation:");		
 		String []c1 = new String[2];	
 		c1 = createDate();
 
-		System.out.println("Size of machinery");
+		System.out.println("Size of machinery(m^2):\n");
 		int d=writeNumber();
 
 		mach = jdbcManager.createPojoMachinery(a,b,c1[0],c1[1],c1[2],d);
@@ -1004,25 +1025,25 @@ public class UserInterface
     public static void listMachineries(boolean relation) {
     	
     	Machinery mach;
-    	ArrayList<Machinery> machList = new ArrayList<Machinery>();
+    	ArrayList<Machinery> machList = jdbcManager.selectAllMachineries();
     	int count = 0;
     	
     	while(count < machList.size()){
     		
     		mach =machList.get(count);
-
-        	machList = jdbcManager.selectAllMachineries();
-        	String machineryType = mach.getMachineryType();
+    		
     		int id = mach.getMachineryID();
+        	String machineryType = mach.getMachineryType();
+    		
 
     		if(relation)
     		{
     			jdbcManager.setMachineryRelations(mach);
     			System.out.printf("id: %d, relation Instrument: %d, relation employee: %d, relation materials: %d\n",mach.getMachineryID(),mach.getemployeeList().toString(),mach.getmaterialList().toString());
-        		count ++;
+       
     		}else
     		{
-    			System.out.printf("id: %d, machinery type: %d\n",id,machineryType);
+    			System.out.printf("id: %d, machinery type: %s\n",id,machineryType);
     		}    		
         	count ++;
     	}

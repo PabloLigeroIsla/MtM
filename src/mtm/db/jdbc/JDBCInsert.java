@@ -146,6 +146,7 @@ public class JDBCInsert
 
 	public void insert(Machinery mach)
 	{
+		
 		try
 		{
 						
@@ -156,15 +157,19 @@ public class JDBCInsert
 			
 			java.sql.Date InstallationDate = LocaltoSqlDate(mach.getDateofInstallation());
 			PreparedStatement prep = c.prepareStatement(sql);
-				prep.setString(1, mach.getMachineryType());
+			
+			prep.setString(1, mach.getMachineryType());
 			prep.setString(2, mach.getStateofMachinery());
 			prep.setDate(3, InstallationDate);
 			prep.setInt(4, mach.getSizeofMachinery());
 			
-			c.commit();
 			prep.executeUpdate();
-			
 			prep.close();
+			
+			c.commit();
+			
+			
+			
 			}catch(SQLException e)
 		{
 			e.printStackTrace();
