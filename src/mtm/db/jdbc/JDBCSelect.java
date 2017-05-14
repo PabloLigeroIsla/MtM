@@ -520,9 +520,6 @@ public class JDBCSelect
 				String bodyLocation = rs.getString("body_location");
 				int price = rs.getInt("price");
 				
-				//debo hacer la relacion para meter el objeto
-				//warehouseLocation = rs.getString("warehouseLocation");
-				
 				Instrument instrument = new Instrument(instrumentID,name,model,purpose,amount,numberUses,bodyLocation,price);
 				instrumentList.add(instrument);
 			}

@@ -352,7 +352,7 @@ public class UserInterface
 			jdbcManager.insert(hosp);
 			jdbcManager.setHospitalID(hosp);
 			
-			System.out.println("Do you want to relate an order with this hospital. YES or NO:\n");
+			System.out.println("Do you want to relate an order with this hospital? YES or NO:\n");
 			String option = writeString();
 			if(writeOption(option))
 			{
@@ -410,6 +410,71 @@ public class UserInterface
 		case 4: //Instrument
 			Instrument inst = createInstrument();
 			jdbcManager.insert(inst);
+			System.out.println("LLEGA A INSERTARLO:\n");
+
+			jdbcManager.setInstrumentID(inst); // to obtain the ID of the instrument
+			
+			System.out.println("Now let´s see which machinery has created the instrument:\n");
+			listMachineries(false);
+			
+			System.out.println("Does the machinery exist?\n");
+			String s = writeString();
+			
+			if(writeOption(s)){
+				System.out.println("Select the ID of the machinery the instrument has been through:\n");
+				int machID=writeNumber();
+				System.out.println("Introduce how much time (minutes) the instrument is in the machinery:\n");
+				int time = writeNumber();
+
+				//mach = jpaManager.selectMachinery(machID);@JPAChange
+				jdbcManager.selectMachinery(machID);
+				jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(),machID,time);
+				//inst.addMachinery();
+			}
+			else
+			{
+				Machinery mach=createMachinery();
+				jdbcManager.setMachineryID(mach);
+
+				System.out.println("Introduce how much time (minutes) the instrument is in the machinery:\n");
+				int time = writeNumber();
+				
+				//jdbcManager.insert(mach);
+				jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(),mach.getMachineryID(),time);
+				//inst.addMachinery(mach);
+				
+			}			
+			
+			System.out.println("Now let´s see in which warehouse is the instrument stored:\n");
+			listWarehouses(false);
+			
+			System.out.println("Does the warehouse exist?\n");
+			String st = writeString();
+			int warID;
+			Warehouse war = new Warehouse();
+			if(writeOption(st)){
+				System.out.println("Select the ID of the warehouse you want to insert the instrument into:\n");
+				warID=writeNumber();
+				war=jdbcManager.selectWarehouse(warID);
+				jdbcManager.setRelationInstrumentWarehouse(inst.getInstrumentID(),warID);
+				jdbcManager.updateWarehouse(warID, inst.getAmount());
+			}
+			else
+			{
+				war=createWarehouse();
+				jdbcManager.insert(war);
+				war = jdbcManager.setWarehouseID(war);
+				warID=war.getWarehouseID();
+				jdbcManager.setRelationInstrumentWarehouse(inst.getInstrumentID(),war.getWarehouseID());
+				jdbcManager.updateWarehouse(war.getWarehouseID(), inst.getAmount());
+
+			}
+			
+			inst.setWarehouseID(warID);
+			
+			
+			
+			
 			break;
 		case 5: //Machinery
 			Machinery mach = createMachinery();
@@ -514,7 +579,7 @@ public class UserInterface
     
     public static Hospital createHospital()
     {
-    	System.out.println("Name of the hosital:");
+    	System.out.println("Name of the hospital:");
 		String a = writeString();
 		System.out.println("Location of the Hospital: ");
 		String b = writeString();
@@ -577,59 +642,8 @@ public class UserInterface
 		String bodyLocation=writeString();
 		System.out.println("Price of the instrument\n");
 		int price=writeNumber();
+		
 		Instrument inst = new Instrument (name,model,purpose,amount,numberUses,bodyLocation,price);
-		inst = jdbcManager.setInstrumentID(inst); // to obtain the ID of the instrument
-		
-		
-		System.out.println("Now let´s see which machinery has created the instrument:\n");
-		listMachineries(false);
-		
-		System.out.println("Does the machinery exist?\n");
-		String s = writeString();
-		Machinery mach=new Machinery();
-		if(writeOption(s)){
-			System.out.println("Select the ID of the machinery the instrument has been through:\n");
-			int machID=writeNumber();
-			//mach = jpaManager.selectMachinery(machID);@JPAChange
-			mach = jdbcManager.selectMachinery(machID);
-			jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(),machID);
-		}
-		else
-		{
-			mach=createMachinery();
-			jdbcManager.insert(mach);
-			mach = jdbcManager.setMachineryID(mach);
-			jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(),mach.getMachineryID());
-			
-		}
-		
-		inst.addMachinery(mach);
-		
-		
-		System.out.println("Now let´s see in which warehouse is the instrument stored:\n");
-		listWarehouses(false);
-		
-		System.out.println("Does the warehouse exist?\n");
-		String st = writeString();
-		Warehouse war = new Warehouse();
-		if(writeOption(st)){
-			System.out.println("Select the ID of the warehouse you want to insert the instrument into:\n");
-			int warID=writeNumber();
-			war=jdbcManager.selectWarehouse(warID);
-			jdbcManager.setRelationInstrumentWarehouse(inst.getInstrumentID(),warID);
-			jdbcManager.updateWarehouse(warID, inst.getAmount());
-		}
-		else
-		{
-			war=createWarehouse();
-			jdbcManager.insert(war);
-			war = jdbcManager.setWarehouseID(war);
-			jdbcManager.setRelationInstrumentWarehouse(inst.getInstrumentID(),war.getWarehouseID());
-			jdbcManager.updateWarehouse(war.getWarehouseID(), inst.getAmount());
-
-		}
-		
-		inst.addWarehouse(war);
 		
 		return inst;
     }
@@ -953,7 +967,7 @@ public class UserInterface
     			jdbcManager.setInstrumentRelations(inst);
     			System.out.printf("id: %d, relations: %d\n",inst.getInstrumentID(),inst.getOrderList().toString());
     			System.out.printf("id: %d, relations: %d\n",inst.getInstrumentID(),inst.getMachineryTypeList().toString());
-    			System.out.printf("id: %d, relations: %d\n",inst.getInstrumentID(),inst.getWarehouseList().toString());	
+    			System.out.printf("id: %d, relations: %d\n",inst.getInstrumentID(),inst.getWarehouseID().toString());	
     		}else{
     			inst = instrumentList.get(count);
     			System.out.printf("id: %d\n",inst.getInstrumentID());

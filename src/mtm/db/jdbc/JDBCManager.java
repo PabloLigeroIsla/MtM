@@ -1090,9 +1090,33 @@ public class JDBCManager implements DBInterface
 		
 		//relation instrument-warehouse
 		
-		inst.addWarehouse(selectWarehouse(1));
-		
 		return inst;		
+	}
+	
+	public Warehouse setWarehouseRelations(Warehouse war){
+		
+		//relation material
+		ArrayList<Material>allMaterials = selectAllMaterials();
+		Iterator<Material> iter = allMaterials.iterator();
+		while(iter.hasNext()){
+			Material mat = iter.next();
+			if(mat.getWarehouseID() == war.getWarehouseID()){
+				war.addMaterial(mat);
+			}
+		}
+		
+		//relation instrument
+		ArrayList<Instrument>allInstruments = selectAllInstruments();
+		Iterator<Instrument> iter2 = allInstruments.iterator();
+		while(iter2.hasNext()){
+			Instrument inst = iter2.next();
+			if(inst.getWarehouseID() == war.getWarehouseID()){
+				war.addInstrument(inst);;
+			}
+		}
+		
+			
+		return war;
 	}
 	
 	public Machinery setMachineryRelations(Machinery mach){
@@ -1169,10 +1193,10 @@ public class JDBCManager implements DBInterface
 		sqlInsert.insertInstrumentOrderRelation(inst,ord);
 	}
 		
-	public void setRelationInstrumentMachinery(int instID, int machID){
+	public void setRelationInstrumentMachinery(int instID, int machID, int time){
 		
 		JDBCInsert sqlInsert = new JDBCInsert(c);
-		sqlInsert.insertMachineryInstrumentRelation(machID,instID);
+		sqlInsert.insertMachineryInstrumentRelation(machID,instID,time);
 		
 	}
 	

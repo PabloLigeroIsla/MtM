@@ -1,9 +1,7 @@
 Tareas:
 
-¡¡¡¡¡¡¡Hacer metodo setWharehouseRelation(WareHouse warehouse) en JDBCManager!!!!!!
 Hacer el pojo de Machinery a JPA
-Descomentar los métodos de UserInterface de JPA y comentar los de JDBC (buscar en refractor @JPAChange para ver donde estan comentados) 
-Introducir el paramentro que falta en instrument que es unparametro de la relación machinery-instrument->Añadir el atributo de la relación en el objeto instrument
+Descomentar los mï¿½todos de UserInterface de JPA y comentar los de JDBC (buscar en refractor @JPAChange para ver donde estan comentados) 
 
 
 Actualizar el UML
@@ -17,7 +15,5 @@ Probar toda la base de datos
 
 
 CHARO:
-Linea 285 de JDBCInsert ->El nombre de la tabla en el SQL estaba mal puesto (ya lo he cambiado)
+
 Linea 584 de UserInterface -> El sout esta mal
-UserInterface->JDBCManager->JDBCInsert-> falta por introducir una variable de la tabla
-JDBCManager -> hacer setWharehouseRelations para poder hacer el XML
