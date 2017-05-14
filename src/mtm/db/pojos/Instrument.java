@@ -1,5 +1,6 @@
 package mtm.db.pojos;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Instrument implements Serializable {
@@ -32,26 +33,27 @@ public class Instrument implements Serializable {
 		
 
 
-	public Instrument(int instrumentID2, String name2, String model2, String purpose2, Integer amount2, Integer numberUses2,
-			String bodyLocation2, Integer price2, Warehouse warehouseID2) {
-	}
-
-
-
-
-	public Instrument(int instrumentID2, String name2, String model2, String purpose2, Integer amount2, Integer numberUses2,
-			String bodyLocation2, Integer price2) {
+	public Instrument(int instrumentID, String name, String model, String purpose, Integer amount, Integer numberUses,
+			String bodyLocation, Integer price) {
+		
+		this.instrumentID = instrumentID;
+		this.name = name;
+		this.model = model;
+		this.purpose = purpose;
+		this.amount = amount;
+		this.numberUses = numberUses;
+		this.bodyLocation = bodyLocation;
+		this.setPrice(price);
+		
 	}
 
 
 	// Additional method to add and remove from a list	
 
 	public Instrument() {
+		super();
+		this.orderList = new ArrayList<Order>();
 	}
-
-
-
-
 
 
 

@@ -46,11 +46,9 @@ public class Warehouse implements Serializable {
 
 
 	public Warehouse() {
-		// TODO Auto-generated constructor stub
-	}
-
-
-	//metodos para añadir y borrar elementos de las listas
+		super();
+		this.instrumentList = new ArrayList<Instrument>();
+		}
 	
 	
 	public void addInstrument(Instrument instrument){

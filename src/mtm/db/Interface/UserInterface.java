@@ -413,7 +413,6 @@ public class UserInterface
 		case 4: //Instrument
 			Instrument inst = createInstrument();
 			jdbcManager.insert(inst);
-			System.out.println("LLEGA A INSERTARLO:\n");
 
 			jdbcManager.setInstrumentID(inst); // to obtain the ID of the instrument
 			

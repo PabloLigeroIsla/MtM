@@ -99,9 +99,9 @@ public class JDBCInsert
 			prep.setInt(7,instr.getPrice());
 			
 			prep.executeUpdate();
-
-			c.commit();
+		
 			prep.close();
+			c.commit();
 
 		}catch(SQLException e)
 		{

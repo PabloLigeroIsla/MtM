@@ -80,7 +80,7 @@ public class JDBCCreate
 					+ "number_uses INTEGER NOT NULL,"
 					+ "body_location TEXT NOT NULL,"
 					+ "price INTEGER NOT NULL,"
-					+ "warehouse_location INTEGER REFERENCES warehouse (warehouse_ID))";
+					+ "warehouse_ID INTEGER REFERENCES warehouse(warehouse_ID))";
 			fCht.executeUpdate(sqlch1);
 			fCht.close();
 			
