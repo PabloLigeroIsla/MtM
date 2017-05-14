@@ -100,6 +100,7 @@ public class JDBCInsert
 			
 			prep.executeUpdate();
 
+			c.commit();
 			prep.close();
 
 		}catch(SQLException e)
