@@ -330,6 +330,7 @@ public class UserInterface
 			System.out.printf("Select the ID of the warehouse you want to see\n");
 			showWarehouse(writeNumber());
 			break;
+			
 		}
 	}
 	
