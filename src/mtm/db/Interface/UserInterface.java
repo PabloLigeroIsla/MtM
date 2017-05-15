@@ -476,8 +476,10 @@ public class UserInterface
 				jdbcManager.updateWarehouse(war.getWarehouseID(), inst.getAmount());
 
 			}
-		jdbcManager.setInstrumentRelations(inst);
-		jdbcManager.insert(inst);
+			
+			//DEBO PONER QUE AL FINAL LO INSERTE????
+		//jdbcManager.setInstrumentRelations(inst);
+		//jdbcManager.insert(inst);
 			
 			break;
 		case 5: //Machinery
