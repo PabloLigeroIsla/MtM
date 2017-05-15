@@ -269,7 +269,8 @@ public class JDBCInsert
 		{
 			c.setAutoCommit(false);
 			
-			String sql = "INSERT INTO instrument_orders(order_ID,instrument_ID)VALUES(?,?)";
+			String sql = "INSERT INTO instrument_orders(order_ID,instrument_ID)"
+					+"VALUES(?,?)";
 			
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setInt(1,pkInstrument);
@@ -284,19 +285,19 @@ public class JDBCInsert
 		
 	}
 	
-	public void insertMachineryInstrumentRelation(int pkMachinery,int pkInstrument, int timeofMade){
+	public void insertMachineryInstrumentRelation(int pkInstrument ,int pkMachinery, int timeofMade){
 	
 	try
 	{
 		c.setAutoCommit(false);
 		
-		String sql = "INSERT INTO instrument_machinery(machinery_ID,instrument_ID,timeofMade)"
+		String sql = "INSERT INTO instrument_machinery(instrument_ID, machinery_ID, timeofMade)"
 				+ "VALUES(?,?,?)";
 		
 		PreparedStatement prep = c.prepareStatement(sql);
-		prep.setInt(1,pkMachinery);
-		prep.setInt(2,pkInstrument);
-		prep.setInt(3,timeofMade);
+		prep.setInt(1, pkInstrument );
+		prep.setInt(2, pkMachinery);
+		prep.setInt(3, timeofMade);
 		
 		prep.executeUpdate();
 			

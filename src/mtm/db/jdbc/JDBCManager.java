@@ -151,6 +151,14 @@ public class JDBCManager implements DBInterface
 		
 	}
 	
+	public void createTableInstrumentMachinery(){
+	
+		JDBCCreate codeCreate = new JDBCCreate(c);
+		
+		codeCreate.createTableInstrumentMachinery();
+		
+	}
+	
 	//Insert
 	
 	public void insert(Hospital obj)
@@ -349,12 +357,12 @@ public class JDBCManager implements DBInterface
 	public void deleteInstrument(int primaryKeyInstrument)
 	{
 		
-		String sqlQuery = "SELECT * FROM instrument WHERE instrumentID = ?";
+		String sqlQuery = "SELECT * FROM instrument WHERE instrument_ID = ?";
 		if(valExist(sqlQuery,primaryKeyInstrument,null))
 		{
 			JDBCDelete sqlDelete = new JDBCDelete(c);
 			
-			sqlDelete.deleteHospital(primaryKeyInstrument);
+			sqlDelete.deleteInstrument(primaryKeyInstrument);
 			
 			
 			// We also delete the relation with the order in which it is contained
@@ -381,12 +389,12 @@ public class JDBCManager implements DBInterface
 	public void deleteWarehouse(int primaryKeyWarehouse)
 	{
 		
-		String sqlQuery = "SELECT * FROM instrument WHERE instrumentID = ?";
+		String sqlQuery = "SELECT * FROM warehouse WHERE warehouse_ID = ?";
 		if(valExist(sqlQuery,primaryKeyWarehouse,null))
 		{
 			JDBCDelete sqlDelete = new JDBCDelete(c);
 			
-			sqlDelete.deleteHospital(primaryKeyWarehouse);
+			sqlDelete.deleteWarehouse(primaryKeyWarehouse);
 			
 		}
 		else
@@ -923,7 +931,6 @@ public class JDBCManager implements DBInterface
  	} 	
 
 		
-	//Relations
  	
 	//Set ID's
 	public Company setCompanyID(Company com){
@@ -1026,7 +1033,6 @@ public class JDBCManager implements DBInterface
 	
 	public Order setOrderRelations(Order ord)
 	{
-	//Hacer create the tabla asociada instruments/order	
 		String pkAtributeCompere = "order_ID";
 		int pkValueCompere = ord.getOrderID();
 		
@@ -1196,7 +1202,7 @@ public class JDBCManager implements DBInterface
 	public void setRelationInstrumentMachinery(int instID, int machID, int time){
 		
 		JDBCInsert sqlInsert = new JDBCInsert(c);
-		sqlInsert.insertMachineryInstrumentRelation(machID,instID,time);
+		sqlInsert.insertMachineryInstrumentRelation(instID,machID,time);
 		
 	}
 	
