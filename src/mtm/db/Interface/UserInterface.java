@@ -498,8 +498,8 @@ public class UserInterface
     			+ "1:Work\n"
     			+ "2:No Work\n");
     	int op2 = writeNumber(2);
-    	//jpaManager.updateMachinery(pk,op2);@JPAChange
-    	jdbcManager.updateMachinery(pk,op2);
+    	jpaManager.updateMachinery(pk,op2);
+    	//jdbcManager.updateMachinery(pk,op2);
     	break;
     case 2://warehouse
     	System.out.println("Select the primary key of the warehouse you want to modify:");
@@ -992,7 +992,8 @@ public class UserInterface
     		if(relation)
     		{
     			jdbcManager.setMachineryRelations(mach);
-    			System.out.printf("id: %d, relation Instrument: %d, relation employee: %d, relation materials: %d\n",mach.getMachineryID(),mach.getInstrumentID(),mach.getEmployeeID(),mach.getMaterialID());
+    			System.out.printf("id: %d, relation Instrument: %d, relation employee: %d, relation materials: %d\n"
+    					,mach.getMachineryID(),mach.getInstrumentList().toString(),mach.getEmployeeList().toString(),mach.getMaterialList().toString());
        
     		}else
     		{
@@ -1015,12 +1016,7 @@ public class UserInterface
     	{
     		
     		ArrayList<Material> matList = jdbcManager.selectAllMaterials();
-    		Iterator<Material> matIter = matList.iterator();
-    		while(matIter.hasNext())
-    		{
-    			jdbcManager.setMaterialRelations(matIter.next());
-    			
-    		}
+
     		
     		ArrayList<Hospital> hospList = jdbcManager.selectAllHospitals();
     		Iterator<Hospital> hospIter = hospList.iterator();

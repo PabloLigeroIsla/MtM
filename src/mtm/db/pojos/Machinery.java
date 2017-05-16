@@ -1,6 +1,7 @@
 package mtm.db.pojos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -30,37 +31,40 @@ public class Machinery implements Serializable {
 	private LocalDate dateofInstallation;
 	private int sizeofMachinery;
 	
-	@JoinColumn(name="material_ID")
-	private int materialID; //FOREIGN KEY
-	@JoinColumn(name = "instrument_ID")
-	private int instrumentID; //FOREIGN KEY
-	@JoinColumn(name = "employee_ID")
-	private int employeeID; //FOREIGN KEY	
+	@JoinColumn(name="Material")
+	private List <Material> materialList; //FOREIGN KEY
+	@JoinColumn(name = "Instrument")
+	private List <Instrument> instrumentList; //FOREIGN KEY
+	@JoinColumn(name = "Employee")
+	private List <Employee> employeeList; //FOREIGN KEY	
 	
 	//Gets and Sets
 
-	public int getMaterialID() {
-		return materialID;
+	public List<Material> getMaterialList() 
+	{
+		return materialList;
 	}
-
-	public void setMaterialID(int materialID) {
-		this.materialID = materialID;
-	}
-	
-	public int getInstrumentID() {
-		return instrumentID;
-	}
-
-	public void setInstrumentID(int instrumentID) {
-		this.instrumentID = instrumentID;
+	public void setMaterialList(List<Material> materialList) 
+	{
+		this.materialList = materialList;
 	}
 	
-	public int getEmployeeID() {
-		return employeeID;
+	public List<Instrument> getInstrumentList() 
+	{
+		return instrumentList;
 	}
-
-	public void setEmployeeID(int employeeID) {
-		this.employeeID = employeeID;
+	public void setInstrumentList(List<Instrument> instrumentList) 
+	{
+		this.instrumentList = instrumentList;
+	}
+	
+	public List<Employee> getEmployeeList() 
+	{
+		return employeeList;
+	}
+	public void setEmployeeList(List<Employee> employeeList) 
+	{
+		this.employeeList = employeeList;
 	}
 	
 	public String getMachineryType() {
@@ -107,6 +111,10 @@ public class Machinery implements Serializable {
 
 	public Machinery() {
 		super();
+		this.materialList = new ArrayList<Material>();
+		this.instrumentList = new ArrayList<Instrument>();
+		this.employeeList = new ArrayList<Employee>();
+
 	}
 	
 	public Machinery(String machineryType, String stateofMachinery, LocalDate dateofInstallation, int sizeofMachinery) {
@@ -116,6 +124,9 @@ public class Machinery implements Serializable {
 		this.dateofInstallation = dateofInstallation;
 		this.sizeofMachinery = sizeofMachinery;
 		
+		this.materialList = new ArrayList<Material>();
+		this.instrumentList = new ArrayList<Instrument>();
+		this.employeeList = new ArrayList<Employee>();
 	}
 	
 	public Machinery(int machineryID,String machineryType, String stateofMachinery, LocalDate dateofInstallation, int sizeofMachinery) {
@@ -125,6 +136,10 @@ public class Machinery implements Serializable {
 		this.stateofMachinery = stateofMachinery;
 		this.dateofInstallation = dateofInstallation;
 		this.sizeofMachinery = sizeofMachinery;
+		
+		this.materialList = new ArrayList<Material>();
+		this.instrumentList = new ArrayList<Instrument>();
+		this.employeeList = new ArrayList<Employee>();
 
 	}	
 	
@@ -137,9 +152,60 @@ public class Machinery implements Serializable {
 		this.dateofInstallation = dateofInstallation;
 		this.sizeofMachinery = sizeofMachinery;
 		
+		this.materialList = new ArrayList<Material>();
+		this.instrumentList = new ArrayList<Instrument>();
+		this.employeeList = new ArrayList<Employee>();
+		
 	}	
 	
 	// Methods
+	
+	public void addMaterial(Material material)
+	{
+		if(!materialList.contains(material))
+		{
+			this.materialList.add(material);
+		}
+	}
+	public void addInstrument(Instrument instrument)
+	{
+		if(!instrumentList.contains(instrument))
+		{
+			this.instrumentList.add(instrument);
+		}
+	}
+	public void addEmployee(Employee employee)
+	{
+		if(!employeeList.contains(employee))
+		{
+			this.employeeList.add(employee);
+		}
+	}
+	
+	
+	public void removeMaterial(Material material)
+	{
+		if(materialList.contains(material))
+		{
+			this.materialList.remove(material);
+		}
+	}
+	
+	public void removeInstrument(Instrument instrument)
+	{
+		if(instrumentList.contains(instrument))
+		{
+			this.instrumentList.remove(instrument);
+		}
+	}
+	
+	public void removeEmployee(Employee employee)
+	{
+		if(employeeList.contains(employee))
+		{
+			this.employeeList.remove(employee);
+		}
+	}
 	
 	@Override
 	public String toString() 
