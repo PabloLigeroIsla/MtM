@@ -453,9 +453,7 @@ public class UserInterface
 			}
 			
 			
-			System.out.println("Now let´s see which machinery has created the instrument:\n");
-			listMachineries(false);
-			
+			System.out.println("Now let´s see which machinery has created the instrument:\n");			
 			System.out.println("Does the machinery exist?\n");
 			String s = writeString();
 			
@@ -484,7 +482,7 @@ public class UserInterface
 				
 				
 				jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(),mach.getMachineryID(),time);
-				//inst.addMachinery(mach);
+				inst.addMachinery(mach);
 				
 			}			
 			//DEBO PONER QUE AL FINAL LO INSERTE????

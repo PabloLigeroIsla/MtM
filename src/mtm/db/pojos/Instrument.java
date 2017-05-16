@@ -3,27 +3,68 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
+
+@Entity
+@Table(name = "instrument")
+@XmlAccessorType(XmlAccessType.FIELD) //Be able to use XML
+@XmlRootElement(name = "Instrument")
+@XmlType(propOrder = { "instrumentID", "name", "model", "purpose", "amount", "numberUses","bodyLocation","price","warehouse","orderList","machineryTypeList" })//Set the attributes in the XML
+
 public class Instrument implements Serializable {
-
-
-
-
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7195707121099986338L;
+	private static final long serialVersionUID = 1788155612443950967L;
 	
 	
+	@Id 
+	@GeneratedValue(generator="instrument")
+	@TableGenerator(name="instrument", table="sqlite_sequence",
+	    pkColumnName="instrumentID", valueColumnName="seq", pkColumnValue="instrument")
+	
+	@XmlAttribute
 	private Integer instrumentID;
+	@XmlAttribute
 	private String name;
+	@XmlAttribute
 	private String model;
+	@XmlAttribute
 	private String purpose;
+	@XmlAttribute
 	private Integer amount;
+	@XmlAttribute
 	private Integer numberUses;
+	@XmlAttribute
 	private String bodyLocation;
+	@XmlAttribute
 	private Integer price;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "warehouseID")
+	// This @XmlTransient is here to avoid infinite loops --- hay que decidir si el warehouse muestra instrument o al contrario,
+	// si no, llegamos a un bucle infinito.
+	@XmlTransient
 	private Warehouse warehouse;
+	
+	@ManyToMany(mappedBy = "instrument_orders")
+	@XmlElement(name = "Order")
+	@XmlElementWrapper(name = "Orders")
 	private List<Order> orderList;
+	
+	@ManyToMany(mappedBy = "instrument_machinery")
+	@XmlElement(name = "Machinery")
+	@XmlElementWrapper(name = "Machineries")
 	private List<Machinery> machineryTypeList;
 
 
