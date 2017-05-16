@@ -3,7 +3,14 @@ Tareas:
 Descomentar los metodos de UserInterface de JPA y comentar los de JDBC (buscar en refractor @JPAChange para ver donde estan comentados) 
 Hacer XML de todos los objetos (mirar el objeto MtM para saber que hay que guardar en cada objeto y que no para evitar bucles infinitos)
 Use XSLT to produce a HTML
+<<<<<<< HEAD
 create the method setMaterialRelations
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> branch 'master' of https://github.com/papsers/MtM.git
+>>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 
 Actualizar el UML
 Actualizar el ultimo esquema ese que tenias que poner los metodos
@@ -32,11 +39,14 @@ CHARO:
 
 Linea 584 de UserInterface -> El sout esta mal
 
+<<<<<<< HEAD
+=======
 Questions Rodrigo:
 1.- The JPA attributes should have the same name as in the tables?
 	I: YES => Change the create tables and all the strings in JDBCManager of Machinery and Material
 2.- should we open the full databas that is stores with XML once we save it?
 3.- What means? create a GUI separated from your database manager
+>>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 
 
 

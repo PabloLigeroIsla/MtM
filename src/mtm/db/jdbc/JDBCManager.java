@@ -563,7 +563,7 @@ public class JDBCManager implements DBInterface
 	}
 
  	public Company selectCompany(int primaryKey){
- 		String selQuery = "SELECT * FROM company WHERE company_ID = ?";
+ 		String selQuery = "SELECT * FROM company WHERE companyID = ?";
 		
 		if(valExist(selQuery,primaryKey,null))
 		{
@@ -581,7 +581,7 @@ public class JDBCManager implements DBInterface
  	}
 
  	public Material selectMaterial(int primaryKey){
- 		String selQuery = "SELECT * FROM material WHERE material_ID = ?";
+ 		String selQuery = "SELECT * FROM material WHERE materialID = ?";
 		
 		if(valExist(selQuery,primaryKey,null))
 		{
@@ -688,16 +688,16 @@ public class JDBCManager implements DBInterface
  	public Instrument selectInstrument(int primaryKey)
  	{
  		String table = "instrument";
- 		String selQuarry = "SELECT * FROM "+table+" WHERE instrument_ID = ?";
+ 		String selQuery = "SELECT * FROM "+table+" WHERE instrument_ID = ?";
  		
  		
- 		if(valExist(selQuarry,primaryKey,null))
+ 		if(valExist(selQuery,primaryKey,null))
  		{
  			JDBCSelect sqlSelect = new JDBCSelect(c);
  	 		Instrument instrument = new Instrument();
  	 		
  			
- 			instrument = sqlSelect.selectInstrument(selQuarry,primaryKey);
+ 			instrument = sqlSelect.selectInstrument(selQuery,primaryKey);
  			
  			
  			return instrument;
@@ -724,7 +724,7 @@ public class JDBCManager implements DBInterface
  			return warehouse;
  		}else
  		{
- 			System.out.println("/nWe dont find the primary key\n");
+ 			System.out.println("We dont find the primary key\n");
  				
  			return null;
  		}
@@ -1106,7 +1106,7 @@ public class JDBCManager implements DBInterface
 		Iterator<Material> iter = allMaterials.iterator();
 		while(iter.hasNext()){
 			Material mat = iter.next();
-			if(mat.getWarehouseID() == war.getWarehouseID()){
+			if(mat.getWarehouseID().getWarehouseID() == war.getWarehouseID()){
 				war.addMaterial(mat);
 			}
 		}
@@ -1116,7 +1116,7 @@ public class JDBCManager implements DBInterface
 		Iterator<Instrument> iter2 = allInstruments.iterator();
 		while(iter2.hasNext()){
 			Instrument inst = iter2.next();
-			if(inst.getWarehouseID() == war.getWarehouseID()){
+			if(inst.getWarehouse().getWarehouseID() == war.getWarehouseID()){
 				war.addInstrument(inst);;
 			}
 		}
@@ -1143,10 +1143,11 @@ public class JDBCManager implements DBInterface
 			Material b = iter2.next();
 			if(b.getMachineryID() == mach.getMachineryID()){
 				mach.addMaterial(b);
+			if(b.getMachineryID().getMachineryID() == mach.getMachineryID()){
+				mach.addMaterial(b);
 			}
 		}
-		
-		
+				
 		//Instrument List
 		String relationalTable = "instrument_machinery";
 		String pkAtributeS = "instrument_ID";
@@ -1177,7 +1178,7 @@ public class JDBCManager implements DBInterface
 		Iterator<Material> iter = allMaterials.iterator();
 		while(iter.hasNext()){
 			Material aux = iter.next();
-			if(aux.getCompanyID() == com.getCompanyID()){
+			if(aux.getCompanyID().getCompanyID() == com.getCompanyID()){
 				com.addMaterial(aux);
 			}
 		}
