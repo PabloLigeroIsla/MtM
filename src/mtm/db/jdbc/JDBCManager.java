@@ -1132,7 +1132,8 @@ public class JDBCManager implements DBInterface
 		while(iter1.hasNext()){
 			Employee a = iter1.next();
 			if(a.getMachineryType().getMachineryID() == mach.getMachineryID()){
-				mach.addEmployee(a);
+				//mach.addMachinery(a);
+				mach.getMachineryID();
 			}
 		}
 		
@@ -1142,7 +1143,8 @@ public class JDBCManager implements DBInterface
 		while(iter2.hasNext()){
 			Material b = iter2.next();
 			if(b.getMachineryID() == mach.getMachineryID()){
-				mach.addMaterial(b);
+				//mach.addMaterial(b);
+				mach.getMaterialID();
 			}
 		}
 		
@@ -1161,7 +1163,9 @@ public class JDBCManager implements DBInterface
 		while(iter.hasNext())
 		{
 			int i = iter.next();
-			mach.addInstrument(selectInstrument(i));
+			//mach.addInstrument(selectInstrument(i));
+			mach.setInstrumentID(i);
+
 		}
 		
 	

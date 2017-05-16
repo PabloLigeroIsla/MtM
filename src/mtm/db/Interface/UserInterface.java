@@ -64,11 +64,11 @@ public class UserInterface
 					break;
 				case 6:
 					//xmlManager.createXML();
-					createXML();
+					//createXML();
 					waitEnter();
 					break;
 				case 7:
-					openXML();
+					//openXML();
 					waitEnter();
 					break;
 				case 8:
@@ -992,7 +992,7 @@ public class UserInterface
     		if(relation)
     		{
     			jdbcManager.setMachineryRelations(mach);
-    			System.out.printf("id: %d, relation Instrument: %d, relation employee: %d, relation materials: %d\n",mach.getMachineryID(),mach.getemployeeList().toString(),mach.getmaterialList().toString());
+    			System.out.printf("id: %d, relation Instrument: %d, relation employee: %d, relation materials: %d\n",mach.getMachineryID(),mach.getInstrumentID(),mach.getEmployeeID(),mach.getMaterialID());
        
     		}else
     		{

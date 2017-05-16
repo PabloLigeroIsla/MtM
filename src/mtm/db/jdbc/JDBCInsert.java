@@ -184,19 +184,8 @@ public class JDBCInsert
 		{
 			e.printStackTrace();
 		}
+		}
 		
-	public void insert(Company com){
-		try{
-			c.setAutoCommit(false);
-			
-				String sql;
-				sql = "INSERT INTO company(location,company_name)" + "VALUES(?,?);"; 
-				PreparedStatement prep = c.prepareStatement(sql);
-				prep.setString(1,com.getLocation());
-				prep.setString(2,com.getCompanyName());
-								
-	}
-	
 	public void insert(Company com){
 		try{
 			c.setAutoCommit(false);
@@ -272,6 +261,7 @@ public class JDBCInsert
 		}catch(SQLException e)
 		{
 			e.printStackTrace();
+		}
 		}
 		
 	public void insertInstrumentOrderRelation(int pkInstrument, int pkOrder)
