@@ -289,6 +289,12 @@ public class JDBCInsert
 	
 	try
 	{
+		
+		System.out.printf("pkInstrument is: %d", pkInstrument);
+		System.out.printf("pkMachinery is: %d", pkMachinery);
+		System.out.printf("timeofMade is: %d", timeofMade);
+
+		
 		c.setAutoCommit(false);
 		
 		String sql = "INSERT INTO instrument_machinery(instrument_ID, machinery_ID, timeofMade)"
