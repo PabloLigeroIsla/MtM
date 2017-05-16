@@ -2,26 +2,44 @@ package mtm.db.pojos;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 @Entity
 @Table(name = "hospital")
+@XmlAccessorType(XmlAccessType.FIELD) //Be able to use XML
+@XmlRootElement(name = "Hospital")
+@XmlType(propOrder = { "hospitalId", "name", "location", "medicalSpecialization", "orderList" })//Set the order of the attributes in the XML
 public class Hospital implements Serializable
 {
 	
-	private static final long serialVersionUID = 3198781709673295324L;
-
+	private static final long serialVersionUID = -5262203984422829331L;
+	
 	@Id 
 	@GeneratedValue(generator="hospital")
 	@TableGenerator(name="hospital", table="sqlite_sequence",
 	    pkColumnName="hospitalID", valueColumnName="seq", pkColumnValue="hospital")
 	
+	@XmlAttribute
 	private int hospitalID; 
+	@XmlAttribute
 	private String name;
+	@XmlAttribute
 	private String location;
+	@XmlAttribute
 	private String medicalSpecialization;
 	@ManyToMany(mappedBy = "hospital_orders")
+	@XmlElement(name = "Order")//This name doesnt make reference to the attribute element.
+								// Name the employees tag(next attribute) as Order
+	@XmlElementWrapper(name = "Orders")//make an Orders tag that stores Order
 	private List<Order> orderList;
 	//Primary Key --> hospitalID
 	//Foreign Key --> orderList
@@ -123,6 +141,34 @@ public class Hospital implements Serializable
 		{
 			this.orderList.remove(order);
 		}
+	}
+	
+	public void printHospital(boolean relat)
+	{
+		if(relat)
+		{
+			System.out.printf("Hospital Info:\n Id: %d"
+					+ "Name: %s\n"
+					+ "Location: %s\n"
+					+ "Medical Specialization:%s\n\n",this.getHospitalID(),this.getName(),this.getLocation(),this.getMedicalSpecialization());
+			//Relations
+			Iterator <Order> iter = this.getOrderList().iterator();
+			while(iter.hasNext())
+			{
+				Order ord = iter.next();
+				System.out.printf("Orders Related:\n"
+						+ "Id:%d\n"
+						+ "Total Amount Instruments:%d\n",ord.getOrderID(),ord.getTotalAmountInstruments());
+			}
+			
+		}else
+		{
+			System.out.printf("Hospital Info:\n Id: %d"
+					+ "Name: %s\n"
+					+ "Location: %s\n"
+					+ "Medical Specialization:%s",this.getHospitalID(),this.getName(),this.getLocation(),this.getMedicalSpecialization());
+		}
+		
 	}
 	
 	@Override

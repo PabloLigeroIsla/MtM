@@ -3,25 +3,38 @@ package mtm.db.pojos;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+
 import java.time.LocalDate;
 
-
+@Entity
+@Table(name = "machinery") //sql table name  (Compatible with JDBC)
 public class Machinery implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -5275135022867594008L;
-	//Atributes
-
+	//Attributes
+	@Id 
+	@GeneratedValue(generator="machinery")
+	@TableGenerator(name="material", table="sqlite_sequence",
+	    pkColumnName="machineryID", valueColumnName="seq", pkColumnValue="machinery")
 	private int machineryID;
 	private String machineryType;
 	private String stateofMachinery;
 	private LocalDate dateofInstallation;
 	private int sizeofMachinery;
-
+	
+	
 	private List<Instrument> instrumentList;
+	
 	private List<Material> materialList;
+	
 	private List<Employee> employeeList;
 	
 	//Gets and Sets

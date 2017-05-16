@@ -7,6 +7,12 @@ import java.util.ArrayList;
 public class Company implements Serializable {
 
 	
+	@Override
+	public String toString() {
+		return "Company [companyID=" + companyID + ", location=" + location + ", companyName=" + companyName
+				+ ", materialList=" + materialList + "]";
+	}
+
 	private static final long serialVersionUID = -8663787080395108472L;
 
 	

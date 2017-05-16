@@ -21,6 +21,7 @@ public class Warehouse implements Serializable {
 	private String warehouseLocation;
 	private Integer capacity;
 	private Integer filledSpace;
+	
 	private List<Instrument> instrumentList;
 	private List<Material> materialTypeList;
 	
@@ -45,11 +46,9 @@ public class Warehouse implements Serializable {
 
 
 	public Warehouse() {
-		// TODO Auto-generated constructor stub
-	}
-
-
-	//metodos para añadir y borrar elementos de las listas
+		super();
+		this.instrumentList = new ArrayList<Instrument>();
+		}
 	
 	
 	public void addInstrument(Instrument instrument){

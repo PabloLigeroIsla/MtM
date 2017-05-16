@@ -10,7 +10,9 @@ import mtm.db.pojos.*;
 
 public class JPAManager implements DBInterface
 {
-	//
+	
+	//Conection
+	
 	EntityManager em = Persistence.createEntityManagerFactory("MtM").createEntityManager();
 	
 	public void openJPAConnection()
@@ -24,8 +26,8 @@ public class JPAManager implements DBInterface
 		em.close();
 	}
 	
+	//Material
 	
-	//Materialalex
 	public Material selectMaterial(int primaryKey)
 	{
 		Material mat = new Material();
@@ -39,16 +41,20 @@ public class JPAManager implements DBInterface
 	
 	public void insert(Material obj)
 	{
-		
+		em.getTransaction().begin();
+		em.persist(obj);
+		em.getTransaction().commit();
 	}
 	
 	public void deleteMaterial(int primaryKey)
 	{
+		Material mat = selectMaterial(primaryKey);
 		
+		em.getTransaction().begin();
+		em.remove(mat);
+		em.getTransaction().commit();
 	}
 	
-		
-		
 	//Machinery
 	
 	public Machinery selectMachinery(int primaryKey)

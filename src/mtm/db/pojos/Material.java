@@ -19,6 +19,7 @@ public class Material implements Serializable {
 	private Integer weight;
 	private Integer volume;
 	private String type;
+	
 	@JoinColumn(name = "company_ID")
 	private int companyID; //FOREIGN KEY
 	@JoinColumn(name = "machinery_ID")

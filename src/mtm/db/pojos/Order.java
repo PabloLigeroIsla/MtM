@@ -2,6 +2,7 @@ package mtm.db.pojos;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -9,27 +10,42 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 import java.time.LocalDate;
 
 
 @Entity
 @Table(name = "orders")
+@XmlAccessorType(XmlAccessType.FIELD) //Be able to use XML
+@XmlRootElement(name = "Order")
+@XmlType(propOrder = { "orderId", "TotalAmountInstruments", "orderDate", "deliveryDate", "instrumentList" })
 public class Order implements Serializable
 {
+
+	private static final long serialVersionUID = -1476135363454640411L;
 	
-	private static final long serialVersionUID = 1821406767918661646L;
 	@Id 
 	@GeneratedValue(generator="orders")
 	@TableGenerator(name="orders", table="sqlite_sequence",
 	    pkColumnName="order_ID", valueColumnName="seq", pkColumnValue="orders")
-	
+	@XmlAttribute
 	private int orderID;
+	@XmlAttribute
 	private int totalAmountInstruments;
+	@XmlAttribute
 	private LocalDate orderDate;
+	@XmlAttribute
 	private LocalDate deliveryDate;
-	
 	private List <Hospital> hospitalList;
+	@XmlElement(name = "Instrument")
+	@XmlElementWrapper(name = "Instruments")
 	private List <Instrument> instrumentList;
 	//Primary Key --> order_ID
 	//Foreign Key --> hospitalList,instrumentList
@@ -163,6 +179,47 @@ public class Order implements Serializable
 		}
 	}
 	
+	public void printOrder(boolean relate)
+	{
+		if(relate)
+		{
+			System.out.printf("Order Information:\n Id: %d\n"
+					+ "Total Amount Instruments: %d\n"
+					+ "Order Date: %d\n"
+					+ "Delivery Date: %d\n"
+					+ "",this.getOrderID(),this.getTotalAmountInstruments(),this.getOrderDate(),this.getDeliveryDate());
+			
+			Iterator <Instrument> iterIns = this.getInstrumentList().iterator();
+			Instrument inst;
+			Iterator <Hospital> iterHosp = this.getHospitalList().iterator();
+			Hospital hosp;
+			
+			while(iterIns.hasNext())
+			{
+				inst = iterIns.next();
+				System.out.printf("Instrument %d\n"
+						+ "Name: %d\n"
+						+ "Price: %d",inst.getInstrumentID(),inst.getName(),inst.getPrice());
+			}
+			while(iterHosp.hasNext())
+			{
+				hosp = iterHosp.next();
+				System.out.printf("Hospital %d\n"
+						+ "Name: %d\n"
+						+ "Location: %d\n",hosp.getHospitalID(),hosp.getName(),hosp.getLocation());
+			}
+			
+		}
+		else
+		{
+			System.out.printf("Order Information:\n Id: %d\n"
+					+ "Total Amount Instruments: %d\n"
+					+ "Order Date: %d\n"
+					+ "Delivery Date: %d\n"
+					+ "",this.getOrderID(),this.getTotalAmountInstruments(),this.getOrderDate(),this.getDeliveryDate());
+		
+		}
+		}
 	
 	@Override
 	public String toString() 
