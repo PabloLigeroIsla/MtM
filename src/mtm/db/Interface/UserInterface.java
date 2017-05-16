@@ -741,46 +741,11 @@ public class UserInterface
     	jdbcManager.insert(com);
     	com = jdbcManager.setCompanyID(com);
 
-    	System.out.println("\nDo you want to add materials provided by the Company? YES or NO:\n");
-    	String answ = writeString();
-    	if(answ.equals("YES")){
-    		while(aux){
-    			Material mat = createMaterial(true,com);
-    			if(mat!=null){
-    			com.addMaterial(mat);
-    			jdbcManager.insert(mat);
-    			}
-    			
-    			System.out.println("\nDo you want to add another material provided by the Company? YES or NO:\n");
-    			String answ2 = writeString();
-    			
-    			if(answ2.equals("NO")){
-    				aux = false;
-    			}
-    	}
-    	}else if(answ.equals("NO")){
-    		return com;
-    	} else {
-    		System.out.println("Please type correct answer\n");
-    	}
     	
     	return com;
     }
     
-    public static Company createCompany(Boolean aux){
-    	System.out.println("\nCompany location");
-    	String a=writeString();
-    	System.out.println("\nCompany name");
-    	String b=writeString();
-    	
-    	Company com = new Company(a,b);
-    			
-    			
-    	jdbcManager.insert(com);
-    	jdbcManager.setCompanyID(com);
-    	return com;
-    }
-    
+   
     public static Material createMaterial()
     {
     	
@@ -790,76 +755,107 @@ public class UserInterface
     	int b = writeNumber();
     	System.out.println("\nType");
     	String c = writeString();
+    	
     	Material mat = new Material(a,b,c);
     	
     	//company
     	boolean aux = true;
-    	while(aux){
-    	System.out.println("This material is provided by a company from the database YES or NO: \n");
-    	String answ = writeString();
-    	if(answ.equals("YES")){
-    		listCompanies(false);
-    		System.out.println("Type the PK of the company:\n");
-    		int pk = writeNumber();
-    		Company com = jdbcManager.selectCompany(pk);
-    		mat.setCompanyID(com);
-    		System.out.println("The material is attached to the company\n");
-    		aux = false;
+    	while(aux)
+    	{
+    		System.out.println("This material is provided by a company from the database YES or NO: \n");
+    		String answ = writeString();
+    		if(answ.equals("YES"))
+    		{
+    			listCompanies(false);
+    			System.out.println("Type the PK of the company:\n");
+    			int pk = writeNumber();
+    			Company com = jdbcManager.selectCompany(pk);
+    			mat.setCompanyID(com);
+    			System.out.println("The material is attached to the company\n");
+    			aux = false;
     		
-    	}else if(answ.equals("NO")){
-    		System.out.println("Therefore, you need to create a new company\n");
-    		Company com = createCompany(true);
-    		mat.setCompanyID(com);
-    		System.out.println("The material is attached to the company\n");
-    		aux = false;
+    		}else if(answ.equals("NO"))
+    		{
+    			System.out.println("Therefore, you need to create a new company\n");
+    			Company com = createCompany();
+    			mat.setCompanyID(com);
+    			System.out.println("The material is attached to the company\n");
+    			aux = false;
     		
-    	}else{
+    		}else
+    		{
     		System.out.println("Please type YES or NO\n");
-    	}
+    		}
     	}
     	
     	//machinery
     	boolean aux2 = true;
-    	while(aux2){
-    	System.out.println("Do you want to attach the material to a machinery from the database YES or NO: \n");
-    	String answ = writeString();
-    	if(answ.equals("YES")){
-    		listMachineries(true);
-    		System.out.println("Type the PK of the machinery:\n");
-    		int pk = writeNumber();
-    		Machinery mach = jdbcManager.selectMachinery(pk);
-    		if(mach != null){
-    		mat.setMachineryID(mach);
-    		aux2 = false;
+    	while(aux2)
+    	{
+    		System.out.println("Does the machinery exists in the data base? YES or NO: \n");
+    		String answ = writeString();
+    		if(answ.equals("YES"))
+    		{
+    			listMachineries(true);
+    			System.out.println("Type the PK of the machinery:\n");
+    			int pk = writeNumber();
+    			Machinery mach = jdbcManager.selectMachinery(pk);
+    			if(mach != null){
+    				mat.setMachineryID(mach);
+    				aux2 = false;
+    			}
+    		
+    		}else if(answ.equals("NO"))
+    		{
+    			System.out.println("\n Therefore, a Machinery must be created\n");
+    			Machinery mach = createMachinery();
+    			jdbcManager.insert(mach);
+    			jdbcManager.setMachineryID(mach);
+    			
+    			mat.setMachineryID(mach);
+    		
+    		}else
+    		{
+    			System.out.println("Please type YES or NO\n");
     		}
     		
-    	}else if(answ.equals("NO")){
-    		System.out.println("Material not created. The material needs to be attached to a machinery\n");
-    		return null;
     		
-    	}else{
-    		System.out.println("Please type YES or NO\n");
-    	}
     	}
     	
     	//warehouse
     	boolean aux3 = true;
-    	while(aux3){
-    	System.out.println("The material need to be stored in a warehouse. Please select one of the following warehouses\n");
-    	listWarehouses(true);
-    	System.out.println("Type the PK of the Warehouse:\n");
-    	int pk = writeNumber();
-    	Warehouse ware = jdbcManager.selectWarehouse(pk);
+    	while(aux3)
+    	{
+    		System.out.println("The material need to be stored in a warehouse\n");
+    		System.out.println("Do you wnat to:\n1:Create a New WareHouse\n2:Use a warehouse from the DataBase");
+    		int op = writeNumber(2);
+    		if(op == 1)
+    		{
+    			//crear
+    			System.out.println("A new WareHouse will be created");
+    			Warehouse war = createWarehouse();
+    			jdbcManager.insert(war);
+    			jdbcManager.setWarehouseID(war);
+    			mat.setWarehouseID(war);
+    		}else
+    		{
+    			//Seleccionar
+    			listWarehouses(true);
+        		System.out.println("Type the PK of the Warehouse:\n");
+        		int pk = writeNumber();
+        		Warehouse ware = jdbcManager.selectWarehouse(pk);
+        	
+        		if(ware != null)
+        		{
+        			mat.setWarehouseID(ware);
+        			aux3 = false;
+        		}
+    		}
     	
-    	if(ware != null){
-    	mat.setWarehouseID(ware);
-    	aux3 = false;
-    	}
-    		
     	}
 
-    	jpaManager.insert(mat);
-		//jdbcManager.insert(mat);
+    	//jpaManager.insert(mat);@JPAChange
+		jdbcManager.insert(mat);
 		System.out.println("The material is correctly attached to the database\n");
 		
     	return mat;
@@ -877,26 +873,31 @@ public class UserInterface
 
     	//machinery
     	boolean aux2 = true;
-    	while(aux2){
-    	System.out.println("Do you want to attach the material to a machinery from the database YES or NO: \n");
-    	String answ = writeString();
-    	if(answ.equals("YES")){
-    		listMachineries(true);
-    		System.out.println("Type the PK of the machinery:\n");
-    		int pk = writeNumber();
-    		Machinery mach = jdbcManager.selectMachinery(pk);
-    		if(mach != null){
-    		mat.setMachineryID(mach);
-    		aux2 = false;
+    	while(aux2)
+    	{
+    		System.out.println("Do you want to attach the material to a machinery from the database YES or NO: \n");
+    		String answ = writeString();
+    		if(answ.equals("YES")){
+    			listMachineries(true);
+    			System.out.println("Type the PK of the machinery:\n");
+    			int pk = writeNumber();
+    			Machinery mach = jdbcManager.selectMachinery(pk);
+    			if(mach != null)
+    			{
+    				mat.setMachineryID(mach);
+    				aux2 = false;
+    			}
+    		
+
+    		}else if(answ.equals("NO"))
+    		{
+    			System.out.println("Material not created. The material needs to be attached to a machinery\n");
+    			return null;
+    		
+    		}else
+    		{
+    			System.out.println("Please type YES or NO\n");
     		}
-    		
-    	}else if(answ.equals("NO")){
-    		System.out.println("Material not created. The material needs to be attached to a machinery\n");
-    		return null;
-    		
-    	}else{
-    		System.out.println("Please type YES or NO\n");
-    	}
     	}
     	
     	//warehouse

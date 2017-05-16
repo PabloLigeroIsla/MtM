@@ -17,14 +17,16 @@ public class Material implements Serializable {
 	
 	private Integer materialID; //PRIMARY KEY
 	private Integer weight;
-	@Column(name="tablename")
 	private Integer volume;
 	private String type;
 	
+	@ManyToOne 
 	@JoinColumn(name = "companyID")
 	Company companyID; //FOREIGN KEY
+	@ManyToOne
 	@JoinColumn(name = "machinery_ID")
 	Machinery machineryID; //FOREIGN KEY
+	@ManyToOne
 	@JoinColumn(name = "warehouse_ID")
 	Warehouse warehouseID; //FOREIGN KEY
 	
