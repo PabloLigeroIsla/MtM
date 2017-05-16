@@ -417,8 +417,8 @@ public class UserInterface
 			break;
 		case 5: //Machinery
 			Machinery mach = createMachinery();
-			//jpaManager.insert(mach);@JPAChange
-			jdbcManager.insert(mach);
+			jpaManager.insert(mach); //@JPAChange
+			//jdbcManager.insert(mach);
 			break;
 		case 6: //Material
 			createMaterial(); 
@@ -784,7 +784,7 @@ public class UserInterface
     public static void showCompany(int pk){
     	Company com;
 		com = jdbcManager.selectCompany(pk);
-		com.toString();
+		com.printCompany();
     }
     public static void listCompanies(boolean relation){
     	Company com;
@@ -836,7 +836,7 @@ public class UserInterface
     	Hospital hosp;
 		hosp = jdbcManager.selectHospital(pk);
 		jdbcManager.setHospitalRelations(hosp);
-		hosp.printHospital(true);;
+		hosp.printHospital(true);
     }
     public static void listHospitals(boolean relation)
     {
@@ -1003,6 +1003,96 @@ public class UserInterface
     
     }
     
+
+    //XML
+    public static void createXML()
+    {
+    	System.out.println("Do you want to:\n1:Create XML ofthe DataBase\n2:Create Xml of a Hospital");
+    	int opt = writeNumber(2);
+    	System.out.println("Introduce the path to the file that will store the DB");
+    	String path = writeString();
+    	if(opt == 1)
+    	{
+    		
+    		ArrayList<Material> matList = jdbcManager.selectAllMaterials();
+    		Iterator<Material> matIter = matList.iterator();
+    		while(matIter.hasNext())
+    		{
+    			jdbcManager.setMaterialRelations(matIter.next());
+    			
+    		}
+    		
+    		ArrayList<Hospital> hospList = jdbcManager.selectAllHospitals();
+    		Iterator<Hospital> hospIter = hospList.iterator();
+    		while(hospIter.hasNext())
+    		{
+    			jdbcManager.setHospitalRelations(hospIter.next());
+    		}
+    		
+    		ArrayList<Machinery> machList = jdbcManager.selectAllMachineries();
+    		Iterator<Machinery> machIter = machList.iterator();
+    		while(machIter.hasNext())
+    		{
+    			jdbcManager.setMachineryRelations(machIter.next());
+    		}
+    		
+    		ArrayList<Instrument> instList = jdbcManager.selectAllInstruments();
+    		Iterator<Instrument> wareIter = instList.iterator();
+    		while(wareIter.hasNext())
+    		{
+    			jdbcManager.setInstrumentRelations(wareIter.next());
+    		}
+    		
+    		MtM mtmObj = new MtM(matList,hospList,machList,instList);
+    		
+    		xmlManager.marshalMtM(path,mtmObj);
+    		
+    	}else
+    	{
+    		System.out.println("Select the hospital you want to convert into XML");
+    		listHospitals(false);
+    		int op = writeNumber();
+    		Hospital hosp = jdbcManager.selectHospital(op);
+    	
+    		xmlManager.marshallHospital(path, hosp);
+    	}
+    	
+    }
+
+    public static void openXML()
+    {
+    	System.out.println("Introduce the path to the file that contains the DB");
+    	String path = writeString();
+    	
+    	System.out.printf("Do you want to open:\n1:Hospital\n2:MtM");
+    	int opt = writeNumber(2);
+    	if(opt == 1)
+    	{
+    		Hospital hosp = xmlManager.unmarshallHospital(path);
+        	Iterator <Order> iter = hosp.getOrderList().iterator();
+        	
+        	jdbcManager.insert(hosp);
+        	jdbcManager.setHospitalID(hosp);
+        	
+        	while(iter.hasNext())
+        	{
+        		Order ord = iter.next();
+        		jdbcManager.insert(ord);
+        		jdbcManager.setOrderID(ord);
+        		jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(), ord.getOrderID(), 0);
+        	}
+    	}
+    	else
+    	{
+    		MtM mtm = xmlManager.unmarshallMtM(path);
+    		//Compani Empty
+    	}
+    	
+    	 
+    }
+
+    //Management Methods
+
     public static boolean allreadyExistDb()
     {
     	boolean op;
