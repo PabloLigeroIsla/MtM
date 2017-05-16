@@ -150,9 +150,6 @@ public class Warehouse implements Serializable {
 
 	}
 	
-	
-	
-
 	@Override
 	public String toString() {
 		return "Warehouse [warehouseID=" + warehouseID + ", warehouseLocation=" + warehouseLocation + ", capacity="

@@ -1081,7 +1081,8 @@ public class UserInterface
     	if(opt == 1)
     	{
     		
-    		ArrayList<Material> matList = jdbcManager.selectAllMaterials();    		
+    		ArrayList<Material> matList = jdbcManager.selectAllMaterials();
+
     		
     		ArrayList<Hospital> hospList = jdbcManager.selectAllHospitals();
     		Iterator<Hospital> hospIter = hospList.iterator();
@@ -1278,6 +1279,7 @@ public class UserInterface
     }
 
     //Management Methods
+
     public static boolean allreadyExistDb()
     {
     	boolean op;

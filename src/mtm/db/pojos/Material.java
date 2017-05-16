@@ -21,30 +21,20 @@ public class Material implements Serializable {
 	private Integer volume;
 	private String type;
 	
-	@JoinColumn(name = "company_ID")
-	private int companyID; //FOREIGN KEY
+	@JoinColumn(name = "companyID")
+	Company companyID; //FOREIGN KEY
 	@JoinColumn(name = "machinery_ID")
-	private int machineryID; //FOREIGN KEY
+	Machinery machineryID; //FOREIGN KEY
 	@JoinColumn(name = "warehouse_ID")
-	private int warehouseID; //FOREIGN KEY
+	Warehouse warehouseID; //FOREIGN KEY
 	
 	
-
-
-	
-	public int getWarehouseID() {
-		return warehouseID;
-	}
-
-	public void setWarehouseID(int warehouseID) {
-		this.warehouseID = warehouseID;
-	}
 
 	public Material (){
 		super();
 	}
 	
-	public Material(Integer materialID, Integer weight, Integer volume, String type, int c_id, int m_id){
+	public Material(Integer materialID, Integer weight, Integer volume, String type, Company c_id, Machinery m_id, Warehouse h_id){
 		super();
 		this.materialID= materialID;
 		this.weight = weight;
@@ -52,9 +42,10 @@ public class Material implements Serializable {
 		this.type= type;
 		this.companyID = c_id;
 		this.machineryID = m_id;
+		this.warehouseID = h_id;
 	}
 	
-	public Material(Integer weight, Integer volume, String type, Integer companyID){
+	public Material(Integer weight, Integer volume, String type, Company companyID){
 		super();
 		this.weight = weight;
 		this.volume = volume;
@@ -69,12 +60,13 @@ public class Material implements Serializable {
 		this.type= type;
 	}
 
-	public Material(Integer weight2, Integer volume2, String type2, int companyID2, int machineryID2) {
+	public Material(Integer weight2, Integer volume2, String type2, Company companyID2, Machinery machineryID2, Warehouse warehouseID2) {
 		this.weight = weight2;
 		this.volume = volume2;
 		this.type = type2;
 		this.companyID = companyID2;
 		this.machineryID = machineryID2;
+		this.warehouseID = warehouseID2; 
 	}
 
 	public Integer getMaterialID() {
@@ -109,33 +101,41 @@ public class Material implements Serializable {
 		this.type = type;
 	}
 
-	public int getCompanyID() {
+	public Company getCompanyID() {
 		return companyID;
 	}
 
-	public void setCompanyID(int companyID) {
+	public void setCompanyID(Company companyID) {
 		this.companyID = companyID;
 	}
 
-	public int getMachineryID() {
+	public Machinery getMachineryID() {
 		return machineryID;
 	}
 
-	public void setMachineryID(int machineryID) {
+	public void setMachineryID(Machinery machineryID) {
 		this.machineryID = machineryID;
 	}
 
-	@Override
-	public String toString() {
+	public Warehouse getWarehouseID() {
+		return warehouseID;
+	}
+
+	public void setWarehouseID(Warehouse warehouseID) {
+		this.warehouseID = warehouseID;
+	}
+
+
+	public String printMaterial() {
 		return "Material [materialID=" + materialID + ", weight=" + weight + ", volume=" + volume + ", type=" + type
-				+ ", companyID=" + companyID + ", machineryID=" + machineryID + ", warehouseID=" + warehouseID + "]";
+				+ ", companyID=" + companyID.getCompanyID() + ", machineryID=" + machineryID.getMachineryID() + ", warehouseID=" + warehouseID.getWarehouseID() + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + companyID;
+		result = prime * result + ((materialID == null) ? 0 : materialID.hashCode());
 		return result;
 	}
 
@@ -148,13 +148,12 @@ public class Material implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Material other = (Material) obj;
-		if (companyID != other.companyID)
+		if (materialID == null) {
+			if (other.materialID != null)
+				return false;
+		} else if (!materialID.equals(other.materialID))
 			return false;
 		return true;
 	}
 
-
-
-	
-	
 }
