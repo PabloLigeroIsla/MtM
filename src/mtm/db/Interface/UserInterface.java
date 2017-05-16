@@ -484,8 +484,8 @@ public class UserInterface
 			break;
 		case 5: //Machinery
 			Machinery mach = createMachinery();
-			//jpaManager.insert(mach);@JPAChange
-			jdbcManager.insert(mach);
+			jpaManager.insert(mach); //@JPAChange
+			//jdbcManager.insert(mach);
 			break;
 		case 6: //Material
 			createMaterial(); 
@@ -851,7 +851,7 @@ public class UserInterface
     public static void showCompany(int pk){
     	Company com;
 		com = jdbcManager.selectCompany(pk);
-		com.toString();
+		com.printCompany();
     }
     public static void listCompanies(boolean relation){
     	Company com;
@@ -903,7 +903,7 @@ public class UserInterface
     	Hospital hosp;
 		hosp = jdbcManager.selectHospital(pk);
 		jdbcManager.setHospitalRelations(hosp);
-		hosp.printHospital(true);;
+		hosp.printHospital(true);
     }
     public static void listHospitals(boolean relation)
     {
@@ -1080,8 +1080,14 @@ public class UserInterface
     	if(opt == 1)
     	{
     		
-    		ArrayList<Company> compList = jdbcManager.selectAllCompanies();
-
+    		ArrayList<Material> matList = jdbcManager.selectAllMaterials();
+    		Iterator<Material> matIter = matList.iterator();
+    		while(matIter.hasNext())
+    		{
+    			jdbcManager.setMaterialRelations(matIter.next());
+    			
+    		}
+    		
     		ArrayList<Hospital> hospList = jdbcManager.selectAllHospitals();
     		Iterator<Hospital> hospIter = hospList.iterator();
     		while(hospIter.hasNext())
@@ -1096,14 +1102,14 @@ public class UserInterface
     			jdbcManager.setMachineryRelations(machIter.next());
     		}
     		
-    		ArrayList<Warehouse> wareList = jdbcManager.selectAllWarehouses();
-    		Iterator<Warehouse> wareIter = wareList.iterator();
+    		ArrayList<Instrument> instList = jdbcManager.selectAllInstruments();
+    		Iterator<Instrument> wareIter = instList.iterator();
     		while(wareIter.hasNext())
     		{
-    			jdbcManager.setWarehouseRelations(wareIter.next());
+    			jdbcManager.setInstrumentRelations(wareIter.next());
     		}
     		
-    		MtM mtmObj = new MtM(compList,hospList,machList,wareList);
+    		MtM mtmObj = new MtM(matList,hospList,machList,instList);
     		
     		xmlManager.marshalMtM(path,mtmObj);
     		
@@ -1124,19 +1130,30 @@ public class UserInterface
     	System.out.println("Introduce the path to the file that contains the DB");
     	String path = writeString();
     	
-    	Hospital hosp = xmlManager.unmarshallHospital(path);
-    	Iterator <Order> iter = hosp.getOrderList().iterator();
-    	
-    	jdbcManager.insert(hosp);
-    	jdbcManager.setHospitalID(hosp);
-    	
-    	while(iter.hasNext())
+    	System.out.printf("Do you want to open:\n1:Hospital\n2:MtM");
+    	int opt = writeNumber(2);
+    	if(opt == 1)
     	{
-    		Order ord = iter.next();
-    		jdbcManager.insert(ord);
-    		jdbcManager.setOrderID(ord);
-    		jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(), ord.getOrderID(), 0);
+    		Hospital hosp = xmlManager.unmarshallHospital(path);
+        	Iterator <Order> iter = hosp.getOrderList().iterator();
+        	
+        	jdbcManager.insert(hosp);
+        	jdbcManager.setHospitalID(hosp);
+        	
+        	while(iter.hasNext())
+        	{
+        		Order ord = iter.next();
+        		jdbcManager.insert(ord);
+        		jdbcManager.setOrderID(ord);
+        		jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(), ord.getOrderID(), 0);
+        	}
     	}
+    	else
+    	{
+    		MtM mtm = xmlManager.unmarshallMtM(path);
+    		//Compani Empty
+    	}
+    	
     	 
     }
 
