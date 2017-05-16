@@ -16,10 +16,12 @@ import mtm.db.pojos.Machinery;
 import mtm.db.pojos.Material;
 import mtm.db.pojos.Order;
 import mtm.db.pojos.Warehouse;
+import mtm.db.jdbc.JDBCManager;
 
 public class JDBCSelect 
 {
 	private Connection c;
+	static JDBCManager jdbcManager = new JDBCManager();
 	
 	public JDBCSelect(Connection c)
 	{
@@ -380,9 +382,10 @@ public class JDBCSelect
 				
 				while (rs.next()) 
 				{
-					companyID = rs.getInt("company_ID");
+					companyID = rs.getInt("companyID");
 					name = rs.getString("company_name");
 					location = rs.getString("location");
+					
 					
 					comp = new Company(companyID, name, location);
 				}
@@ -413,14 +416,20 @@ public class JDBCSelect
 			
 			while (rs.next()) 
 			{
-				materialID = rs.getInt("material_ID");
+				materialID = rs.getInt("materialID");
 				weight = rs.getInt("weight");
 				volume = rs.getInt("volume");
 				type = rs.getString("type");
-				int companyID = rs.getInt("company_ID");
+				int companyID = rs.getInt("companyID");
 				int machineryID = rs.getInt("machinery_ID");
+				int warehouseID = rs.getInt("warehouse_ID");
 				
-				mat = new Material(materialID, weight, volume, type, companyID, machineryID);
+				Company com = jdbcManager.selectCompany(companyID);
+				Machinery mach = jdbcManager.selectMachinery(machineryID);
+				Warehouse war = jdbcManager.selectWarehouse(warehouseID);
+				
+				
+				mat = new Material(materialID, weight, volume, type, com, mach, war);
 			}
 			
 			prep.close();
@@ -636,7 +645,7 @@ public class JDBCSelect
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next())
 			{
-				int companyID = rs.getInt("company_ID");
+				int companyID = rs.getInt("companyID");
 				String location = rs.getString("location");
 				String name = rs.getString("company_name");
 				
@@ -664,14 +673,20 @@ public class JDBCSelect
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next())
 			{
-				int materialID = rs.getInt("material_ID");
+				int materialID = rs.getInt("materialID");
 				int weight = rs.getInt("weight");
 				int volume = rs.getInt("volume");
 				String type = rs.getString("type");
-				int companyID = rs.getInt("company_ID");
+				int companyID = rs.getInt("companyID");
 				int machineryID = rs.getInt("machinery_ID");
+				int warehouseID = rs.getInt("warehouseID");
 				
-				Material mat = new Material(materialID, weight, volume, type, companyID, machineryID);
+				Company com = jdbcManager.selectCompany(companyID);
+				Machinery mach = jdbcManager.selectMachinery(machineryID);
+				Warehouse war = jdbcManager.selectWarehouse(warehouseID);
+				
+				
+				Material mat = new Material(materialID, weight, volume, type, com, mach, war);
 				materials.add(mat);
 			}
 			
@@ -684,6 +699,7 @@ public class JDBCSelect
 		}
 		return materials;
 	}
+
 
 	//Help Methods
 	private LocalDate SqltoLocalDate(java.sql.Date sqlDate)

@@ -191,7 +191,7 @@ public class JDBCInsert
 			c.setAutoCommit(false);
 			
 				String sql;
-				sql = "INSERT INTO company(location,company_name)" + "VALUES(?,?);"; 
+				sql = "INSERT INTO company(location,companyName)" + "VALUES(?,?);"; 
 				PreparedStatement prep = c.prepareStatement(sql);
 				prep.setString(1,com.getLocation());
 				prep.setString(2,com.getCompanyName());
@@ -214,14 +214,14 @@ public class JDBCInsert
 
 						c.setAutoCommit(false);
 								String sql;
-								sql = "INSERT INTO material(weight,volume,type,company_ID,machinery_ID,warehouse_ID) VALUES(?,?,?,?,?,?);";
+								sql = "INSERT INTO material(weight,volume,type,companyID,machinery_ID,warehouse_ID) VALUES(?,?,?,?,?,?);";
 								PreparedStatement prep = c.prepareStatement(sql);
 								prep.setInt(1,mat.getWeight());
 								prep.setInt(2,mat.getVolume());
 								prep.setString(3,mat.getType());
-								prep.setInt(4,mat.getCompanyID());
-								prep.setInt(5,mat.getMachineryID());
-								prep.setInt(6,mat.getWarehouseID());
+								prep.setInt(4,mat.getCompanyID().getCompanyID());
+								prep.setInt(5,mat.getMachineryID().getMachineryID());
+								prep.setInt(6,mat.getWarehouseID().getWarehouseID());
 								
 								prep.executeUpdate();
 								
@@ -356,12 +356,11 @@ public class JDBCInsert
 		{
 			c.setAutoCommit(false);
 				
-			String sql = "INSERT INTO material(company_ID)"
-					+ "VALUES(?,?)";
+			String sql = "INSERT INTO material(companyID)"
+					+ "VALUE(?)";
 			
 			PreparedStatement prep = c.prepareStatement(sql);
-			prep.setInt(1,pkMaterial);
-			prep.setInt(2,pkCompany);
+			prep.setInt(1,pkCompany);
 			
 			prep.executeUpdate();
 			

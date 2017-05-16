@@ -581,7 +581,7 @@ public class JDBCManager implements DBInterface
  	}
 
  	public Material selectMaterial(int primaryKey){
- 		String selQuery = "SELECT * FROM material WHERE material_ID = ?";
+ 		String selQuery = "SELECT * FROM material WHERE materialID = ?";
 		
 		if(valExist(selQuery,primaryKey,null))
 		{
@@ -1106,7 +1106,7 @@ public class JDBCManager implements DBInterface
 		Iterator<Material> iter = allMaterials.iterator();
 		while(iter.hasNext()){
 			Material mat = iter.next();
-			if(mat.getWarehouseID() == war.getWarehouseID()){
+			if(mat.getWarehouseID().getWarehouseID() == war.getWarehouseID()){
 				war.addMaterial(mat);
 			}
 		}
@@ -1141,7 +1141,7 @@ public class JDBCManager implements DBInterface
 		Iterator<Material> iter2 = allMaterials.iterator();
 		while(iter2.hasNext()){
 			Material b = iter2.next();
-			if(b.getMachineryID() == mach.getMachineryID()){
+			if(b.getMachineryID().getMachineryID() == mach.getMachineryID()){
 				mach.addMaterial(b);
 			}
 		}
@@ -1176,7 +1176,7 @@ public class JDBCManager implements DBInterface
 		Iterator<Material> iter = allMaterials.iterator();
 		while(iter.hasNext()){
 			Material aux = iter.next();
-			if(aux.getCompanyID() == com.getCompanyID()){
+			if(aux.getCompanyID().getCompanyID() == com.getCompanyID()){
 				com.addMaterial(aux);
 			}
 		}

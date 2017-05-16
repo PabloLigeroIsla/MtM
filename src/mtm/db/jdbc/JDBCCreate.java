@@ -59,9 +59,9 @@ public class JDBCCreate
 			// fAt -->firstAlextable // sqla1 --> sqlalex1
 			Statement fAt = c.createStatement();
 			String sqla1 = "CREATE TABLE company ("
-					+ "company_ID INTEGER PRIMARY KEY,"
+					+ "companyID INTEGER PRIMARY KEY,"
 					+ "location TEXT,"
-					+"company_name TEXT);";
+					+"companyName TEXT);";
 			fAt.executeUpdate(sqla1);
 			fAt.close();
 			
@@ -128,13 +128,13 @@ public class JDBCCreate
 			//Alex
 				Statement sAt = c.createStatement();
 				String sqla2 =  "CREATE TABLE material ("
-								+"material_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+								+"materialID INTEGER PRIMARY KEY AUTOINCREMENT,"
 								+"weight INTEGER,"
 								+"volume INTEGER,"
 								+"type TEXT,"
-								+"company_ID  INTEGER REFERENCES company(company_ID),"
-								+"machinery_ID INTEGER REFERENCES machinery(machinery_ID),"
-								+"warehouse_ID INTEGER REFERENCES warehouse(warehouse_ID))";
+								+"companyID  INTEGER REFERENCES company(companyID),"
+								+"machineryID INTEGER REFERENCES machinery(machinery_ID),"
+								+"warehouseID INTEGER REFERENCES warehouse(warehouse_ID))";
 				sAt.executeUpdate(sqla2);
 				sAt.close();
 			
@@ -193,11 +193,11 @@ public class JDBCCreate
 	{
 		Statement sAt = c.createStatement();
 		String sqla2 =  "CREATE TABLE material("
-						+"material_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+						+"materialID INTEGER PRIMARY KEY AUTOINCREMENT,"
 						+"weight INTEGER,"
 						+"volume INTEGER,"
 						+"type TEXT,"
-						+"company_ID  INTEGER REFERENCES company(company_ID),"
+						+"company_ID  INTEGER REFERENCES company(companyID),"
 						+"machinery_ID INTEGER REFERENCES machinery(machinery_ID),"
 						+"warehouse_ID INTEGER REFERENCES warehouse(warehouse_ID))";
 		sAt.executeUpdate(sqla2);
@@ -215,9 +215,9 @@ public class JDBCCreate
 		{
 			Statement fAt = c.createStatement();
 			String sqla1 = "CREATE TABLE company ("
-					+ "company_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ "companyID INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ "location TEXT,"
-					+"company_name TEXT);";
+					+"companyName TEXT);";
 			fAt.executeUpdate(sqla1);
 			fAt.close();
 				
