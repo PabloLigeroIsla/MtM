@@ -86,8 +86,8 @@ public class JDBCInsert
 			c.setAutoCommit(false);//With false the data base will be updated in the c.commit();
 			   // If true, then in line executeUpdate() the data base is updated
 
-			String sql = "INSERT INTO instrument(name,model,purpose,amount,number_uses,body_location,price)"
-					+ "VALUES(?,?,?,?,?,?,?);";
+			String sql = "INSERT INTO instrument(name,model,purpose,amount,number_uses,body_location,price,warehouse_ID)"
+					+ "VALUES(?,?,?,?,?,?,?,?);";
 
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setString(1,instr.getName());
@@ -97,6 +97,7 @@ public class JDBCInsert
 			prep.setInt(5,instr.getNumberUses());
 			prep.setString(6,instr.getBodyLocation());
 			prep.setInt(7,instr.getPrice());
+			prep.setInt(8, instr.getWarehouse().getWarehouseID());
 			
 			prep.executeUpdate();
 		
@@ -290,10 +291,6 @@ public class JDBCInsert
 	try
 	{
 		
-		System.out.printf("pkInstrument is: %d", pkInstrument);
-		System.out.printf("pkMachinery is: %d", pkMachinery);
-		System.out.printf("timeofMade is: %d", timeofMade);
-
 		
 		c.setAutoCommit(false);
 		
@@ -314,28 +311,8 @@ public class JDBCInsert
 	}
 	}
 	
-
-	public void insertInstrumentWarehouseRelation(int pkInstrument, int pkWarehouse ){
-		try
-		{
-			c.setAutoCommit(false);
-			
-			String sql = "INSERT INTO instrument_warehouse(instrument_ID,warehouse_ID)"
-					+ "VALUES(?,?)";
-				
-			PreparedStatement prep = c.prepareStatement(sql);
-			prep.setInt(1,pkInstrument);
-			prep.setInt(2,pkWarehouse);
-					
-			prep.executeUpdate();
-					
-			c.commit();
-		}catch(SQLException e)
-		{
-			e.printStackTrace();
-		}	
-	}	
-			
+	
+	
 	public void insertMaterialWarehouseRelation(int pkMaterial, int pkWarehouse ){
 		try
 		{
@@ -363,11 +340,10 @@ public class JDBCInsert
 			c.setAutoCommit(false);
 				
 			String sql = "INSERT INTO material(company_ID)"
-					+ "VALUES(?,?)";
+					+ "VALUES(?)";
 			
 			PreparedStatement prep = c.prepareStatement(sql);
-			prep.setInt(1,pkMaterial);
-			prep.setInt(2,pkCompany);
+			prep.setInt(1,pkCompany);
 			
 			prep.executeUpdate();
 			

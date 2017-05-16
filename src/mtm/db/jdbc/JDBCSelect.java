@@ -145,6 +145,7 @@ public class JDBCSelect
 		Integer numberUses;
 		String bodyLocation;
 		Integer price;
+		Warehouse war;
 		
 		
 		try
@@ -164,6 +165,7 @@ public class JDBCSelect
 				numberUses = rs.getInt("number_uses");
 				bodyLocation = rs.getString("body_location");
 				price = rs.getInt("price");
+				war =jdbcManager.selectWarehouse(rs.getInt("warehouse_ID"));
 				
 				instrument = new Instrument(instrumentID,name,model,purpose,amount,numberUses,bodyLocation,price);
 			}

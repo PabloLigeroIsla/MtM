@@ -7,11 +7,12 @@ public class Instrument implements Serializable {
 
 
 
-	
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7363073091171132817L;
+	private static final long serialVersionUID = 7195707121099986338L;
+	
 	
 	private Integer instrumentID;
 	private String name;
@@ -21,7 +22,7 @@ public class Instrument implements Serializable {
 	private Integer numberUses;
 	private String bodyLocation;
 	private Integer price;
-	private Integer warehouseID;
+	private Warehouse warehouse;
 	private List<Order> orderList;
 	private List<Machinery> machineryTypeList;
 
@@ -44,7 +45,7 @@ public class Instrument implements Serializable {
 	}
 
 	public Instrument(int instrumentID, String name, String model, String purpose, int amount, int numberUses,
-			String bodyLocation, int price, int warehouseID) {
+			String bodyLocation, int price, Warehouse warehouse) {
 		super();
 		this.instrumentID = instrumentID;
 		this.name = name;
@@ -54,12 +55,12 @@ public class Instrument implements Serializable {
 		this.numberUses = numberUses;
 		this.bodyLocation = bodyLocation;
 		this.setPrice(price);
-		this.warehouseID = warehouseID;
+		this.warehouse = warehouse;
 		
 	}
 	
 	public Instrument(String name, String model, String purpose, int amount, int numberUses, String bodyL,
-			int price,int warehouseID) {
+			int price,Warehouse warehouse) {
 		super();
 		this.name = name;
 		this.model = model;
@@ -68,7 +69,7 @@ public class Instrument implements Serializable {
 		this.numberUses = numberUses;
 		this.bodyLocation = bodyL;
 		this.setPrice(price);
-		this.warehouseID = warehouseID;
+		this.warehouse = warehouse;
 	}
 
 	public Instrument(String name, String model, String purpose, int amount, int numberUses, String bodyL,
@@ -198,15 +199,15 @@ public class Instrument implements Serializable {
 
 
 
-	public Integer getWarehouseID() {
-		return warehouseID;
+	public Warehouse getWarehouse() {
+		return warehouse;
 	}
 
 
 
 
-	public void setWarehouseID(Integer warehouseID) {
-		this.warehouseID = warehouseID;
+	public void setWarehouseID(Warehouse warehouse) {
+		this.warehouse = warehouse;
 	}
 
 

@@ -303,6 +303,7 @@ public class JDBCCreate
 		{
 		Statement sCt = c.createStatement();
 			String sqlc2 = "CREATE TABLE machinery("
+				+ "machinery_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
 				+ "machineryType TEXT PRIMARY KEY,"
 				+ "stateofMachinery TEXT NOT NULL,"
 				+ "dateofInstallation DATE,"

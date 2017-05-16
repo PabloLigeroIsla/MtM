@@ -688,16 +688,16 @@ public class JDBCManager implements DBInterface
  	public Instrument selectInstrument(int primaryKey)
  	{
  		String table = "instrument";
- 		String selQuarry = "SELECT * FROM "+table+" WHERE instrument_ID = ?";
+ 		String selQuery = "SELECT * FROM "+table+" WHERE instrument_ID = ?";
  		
  		
- 		if(valExist(selQuarry,primaryKey,null))
+ 		if(valExist(selQuery,primaryKey,null))
  		{
  			JDBCSelect sqlSelect = new JDBCSelect(c);
  	 		Instrument instrument = new Instrument();
  	 		
  			
- 			instrument = sqlSelect.selectInstrument(selQuarry,primaryKey);
+ 			instrument = sqlSelect.selectInstrument(selQuery,primaryKey);
  			
  			
  			return instrument;
@@ -724,7 +724,7 @@ public class JDBCManager implements DBInterface
  			return warehouse;
  		}else
  		{
- 			System.out.println("/nWe dont find the primary key\n");
+ 			System.out.println("We dont find the primary key\n");
  				
  			return null;
  		}
@@ -999,7 +999,7 @@ public class JDBCManager implements DBInterface
 	{
 		ArrayList<Machinery> arrayMach = selectAllMachineries();
 		Iterator <Machinery> iter = arrayMach.iterator();
-		int pkSearch = 0;
+		int pkSearch=0;
 		while(iter.hasNext())
 		{
 			pkSearch = iter.next().getMachineryID();
@@ -1116,7 +1116,7 @@ public class JDBCManager implements DBInterface
 		Iterator<Instrument> iter2 = allInstruments.iterator();
 		while(iter2.hasNext()){
 			Instrument inst = iter2.next();
-			if(inst.getWarehouseID() == war.getWarehouseID()){
+			if(inst.getWarehouse().getWarehouseID() == war.getWarehouseID()){
 				war.addInstrument(inst);;
 			}
 		}
@@ -1203,12 +1203,6 @@ public class JDBCManager implements DBInterface
 		
 		JDBCInsert sqlInsert = new JDBCInsert(c);
 		sqlInsert.insertMachineryInstrumentRelation(instID,machID,time);
-		
-	}
-	
-	public void setRelationInstrumentWarehouse(int instID, int warID){
-		JDBCInsert sqlInsert = new JDBCInsert(c);
-		sqlInsert.insertInstrumentWarehouseRelation(instID,warID);
 		
 	}
 			

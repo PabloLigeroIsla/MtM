@@ -162,6 +162,8 @@ public class Warehouse implements Serializable {
 	
 	
 
+	
+
 	public Integer getWarehouseID() {
 		return warehouseID;
 	}
@@ -220,6 +222,9 @@ public class Warehouse implements Serializable {
 	public void setMaterialTypeList(List<Material> materialTypeList) {
 		this.materialTypeList = materialTypeList;
 	}
+
+
+	
 		
 
 
