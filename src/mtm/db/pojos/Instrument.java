@@ -59,6 +59,11 @@ public class Instrument implements Serializable {
 		
 	}
 	
+	public Instrument (int iid)
+	{
+		this.instrumentID = iid;
+	}
+	
 	public Instrument(String name, String model, String purpose, int amount, int numberUses, String bodyL,
 			int price,Warehouse warehouse) {
 		super();

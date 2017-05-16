@@ -109,7 +109,7 @@ public class JDBCCreate
 					+ "name TEXT NOT NULL,"
 					+ "typeofContract TEXT NOT NULL,"
 					+ "specializationType TEXT NOT NULL,"
-					+ "machineryType TEXT,"
+					+ "machineryType INTEGER,"
 					+ "FOREIGN KEY (machineryID) REFERENCES machinery(machineryID) )";
 			fCt.executeUpdate(sqlc1);
 			fCt.close();

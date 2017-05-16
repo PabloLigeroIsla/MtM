@@ -65,6 +65,12 @@ public class Employee implements Serializable {
 
 	}
 	
+	public Employee(int eID)
+	{
+		this.employeeID = eID;
+	}
+	
+	
 	public Employee(String name, String specializationType, String typeofContract) {
 		super();
 		this.name = name;

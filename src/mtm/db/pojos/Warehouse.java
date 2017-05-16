@@ -43,6 +43,13 @@ public class Warehouse implements Serializable {
 		this.filledSpace = filledSpace;
 		
 	}
+	
+	public Warehouse(int wid)
+	{
+		this.warehouseID = wid;
+		this.instrumentList = new ArrayList<Instrument>();
+		this.materialTypeList = new ArrayList<Material>();
+	}
 
 
 	public Warehouse() {

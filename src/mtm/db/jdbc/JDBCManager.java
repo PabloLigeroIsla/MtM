@@ -587,11 +587,19 @@ public class JDBCManager implements DBInterface
 		{
 			JDBCSelect sqlSelect = new JDBCSelect(c);
 	 		Material mat = new Material();
+	 		Material matf = new Material();
 	 		
 			mat= sqlSelect.selectMaterial(selQuery,primaryKey);
-
+			int idComp = mat.getCompanyID().getCompanyID();
+			mat.setCompanyID(selectCompany(idComp));
+			int idMach = mat.getMachineryID().getMachineryID();
+			mat.setMachineryID(selectMachinery(idMach));
+			int idWare = mat.getWarehouseID().getWarehouseID();
+			mat.setWarehouseID(selectWarehouse(idWare));
 			
-			return mat;
+			
+			
+			return matf;
 		}else
 		{
 			System.out.println("We dont find the primary key\n");
@@ -611,7 +619,8 @@ public class JDBCManager implements DBInterface
  	 		Employee emp = new Employee();
  	 		
  			emp = sqlSelect.selectEmployee(selQuarry,primaryKey);
- 			
+ 			int machID = emp.getMachineryType().getMachineryID();
+ 			emp.setMachineryType(selectMachinery(machID));
  			return emp;
  		}else
  		{
@@ -654,6 +663,7 @@ public class JDBCManager implements DBInterface
  			Machinery mach = new Machinery();
  	 		
  			mach = sqlSelect.selectMachinery(selQuarry,primaryKey);
+ 			
  			
  			return mach;
  		}else
@@ -698,8 +708,8 @@ public class JDBCManager implements DBInterface
  	 		
  			
  			instrument = sqlSelect.selectInstrument(selQuery,primaryKey);
- 			
- 			
+ 			int wID = instrument.getWarehouse().getWarehouseID();
+ 			instrument.setWarehouseID(selectWarehouse(wID)); 			
  			return instrument;
  		}else
  		{
@@ -767,22 +777,45 @@ public class JDBCManager implements DBInterface
  	public ArrayList<Material> selectAllMaterials()
  	{
  		ArrayList<Material> materialList = new ArrayList<Material>();
+ 		ArrayList<Material> materialListFinal = new ArrayList<Material>();
  		JDBCSelect sqlSelect = new JDBCSelect(c);
  		
 		materialList = sqlSelect.selectAllMaterials();
+		Iterator<Material> itMat = materialList.iterator();
+		while(itMat.hasNext())
+		{
+			Material mat = itMat.next();
+			
+			int com = mat.getCompanyID().getCompanyID();
+			mat.setCompanyID(selectCompany(com));
+			int mach = mat.getMachineryID().getMachineryID();
+			mat.setMachineryID(selectMachinery(mach));
+			int war = mat.getWarehouseID().getWarehouseID();
+			mat.setWarehouseID(selectWarehouse(war));
+			
+			materialListFinal.add(mat);
+		}
 
 		
- 		return materialList;
+ 		return materialListFinal;
  	}
  	
  	public ArrayList<Employee> selectAllEmployees(){
 	 		
 		ArrayList<Employee> emp = new ArrayList<Employee>();
+		ArrayList<Employee> empFinal = new ArrayList<Employee>();
 		JDBCSelect sqlSelect = new JDBCSelect(c);
 		
 		emp = sqlSelect.selectAllEmployee();
+		Iterator<Employee> empIter = emp.iterator();
+		while(empIter.hasNext())
+		{
+			Employee empObj = empIter.next();
+			int machID = empObj.getMachineryType().getMachineryID();
+			empObj.setMachineryType(selectMachinery(machID));
+		}
 		
-		return emp;
+		return empFinal;
 	}
 	
  	public ArrayList<Machinery> selectAllMachineries()
@@ -798,13 +831,25 @@ public class JDBCManager implements DBInterface
  	public ArrayList<Instrument> selectAllInstruments()
  	{
  		ArrayList<Instrument> instrumentList = new ArrayList<Instrument>();
+ 		ArrayList<Instrument> instrumentListFinal = new ArrayList<Instrument>();
  		JDBCSelect sqlSelect = new JDBCSelect(c);
  	 		
  	 	
  		instrumentList = sqlSelect.selectAllInstruments();
+ 		Iterator<Instrument> insIter = instrumentList.iterator();
+ 		while(insIter.hasNext())
+ 		{
+ 			Instrument inst =insIter.next();
+ 			
+ 			int wID = inst.getWarehouse().getWarehouseID();
+ 			inst.setWarehouseID(selectWarehouse(wID));
+ 			
+ 			instrumentListFinal.add(inst);
+ 			
+ 		}
  			
  			
- 		return instrumentList;
+ 		return instrumentListFinal;
  	}
  	
  	public ArrayList<Warehouse> selectAllWarehouses()

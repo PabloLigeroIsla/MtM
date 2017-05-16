@@ -54,6 +54,12 @@ public class Company implements Serializable {
 		this.materialList = new ArrayList<Material>();
 	}
 	
+	public Company (int idCompany)
+	{
+		this.companyID = idCompany;
+		this.materialList = new ArrayList<Material>();
+	}
+	
 	public void addMaterial (Material material){
 		if(!materialList.contains(material)){
 			this.materialList.add(material);

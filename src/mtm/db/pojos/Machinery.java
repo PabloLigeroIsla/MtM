@@ -174,6 +174,15 @@ public class Machinery implements Serializable {
 		
 	}	
 	
+	public Machinery (int mid)
+	{
+		this.machineryID = mid;
+		this.materialList = new ArrayList<Material>();
+		this.instrumentList = new ArrayList<Instrument>();
+		this.employeeList = new ArrayList<Employee>();
+	}
+	
+	
 	// Methods
 	
 	public void addInstrument(Instrument instrument)
