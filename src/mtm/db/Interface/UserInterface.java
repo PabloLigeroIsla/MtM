@@ -1044,7 +1044,7 @@ public class UserInterface
     			jdbcManager.setInstrumentRelations(inst);
     			System.out.printf("id: %d, relations: %d\n",inst.getInstrumentID(),inst.getOrderList().toString());
     			System.out.printf("id: %d, relations: %d\n",inst.getInstrumentID(),inst.getMachineryTypeList().toString());
-    			System.out.printf("id: %d, relations: %d\n",inst.getInstrumentID(),inst.getWarehouseID().toString());	
+    			System.out.printf("id: %d, relations: %d\n",inst.getInstrumentID(),inst.getWarehouse().toString());	
     		}else{
     			inst = instrumentList.get(count);
     			System.out.printf("id: %d\n",inst.getInstrumentID());
@@ -1219,7 +1219,7 @@ public class UserInterface
     	}
     	else
     	{
-    		MtM mtm = xmlManager.unmarshallMtM(path);
+    //		MtM mtm = xmlManager.unmarshallMtM(path);
     		//Compani Empty
     	}
     	

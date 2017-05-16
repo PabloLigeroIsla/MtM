@@ -335,31 +335,6 @@ public class JDBCInsert
 		}	
 	}
 
-	public void insertMaterialCompanyRelation(int pkMaterial, int pkCompany){
-		try
-		{
-			c.setAutoCommit(false);
-				
-<<<<<<< HEAD
-			String sql = "INSERT INTO material(company_ID)"
-					+ "VALUES(?)";
-=======
-			String sql = "INSERT INTO material(companyID)"
-					+ "VALUE(?)";
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
-			
-			PreparedStatement prep = c.prepareStatement(sql);
-			prep.setInt(1,pkCompany);
-			
-			prep.executeUpdate();
-			
-			c.commit();
-		}catch(SQLException e)
-		{
-			e.printStackTrace();
-		}
-		
-	}
 			
 	//Help Methods
 	
