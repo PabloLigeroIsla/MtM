@@ -80,7 +80,7 @@ public class JDBCCreate
 					+ "number_uses INTEGER NOT NULL,"
 					+ "body_location TEXT NOT NULL,"
 					+ "price INTEGER NOT NULL,"
-					+ "warehouse_location INTEGER REFERENCES warehouse (warehouse_ID))";
+					+ "warehouse_ID INTEGER REFERENCES warehouse(warehouse_ID))";
 			fCht.executeUpdate(sqlch1);
 			fCht.close();
 			
@@ -132,9 +132,9 @@ public class JDBCCreate
 								+"weight INTEGER,"
 								+"volume INTEGER,"
 								+"type TEXT,"
-								+"company_ID  TEXT REFERENCES company(company_ID),"
-								+"machinery_ID TEXT REFERENCES machinery(machinery_ID),"
-								+"warehouse_ID TEXT REFERENCES warehouse(warehouse_ID))";
+								+"company_ID  INTEGER REFERENCES company(company_ID),"
+								+"machinery_ID INTEGER REFERENCES machinery(machinery_ID),"
+								+"warehouse_ID INTEGER REFERENCES warehouse(warehouse_ID))";
 				sAt.executeUpdate(sqla2);
 				sAt.close();
 			
@@ -197,9 +197,9 @@ public class JDBCCreate
 						+"weight INTEGER,"
 						+"volume INTEGER,"
 						+"type TEXT,"
-						+"company_ID  TEXT REFERENCES company(company_ID),"
-						+"machinery_ID TEXT REFERENCES machinery(machinery_ID),"
-						+"warehouse_ID TEXT REFERENCES warehouse(warehouse_ID))";
+						+"company_ID  INTEGER REFERENCES company(company_ID),"
+						+"machinery_ID INTEGER REFERENCES machinery(machinery_ID),"
+						+"warehouse_ID INTEGER REFERENCES warehouse(warehouse_ID))";
 		sAt.executeUpdate(sqla2);
 		sAt.close();
 		}catch (Exception e)
@@ -215,7 +215,7 @@ public class JDBCCreate
 		{
 			Statement fAt = c.createStatement();
 			String sqla1 = "CREATE TABLE company ("
-					+ "company_ID INTEGER PRIMARY KEY,"
+					+ "company_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ "location TEXT,"
 					+"company_name TEXT);";
 			fAt.executeUpdate(sqla1);
@@ -352,5 +352,22 @@ public class JDBCCreate
 		}
 	}
 		
+		
+	public void createTableInstrumentMachinery(){
+		
+		try{
 			
+			Statement rCht = c.createStatement();
+			String sqlch3 = "CREATE TABLE instrument_machinery("
+					+ "instrument_ID INTEGER NOT NULL REFERENCES instrument(instrument_ID),"
+					+ "machinery_ID INTEGER NOT NULL REFERENCES machinery(machinery_ID),"
+					+ "timeofMade INTEGER,"
+					+ "PRIMARY KEY (instrument_ID,machinery_ID))";
+			rCht.executeUpdate(sqlch3);
+			rCht.close();
+			}catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+	}
 }

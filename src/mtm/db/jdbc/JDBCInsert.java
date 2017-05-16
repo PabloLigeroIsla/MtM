@@ -82,17 +82,27 @@ public class JDBCInsert
 	{
 		try
 		{
-			c.setAutoCommit(false);
 			
-			Statement stmCh = c.createStatement();
-			String sqlCh;
-			sqlCh = "INSERT INTO instrument(model,purpose,amount,number_uses,body_location,price)"
-					+ "VALUES ('" + instr.getModel() +"','" +instr.getPurpose() + "','"+ instr.getAmount() + "','"+ instr.getNumberUses() + "','"+ instr.getBodyLocation() + "','"+instr.getPrice()+"');";
-			stmCh.executeUpdate(sqlCh);
-			stmCh.close();			
+			c.setAutoCommit(false);//With false the data base will be updated in the c.commit();
+			   // If true, then in line executeUpdate() the data base is updated
+
+			String sql = "INSERT INTO instrument(name,model,purpose,amount,number_uses,body_location,price)"
+					+ "VALUES(?,?,?,?,?,?,?);";
+
+			PreparedStatement prep = c.prepareStatement(sql);
+			prep.setString(1,instr.getName());
+			prep.setString(2,instr.getModel());
+			prep.setString(3,instr.getPurpose());
+			prep.setInt(4,instr.getAmount());
+			prep.setInt(5,instr.getNumberUses());
+			prep.setString(6,instr.getBodyLocation());
+			prep.setInt(7,instr.getPrice());
 			
+			prep.executeUpdate();
+		
+			prep.close();
 			c.commit();
-					
+
 		}catch(SQLException e)
 		{
 			e.printStackTrace();
@@ -230,7 +240,7 @@ public class JDBCInsert
 	
 	//Relational Tables 
 		
-	public void insertHospitalOrderRelation( int pkHospital, int pkOrder, int tao)
+	public void insertHospitalOrderRelation( int pkHospital, int pkOrder, int amOrd)
 	{
 		try
 		{
@@ -242,7 +252,7 @@ public class JDBCInsert
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setInt(1,pkHospital);
 			prep.setInt(2,pkOrder);
-			prep.setInt(3,tao);
+			prep.setInt(3,amOrd);
 			
 			prep.executeUpdate();
 				
@@ -259,7 +269,8 @@ public class JDBCInsert
 		{
 			c.setAutoCommit(false);
 			
-			String sql = "INSERT INTO instrument_orders(order_ID,instrument_ID)VALUES(?,?)";
+			String sql = "INSERT INTO instrument_orders(order_ID,instrument_ID)"
+					+"VALUES(?,?)";
 			
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setInt(1,pkInstrument);
@@ -273,27 +284,31 @@ public class JDBCInsert
 		}
 		
 	}
+	
+	public void insertMachineryInstrumentRelation(int pkInstrument ,int pkMachinery, int timeofMade){
+	
+	try
+	{
+		c.setAutoCommit(false);
 		
-	public void insertMachineryInstrumentRelation(int pkMachinery,int pkInstrument){
-					//////TIME: atributo predeterminado 
-				
-							try
-							{
-								c.setAutoCommit(false);
-
-								Statement stmt = c.createStatement();
-								String sql ="INSERT INTO instrument_machinery(machinery_ID,instrument_ID)"
-										+ "VALUES('" + pkMachinery + "','" + pkInstrument+ "');";
-								stmt.executeUpdate(sql);
-								stmt.close();
-								c.commit();
-
-							}catch(SQLException e)
-							{
-								e.printStackTrace();
-							}
-			}
+		String sql = "INSERT INTO instrument_machinery(instrument_ID, machinery_ID, timeofMade)"
+				+ "VALUES(?,?,?)";
 		
+		PreparedStatement prep = c.prepareStatement(sql);
+		prep.setInt(1, pkInstrument );
+		prep.setInt(2, pkMachinery);
+		prep.setInt(3, timeofMade);
+		
+		prep.executeUpdate();
+			
+	c.commit();
+	}catch(SQLException e)
+	{
+		e.printStackTrace();
+	}
+	}
+	
+
 	public void insertInstrumentWarehouseRelation(int pkInstrument, int pkWarehouse ){
 		try
 		{

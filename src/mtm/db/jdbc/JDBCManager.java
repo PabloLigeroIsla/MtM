@@ -151,6 +151,14 @@ public class JDBCManager implements DBInterface
 		
 	}
 	
+	public void createTableInstrumentMachinery(){
+	
+		JDBCCreate codeCreate = new JDBCCreate(c);
+		
+		codeCreate.createTableInstrumentMachinery();
+		
+	}
+	
 	//Insert
 	
 	public void insert(Hospital obj)
@@ -349,12 +357,12 @@ public class JDBCManager implements DBInterface
 	public void deleteInstrument(int primaryKeyInstrument)
 	{
 		
-		String sqlQuery = "SELECT * FROM instrument WHERE instrumentID = ?";
+		String sqlQuery = "SELECT * FROM instrument WHERE instrument_ID = ?";
 		if(valExist(sqlQuery,primaryKeyInstrument,null))
 		{
 			JDBCDelete sqlDelete = new JDBCDelete(c);
 			
-			sqlDelete.deleteHospital(primaryKeyInstrument);
+			sqlDelete.deleteInstrument(primaryKeyInstrument);
 			
 			
 			// We also delete the relation with the order in which it is contained
@@ -381,12 +389,12 @@ public class JDBCManager implements DBInterface
 	public void deleteWarehouse(int primaryKeyWarehouse)
 	{
 		
-		String sqlQuery = "SELECT * FROM instrument WHERE instrumentID = ?";
+		String sqlQuery = "SELECT * FROM warehouse WHERE warehouse_ID = ?";
 		if(valExist(sqlQuery,primaryKeyWarehouse,null))
 		{
 			JDBCDelete sqlDelete = new JDBCDelete(c);
 			
-			sqlDelete.deleteHospital(primaryKeyWarehouse);
+			sqlDelete.deleteWarehouse(primaryKeyWarehouse);
 			
 		}
 		else
@@ -923,7 +931,6 @@ public class JDBCManager implements DBInterface
  	} 	
 
 		
-	//Relations
  	
 	//Set ID's
 	public Company setCompanyID(Company com){
@@ -1026,7 +1033,6 @@ public class JDBCManager implements DBInterface
 	
 	public Order setOrderRelations(Order ord)
 	{
-	//Hacer create the tabla asociada instruments/order	
 		String pkAtributeCompere = "order_ID";
 		int pkValueCompere = ord.getOrderID();
 		
@@ -1090,9 +1096,33 @@ public class JDBCManager implements DBInterface
 		
 		//relation instrument-warehouse
 		
-		inst.addWarehouse(selectWarehouse(1));
-		
 		return inst;		
+	}
+	
+	public Warehouse setWarehouseRelations(Warehouse war){
+		
+		//relation material
+		ArrayList<Material>allMaterials = selectAllMaterials();
+		Iterator<Material> iter = allMaterials.iterator();
+		while(iter.hasNext()){
+			Material mat = iter.next();
+			if(mat.getWarehouseID() == war.getWarehouseID()){
+				war.addMaterial(mat);
+			}
+		}
+		
+		//relation instrument
+		ArrayList<Instrument>allInstruments = selectAllInstruments();
+		Iterator<Instrument> iter2 = allInstruments.iterator();
+		while(iter2.hasNext()){
+			Instrument inst = iter2.next();
+			if(inst.getWarehouseID() == war.getWarehouseID()){
+				war.addInstrument(inst);;
+			}
+		}
+		
+			
+		return war;
 	}
 	
 	public Machinery setMachineryRelations(Machinery mach){
@@ -1155,11 +1185,11 @@ public class JDBCManager implements DBInterface
 	
 	//Insert relations Tables
 	
-	public void setRelationHospitalOrder(int hosp, int order, int tao)
+	public void setRelationHospitalOrder(int hosp, int order, int amOrd)
 	{
 		
 		JDBCInsert sqlInsert = new JDBCInsert(c);
-		sqlInsert.insertHospitalOrderRelation( hosp, order, tao);
+		sqlInsert.insertHospitalOrderRelation( hosp, order, amOrd);
 		
 	}
 		
@@ -1169,10 +1199,10 @@ public class JDBCManager implements DBInterface
 		sqlInsert.insertInstrumentOrderRelation(inst,ord);
 	}
 		
-	public void setRelationInstrumentMachinery(int instID, int machID){
+	public void setRelationInstrumentMachinery(int instID, int machID, int time){
 		
 		JDBCInsert sqlInsert = new JDBCInsert(c);
-		sqlInsert.insertMachineryInstrumentRelation(machID,instID);
+		sqlInsert.insertMachineryInstrumentRelation(instID,machID,time);
 		
 	}
 	

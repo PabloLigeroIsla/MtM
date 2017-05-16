@@ -31,4 +31,25 @@ public class Xml2Java
 		
 		return hosp;
 	}
+
+	public MtM MtMX2J(File file)
+	{
+		
+		MtM mtm = null;
+		try
+		{
+			JAXBContext jaxbContext = JAXBContext.newInstance(MtM.class);
+			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+			
+			mtm = (MtM) unmarshaller.unmarshal(file);
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return mtm;
+		
+	}
+
+
 }

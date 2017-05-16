@@ -1,20 +1,17 @@
 package mtm.db.pojos;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Instrument implements Serializable {
 
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7459904311726694833L;
-	/**
-	 * 
-	 */
-	
-	//
 
+
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7363073091171132817L;
 	
 	private Integer instrumentID;
 	private String name;
@@ -24,7 +21,7 @@ public class Instrument implements Serializable {
 	private Integer numberUses;
 	private String bodyLocation;
 	private Integer price;
-	private List<Warehouse> warehouseList;
+	private Integer warehouseID;
 	private List<Order> orderList;
 	private List<Machinery> machineryTypeList;
 
@@ -32,32 +29,51 @@ public class Instrument implements Serializable {
 		
 
 
-	public Instrument(int instrumentID2, String name2, String model2, String purpose2, Integer amount2, Integer numberUses2,
-			String bodyLocation2, Integer price2, Warehouse warehouseID2) {
+	public Instrument(int instrumentID, String name, String model, String purpose, int amount, int numberUses,
+			String bodyLocation, int price) {
+		super();
+		this.instrumentID = instrumentID;
+		this.name = name;
+		this.model = model;
+		this.purpose = purpose;
+		this.amount = amount;
+		this.numberUses = numberUses;
+		this.bodyLocation = bodyLocation;
+		this.setPrice(price);
+		
 	}
 
-
-
-
-	public Instrument(int instrumentID2, String name2, String model2, String purpose2, Integer amount2, Integer numberUses2,
-			String bodyLocation2, Integer price2) {
+	public Instrument(int instrumentID, String name, String model, String purpose, int amount, int numberUses,
+			String bodyLocation, int price, int warehouseID) {
+		super();
+		this.instrumentID = instrumentID;
+		this.name = name;
+		this.model = model;
+		this.purpose = purpose;
+		this.amount = amount;
+		this.numberUses = numberUses;
+		this.bodyLocation = bodyLocation;
+		this.setPrice(price);
+		this.warehouseID = warehouseID;
+		
 	}
-
-
-	// Additional method to add and remove from a list	
-
-	public Instrument() {
+	
+	public Instrument(String name, String model, String purpose, int amount, int numberUses, String bodyL,
+			int price,int warehouseID) {
+		super();
+		this.name = name;
+		this.model = model;
+		this.purpose = purpose;
+		this.amount = amount;
+		this.numberUses = numberUses;
+		this.bodyLocation = bodyL;
+		this.setPrice(price);
+		this.warehouseID = warehouseID;
 	}
-
-
-
-
-
-
 
 	public Instrument(String name, String model, String purpose, int amount, int numberUses, String bodyL,
 			int price) {
-		
+		super();
 		this.name = name;
 		this.model = model;
 		this.purpose = purpose;
@@ -67,7 +83,13 @@ public class Instrument implements Serializable {
 		this.setPrice(price);
 	}
 
+	
+	// Additional method to add and remove from a list	
 
+	public Instrument() {
+		super();
+		this.orderList = new ArrayList<Order>();
+	}
 
 
 	public void addOrder(Order order) {
@@ -95,17 +117,6 @@ public class Instrument implements Serializable {
 	}
 
 
-	public void addWarehouse(Warehouse warehouse) {
-		if (!warehouseList.contains(warehouse)) {
-			this.warehouseList.add(warehouse);
-		}
-	}
-
-	public void removeWarehouse(Warehouse warehouse){
-		if (warehouseList.contains(warehouse)) {
-			this.warehouseList.remove(warehouse);
-		}	}
-	
 
 
 
@@ -185,15 +196,17 @@ public class Instrument implements Serializable {
 
 
 
-	public List<Warehouse> getWarehouseList() {
-		return warehouseList;
+
+
+	public Integer getWarehouseID() {
+		return warehouseID;
 	}
 
 
 
 
-	public void setWarehouseList(List<Warehouse> warehouseList) {
-		this.warehouseList = warehouseList;
+	public void setWarehouseID(Integer warehouseID) {
+		this.warehouseID = warehouseID;
 	}
 
 
