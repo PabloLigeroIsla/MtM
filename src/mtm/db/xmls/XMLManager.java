@@ -35,4 +35,15 @@ public class XMLManager
 		return hosp;
 	}
 
+	public MtM unmarshallMtM(String route)
+	{
+		MtM mtm;
+		File file = new File(route);
+		Xml2Java x2j = new Xml2Java();
+		
+		mtm = x2j.mtmX2J(file);
+		
+		return mtm;
+	}
+	
 }

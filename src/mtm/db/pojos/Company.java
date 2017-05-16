@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 
 public class Company implements Serializable {
-
 	
+
 	public void printCompany() {
 		System.out.println("Company [companyID=" + companyID + ", location=" + location + ", companyName=" + companyName);
 	}
@@ -51,6 +51,12 @@ public class Company implements Serializable {
 	public Company(String location, String companyName){
 		this.location = location;
 		this.companyName = companyName;
+		this.materialList = new ArrayList<Material>();
+	}
+	
+	public Company (int idCompany)
+	{
+		this.companyID = idCompany;
 		this.materialList = new ArrayList<Material>();
 	}
 	

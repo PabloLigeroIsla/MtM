@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD) //Be able to use XML
 @XmlRootElement(name = "MtM")
-@XmlType(propOrder = { "compList", "hospList", "machList", "wareList" })//Set the order of the attributes in the XML
+@XmlType(propOrder = { "matpList", "hospList", "machList", "instList" })//Set the order of the attributes in the XML
 public class MtM 
 {
 	//This class is created to save the Data Base as a XML

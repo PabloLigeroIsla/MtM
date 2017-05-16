@@ -87,9 +87,9 @@ public class JDBCCreate
 			Statement rCht = c.createStatement();
 			String sqlch3 = "CREATE TABLE instrument_machinery("
 					+ "instrument_ID INTEGER NOT NULL REFERENCES instrument(instrument_ID),"
-					+ "machinery_ID INTEGER NOT NULL REFERENCES machinery(machinery_ID),"
+					+ "machineryID INTEGER NOT NULL REFERENCES machinery(machinery_ID),"
 					+ "timeofMade INTEGER,"
-					+ "PRIMARY KEY (instrument_ID,machinery_ID))";
+					+ "PRIMARY KEY (instrument_ID,machineryID))";
 			rCht.executeUpdate(sqlch3);
 			rCht.close();
 			
@@ -109,14 +109,14 @@ public class JDBCCreate
 					+ "name TEXT NOT NULL,"
 					+ "typeofContract TEXT NOT NULL,"
 					+ "specializationType TEXT NOT NULL,"
-					+ "machineryType TEXT,"
-					+ "FOREIGN KEY (machineryType) REFERENCES machinery(machineryType) )";
+					+ "machineryType INTEGER,"
+					+ "FOREIGN KEY (machineryID) REFERENCES machinery(machineryID) )";
 			fCt.executeUpdate(sqlc1);
 			fCt.close();
 				
 			Statement sCt = c.createStatement();
 				String sqlc2= "CREATE TABLE machinery("
-				+ "machinery_ID INTEGER PRIMARY KEY AUTOINCREMENT,"							
+				+ "machineryID INTEGER PRIMARY KEY AUTOINCREMENT,"							
 				+ "machineryType TEXT NOT NULL,"
 				+ "stateofMachinery TEXT NOT NULL,"
 				+ "dateofInstallation DATE NOT NULL,"
@@ -133,7 +133,7 @@ public class JDBCCreate
 								+"volume INTEGER,"
 								+"type TEXT,"
 								+"companyID  INTEGER REFERENCES company(companyID),"
-								+"machinery_ID INTEGER REFERENCES machinery(machinery_ID),"
+								+"machinery_ID INTEGER REFERENCES machinery(machineryID),"
 								+"warehouse_ID INTEGER REFERENCES warehouse(warehouse_ID))";
 				sAt.executeUpdate(sqla2);
 				sAt.close();
