@@ -1,19 +1,43 @@
 Tareas:
 
 Hacer el pojo de Machinery a JPA
-Descomentar los mï¿½todos de UserInterface de JPA y comentar los de JDBC (buscar en refractor @JPAChange para ver donde estan comentados) 
-
+Descomentar los metodos de UserInterface de JPA y comentar los de JDBC (buscar en refractor @JPAChange para ver donde estan comentados) 
+Hacer la interfaz de Machinery más simple e intuitiva 
+Hacer XML de todos los objetos (mirar el objeto MtM para saber que hay que guardar en cada objeto y que no para evitar bucles infinitos)
+Use XSLT to produce a HTML
 
 Actualizar el UML
-Actualizar el ultimo esquema ese que tenias que poner losmetodos
+Actualizar el ultimo esquema ese que tenias que poner los metodos
 Hacer el Esquema de XML
-
-Hacer XML de todos los objetos (mirar el objeto MtM para saber que hay que guardar en cada objeto y que no para evitar bucles infinitos)
 
 Probar toda la base de datos
 
+
+Opcionales que faltan:
+1.-Documantation
+		I:Write a design document of your system, explaining why you did what
+2.-Diagrams
+3.-Structure
+		I:create a GUI separated from your database manager
+4.-JDBC
+		I:Use binary objects (like images) in at least 1 table (Employee)
+5.-JPA
+		I:Use inheritance with JPA
+6.-XML
+		I:Export/import your whole database to/from XML using JAXB
+		II:HTML->extra points if it’s cool and/or uses CSS2!
+7.-Finishing touches
 
 
 CHARO:
 
 Linea 584 de UserInterface -> El sout esta mal
+
+Questions Rodrigo:
+1.- The JPA attributes should have the same name as in the tables?
+2.- should we open the full databas that is stores with XML once we save it?
+3.- What means? create a GUI separated from your database manager
+
+
+
+
