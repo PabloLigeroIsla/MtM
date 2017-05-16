@@ -1104,7 +1104,7 @@ public class JDBCManager implements DBInterface
 		
 		
 		//Instrument List
-		String relationalTable = "machinery_instrument";
+		String relationalTable = "instrument_machinery";
 		String pkAtributeS = "instrument_ID";
 		
 		String pkAttCompare = "machinery_ID";

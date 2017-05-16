@@ -195,6 +195,12 @@ public class Machinery implements Serializable {
 	+ machineryType + ",stateofMachinery=" + stateofMachinery + ", dateofInstallation=" 
 	+ dateofInstallation + ", sizeofMachinery=" + sizeofMachinery + "]";
 	}
+	
+	public String printMach(){
+		return "Machinery [machineryID=" + machineryID + ",machineryType=" 
+				+ machineryType + ",stateofMachinery=" + stateofMachinery + ", dateofInstallation=" 
+				+ dateofInstallation + ", sizeofMachinery=" + sizeofMachinery + "]";
+	}
 
 	@Override
 	public int hashCode() {
@@ -217,7 +223,5 @@ public class Machinery implements Serializable {
 			return false;
 		return true;
 	}
-
-
 
 }

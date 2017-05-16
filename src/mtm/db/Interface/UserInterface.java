@@ -64,7 +64,7 @@ public class UserInterface
 					waitEnter();
 					break;
 				case 6:
-					xmlManager.createXML();
+					//xmlManager.createXML();
 				case 7:
 					jdbcManager.closeConnection();
 					jpaManager.closeJPAConnection();
@@ -984,12 +984,15 @@ public class UserInterface
     	Machinery mach;
     	mach = jdbcManager.selectMachinery(pk);
     	jdbcManager.setMachineryRelations(mach);
-    	mach.toString();
+    	//mach.toString();    	
+    	mach.printMach();
     }
     public static void listMachineries(boolean relation) {
     	
     	Machinery mach;
     	ArrayList<Machinery> machList = new ArrayList<Machinery>();
+    	machList = jdbcManager.selectAllMachineries();
+
     	int count = 0;
     	
     	while(count < machList.size()){
@@ -1003,11 +1006,11 @@ public class UserInterface
     		if(relation)
     		{
     			jdbcManager.setMachineryRelations(mach);
-    			System.out.printf("id: %d, relation Instrument: %d, relation employee: %d, relation materials: %d\n",mach.getMachineryID(),mach.getemployeeList().toString(),mach.getmaterialList().toString());
+    			System.out.printf("id: %d, relation Instrument: %s, relation employee: %s, relation materials: %s\n",mach.getMachineryID(),mach.getemployeeList().toString(),mach.getmaterialList().toString());
         		count ++;
     		}else
     		{
-    			System.out.printf("id: %d, machinery type: %d\n",id,machineryType);
+    			System.out.printf("id: %d, machinery type: %s\n",id,machineryType);
     		}    		
         	count ++;
     	}
