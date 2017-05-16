@@ -493,7 +493,7 @@ public class UserInterface
 			break;
 		case 5: //Machinery
 			Machinery mach = createMachinery();
-			//jpaManager.insert(mach); //@JPAChange
+			//jpaManager.insert(mach);@JPAChange
 			jdbcManager.insert(mach);
 			break;
 		case 6: //Material
@@ -723,6 +723,7 @@ public class UserInterface
 		int d=writeNumber();
 
 		mach = jdbcManager.createPojoMachinery(a,b,c1[0],c1[1],c1[2],d);
+		
 		return mach;
 }
     
