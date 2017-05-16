@@ -37,11 +37,13 @@ public class XMLManager
 
 	public MtM unmarshallMtM(String route)
 	{
-		MtM newMtM;
+		MtM mtm;
 		File file = new File(route);
 		Xml2Java x2j = new Xml2Java();
 		
-		newMtM = x2j.MtMX2J(file);
-		return newMtM;
+		mtm = x2j.mtmX2J(file);
+		
+		return mtm;
 	}
+	
 }

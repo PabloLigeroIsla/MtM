@@ -1125,13 +1125,16 @@ public class JDBCManager implements DBInterface
 		return war;
 	}
 	
-	public Machinery setMachineryRelations(Machinery mach){
+	public Machinery setMachineryRelations(Machinery mach)
+	{
 		//relation employee
 		ArrayList<Employee>allEmployees = selectAllEmployees();
 		Iterator<Employee> iter1 = allEmployees.iterator();
-		while(iter1.hasNext()){
+		while(iter1.hasNext())
+		{
 			Employee a = iter1.next();
-			if(a.getMachineryType().getMachineryID() == mach.getMachineryID()){
+			if(a.getMachineryType().getMachineryID() == mach.getMachineryID())
+			{
 				mach.addEmployee(a);
 			}
 		}
@@ -1139,15 +1142,15 @@ public class JDBCManager implements DBInterface
 		//relation material
 		ArrayList<Material>allMaterials = selectAllMaterials();
 		Iterator<Material> iter2 = allMaterials.iterator();
-		while(iter2.hasNext()){
+		
+		while(iter2.hasNext())
+		{
 			Material b = iter2.next();
-			if(b.getMachineryID() == mach.getMachineryID()){
-				mach.addMaterial(b);
-			if(b.getMachineryID().getMachineryID() == mach.getMachineryID()){
+			if(mach.getMachineryID() == b.getMachineryID().getMachineryID())
+			{
 				mach.addMaterial(b);
 			}
-		}
-				
+		}	
 		//Instrument List
 		String relationalTable = "instrument_machinery";
 		String pkAtributeS = "instrument_ID";
@@ -1165,8 +1168,6 @@ public class JDBCManager implements DBInterface
 			mach.addInstrument(selectInstrument(i));
 
 		}
-		
-	
 		
 		return mach;
 	}
@@ -1208,11 +1209,6 @@ public class JDBCManager implements DBInterface
 		
 	}
 	
-	public void setRelationInstrumentWarehouse(int instID, int warID){
-		JDBCInsert sqlInsert = new JDBCInsert(c);
-		sqlInsert.insertInstrumentWarehouseRelation(instID,warID);
-		
-	}
 			
 	//Relation Help Methods
 	public ArrayList<Integer> foundRelation(String table,String pk1AttributeSearch,String pkAttributeCompare ,int pkValueCompare)

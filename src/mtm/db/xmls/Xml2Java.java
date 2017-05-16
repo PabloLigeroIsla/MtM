@@ -31,11 +31,11 @@ public class Xml2Java
 		
 		return hosp;
 	}
-
-	public MtM MtMX2J(File file)
+	
+	public MtM mtmX2J(File file)
 	{
-		
 		MtM mtm = null;
+		
 		try
 		{
 			JAXBContext jaxbContext = JAXBContext.newInstance(MtM.class);
@@ -47,9 +47,7 @@ public class Xml2Java
 		{
 			e.printStackTrace();
 		}
-		return mtm;
 		
+		return mtm;
 	}
-
-
 }

@@ -38,10 +38,9 @@ public class Machinery implements Serializable {
 	@JoinColumn(name = "Employee")
 	private List <Employee> employeeList; //FOREIGN KEY	
 	
-	private ArrayList<Material>  materialList;
 	
 	//materialList
-	public ArrayList<Material> getMaterialList() {
+	public List<Material> getMaterialList() {
 		return materialList;
 	}
 	public void setMaterialList(ArrayList<Material> materialList) {
@@ -61,10 +60,6 @@ public class Machinery implements Serializable {
 	
 	//Gets and Sets
 
-	public List<Material> getMaterialList() 
-	{
-		return materialList;
-	}
 	public void setMaterialList(List<Material> materialList) 
 	{
 		this.materialList = materialList;
@@ -181,13 +176,6 @@ public class Machinery implements Serializable {
 	
 	// Methods
 	
-	public void addMaterial(Material material)
-	{
-		if(!materialList.contains(material))
-		{
-			this.materialList.add(material);
-		}
-	}
 	public void addInstrument(Instrument instrument)
 	{
 		if(!instrumentList.contains(instrument))
@@ -200,15 +188,6 @@ public class Machinery implements Serializable {
 		if(!employeeList.contains(employee))
 		{
 			this.employeeList.add(employee);
-		}
-	}
-	
-	
-	public void removeMaterial(Material material)
-	{
-		if(materialList.contains(material))
-		{
-			this.materialList.remove(material);
 		}
 	}
 	
