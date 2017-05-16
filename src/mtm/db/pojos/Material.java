@@ -17,6 +17,7 @@ public class Material implements Serializable {
 	
 	private Integer materialID; //PRIMARY KEY
 	private Integer weight;
+	@Column(name="tablename")
 	private Integer volume;
 	private String type;
 	

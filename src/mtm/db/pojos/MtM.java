@@ -24,7 +24,6 @@ public class MtM
 	@XmlElementWrapper(name = "Instruments")
 	List<Instrument> instList;//Instruments contiene wharehouse, asi que no ponemos las listas de  Instrumentos
 	
-	//Relation of material company store in the machinery
 	//Relation instrument-order esta contenida en instuments
 	//Relation material-wharehouse is store in the material
 	

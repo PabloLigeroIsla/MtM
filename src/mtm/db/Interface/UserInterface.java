@@ -1,6 +1,7 @@
 package mtm.db.Interface;
 
 import static mtm.db.Interface.Validator.*;
+
 import java.util.ArrayList;
 
 import java.util.Iterator;
@@ -1080,13 +1081,7 @@ public class UserInterface
     	if(opt == 1)
     	{
     		
-    		ArrayList<Material> matList = jdbcManager.selectAllMaterials();
-    		Iterator<Material> matIter = matList.iterator();
-    		while(matIter.hasNext())
-    		{
-    			jdbcManager.setMaterialRelations(matIter.next());
-    			
-    		}
+    		ArrayList<Material> matList = jdbcManager.selectAllMaterials();    		
     		
     		ArrayList<Hospital> hospList = jdbcManager.selectAllHospitals();
     		Iterator<Hospital> hospIter = hospList.iterator();
@@ -1151,7 +1146,132 @@ public class UserInterface
     	else
     	{
     		MtM mtm = xmlManager.unmarshallMtM(path);
-    		//Compani Empty
+    		
+    		String queryIns = "SELECT * FROM instrument WHERE instrument_ID = ?";
+    		String queryHosp = "SELECT * FROM hospital WHERE hospital_ID = ?";
+    		String queryOrd = "SELECT * FROM orders WHERE order_ID = ?";
+    		String queryMach = "SELECT * FROM machinery WHERE machinery_ID = ?";
+    		String queryMat = "SELECT * FROM material WHERE materialID = ?";
+    		
+    		ArrayList<Hospital> hospList = (ArrayList<Hospital>) mtm.getHospList();
+    		Iterator<Hospital> hospIter = hospList.iterator();
+    		
+    		ArrayList<Instrument> instList= (ArrayList<Instrument>) mtm.getInstList();
+    		Iterator<Instrument> instIter = instList.iterator();
+    		
+    		ArrayList<Machinery>  machList = (ArrayList<Machinery>) mtm.getMachList();
+    		Iterator<Machinery> machIter = machList.iterator();
+    		
+    		ArrayList<Material> matList = (ArrayList<Material>)mtm.getmatList();
+    		Iterator<Material> matIter = matList.iterator();
+    		
+    		//Set the relations and store in the DB
+    		//HOSPITAL
+    		while(hospIter.hasNext())
+    		{
+    			Hospital hosp = hospIter.next();
+    			
+    			//Inserto Objeto
+    			if(!jdbcManager.valExist(queryHosp,hosp.getHospitalID(),null))//Si el objeto no existe en la base de datos
+    			{
+    				jdbcManager.insert(hosp);
+    			}
+    			//Relate Object
+    			ArrayList<Order> ordList = (ArrayList<Order>)hosp.getOrderList();
+    			Iterator<Order> orderIter = ordList.iterator();
+    			while(orderIter.hasNext())
+    			{
+    				Order ord = orderIter.next();
+    				
+    				if(!jdbcManager.valExist(queryOrd, ord.getOrderID(), null))
+    				{
+    					jdbcManager.insert(ord);
+    				}
+    				
+    				//Relation moment
+    				
+    				jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(), ord.getOrderID(), 100);
+    				
+    			}
+    		}
+    		
+    		//INSTRUMENT
+    		while(instIter.hasNext())
+    		{
+    			Instrument ins = instIter.next();
+    			
+    			if(!jdbcManager.valExist(queryIns, ins.getInstrumentID(), null))
+    			{
+    				jdbcManager.insert(ins);
+    			}
+    			ArrayList<Order> ordList = (ArrayList<Order>)ins.getOrderList();
+    			Iterator<Order> orderIter = ordList.iterator();
+    			
+    			while(orderIter.hasNext())
+    			{
+    				Order ord = orderIter.next();
+    				if(!jdbcManager.valExist(queryOrd, ord.getOrderID(), null))
+    				{
+    					jdbcManager.insert(ord);
+    				}
+    				
+    				jdbcManager.setRelationInstrumentOrder(ins.getInstrumentID(), ord.getOrderID());
+    			}
+    			
+    			ArrayList<Machinery> machListIns = (ArrayList<Machinery>)ins.getMachineryTypeList();
+    			Iterator <Machinery> machInsIter = machListIns.iterator();
+    			
+    			while(machInsIter.hasNext())
+    			{
+    				Machinery mach = machInsIter.next();
+    				if(!jdbcManager.valExist(queryMach,mach.getMachineryID(),null))
+    				{
+    					jdbcManager.insert(mach);
+    				}
+    				
+    				jdbcManager.setRelationInstrumentMachinery(ins.getInstrumentID(), mach.getMachineryID(), 100);
+    			}
+    			
+    			
+    		}
+    		
+    		//MACHINERY
+    		while(machIter.hasNext())
+    		{
+    			Machinery mach = machIter.next();
+    			
+    			if(!jdbcManager.valExist(queryMach,mach.getMachineryID(),null))
+    			{
+    				jdbcManager.insert(mach);
+    			}
+    			
+    			ArrayList<Instrument> insListMach = (ArrayList<Instrument>) mach.getInstrumentList();
+    			Iterator<Instrument> machinstIter = insListMach.iterator();
+    			
+    			while(machinstIter.hasNext())
+    			{
+    				Instrument inst = machinstIter.next();
+    				if(!jdbcManager.valExist(queryIns, inst.getInstrumentID(), null))
+    				{
+    					jdbcManager.insert(inst);
+    				}
+    				
+    				jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(), mach.getMachineryID(), 100);
+    				
+    			}
+    			
+    		}
+    		
+    		while(matIter.hasNext())
+    		{
+    			Material mat = matIter.next();
+    			if(!jdbcManager.valExist(queryMat, mat.getMaterialID(), null))
+    			{
+    				jdbcManager.insert(mat);
+    			}
+    			
+    		}
+    		
     	}
     	
     	 
