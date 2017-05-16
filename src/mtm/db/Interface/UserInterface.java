@@ -494,7 +494,7 @@ public class UserInterface
 			break;
 		case 5: //Machinery
 			Machinery mach = createMachinery();
-			jpaManager.insert(mach); //@JPAChange
+			jpaManager.insert(mach);
 			//jdbcManager.insert(mach);
 			break;
 		case 6: //Material
@@ -792,11 +792,14 @@ public class UserInterface
     	boolean aux2 = true;
     	while(aux2)
     	{
+    		
+    		System.out.println("\n\n Machinery\n");
+    		
     		System.out.println("Does the machinery exists in the data base? YES or NO: \n");
     		String answ = writeString();
     		if(answ.equals("YES"))
     		{
-    			listMachineries(true);
+    			listMachineries(false);
     			System.out.println("Type the PK of the machinery:\n");
     			int pk = writeNumber();
     			Machinery mach = jdbcManager.selectMachinery(pk);
@@ -813,7 +816,7 @@ public class UserInterface
     			jdbcManager.setMachineryID(mach);
     			
     			mat.setMachineryID(mach);
-    		
+    			aux2 = false;
     		}else
     		{
     			System.out.println("Please type YES or NO\n");
@@ -837,6 +840,7 @@ public class UserInterface
     			jdbcManager.insert(war);
     			jdbcManager.setWarehouseID(war);
     			mat.setWarehouseID(war);
+    			aux3 = false;
     		}else
     		{
     			//Seleccionar
@@ -1132,7 +1136,7 @@ public class UserInterface
     		if(relation)
     		{
     			jdbcManager.setMachineryRelations(mach);
-    			System.out.printf("id: %d, relation Instrument: %d, relation employee: %d, relation materials: %d\n"
+    			System.out.printf("id: %d, relation Instrument: %s, relation employee: %s, relation materials: %s\n"
     					,mach.getMachineryID(),mach.getInstrumentList().toString(),mach.getEmployeeList().toString(),mach.getMaterialList().toString());
        
     		}else

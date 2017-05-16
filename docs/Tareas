@@ -48,6 +48,5 @@ Questions Rodrigo:
 3.- What means? create a GUI separated from your database manager
 >>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 
-
-
-
+@Error
+Lamamos a una conexión dentro de otra conexión. ¿Como lo solucionamos?

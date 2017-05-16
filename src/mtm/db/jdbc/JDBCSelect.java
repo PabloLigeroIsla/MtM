@@ -615,7 +615,7 @@ public class JDBCSelect
 			
 			while(rs.next())
 			{
-				int machineryID = rs.getInt("machinery_ID");
+				int machineryID = rs.getInt("machineryID");
 				String machineryType = rs.getString("machineryType");
 				String stateofMachinery = rs.getString("stateofMachinery");				
 				java.sql.Date machiDate = rs.getDate("dateofInstallation");
@@ -682,6 +682,7 @@ public class JDBCSelect
 				int companyID = rs.getInt("companyID");
 				int machineryID = rs.getInt("machinery_ID");
 				int warehouseID = rs.getInt("warehouse_ID");
+				//Problema de la Conexión @ERROR
 				
 				Company com = jdbcManager.selectCompany(companyID);
 				Machinery mach = jdbcManager.selectMachinery(machineryID);

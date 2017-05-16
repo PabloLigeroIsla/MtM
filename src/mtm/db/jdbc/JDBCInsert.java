@@ -295,7 +295,7 @@ public class JDBCInsert
 		
 		c.setAutoCommit(false);
 		
-		String sql = "INSERT INTO instrument_machinery(instrument_ID, machinery_ID, timeofMade)"
+		String sql = "INSERT INTO instrument_machinery(instrument_ID, machineryID, timeofMade)"
 				+ "VALUES(?,?,?)";
 		
 		PreparedStatement prep = c.prepareStatement(sql);

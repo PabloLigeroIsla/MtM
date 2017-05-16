@@ -425,7 +425,7 @@ public class JDBCManager implements DBInterface
 	}
 
 	public void deleteMaterial(int primaryKey){
-		String sqlQuery = "SELECT * FROM material WHERE material_ID = ?";
+		String sqlQuery = "SELECT * FROM material WHERE materialID = ?";
 		if(valExist(sqlQuery,primaryKey,null))
 		{
 			JDBCDelete sqlDelete = new JDBCDelete(c);
@@ -645,7 +645,7 @@ public class JDBCManager implements DBInterface
  	public Machinery selectMachinery(int primaryKey)
  	{
  		String table = "machinery";
- 		String selQuarry = "SELECT * FROM "+table+" WHERE machinery_ID = ?";
+ 		String selQuarry = "SELECT * FROM "+table+" WHERE machineryID = ?";
  		
  		
  		if(valExist(selQuarry,primaryKey,null))
@@ -666,7 +666,7 @@ public class JDBCManager implements DBInterface
  	
  	public Machinery selectMachinery(String nameMachinery)
  	{
- 		String selQuarry = "SELECT * FROM machinery WHERE machinery_ID = ?";
+ 		String selQuarry = "SELECT * FROM machinery WHERE machineryType LIKE ?";
  		
  		if(valExist(selQuarry,-1,nameMachinery))
  		{
@@ -764,7 +764,8 @@ public class JDBCManager implements DBInterface
  		return companiesList;
  	}
  	
- 	public ArrayList<Material> selectAllMaterials(){
+ 	public ArrayList<Material> selectAllMaterials()
+ 	{
  		ArrayList<Material> materialList = new ArrayList<Material>();
  		JDBCSelect sqlSelect = new JDBCSelect(c);
  		
@@ -859,7 +860,7 @@ public class JDBCManager implements DBInterface
  			
  		}
  		String table = "machinery";
- 		String selQuery = "SELECT name FROM "+table+" WHERE machinery_ID = ?";
+ 		String selQuery = "SELECT name FROM "+table+" WHERE machineryID = ?";
  		if(valExist(selQuery,pkSearch,null))
  		{
  			
@@ -1085,7 +1086,7 @@ public class JDBCManager implements DBInterface
 		
 		//relation instrument-machinery
 		relationalTable = "instrument_machinery";
-		String pkAttSearchMach = "machinery_ID";
+		String pkAttSearchMach = "machineryID";
 		
 		instPkRelationFound = foundRelation(relationalTable, pkAttSearchMach, pkAttCompare, pkValueCompare);
 		iter = instPkRelationFound.iterator();
@@ -1155,7 +1156,7 @@ public class JDBCManager implements DBInterface
 		String relationalTable = "instrument_machinery";
 		String pkAtributeS = "instrument_ID";
 		
-		String pkAttCompare = "machinery_ID";
+		String pkAttCompare = "machineryID";
 		int pkValueCompare = mach.getMachineryID();
 		
 		ArrayList<Integer> machineryPkRelationFound = new ArrayList<Integer>();
