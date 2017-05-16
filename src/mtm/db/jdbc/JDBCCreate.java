@@ -133,8 +133,8 @@ public class JDBCCreate
 								+"volume INTEGER,"
 								+"type TEXT,"
 								+"companyID  INTEGER REFERENCES company(companyID),"
-								+"machineryID INTEGER REFERENCES machinery(machinery_ID),"
-								+"warehouseID INTEGER REFERENCES warehouse(warehouse_ID))";
+								+"machinery_ID INTEGER REFERENCES machinery(machinery_ID),"
+								+"warehouse_ID INTEGER REFERENCES warehouse(warehouse_ID))";
 				sAt.executeUpdate(sqla2);
 				sAt.close();
 			
@@ -197,7 +197,7 @@ public class JDBCCreate
 						+"weight INTEGER,"
 						+"volume INTEGER,"
 						+"type TEXT,"
-						+"company_ID  INTEGER REFERENCES company(companyID),"
+						+"companyID  INTEGER REFERENCES company(companyID),"
 						+"machinery_ID INTEGER REFERENCES machinery(machinery_ID),"
 						+"warehouse_ID INTEGER REFERENCES warehouse(warehouse_ID))";
 		sAt.executeUpdate(sqla2);

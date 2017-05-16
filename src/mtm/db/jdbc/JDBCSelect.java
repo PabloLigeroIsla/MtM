@@ -383,7 +383,7 @@ public class JDBCSelect
 				while (rs.next()) 
 				{
 					companyID = rs.getInt("companyID");
-					name = rs.getString("company_name");
+					name = rs.getString("companyName");
 					location = rs.getString("location");
 					
 					
@@ -647,7 +647,7 @@ public class JDBCSelect
 			{
 				int companyID = rs.getInt("companyID");
 				String location = rs.getString("location");
-				String name = rs.getString("company_name");
+				String name = rs.getString("companyName");
 				
 				Company com = new Company(companyID, location, name);
 				companies.add(com);
@@ -679,7 +679,7 @@ public class JDBCSelect
 				String type = rs.getString("type");
 				int companyID = rs.getInt("companyID");
 				int machineryID = rs.getInt("machinery_ID");
-				int warehouseID = rs.getInt("warehouseID");
+				int warehouseID = rs.getInt("warehouse_ID");
 				
 				Company com = jdbcManager.selectCompany(companyID);
 				Machinery mach = jdbcManager.selectMachinery(machineryID);

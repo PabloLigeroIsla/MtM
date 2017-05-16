@@ -563,7 +563,7 @@ public class JDBCManager implements DBInterface
 	}
 
  	public Company selectCompany(int primaryKey){
- 		String selQuery = "SELECT * FROM company WHERE company_ID = ?";
+ 		String selQuery = "SELECT * FROM company WHERE companyID = ?";
 		
 		if(valExist(selQuery,primaryKey,null))
 		{
@@ -1146,8 +1146,7 @@ public class JDBCManager implements DBInterface
 				mach.addMaterial(b);
 			}
 		}
-		
-		
+				
 		//Instrument List
 		String relationalTable = "instrument_machinery";
 		String pkAtributeS = "instrument_ID";

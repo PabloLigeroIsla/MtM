@@ -1,6 +1,7 @@
 package mtm.db.pojos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -36,6 +37,27 @@ public class Machinery implements Serializable {
 	private int instrumentID; //FOREIGN KEY
 	@JoinColumn(name = "employee_ID")
 	private int employeeID; //FOREIGN KEY	
+	
+	private ArrayList<Material>  materialList;
+	
+	//materialList
+	public ArrayList<Material> getMaterialList() {
+		return materialList;
+	}
+	public void setMaterialList(ArrayList<Material> materialList) {
+		this.materialList = materialList;
+	}
+	public void addMaterial (Material material){
+		if(!materialList.contains(material)){
+			this.materialList.add(material);
+		}
+	}
+	
+	public void removeMaterial(Material material) {
+		if (materialList.contains(material)) {
+			this.materialList.remove(material);
+		}
+	}
 	
 	//Gets and Sets
 

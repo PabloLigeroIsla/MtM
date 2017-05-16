@@ -417,8 +417,8 @@ public class UserInterface
 			break;
 		case 5: //Machinery
 			Machinery mach = createMachinery();
-			jpaManager.insert(mach); //@JPAChange
-			//jdbcManager.insert(mach);
+			//jpaManager.insert(mach); //@JPAChange
+			jdbcManager.insert(mach);
 			break;
 		case 6: //Material
 			createMaterial(); 
@@ -671,15 +671,20 @@ public class UserInterface
     			Material mat = createMaterial(true,com);
     			if(mat!=null){
     			com.addMaterial(mat);
+    			jdbcManager.insert(mat);
     			}
     			
     			System.out.println("\nDo you want to add another material provided by the Company? YES or NO:\n");
     			String answ2 = writeString();
-    			jdbcManager.insert(mat);
+    			
     			if(answ2.equals("NO")){
     				aux = false;
     			}
     	}
+    	}else if(answ.equals("NO")){
+    		return com;
+    	} else {
+    		System.out.println("Please type correct answer\n");
     	}
     	
     	return com;
@@ -776,8 +781,8 @@ public class UserInterface
     		
     	}
 
-    	//jpaManager.insert(mat);@JPAChange
-		jdbcManager.insert(mat);
+    	jpaManager.insert(mat);
+		//jdbcManager.insert(mat);
 		System.out.println("The material is correctly attached to the database\n");
 		
     	return mat;
@@ -1072,12 +1077,7 @@ public class UserInterface
     	{
     		
     		ArrayList<Material> matList = jdbcManager.selectAllMaterials();
-    		Iterator<Material> matIter = matList.iterator();
-    		while(matIter.hasNext())
-    		{
-    			jdbcManager.setMaterialRelations(matIter.next());
-    			
-    		}
+
     		
     		ArrayList<Hospital> hospList = jdbcManager.selectAllHospitals();
     		Iterator<Hospital> hospIter = hospList.iterator();
