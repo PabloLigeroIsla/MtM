@@ -413,8 +413,8 @@ public class UserInterface
 			break;
 		case 5: //Machinery
 			Machinery mach = createMachinery();
-			//jpaManager.insert(mach);@JPAChange
-			jdbcManager.insert(mach);
+			jpaManager.insert(mach); //@JPAChange
+			//jdbcManager.insert(mach);
 			break;
 		case 6: //Material
 			createMaterial(); 
@@ -831,7 +831,7 @@ public class UserInterface
     public static void showCompany(int pk){
     	Company com;
 		com = jdbcManager.selectCompany(pk);
-		com.toString();
+		com.printCompany();
     }
     public static void listCompanies(boolean relation){
     	Company com;
@@ -883,7 +883,7 @@ public class UserInterface
     	Hospital hosp;
 		hosp = jdbcManager.selectHospital(pk);
 		jdbcManager.setHospitalRelations(hosp);
-		hosp.printHospital(true);;
+		hosp.printHospital(true);
     }
     public static void listHospitals(boolean relation)
     {
