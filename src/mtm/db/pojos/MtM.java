@@ -11,73 +11,80 @@ import javax.xml.bind.annotation.*;
 public class MtM 
 {
 	//This class is created to save the Data Base as a XML
-	@XmlElement(name = "Material")
-	@XmlElementWrapper(name = "Materials")
-	List<Material> matList;//los materiales continen compañias, asi que no creamos la lista de compañias
+	@XmlElement(name = "Company")
+	@XmlElementWrapper(name = "Companies")
+	List<Company> compList;//Las compañias no continen nada, pero deben ser guardadas
 	@XmlElement(name = "Hospital")
 	@XmlElementWrapper(name = "Hospitals")
 	List<Hospital> hospList;//Los hospitales continen las Ordenes, asi que no ponemos lista de ordenes
 	@XmlElement(name = "Machinery")
 	@XmlElementWrapper(name = "Machineries")
-	List<Machinery> machList;//Las maquinarias contienen empleados y materiales, por lo que no ponemos lista de empleados
-	@XmlElement(name = "Instrument")
-	@XmlElementWrapper(name = "Instruments")
-	List<Instrument> instList;//Instruments contiene wharehouse, asi que no ponemos las listas de  Instrumentos
-	
-	//Relation of material company store in the machinery
-	//Relation instrument-order esta contenida en instuments
-	//Relation material-wharehouse is store in the material
+	List<Machinery> machList;//Las maquinarias contienen empleados, por lo que no ponemos lista de empleados
+	@XmlElement(name = "Warehouse")
+	@XmlElementWrapper(name = "Wharehouses")
+	List<Warehouse> wareList;//WhareHouse contiene Material e Instruments, asi que no ponemos las listas de Materiales ni Instrumentos
 	
 	//Getters and Setters
 
-	public List<Material> getmatList() {
-		return matList;
+	
+	public List<Company> getCompList() 
+	{
+		return compList;
+	}
+	
+
+	public void setCompList(List<Company> compList) 
+	{
+		this.compList = compList;
 	}
 
-	public void setCompList(List<Material> compList) {
-		this.matList = compList;
-	}
-
-	public List<Hospital> getHospList() {
+	
+	public List<Hospital> getHospList() 
+	{
 		return hospList;
 	}
 
-	public void setHospList(List<Hospital> hospList) {
+	
+	public void setHospList(List<Hospital> hospList) 
+	{
 		this.hospList = hospList;
 	}
 
-	public List<Machinery> getMachList() {
+	
+	public List<Machinery> getMachList() 
+	{
 		return machList;
 	}
 
-	public void setMachList(List<Machinery> machList) {
+	
+	public void setMachList(List<Machinery> machList) 
+	{
 		this.machList = machList;
 	}
 
-	public List<Instrument> getInstList() {
-		return instList;
+	
+	public List<Warehouse> getWareList() 
+	{
+		return wareList;
 	}
 
-	public void setInstList(List<Instrument> instList) {
-		this.instList = instList;
+	
+	public void setWareList(List<Warehouse> wareList) 
+	{
+		this.wareList = wareList;
 	}
-
 
 
 	
 	//Constructor
 	
-	public MtM(List<Material> matList, List<Hospital> hospList, List<Machinery> machList, List<Instrument> instList)
+	public MtM(List<Company> compList, List<Hospital> hospList, List<Machinery> machList, List<Warehouse> wareList)
 	{
 		super();
-		this.matList = matList;
+		this.compList = compList;
 		this.hospList = hospList;
 		this.machList = machList;
-		this.instList = instList;
+		this.wareList = wareList;
 	}
-
-	
-
-
 	
 }

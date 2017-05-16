@@ -5,18 +5,20 @@ import java.util.ArrayList;
 
 
 public class Company implements Serializable {
-	
 
-	private static final long serialVersionUID = 3043355853522402172L;
+	
+	public void printCompany() {
+		System.out.println("Company [companyID=" + companyID + ", location=" + location + ", companyName=" + companyName);
+	}
+
+	private static final long serialVersionUID = -8663787080395108472L;
+
+	
 	private int companyID; //PRIMARY KEY
 	private String location;
 	private String companyName;
 	
 	private ArrayList<Material>  materialList;
-	
-	public void printCompany(){
-		System.out.println("Company ID: "+this.companyID+"\nCompany Location: "+this.location+"\nCompany Name: "+this.companyName);
-	}
 	
 	public ArrayList<Material> getMaterialList() {
 		return materialList;

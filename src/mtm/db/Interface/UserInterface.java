@@ -743,16 +743,23 @@ public class UserInterface
     	String answ = writeString();
     	if(answ.equals("YES")){
     		while(aux){
-    			Material mat = createMaterial(true,com.getCompanyID());
+    			Material mat = createMaterial(true,com);
+    			if(mat!=null){
     			com.addMaterial(mat);
+    			jdbcManager.insert(mat);
+    			}
     			
     			System.out.println("\nDo you want to add another material provided by the Company? YES or NO:\n");
     			String answ2 = writeString();
-    			jdbcManager.insert(mat);
+    			
     			if(answ2.equals("NO")){
     				aux = false;
     			}
     	}
+    	}else if(answ.equals("NO")){
+    		return com;
+    	} else {
+    		System.out.println("Please type correct answer\n");
     	}
     	
     	return com;
@@ -792,14 +799,15 @@ public class UserInterface
     		listCompanies(false);
     		System.out.println("Type the PK of the company:\n");
     		int pk = writeNumber();
-    		mat.setCompanyID(pk);
+    		Company com = jdbcManager.selectCompany(pk);
+    		mat.setCompanyID(com);
     		System.out.println("The material is attached to the company\n");
     		aux = false;
     		
     	}else if(answ.equals("NO")){
-    		
+    		System.out.println("Therefore, you need to create a new company\n");
     		Company com = createCompany(true);
-    		mat.setCompanyID(com.getCompanyID());
+    		mat.setCompanyID(com);
     		System.out.println("The material is attached to the company\n");
     		aux = false;
     		
@@ -817,41 +825,95 @@ public class UserInterface
     		listMachineries(true);
     		System.out.println("Type the PK of the machinery:\n");
     		int pk = writeNumber();
-    		mat.setMachineryID(pk);
+    		Machinery mach = jdbcManager.selectMachinery(pk);
+    		if(mach != null){
+    		mat.setMachineryID(mach);
     		aux2 = false;
+    		}
     		
     	}else if(answ.equals("NO")){
-    		System.out.println("The material is attached no machinery\n");
-    		aux2 = false;
+    		System.out.println("Material not created. The material needs to be attached to a machinery\n");
+    		return null;
     		
     	}else{
     		System.out.println("Please type YES or NO\n");
     	}
     	}
     	
-    	mat.setWarehouseID(1);
-    	System.out.println(mat.getMachineryID());
-    	//jpaManager.insert(mat);@JPAChange
-		jdbcManager.insert(mat);
+    	//warehouse
+    	boolean aux3 = true;
+    	while(aux3){
+    	System.out.println("The material need to be stored in a warehouse. Please select one of the following warehouses\n");
+    	listWarehouses(true);
+    	System.out.println("Type the PK of the Warehouse:\n");
+    	int pk = writeNumber();
+    	Warehouse ware = jdbcManager.selectWarehouse(pk);
+    	
+    	if(ware != null){
+    	mat.setWarehouseID(ware);
+    	aux3 = false;
+    	}
+    		
+    	}
+
+    	jpaManager.insert(mat);
+		//jdbcManager.insert(mat);
 		System.out.println("The material is correctly attached to the database\n");
 		
     	return mat;
     	
     }
 
-    public static Material createMaterial(Boolean aux, int pk){
+    public static Material createMaterial(Boolean aux, Company com){
     	System.out.println("\nWeight");
     	int a = writeNumber();
     	System.out.println("\nVolume");
     	int b = writeNumber();
     	System.out.println("\nType");
     	String c = writeString();
-    	Material mat = new Material(a,b,c,pk);
-    	mat.setWarehouseID(1);
-    	//
+    	Material mat = new Material(a,b,c,com);
+
+    	//machinery
+    	boolean aux2 = true;
+    	while(aux2){
+    	System.out.println("Do you want to attach the material to a machinery from the database YES or NO: \n");
+    	String answ = writeString();
+    	if(answ.equals("YES")){
+    		listMachineries(true);
+    		System.out.println("Type the PK of the machinery:\n");
+    		int pk = writeNumber();
+    		Machinery mach = jdbcManager.selectMachinery(pk);
+    		if(mach != null){
+    		mat.setMachineryID(mach);
+    		aux2 = false;
+    		}
+    		
+    	}else if(answ.equals("NO")){
+    		System.out.println("Material not created. The material needs to be attached to a machinery\n");
+    		return null;
+    		
+    	}else{
+    		System.out.println("Please type YES or NO\n");
+    	}
+    	}
+    	
+    	//warehouse
+    	boolean aux3 = true;
+    	while(aux3){
+    	System.out.println("The material need to be stored in a warehouse. Please select one of the following warehouses\n");
+    	listWarehouses(true);
+    	System.out.println("Type the PK of the Warehouse:\n");
+    	int pk = writeNumber();
+    	Warehouse ware = jdbcManager.selectWarehouse(pk);
+    	
+    	if(ware != null){
+    	mat.setWarehouseID(ware);
+    	aux3 = false;
+    	}
     	jpaManager.insert(mat);
     	
-    	return mat;
+    }
+		return mat;
     }
     
     //Show the Objects
@@ -882,7 +944,7 @@ public class UserInterface
     public static void showMaterial(int pk){
     	Material mat;
     	mat = jpaManager.selectMaterial(pk);
-    	mat.toString();
+    	mat.printMaterial();
     }
     public static void listMaterials(boolean relation){
         	Material mat;
@@ -899,7 +961,7 @@ public class UserInterface
         			System.out.printf("id: %d, type: %d relations: company id:%d machinery id:%d wharehouse id:%d\n", mat.getMaterialID() , mat.getType(), mat.getCompanyID(), mat.getMachineryID(), mat.getWarehouseID());
         		}else
         		{
-        			System.out.printf("id: %d, type: %d \n", mat.getMaterialID() , mat.getType());
+        			System.out.printf("id: %d, type: %d \n", mat.getMaterialID(), mat.getType());
         		}
         		
         	}
@@ -981,7 +1043,7 @@ public class UserInterface
     			jdbcManager.setInstrumentRelations(inst);
     			System.out.printf("id: %d, relations: %d\n",inst.getInstrumentID(),inst.getOrderList().toString());
     			System.out.printf("id: %d, relations: %d\n",inst.getInstrumentID(),inst.getMachineryTypeList().toString());
-    			System.out.printf("id: %d, relations: %d\n",inst.getInstrumentID(),inst.getWarehouse().toString());	
+    			System.out.printf("id: %d, relations: %d\n",inst.getInstrumentID(),inst.getWarehouseID().toString());	
     		}else{
     			inst = instrumentList.get(count);
     			System.out.printf("id: %d\n",inst.getInstrumentID());
@@ -1067,7 +1129,7 @@ public class UserInterface
     		if(relation)
     		{
     			jdbcManager.setMachineryRelations(mach);
-    			System.out.printf("id: %d, relation Instrument: %d, relation employee: %d, relation materials: %d\n",mach.getMachineryID(),mach.getemployeeList().toString(),mach.getmaterialList().toString());
+    			System.out.printf("id: %d, relation Instrument: %d, relation employee: %d, relation materials: %d\n",mach.getMachineryID(),mach.getInstrumentID(),mach.getEmployeeID(),mach.getMaterialID());
        
     		}else
     		{
@@ -1089,12 +1151,10 @@ public class UserInterface
     	{
     		
     		ArrayList<Material> matList = jdbcManager.selectAllMaterials();
-    		Iterator<Material> matIter = matList.iterator();
-    		while(matIter.hasNext())
-    		{
-  //  			jdbcManager.setMaterialRelations(matIter.next());
-    			
-    		}
+    	
+
+
+
     		
     		ArrayList<Hospital> hospList = jdbcManager.selectAllHospitals();
     		Iterator<Hospital> hospIter = hospList.iterator();
@@ -1166,6 +1226,7 @@ public class UserInterface
     }
 
     //Management Methods
+
     public static boolean allreadyExistDb()
     {
     	boolean op;
