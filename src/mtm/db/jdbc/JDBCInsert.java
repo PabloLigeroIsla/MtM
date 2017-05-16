@@ -184,8 +184,8 @@ public class JDBCInsert
 		{
 			e.printStackTrace();
 		}
-	}
-	
+		}
+		
 	public void insert(Company com){
 		try{
 			c.setAutoCommit(false);
@@ -201,6 +201,7 @@ public class JDBCInsert
 				prep.close();
 								
 				System.out.println("Records inserted.");
+				
 				
 				c.commit();
 			}
@@ -261,7 +262,7 @@ public class JDBCInsert
 		{
 			e.printStackTrace();
 		}
-	}
+		}
 		
 	public void insertInstrumentOrderRelation(int pkInstrument, int pkOrder)
 	{

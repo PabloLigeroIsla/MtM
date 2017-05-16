@@ -155,9 +155,12 @@ public class Material implements Serializable {
 		return true;
 	}
 
+<<<<<<< HEAD
 
 
 
 	
+=======
+>>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 	
 }

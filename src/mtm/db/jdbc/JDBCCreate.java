@@ -117,10 +117,10 @@ public class JDBCCreate
 			Statement sCt = c.createStatement();
 				String sqlc2= "CREATE TABLE machinery("
 				+ "machinery_ID INTEGER PRIMARY KEY AUTOINCREMENT,"							
-				+ "machineryType TEXT,"
+				+ "machineryType TEXT NOT NULL,"
 				+ "stateofMachinery TEXT NOT NULL,"
-				+ "dateofInstallation DATE,"
-				+ "sizeofMachinery INTEGER)";
+				+ "dateofInstallation DATE NOT NULL,"
+				+ "sizeofMachinery INTEGER NOT NULL)";
 					sCt.executeUpdate(sqlc2);
 				sCt.close();	
 				

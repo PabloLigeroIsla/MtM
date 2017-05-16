@@ -63,11 +63,12 @@ public class UserInterface
 					waitEnter();
 					break;
 				case 6:
-					createXML();
+					//xmlManager.createXML();
+					//createXML();
 					waitEnter();
 					break;
 				case 7:
-					openXML();
+					//openXML();
 					waitEnter();
 					break;
 				case 8:
@@ -413,74 +414,6 @@ public class UserInterface
 		case 4: //Instrument
 			Instrument inst = createInstrument();
 			jdbcManager.insert(inst);
-
-			jdbcManager.setInstrumentID(inst); // to obtain the ID of the instrument
-			
-			System.out.println("Now let´s see which machinery has created the instrument:\n");
-			listMachineries(false);
-			
-			System.out.println("Does the machinery exist?\n");
-			String s = writeString();
-			
-			if(writeOption(s)){
-				listMachineries(false);
-				System.out.println("Select the ID of the machinery the instrument has been through:\n");
-				int machID=writeNumber();
-				System.out.println("Introduce how much time (minutes) the instrument is in the machinery:\n");
-				int time = writeNumber();
-
-				//mach = jpaManager.selectMachinery(machID);@JPAChange
-				jdbcManager.selectMachinery(machID);
-				jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(),machID,time);
-				//inst.addMachinery();
-			}
-			else
-			{
-		    	System.out.println("Introduce the values of the new machinery:\n");
-
-				Machinery mach=createMachinery();
-				jdbcManager.setMachineryID(mach);
-
-				System.out.println("Introduce how much time (minutes) the instrument is in the machinery:\n");
-				int time = writeNumber();
-				
-				//jdbcManager.insert(mach);
-				jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(),mach.getMachineryID(),time);
-				//inst.addMachinery(mach);
-				
-			}			
-			
-			System.out.println("Now let´s see in which warehouse is the instrument stored:\n");
-			
-			
-			System.out.println("Does the warehouse exist?\n");
-			String st = writeString();
-			int warID;
-			Warehouse war = new Warehouse();
-			if(writeOption(st)){
-				listWarehouses(false);
-				System.out.println("Select the ID of the warehouse you want to insert the instrument into:\n");
-				warID=writeNumber();
-				war=jdbcManager.selectWarehouse(warID);
-				jdbcManager.setRelationInstrumentWarehouse(inst.getInstrumentID(),warID);
-				jdbcManager.updateWarehouse(warID, inst.getAmount());
-			}
-			else
-			{
-				System.out.println("Intruduce the values of the new warehouse:\n");
-
-				war=createWarehouse();
-				jdbcManager.insert(war);
-				jdbcManager.setWarehouseID(war);
-				jdbcManager.setRelationInstrumentWarehouse(inst.getInstrumentID(),war.getWarehouseID());
-				jdbcManager.updateWarehouse(war.getWarehouseID(), inst.getAmount());
-
-			}
-			
-			//DEBO PONER QUE AL FINAL LO INSERTE????
-		//jdbcManager.setInstrumentRelations(inst);
-		//jdbcManager.insert(inst);
-			
 			break;
 		case 5: //Machinery
 			Machinery mach = createMachinery();
@@ -1116,7 +1049,7 @@ public class UserInterface
     		if(relation)
     		{
     			jdbcManager.setMachineryRelations(mach);
-    			System.out.printf("id: %d, relation Instrument: %d, relation employee: %d, relation materials: %d\n",mach.getMachineryID(),mach.getemployeeList().toString(),mach.getmaterialList().toString());
+    			System.out.printf("id: %d, relation Instrument: %d, relation employee: %d, relation materials: %d\n",mach.getMachineryID(),mach.getInstrumentID(),mach.getEmployeeID(),mach.getMaterialID());
        
     		}else
     		{
@@ -1127,6 +1060,7 @@ public class UserInterface
     
     }
     
+
     //XML
     public static void createXML()
     {
@@ -1215,6 +1149,7 @@ public class UserInterface
     }
 
     //Management Methods
+
     public static boolean allreadyExistDb()
     {
     	boolean op;

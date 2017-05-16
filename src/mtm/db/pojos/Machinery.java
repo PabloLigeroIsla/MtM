@@ -1,12 +1,12 @@
 package mtm.db.pojos;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
@@ -30,15 +30,39 @@ public class Machinery implements Serializable {
 	private LocalDate dateofInstallation;
 	private int sizeofMachinery;
 	
-	
-	private List<Instrument> instrumentList;
-	
-	private List<Material> materialList;
-	
-	private List<Employee> employeeList;
+	@JoinColumn(name="material_ID")
+	private int materialID; //FOREIGN KEY
+	@JoinColumn(name = "instrument_ID")
+	private int instrumentID; //FOREIGN KEY
+	@JoinColumn(name = "employee_ID")
+	private int employeeID; //FOREIGN KEY	
 	
 	//Gets and Sets
 
+	public int getMaterialID() {
+		return materialID;
+	}
+
+	public void setMaterialID(int materialID) {
+		this.materialID = materialID;
+	}
+	
+	public int getInstrumentID() {
+		return instrumentID;
+	}
+
+	public void setInstrumentID(int instrumentID) {
+		this.instrumentID = instrumentID;
+	}
+	
+	public int getEmployeeID() {
+		return employeeID;
+	}
+
+	public void setEmployeeID(int employeeID) {
+		this.employeeID = employeeID;
+	}
+	
 	public String getMachineryType() {
 		return machineryType;
 	}
@@ -79,38 +103,10 @@ public class Machinery implements Serializable {
 		this.sizeofMachinery = sizeofMachinery;
 	}
 
-	public List<Instrument> getInstrumentList() {
-		return instrumentList;
-	}
-
-	public void setInstrumentList(List<Instrument> instrumentList) {
-		this.instrumentList = instrumentList;
-	}
-	
-	public List<Material> getmaterialList() {
-		return materialList;
-	}
-
-	public void setmaterialList(List<Material> materialList) {
-		this.materialList = materialList;
-	}
-
-	public List<Employee> getemployeeList() {
-		return employeeList;
-	}
-
-	public void setemployeeList(List<Employee> employeeList) {
-		this.employeeList = employeeList;
-	}
-	
 	// Constructors	
 
 	public Machinery() {
 		super();
-		this.instrumentList = new ArrayList<Instrument>();
-		this.materialList = new ArrayList<Material>();
-		this.employeeList = new ArrayList<Employee>();
-	
 	}
 	
 	public Machinery(String machineryType, String stateofMachinery, LocalDate dateofInstallation, int sizeofMachinery) {
@@ -129,10 +125,7 @@ public class Machinery implements Serializable {
 		this.stateofMachinery = stateofMachinery;
 		this.dateofInstallation = dateofInstallation;
 		this.sizeofMachinery = sizeofMachinery;
-		
-		this.instrumentList = new ArrayList<Instrument>();
-		this.materialList = new ArrayList<Material>();
-		this.employeeList = new ArrayList<Employee>();
+
 	}	
 	
 	public Machinery(int machineryID,String machineryType, String stateofMachinery, LocalDate dateofInstallation, 
@@ -144,62 +137,9 @@ public class Machinery implements Serializable {
 		this.dateofInstallation = dateofInstallation;
 		this.sizeofMachinery = sizeofMachinery;
 		
-		this.instrumentList = instrumentList;
-		this.materialList = materialList;
-		this.employeeList = employeeList;
-		
 	}	
 	
 	// Methods
-
-	public void addInstrument (Instrument instrument)
-	{
-		if(!instrumentList.contains(instrument))
-		{
-			this.instrumentList.add(instrument);
-		}
-	}
-	
-	public void removeInstrument (Instrument instrument)
-	{
-		if(instrumentList.contains(instrument))
-		{
-			this.instrumentList.remove(instrument);
-		}
-	}
-	
-	public void addMaterial (Material material)
-	{
-		if(!materialList.contains(material))
-		{
-			this.materialList.add(material);
-		}
-	}
-	
-	public void removeMaterial (Material material)
-	{
-		if(materialList.contains(material))
-		{
-			this.materialList.remove(material);
-		}
-	}
-	
-	public void addEmployee (Employee employee)
-	{
-		if(!employeeList.contains(employee))
-		{
-			this.employeeList.add(employee);
-		}
-	}
-	
-	public void removeEmployee (Employee employee)
-	{
-		if(employeeList.contains(employee))
-		{
-			this.employeeList.remove(employee);
-		}
-	}
-	
 	
 	@Override
 	public String toString() 
@@ -207,6 +147,12 @@ public class Machinery implements Serializable {
 		return "Machinery [machineryID=" + machineryID + ",machineryType=" 
 	+ machineryType + ",stateofMachinery=" + stateofMachinery + ", dateofInstallation=" 
 	+ dateofInstallation + ", sizeofMachinery=" + sizeofMachinery + "]";
+	}
+	
+	public String printMach(){
+		return "Machinery [machineryID=" + machineryID + ",machineryType=" 
+				+ machineryType + ",stateofMachinery=" + stateofMachinery + ", dateofInstallation=" 
+				+ dateofInstallation + ", sizeofMachinery=" + sizeofMachinery + "]";
 	}
 
 	@Override
@@ -230,7 +176,5 @@ public class Machinery implements Serializable {
 			return false;
 		return true;
 	}
-
-
 
 }
