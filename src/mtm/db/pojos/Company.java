@@ -3,23 +3,33 @@ package mtm.db.pojos;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javax.persistence.*;
 
+@Entity
+@Table(name = "company") //sql table name  (Compatible with JDBC)
 public class Company implements Serializable {
 
-	
-	public void printCompany() {
-		System.out.println("Company [companyID=" + companyID + ", location=" + location + ", companyName=" + companyName);
-	}
+	@Id 
+	@GeneratedValue(generator="company")
+	@TableGenerator(name="company", table="sqlite_sequence",
+	    pkColumnName="companyID", valueColumnName="seq", pkColumnValue="company")
 
+	
 	private static final long serialVersionUID = -8663787080395108472L;
 
-	
+
 	private int companyID; //PRIMARY KEY
 	private String location;
 	private String companyName;
 	
 	private ArrayList<Material>  materialList;
 	
+	
+	//metodos
+	public void printCompany() {
+		System.out.println("Company [companyID=" + companyID + ", location=" + location + ", companyName=" + companyName);
+	}
+
 	public ArrayList<Material> getMaterialList() {
 		return materialList;
 	}
