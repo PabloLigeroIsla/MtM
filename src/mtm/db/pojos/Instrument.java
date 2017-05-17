@@ -136,6 +136,7 @@ public class Instrument implements Serializable {
 	public Instrument() {
 		super();
 		this.orderList = new ArrayList<Order>();
+		this.machineryTypeList = new ArrayList<Machinery>();
 	}
 
 

@@ -1132,6 +1132,7 @@ public class JDBCManager implements DBInterface
 		//relation instrument-machinery
 		relationalTable = "instrument_machinery";
 		String pkAttSearchMach = "machineryID";
+		pkAttCompare = "instrument_ID";
 		
 		instPkRelationFound = foundRelation(relationalTable, pkAttSearchMach, pkAttCompare, pkValueCompare);
 		iter = instPkRelationFound.iterator();
@@ -1265,7 +1266,7 @@ public class JDBCManager implements DBInterface
 		
 		JDBCSearch sqlSearch = new JDBCSearch(c);
 		
-		pkArray=sqlSearch.searchPkRelation(query, pkValueCompare, pk1AttributeSearch);
+		pkArray = sqlSearch.searchPkRelation(query, pkValueCompare, pk1AttributeSearch);
 		
 		return pkArray;
 		

@@ -1038,13 +1038,16 @@ public class UserInterface
     public static void listInstruments(boolean relation){
     	Instrument inst = new Instrument();
     	ArrayList<Instrument> instrumentList = new ArrayList<Instrument>();
+    	
     	instrumentList = jdbcManager.selectAllInstruments();
     	Iterator <Instrument> iter = instrumentList.iterator();
+    	
     	while(iter.hasNext()){
     		
     		inst = iter.next();
-    		jdbcManager.setInstrumentRelations(inst);
+    
     		if(relation){
+    			jdbcManager.setInstrumentRelations(inst);
     			System.out.printf("id of instrument: %d, relation with order: %d\n",inst.getInstrumentID(),inst.getOrderList().toString());
     			System.out.printf("id of instrument: %d, relation with machinery: %d\n",inst.getInstrumentID(),inst.getMachineryTypeList().toString());
     			System.out.printf("id of instrument: %d, relation with warehouse: %d\n",inst.getInstrumentID(),inst.getWarehouse().toString());	
