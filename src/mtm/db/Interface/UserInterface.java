@@ -467,7 +467,6 @@ public class UserInterface
 				//mach = jpaManager.selectMachinery(machID);@JPAChange
 				jdbcManager.selectMachinery(machID);
 				jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(),machID,time);
-				//inst.addMachinery();
 			}
 			else
 			{
@@ -475,7 +474,6 @@ public class UserInterface
 
 				Machinery mach=createMachinery();
 				jdbcManager.insert(mach);
-//fallo aqui al insertar una machinery
 				jdbcManager.setMachineryID(mach);
 
 				System.out.println("Introduce how much time (minutes) the instrument is in the machinery:\n");
@@ -483,12 +481,10 @@ public class UserInterface
 				
 				
 				jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(),mach.getMachineryID(),time);
-				inst.addMachinery(mach);
+				
 				
 			}			
-			//DEBO PONER QUE AL FINAL LO INSERTE????
-		//jdbcManager.setInstrumentRelations(inst);
-		//jdbcManager.insert(inst);
+		
 			
 			break;
 		case 5: //Machinery
@@ -1043,19 +1039,21 @@ public class UserInterface
     	Instrument inst = new Instrument();
     	ArrayList<Instrument> instrumentList = new ArrayList<Instrument>();
     	instrumentList = jdbcManager.selectAllInstruments();
-    	int count = 0;
-    	
-    	while(count < instrumentList.size()){
+    	Iterator <Instrument> iter = instrumentList.iterator();
+    	while(iter.hasNext()){
+    		
+    		inst = iter.next();
+    		jdbcManager.setInstrumentRelations(inst);
     		if(relation){
-    			jdbcManager.setInstrumentRelations(inst);
-    			System.out.printf("id: %d, relations: %d\n",inst.getInstrumentID(),inst.getOrderList().toString());
-    			System.out.printf("id: %d, relations: %d\n",inst.getInstrumentID(),inst.getMachineryTypeList().toString());
-    			System.out.printf("id: %d, relations: %d\n",inst.getInstrumentID(),inst.getWarehouse().toString());	
+    			System.out.printf("id of instrument: %d, relation with order: %d\n",inst.getInstrumentID(),inst.getOrderList().toString());
+    			System.out.printf("id of instrument: %d, relation with machinery: %d\n",inst.getInstrumentID(),inst.getMachineryTypeList().toString());
+    			System.out.printf("id of instrument: %d, relation with warehouse: %d\n",inst.getInstrumentID(),inst.getWarehouse().toString());	
     		}else{
-    			inst = instrumentList.get(count);
     			System.out.printf("id: %d\n",inst.getInstrumentID());
     		}
-    	}		
+    	}
+    	
+    	
     }
     
     public static void showWarehouse(int pk){
