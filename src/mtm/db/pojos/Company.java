@@ -8,11 +8,19 @@ import javax.persistence.*;
 @Entity
 @Table(name = "company") //sql table name  (Compatible with JDBC)
 public class Company implements Serializable {
+<<<<<<< HEAD
 
 	@Id 
 	@GeneratedValue(generator="company")
 	@TableGenerator(name="company", table="sqlite_sequence",
 	    pkColumnName="companyID", valueColumnName="seq", pkColumnValue="company")
+=======
+	
+
+	public void printCompany() {
+		System.out.println("Company [companyID=" + companyID + ", location=" + location + ", companyName=" + companyName);
+	}
+>>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 
 	
 	private static final long serialVersionUID = -8663787080395108472L;
@@ -61,6 +69,12 @@ public class Company implements Serializable {
 	public Company(String location, String companyName){
 		this.location = location;
 		this.companyName = companyName;
+		this.materialList = new ArrayList<Material>();
+	}
+	
+	public Company (int idCompany)
+	{
+		this.companyID = idCompany;
 		this.materialList = new ArrayList<Material>();
 	}
 	

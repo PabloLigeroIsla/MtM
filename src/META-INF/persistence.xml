@@ -10,14 +10,14 @@
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
  
 		<!-- Entity Class  -->
-		<class>sample.db.pojos.Company</class>
-		<class>sample.db.pojos.Employee</class>
-		<class>sample.db.pojos.Hospital</class>
-		<class>sample.db.pojos.Instrument</class>
-		<class>sample.db.pojos.Machinery</class>
-		<class>sample.db.pojos.Material</class>
-		<class>sample.db.pojos.Order</class>
-		<class>sample.db.pojos.Warehouse</class>
+		<class>mtm.db.pojos.Company</class>
+		<class>mtm.db.pojos.Employee</class>
+		<class>mtm.db.pojos.Hospital</class>
+		<class>mtm.db.pojos.Instrument</class>
+		<class>mtm.db.pojos.Machinery</class>
+		<class>mtm.db.pojos.Material</class>
+		<class>mtm.db.pojos.Order</class>
+		<class>mtm.db.pojos.Warehouse</class>
  		
  		<!---->
 		<properties>	

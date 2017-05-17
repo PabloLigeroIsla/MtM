@@ -425,7 +425,7 @@ public class JDBCManager implements DBInterface
 	}
 
 	public void deleteMaterial(int primaryKey){
-		String sqlQuery = "SELECT * FROM material WHERE material_ID = ?";
+		String sqlQuery = "SELECT * FROM material WHERE materialID = ?";
 		if(valExist(sqlQuery,primaryKey,null))
 		{
 			JDBCDelete sqlDelete = new JDBCDelete(c);
@@ -587,11 +587,19 @@ public class JDBCManager implements DBInterface
 		{
 			JDBCSelect sqlSelect = new JDBCSelect(c);
 	 		Material mat = new Material();
+	 		Material matf = new Material();
 	 		
 			mat= sqlSelect.selectMaterial(selQuery,primaryKey);
-
+			int idComp = mat.getCompany().getCompanyID();
+			mat.setCompanyID(selectCompany(idComp));
+			int idMach = mat.getMachineryID().getMachineryID();
+			mat.setMachineryID(selectMachinery(idMach));
+			int idWare = mat.getWarehouseID().getWarehouseID();
+			mat.setWarehouseID(selectWarehouse(idWare));
 			
-			return mat;
+			
+			
+			return matf;
 		}else
 		{
 			System.out.println("We dont find the primary key\n");
@@ -611,7 +619,8 @@ public class JDBCManager implements DBInterface
  	 		Employee emp = new Employee();
  	 		
  			emp = sqlSelect.selectEmployee(selQuarry,primaryKey);
- 			
+ 			int machID = emp.getMachineryType().getMachineryID();
+ 			emp.setMachineryType(selectMachinery(machID));
  			return emp;
  		}else
  		{
@@ -645,7 +654,7 @@ public class JDBCManager implements DBInterface
  	public Machinery selectMachinery(int primaryKey)
  	{
  		String table = "machinery";
- 		String selQuarry = "SELECT * FROM "+table+" WHERE machinery_ID = ?";
+ 		String selQuarry = "SELECT * FROM "+table+" WHERE machineryID = ?";
  		
  		
  		if(valExist(selQuarry,primaryKey,null))
@@ -654,6 +663,7 @@ public class JDBCManager implements DBInterface
  			Machinery mach = new Machinery();
  	 		
  			mach = sqlSelect.selectMachinery(selQuarry,primaryKey);
+ 			
  			
  			return mach;
  		}else
@@ -666,7 +676,7 @@ public class JDBCManager implements DBInterface
  	
  	public Machinery selectMachinery(String nameMachinery)
  	{
- 		String selQuarry = "SELECT * FROM machinery WHERE machinery_ID = ?";
+ 		String selQuarry = "SELECT * FROM machinery WHERE machineryType LIKE ?";
  		
  		if(valExist(selQuarry,-1,nameMachinery))
  		{
@@ -688,18 +698,18 @@ public class JDBCManager implements DBInterface
  	public Instrument selectInstrument(int primaryKey)
  	{
  		String table = "instrument";
- 		String selQuarry = "SELECT * FROM "+table+" WHERE instrument_ID = ?";
+ 		String selQuery = "SELECT * FROM "+table+" WHERE instrument_ID = ?";
  		
  		
- 		if(valExist(selQuarry,primaryKey,null))
+ 		if(valExist(selQuery,primaryKey,null))
  		{
  			JDBCSelect sqlSelect = new JDBCSelect(c);
  	 		Instrument instrument = new Instrument();
  	 		
  			
- 			instrument = sqlSelect.selectInstrument(selQuarry,primaryKey);
- 			
- 			
+ 			instrument = sqlSelect.selectInstrument(selQuery,primaryKey);
+ 			int wID = instrument.getWarehouse().getWarehouseID();
+ 			instrument.setWarehouseID(selectWarehouse(wID)); 			
  			return instrument;
  		}else
  		{
@@ -724,7 +734,7 @@ public class JDBCManager implements DBInterface
  			return warehouse;
  		}else
  		{
- 			System.out.println("/nWe dont find the primary key\n");
+ 			System.out.println("We dont find the primary key\n");
  				
  			return null;
  		}
@@ -764,24 +774,48 @@ public class JDBCManager implements DBInterface
  		return companiesList;
  	}
  	
- 	public ArrayList<Material> selectAllMaterials(){
+ 	public ArrayList<Material> selectAllMaterials()
+ 	{
  		ArrayList<Material> materialList = new ArrayList<Material>();
+ 		ArrayList<Material> materialListFinal = new ArrayList<Material>();
  		JDBCSelect sqlSelect = new JDBCSelect(c);
  		
 		materialList = sqlSelect.selectAllMaterials();
+		Iterator<Material> itMat = materialList.iterator();
+		while(itMat.hasNext())
+		{
+			Material mat = itMat.next();
+			
+			int com = mat.getCompany().getCompanyID();
+			mat.setCompanyID(selectCompany(com));
+			int mach = mat.getMachineryID().getMachineryID();
+			mat.setMachineryID(selectMachinery(mach));
+			int war = mat.getWarehouseID().getWarehouseID();
+			mat.setWarehouseID(selectWarehouse(war));
+			
+			materialListFinal.add(mat);
+		}
 
 		
- 		return materialList;
+ 		return materialListFinal;
  	}
  	
  	public ArrayList<Employee> selectAllEmployees(){
 	 		
 		ArrayList<Employee> emp = new ArrayList<Employee>();
+		ArrayList<Employee> empFinal = new ArrayList<Employee>();
 		JDBCSelect sqlSelect = new JDBCSelect(c);
 		
 		emp = sqlSelect.selectAllEmployee();
+		Iterator<Employee> empIter = emp.iterator();
+		while(empIter.hasNext())
+		{
+			Employee empObj = empIter.next();
+			int machID = empObj.getMachineryType().getMachineryID();
+			empObj.setMachineryType(selectMachinery(machID));
+		}
 		
-		return emp;
+		return empFinal;
 	}
 	
  	public ArrayList<Machinery> selectAllMachineries()
@@ -797,13 +831,25 @@ public class JDBCManager implements DBInterface
  	public ArrayList<Instrument> selectAllInstruments()
  	{
  		ArrayList<Instrument> instrumentList = new ArrayList<Instrument>();
+ 		ArrayList<Instrument> instrumentListFinal = new ArrayList<Instrument>();
  		JDBCSelect sqlSelect = new JDBCSelect(c);
  	 		
  	 	
  		instrumentList = sqlSelect.selectAllInstruments();
+ 		Iterator<Instrument> insIter = instrumentList.iterator();
+ 		while(insIter.hasNext())
+ 		{
+ 			Instrument inst =insIter.next();
+ 			
+ 			int wID = inst.getWarehouse().getWarehouseID();
+ 			inst.setWarehouseID(selectWarehouse(wID));
+ 			
+ 			instrumentListFinal.add(inst);
+ 			
+ 		}
  			
  			
- 		return instrumentList;
+ 		return instrumentListFinal;
  	}
  	
  	public ArrayList<Warehouse> selectAllWarehouses()
@@ -859,7 +905,7 @@ public class JDBCManager implements DBInterface
  			
  		}
  		String table = "machinery";
- 		String selQuery = "SELECT name FROM "+table+" WHERE machinery_ID = ?";
+ 		String selQuery = "SELECT name FROM "+table+" WHERE machineryID = ?";
  		if(valExist(selQuery,pkSearch,null))
  		{
  			
@@ -1085,7 +1131,8 @@ public class JDBCManager implements DBInterface
 		
 		//relation instrument-machinery
 		relationalTable = "instrument_machinery";
-		String pkAttSearchMach = "machinery_ID";
+		String pkAttSearchMach = "machineryID";
+		pkAttCompare = "instrument_ID";
 		
 		instPkRelationFound = foundRelation(relationalTable, pkAttSearchMach, pkAttCompare, pkValueCompare);
 		iter = instPkRelationFound.iterator();
@@ -1116,7 +1163,7 @@ public class JDBCManager implements DBInterface
 		Iterator<Instrument> iter2 = allInstruments.iterator();
 		while(iter2.hasNext()){
 			Instrument inst = iter2.next();
-			if(inst.getWarehouseID() == war.getWarehouseID()){
+			if(inst.getWarehouse().getWarehouseID() == war.getWarehouseID()){
 				war.addInstrument(inst);;
 			}
 		}
@@ -1125,33 +1172,37 @@ public class JDBCManager implements DBInterface
 		return war;
 	}
 	
-	public Machinery setMachineryRelations(Machinery mach){
+	public Machinery setMachineryRelations(Machinery mach)
+	{
 		//relation employee
 		ArrayList<Employee>allEmployees = selectAllEmployees();
 		Iterator<Employee> iter1 = allEmployees.iterator();
-		while(iter1.hasNext()){
+		while(iter1.hasNext())
+		{
 			Employee a = iter1.next();
-			if(a.getMachineryType().getMachineryID() == mach.getMachineryID()){
-				//mach.addMachinery(a);
-				mach.getMachineryID();
+			if(a.getMachineryType().getMachineryID() == mach.getMachineryID())
+			{
+				mach.addEmployee(a);
 			}
 		}
 		
 		//relation material
 		ArrayList<Material>allMaterials = selectAllMaterials();
 		Iterator<Material> iter2 = allMaterials.iterator();
-		while(iter2.hasNext()){
+		
+		while(iter2.hasNext())
+		{
 			Material b = iter2.next();
-			if(b.getMachineryID().getMachineryID() == mach.getMachineryID()){
+			if(mach.getMachineryID() == b.getMachineryID().getMachineryID())
+			{
 				mach.addMaterial(b);
 			}
-		}
-				
+		}	
 		//Instrument List
 		String relationalTable = "instrument_machinery";
 		String pkAtributeS = "instrument_ID";
 		
-		String pkAttCompare = "machinery_ID";
+		String pkAttCompare = "machineryID";
 		int pkValueCompare = mach.getMachineryID();
 		
 		ArrayList<Integer> machineryPkRelationFound = new ArrayList<Integer>();
@@ -1161,12 +1212,9 @@ public class JDBCManager implements DBInterface
 		while(iter.hasNext())
 		{
 			int i = iter.next();
-			//mach.addInstrument(selectInstrument(i));
-			mach.setInstrumentID(i);
+			mach.addInstrument(selectInstrument(i));
 
 		}
-		
-	
 		
 		return mach;
 	}
@@ -1178,7 +1226,7 @@ public class JDBCManager implements DBInterface
 		Iterator<Material> iter = allMaterials.iterator();
 		while(iter.hasNext()){
 			Material aux = iter.next();
-			if(aux.getCompanyID().getCompanyID() == com.getCompanyID()){
+			if(aux.getCompany().getCompanyID() == com.getCompanyID()){
 				com.addMaterial(aux);
 			}
 		}
@@ -1208,11 +1256,6 @@ public class JDBCManager implements DBInterface
 		
 	}
 	
-	public void setRelationInstrumentWarehouse(int instID, int warID){
-		JDBCInsert sqlInsert = new JDBCInsert(c);
-		sqlInsert.insertInstrumentWarehouseRelation(instID,warID);
-		
-	}
 			
 	//Relation Help Methods
 	public ArrayList<Integer> foundRelation(String table,String pk1AttributeSearch,String pkAttributeCompare ,int pkValueCompare)
@@ -1223,7 +1266,7 @@ public class JDBCManager implements DBInterface
 		
 		JDBCSearch sqlSearch = new JDBCSearch(c);
 		
-		pkArray=sqlSearch.searchPkRelation(query, pkValueCompare, pk1AttributeSearch);
+		pkArray = sqlSearch.searchPkRelation(query, pkValueCompare, pk1AttributeSearch);
 		
 		return pkArray;
 		

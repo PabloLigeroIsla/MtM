@@ -72,7 +72,7 @@ public class JDBCDelete
 	{
 		try
 		{
-			String sql = "DELETE FROM machinery WHERE machineryType = ?";
+			String sql = "DELETE FROM machinery WHERE machineryID = ?";
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setInt(1, pk);
 			prep.executeUpdate();

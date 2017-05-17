@@ -4,6 +4,27 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+
+@Entity
+@Table(name = "warehouse")
+@XmlAccessorType(XmlAccessType.FIELD) //Be able to use XML
+@XmlRootElement(name = "Warehouse")
+@XmlType(propOrder = { "warehouseID", "warehouseLocation", "capacity", "filledSpace", "instrumentList", "materialTypeList" })//Set the attributes in the XML
+
 public class Warehouse implements Serializable {
 /**
 	 * 
@@ -14,15 +35,28 @@ public class Warehouse implements Serializable {
 	 * 
 	 */
 	
+	@Id 
+	@GeneratedValue(generator="warehouse")
+	@TableGenerator(name="warehouse", table="sqlite_sequence",
+	    pkColumnName="warehouseID", valueColumnName="seq", pkColumnValue="warehouse")
 	
-	
-	
+	@XmlAttribute
 	private Integer warehouseID;
+	@XmlAttribute
 	private String warehouseLocation;
+	@XmlAttribute
 	private Integer capacity;
+	@XmlAttribute
 	private Integer filledSpace;
 	
+	@OneToMany(mappedBy="warehouse")
+	@XmlElement(name = "Instrument") 
+    @XmlElementWrapper(name = "Instruments")
 	private List<Instrument> instrumentList;
+	
+	@OneToMany(mappedBy="warehouse")
+	@XmlElement(name = "Material") 
+    @XmlElementWrapper(name = "Materials")	
 	private List<Material> materialTypeList;
 	
 	public Warehouse(String warehouseLocation, Integer capacity, Integer filledSpace) {
@@ -42,6 +76,13 @@ public class Warehouse implements Serializable {
 		this.capacity = capacity;
 		this.filledSpace = filledSpace;
 		
+	}
+	
+	public Warehouse(int wid)
+	{
+		this.warehouseID = wid;
+		this.instrumentList = new ArrayList<Instrument>();
+		this.materialTypeList = new ArrayList<Material>();
 	}
 
 
@@ -159,6 +200,8 @@ public class Warehouse implements Serializable {
 	
 	
 
+	
+
 	public Integer getWarehouseID() {
 		return warehouseID;
 	}
@@ -217,6 +260,9 @@ public class Warehouse implements Serializable {
 	public void setMaterialTypeList(List<Material> materialTypeList) {
 		this.materialTypeList = materialTypeList;
 	}
+
+
+	
 		
 
 

@@ -147,6 +147,7 @@ public class JDBCSelect
 		Integer numberUses;
 		String bodyLocation;
 		Integer price;
+		Warehouse war;
 		
 		
 		try
@@ -166,8 +167,10 @@ public class JDBCSelect
 				numberUses = rs.getInt("number_uses");
 				bodyLocation = rs.getString("body_location");
 				price = rs.getInt("price");
-				
-				instrument = new Instrument(instrumentID,name,model,purpose,amount,numberUses,bodyLocation,price);
+				int idW = rs.getInt("warehouse_ID");
+
+				war = new Warehouse(idW);				
+				instrument = new Instrument(instrumentID,name,model,purpose,amount,numberUses,bodyLocation,price,war);
 			}
 			
 			prep.close();
@@ -228,6 +231,7 @@ public class JDBCSelect
 		Employee emp = null;
 		int employeeID;
 		String name, specializationType,typeofContract;
+		int machID;
 		
 		try
 		{
@@ -242,7 +246,10 @@ public class JDBCSelect
 				name = rs.getString("name");
 				specializationType = rs.getString("specializationType");
 				typeofContract = rs.getString("typeofContract");
-				emp = new Employee(employeeID,name,specializationType,typeofContract);
+				machID = rs.getInt("machineryType");
+				
+				Machinery mach = new Machinery(machID);
+				emp = new Employee(employeeID,name,specializationType,typeofContract,mach);
 			}
 			
 			prep.close();
@@ -306,7 +313,7 @@ public class JDBCSelect
 			while(rs.next())
 			{
 				
-				int machineryID = rs.getInt("machinery_ID");
+				int machineryID = rs.getInt("machineryID");
 				String machineryType = rs.getString("machineryType");
 				String stateofMachinery = rs.getString("stateofMachinery");				
 				java.sql.Date machiDate = rs.getDate("dateofInstallation");
@@ -424,9 +431,9 @@ public class JDBCSelect
 				int machineryID = rs.getInt("machinery_ID");
 				int warehouseID = rs.getInt("warehouse_ID");
 				
-				Company com = jdbcManager.selectCompany(companyID);
-				Machinery mach = jdbcManager.selectMachinery(machineryID);
-				Warehouse war = jdbcManager.selectWarehouse(warehouseID);
+				Company com = new Company(companyID);
+				Machinery mach = new Machinery(machineryID);
+				Warehouse war = new Warehouse(warehouseID);
 				
 				
 				mat = new Material(materialID, weight, volume, type, com, mach, war);
@@ -528,8 +535,9 @@ public class JDBCSelect
 				int numberUses = rs.getInt("number_uses");
 				String bodyLocation = rs.getString("body_location");
 				int price = rs.getInt("price");
-				
-				Instrument instrument = new Instrument(instrumentID,name,model,purpose,amount,numberUses,bodyLocation,price);
+				int wID = rs.getInt("warehouse_ID");
+				Warehouse war = new Warehouse(wID);
+				Instrument instrument = new Instrument(instrumentID,name,model,purpose,amount,numberUses,bodyLocation,price,war);
 				instrumentList.add(instrument);
 			}
 			
@@ -586,8 +594,10 @@ public class JDBCSelect
 				String name = rs.getString("name");
 				String specializationType = rs.getString("specializationType");
 				String typeofContract = rs.getString("typeofContract");
+				int machID = rs.getInt("machineryType");
 				
-				Employee emp = new Employee(employeeID,name,specializationType,typeofContract);
+				Machinery mach = new Machinery(machID);
+				Employee emp = new Employee(employeeID,name,specializationType,typeofContract,mach);
 				employee.add(emp);
 			}
 			
@@ -613,7 +623,7 @@ public class JDBCSelect
 			
 			while(rs.next())
 			{
-				int machineryID = rs.getInt("machinery_ID");
+				int machineryID = rs.getInt("machineryID");
 				String machineryType = rs.getString("machineryType");
 				String stateofMachinery = rs.getString("stateofMachinery");				
 				java.sql.Date machiDate = rs.getDate("dateofInstallation");
@@ -678,12 +688,13 @@ public class JDBCSelect
 				int volume = rs.getInt("volume");
 				String type = rs.getString("type");
 				int companyID = rs.getInt("companyID");
-				int machineryID = rs.getInt("machinery_ID");
+				int machineryID = rs.getInt("machineryID");
 				int warehouseID = rs.getInt("warehouse_ID");
+				//Problema de la Conexi�n @ERROR
 				
-				Company com = jdbcManager.selectCompany(companyID);
-				Machinery mach = jdbcManager.selectMachinery(machineryID);
-				Warehouse war = jdbcManager.selectWarehouse(warehouseID);
+				Company com = new Company(companyID);
+				Machinery mach = new Machinery(machineryID);
+				Warehouse war = new Warehouse(warehouseID);
 				
 				
 				Material mat = new Material(materialID, weight, volume, type, com, mach, war);
