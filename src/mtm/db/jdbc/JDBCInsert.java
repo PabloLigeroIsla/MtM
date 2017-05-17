@@ -163,7 +163,7 @@ public class JDBCInsert
 						
 			c.setAutoCommit(false);
 			
-			String sql = "INSERT INTO machinery(machineryType,stateofMachinery,dateofInstallation,sizeofMachinery) "
+			String sql = "INSERT INTO machinery(machineryType,stateofMachinery,dateofInstallation,sizeofMachinery,) "
 				+ "VALUES (?,?,?,?);";
 			
 			java.sql.Date InstallationDate = LocaltoSqlDate(mach.getDateofInstallation());

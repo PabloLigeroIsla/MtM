@@ -416,9 +416,9 @@ public class UserInterface
 		case 4: //Instrument
 			Instrument inst = createInstrument();
 			
-			System.out.println("Now let´s see in which warehouse is the instrument stored:\n");
+			System.out.println("Now lets see in which warehouse is the instrument stored:\n");
 			
-			System.out.println("Does the warehouse exist?\n");
+			System.out.println("Does the warehouse exist, Introduce Yes or NO?\n");
 			String st = writeString();
 			
 			int warID;
@@ -453,8 +453,8 @@ public class UserInterface
 			}
 			
 			
-			System.out.println("Now let´s see which machinery has created the instrument:\n");			
-			System.out.println("Does the machinery exist?\n");
+			System.out.println("Now lets see which machinery has created the instrument:\n");			
+			System.out.println("Does the machinery exist, Introduce YES or NO?\n");
 			String s = writeString();
 			
 			if(writeOption(s)){
@@ -492,8 +492,8 @@ public class UserInterface
 			break;
 		case 5: //Machinery
 			Machinery mach = createMachinery();
-			jpaManager.insert(mach);
-			//jdbcManager.insert(mach);
+			jdbcManager.insert(mach);
+			//jpaManager.insert(mach);
 			break;
 		case 6: //Material
 			createMaterial(); 

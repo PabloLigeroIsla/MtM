@@ -6,6 +6,7 @@ import java.sql.Statement;
 
 public class JDBCCreate 
 {
+	
 	private Connection c;
 	
 	public JDBCCreate(Connection c)
@@ -29,7 +30,8 @@ public class JDBCCreate
 				+ "medical_specialization TEXT NOT NULL)";
 			fPt.executeUpdate(sqlp1);
 			fPt.close();
-				Statement sPt = c.createStatement();
+			
+			Statement sPt = c.createStatement();
 			String sqlp2 = "CREATE TABLE orders("
 				+ "order_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
 				+ "total_amount_instruments INTEGER NOT NULL,"
@@ -65,9 +67,6 @@ public class JDBCCreate
 			fAt.executeUpdate(sqla1);
 			fAt.close();
 			
-			
-			
-			
 			//Charo
 			// fCht -->firstCharotable //sqlch1 --> sqlcharo1
 			Statement fCht = c.createStatement();
@@ -87,7 +86,7 @@ public class JDBCCreate
 			Statement rCht = c.createStatement();
 			String sqlch3 = "CREATE TABLE instrument_machinery("
 					+ "instrument_ID INTEGER NOT NULL REFERENCES instrument(instrument_ID),"
-					+ "machineryID INTEGER NOT NULL REFERENCES machinery(machinery_ID),"
+					+ "machineryID INTEGER NOT NULL REFERENCES machinery(machineryID),"
 					+ "timeofMade INTEGER,"
 					+ "PRIMARY KEY (instrument_ID,machineryID))";
 			rCht.executeUpdate(sqlch3);
@@ -133,7 +132,7 @@ public class JDBCCreate
 								+"volume INTEGER,"
 								+"type TEXT,"
 								+"companyID  INTEGER REFERENCES company(companyID),"
-								+"machinery_ID INTEGER REFERENCES machinery(machineryID),"
+								+"machineryID INTEGER REFERENCES machinery(machineryID),"
 								+"warehouse_ID INTEGER REFERENCES warehouse(warehouse_ID))";
 				sAt.executeUpdate(sqla2);
 				sAt.close();
@@ -141,9 +140,11 @@ public class JDBCCreate
 			c.commit();
 			
 			
+			
 			act = false;
 		}catch (Exception e)
 		{
+			
 			act = true;
 			
 		
@@ -198,7 +199,7 @@ public class JDBCCreate
 						+"volume INTEGER,"
 						+"type TEXT,"
 						+"companyID  INTEGER REFERENCES company(companyID),"
-						+"machinery_ID INTEGER REFERENCES machinery(machinery_ID),"
+						+"machineryID INTEGER REFERENCES machinery(machineryID),"
 						+"warehouse_ID INTEGER REFERENCES warehouse(warehouse_ID))";
 		sAt.executeUpdate(sqla2);
 		sAt.close();
@@ -303,7 +304,7 @@ public class JDBCCreate
 		{
 		Statement sCt = c.createStatement();
 			String sqlc2 = "CREATE TABLE machinery("
-				+ "machinery_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+				+ "machineryID INTEGER PRIMARY KEY AUTOINCREMENT,"
 				+ "machineryType TEXT PRIMARY KEY,"
 				+ "stateofMachinery TEXT NOT NULL,"
 				+ "dateofInstallation DATE,"
@@ -361,9 +362,9 @@ public class JDBCCreate
 			Statement rCht = c.createStatement();
 			String sqlch3 = "CREATE TABLE instrument_machinery("
 					+ "instrument_ID INTEGER NOT NULL REFERENCES instrument(instrument_ID),"
-					+ "machinery_ID INTEGER NOT NULL REFERENCES machinery(machinery_ID),"
+					+ "machineryID INTEGER NOT NULL REFERENCES machinery(machineryID),"
 					+ "timeofMade INTEGER,"
-					+ "PRIMARY KEY (instrument_ID,machinery_ID))";
+					+ "PRIMARY KEY (instrument_ID,machineryID))";
 			rCht.executeUpdate(sqlch3);
 			rCht.close();
 			}catch(SQLException e)
