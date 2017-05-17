@@ -4,6 +4,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 
+
+
 @Entity
 @Table(name = "material") //sql table name  (Compatible with JDBC)
 public class Material implements Serializable {
