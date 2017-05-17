@@ -590,7 +590,7 @@ public class JDBCManager implements DBInterface
 	 		Material matf = new Material();
 	 		
 			mat= sqlSelect.selectMaterial(selQuery,primaryKey);
-			int idComp = mat.getCompanyID().getCompanyID();
+			int idComp = mat.getCompany().getCompanyID();
 			mat.setCompanyID(selectCompany(idComp));
 			int idMach = mat.getMachineryID().getMachineryID();
 			mat.setMachineryID(selectMachinery(idMach));
@@ -786,7 +786,7 @@ public class JDBCManager implements DBInterface
 		{
 			Material mat = itMat.next();
 			
-			int com = mat.getCompanyID().getCompanyID();
+			int com = mat.getCompany().getCompanyID();
 			mat.setCompanyID(selectCompany(com));
 			int mach = mat.getMachineryID().getMachineryID();
 			mat.setMachineryID(selectMachinery(mach));
@@ -1226,7 +1226,7 @@ public class JDBCManager implements DBInterface
 		Iterator<Material> iter = allMaterials.iterator();
 		while(iter.hasNext()){
 			Material aux = iter.next();
-			if(aux.getCompanyID().getCompanyID() == com.getCompanyID()){
+			if(aux.getCompany().getCompanyID() == com.getCompanyID()){
 				com.addMaterial(aux);
 			}
 		}
