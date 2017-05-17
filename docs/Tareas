@@ -31,13 +31,9 @@ Opcionales que faltan:
 		I:Use inheritance with JPA
 6.-XML
 		I:Export/import your whole database to/from XML using JAXB
-		II:HTML->extra points if it’s cool and/or uses CSS2!
+		II:HTML->extra points if itï¿½s cool and/or uses CSS2!
 7.-Finishing touches
 
-
-CHARO:
-
-Linea 584 de UserInterface -> El sout esta mal
 
 <<<<<<< HEAD
 =======
@@ -49,4 +45,4 @@ Questions Rodrigo:
 >>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 
 @Error
-Lamamos a una conexión dentro de otra conexión. ¿Como lo solucionamos?
+Lamamos a una conexiï¿½n dentro de otra conexiï¿½n. ï¿½Como lo solucionamos?

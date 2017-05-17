@@ -168,7 +168,7 @@ public class JDBCInsert
 			
 			java.sql.Date InstallationDate = LocaltoSqlDate(mach.getDateofInstallation());
 			PreparedStatement prep = c.prepareStatement(sql);
-			
+//fallo en linea 170 del prep st al insertar una machinery			
 			prep.setString(1, mach.getMachineryType());
 			prep.setString(2, mach.getStateofMachinery());
 			prep.setDate(3, InstallationDate);

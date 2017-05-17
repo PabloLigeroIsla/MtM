@@ -475,6 +475,7 @@ public class UserInterface
 
 				Machinery mach=createMachinery();
 				jdbcManager.insert(mach);
+//fallo aqui al insertar una machinery
 				jdbcManager.setMachineryID(mach);
 
 				System.out.println("Introduce how much time (minutes) the instrument is in the machinery:\n");
@@ -492,8 +493,8 @@ public class UserInterface
 			break;
 		case 5: //Machinery
 			Machinery mach = createMachinery();
-			jpaManager.insert(mach);
-			//jdbcManager.insert(mach);
+			//jpaManager.insert(mach);
+			jdbcManager.insert(mach);
 			break;
 		case 6: //Material
 			createMaterial(); 
