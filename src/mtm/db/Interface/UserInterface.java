@@ -2,7 +2,6 @@ package mtm.db.Interface;
 
 import static mtm.db.Interface.Validator.*;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import java.util.Iterator;
@@ -727,7 +726,6 @@ public class UserInterface
     public static Company createCompany(){
     	
     	
-    	boolean aux = true;
     	System.out.println("\nCompany location");
     	String a=writeString();
     	System.out.println("\nCompany name");
