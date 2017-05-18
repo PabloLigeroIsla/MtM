@@ -18,6 +18,7 @@ public class Material implements Serializable {
 	@TableGenerator(name="material", table="sqlite_sequence",
 	    pkColumnName="name", valueColumnName="seq", pkColumnValue="material")
 	
+	
 	private Integer materialID; //PRIMARY KEY
 	private Integer weight;
 	private Integer volume;
