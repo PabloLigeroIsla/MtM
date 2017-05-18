@@ -38,17 +38,24 @@ public class Machinery implements Serializable {
 	private String stateofMachinery;
 	private LocalDate dateofInstallation;
 	private int sizeofMachinery;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="materialID")
+
 	private List <Material> materialList; //FOREIGN KEY
+	@XmlElement(name="Material")
+	@XmlElementWrapper(name ="Materials")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "Instrument_ID")
+	
 	private List <Instrument> instrumentList; //FOREIGN KEY
+	@XmlElement(name="Instrument")
+	@XmlElementWrapper(name ="Instruments")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "Employee_ID")
 	private List <Employee> employeeList; //FOREIGN KEY	
-	
+	@XmlElement(name="Employee")
+	@XmlElementWrapper(name ="Employees")
 	
 	//materialList
 	public List<Material> getMaterialList() {
