@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 
+
 @Entity
 @Table(name = "instrument")
 @XmlAccessorType(XmlAccessType.FIELD) //Be able to use XML
