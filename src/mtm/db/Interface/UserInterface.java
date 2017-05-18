@@ -1229,6 +1229,8 @@ public class UserInterface
     		String queryOrd = "SELECT * FROM orders WHERE order_ID = ?";
     		String queryMach = "SELECT * FROM machinery WHERE machinery_ID = ?";
     		String queryMat = "SELECT * FROM material WHERE materialID = ?";
+    		String queryEmp = "SELECT * FROM employee WHERE employee_ID = ?";
+    		String queryComp = "SELECT * FROM company WHERE companyID = ?";
     		
     		ArrayList<Hospital> hospList = (ArrayList<Hospital>) mtm.getHospList();
     		Iterator<Hospital> hospIter = hospList.iterator();
@@ -1281,6 +1283,7 @@ public class UserInterface
     			{
     				jdbcManager.insert(ins);
     			}
+    			
     			ArrayList<Order> ordList = (ArrayList<Order>)ins.getOrderList();
     			Iterator<Order> orderIter = ordList.iterator();
     			
@@ -1310,6 +1313,7 @@ public class UserInterface
     			}
     			
     			
+    			
     		}
     		
     		//MACHINERY
@@ -1322,23 +1326,37 @@ public class UserInterface
     				jdbcManager.insert(mach);
     			}
     			
-    			ArrayList<Instrument> insListMach = (ArrayList<Instrument>) mach.getInstrumentList();
-    			Iterator<Instrument> machinstIter = insListMach.iterator();
     			
-    			while(machinstIter.hasNext())
+    			ArrayList<Employee> empArray = (ArrayList<Employee>)mach.getEmployeeList();
+    			Iterator<Employee> empIter = empArray.iterator();
+    			while(empIter.hasNext())
     			{
-    				Instrument inst = machinstIter.next();
-    				if(!jdbcManager.valExist(queryIns, inst.getInstrumentID(), null))
+    				Employee  emp = empIter.next();
+    				if(jdbcManager.valExist(queryEmp,emp.getEmployee_ID(), null))
     				{
-    					jdbcManager.insert(inst);
+    					jdbcManager.insert(emp);
     				}
-    				
-    				jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(), mach.getMachineryID(), 100);
     				
     			}
     			
+    			//Cargar desde maquinaria los materiales
+        		ArrayList<Material> matArray = (ArrayList<Material>)mach.getMaterialList();
+        		Iterator<Material> matItera = matArray.iterator();
+        		
+        		while(matItera.hasNext())
+        		{
+        			Material mat = matItera.next();
+        			
+        			if(jdbcManager.valExist(queryMat, mat.getMaterialID(), null))
+        			{
+        				jdbcManager.insert(mat);
+        			}
+        		}
+    			
     		}
     		
+    		
+    		//MATERIAL
     		while(matIter.hasNext())
     		{
     			Material mat = matIter.next();
@@ -1346,6 +1364,14 @@ public class UserInterface
     			{
     				jdbcManager.insert(mat);
     			}
+    			
+    			Company comp = mat.getCompany();
+    			
+    			if(!jdbcManager.valExist(queryComp, mat.getMaterialID(), null))
+    			{
+    				jdbcManager.insert(comp);
+    			}
+    			
     			
     		}
     		

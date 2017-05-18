@@ -10,11 +10,22 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "machinery") //sql table name  (Compatible with JDBC)
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "Machinery")
+@XmlType(propOrder = { "machineryID", "machineryType", "stateofMachinery", "dateofInstallation", "sizeofMachinery" })
+
 public class Machinery implements Serializable {
 	/**
 	 * 
@@ -25,11 +36,20 @@ public class Machinery implements Serializable {
 	@GeneratedValue(generator="machinery")
 	@TableGenerator(name="machinery", table="sqlite_sequence",
 	    pkColumnName="name", valueColumnName="seq", pkColumnValue="machinery")
+	@XmlAttribute
 	private int machineryID;
+	@XmlAttribute
 	private String machineryType;
+	@XmlAttribute
 	private String stateofMachinery;
+	@XmlAttribute
 	private LocalDate dateofInstallation;
+	@XmlAttribute
 	private int sizeofMachinery;
+	@XmlElement(name = "Employee")
+	@XmlElementWrapper(name = "Employees")
+
+	
 	
 	@JoinColumn(name="Material")
 	private List <Material> materialList; //FOREIGN KEY
