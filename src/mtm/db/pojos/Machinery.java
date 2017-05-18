@@ -52,11 +52,10 @@ public class Machinery implements Serializable {
 	@XmlElementWrapper(name ="Instruments")
 	
 	@OneToMany(mappedBy="machineryType")
+	
+	private List <Employee> employeeList; //FOREIGN KEY	
 	@XmlElement(name = "Employee") 
     @XmlElementWrapper(name = "Employees")
-	private List <Employee> employeeList; //FOREIGN KEY	
-	@XmlElement(name="Employee")
-	@XmlElementWrapper(name ="Employees")
 	
 	
 	//materialList
