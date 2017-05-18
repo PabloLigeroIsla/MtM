@@ -2,6 +2,7 @@ package mtm.db.pojos;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -16,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
 @Table(name = "company") //sql table name  (Compatible with JDBC)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Company")
-@XmlType(propOrder = { "companyID","location","companyName"})
+@XmlType(propOrder = { "companyID","location","companyName","materialList"})
 public class Company implements Serializable {
 
 
@@ -35,13 +36,14 @@ public class Company implements Serializable {
 	@XmlAttribute
 	private String companyName;
 	
-	@OneToMany(mappedBy="company")
-	
-	@XmlElement(name = "Material")
-	
-	@XmlElementWrapper(name = "Materials")
+
+	@OneToMany(mappedBy="company") //one company has many materials
+	@XmlElement(name = "Material") 
+    @XmlElementWrapper(name = "Materials")	
+	@JoinColumn(name="Material")
 	private ArrayList<Material>  materialList;
-	
+
+
 	
 	//metodos
 	public void printCompany() {

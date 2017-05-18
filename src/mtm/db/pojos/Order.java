@@ -50,7 +50,7 @@ public class Order implements Serializable
 	@XmlElement(name = "Instrument")
 	@XmlElementWrapper(name = "Instruments")
 	
-	@ManyToMany(mappedBy = "instrument_orders")
+	@ManyToMany(mappedBy = "order")
 	private List <Instrument> instrumentList;
 	//Primary Key --> order_ID
 	//Foreign Key --> hospitalList,instrumentList

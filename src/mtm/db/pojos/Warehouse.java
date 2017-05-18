@@ -52,14 +52,16 @@ public class Warehouse implements Serializable {
 	private Integer filledSpace;
 	
 	@OneToMany(mappedBy="warehouse")
-	@XmlElement(name = "Instrument") 
-    @XmlElementWrapper(name = "Instruments")
+	//@XmlElement(name = "Instrument") 
+    //@XmlElementWrapper(name = "Instruments")
 	private List<Instrument> instrumentList;
-	
-	@OneToMany(mappedBy="warehouse")
+
+	@OneToMany(mappedBy="warehouse") //one machinery has many materials
 	@XmlElement(name = "Material") 
     @XmlElementWrapper(name = "Materials")	
-	private List<Material> materialTypeList;
+	@JoinColumn(name="Material")
+	private List <Material> materialTypeList; //FOREIGN KEY
+	
 	
 	public Warehouse(String warehouseLocation, Integer capacity, Integer filledSpace) {
 		super();

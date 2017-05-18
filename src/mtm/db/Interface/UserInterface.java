@@ -513,7 +513,7 @@ public class UserInterface
 		switch(op){
 		
 		case 1: //Company 
-	//		listCompanies(false);
+			listCompanies(false);
 			System.out.println("What company do you want to delete from this table? \n");
 			int pk1 = writeNumber();
 			jdbcManager.deleteCompany(pk1);

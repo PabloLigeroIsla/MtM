@@ -52,18 +52,24 @@ public class Instrument implements Serializable {
 	private Integer price;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "warehouseID")
+	@JoinColumn(name = "warehouse_ID")
 	// This @XmlTransient is here to avoid infinite loops --- hay que decidir si el warehouse muestra instrument o al contrario,
 	// si no, llegamos a un bucle infinito.
 	@XmlTransient
 	private Warehouse warehouse;
 	
-	@ManyToMany(mappedBy = "instrument_orders")
+	@ManyToMany // the mappedBy is in the pojo Order only
+	@JoinTable(name="instrument_orders",
+	joinColumns={@JoinColumn(name="instrument_ID", referencedColumnName="instrumentID")},
+    inverseJoinColumns={@JoinColumn(name="order_ID", referencedColumnName="orderID")})
 	@XmlElement(name = "Order")
 	//@XmlElementWrapper(name = "Orders")
 	private List<Order> orderList;
 	
-	@ManyToMany(mappedBy = "instrument_machinery")
+	@ManyToMany // the mappedBy is in the pojo Machinery
+	@JoinTable(name="instrument_machinery",
+	joinColumns={@JoinColumn(name="instrument_ID", referencedColumnName="instrumentID")},
+    inverseJoinColumns={@JoinColumn(name="machineryID", referencedColumnName="machineryID")})
 	@XmlElement(name = "Machinery")
 	//@XmlElementWrapper(name = "Machineries")
 	private List<Machinery> machineryTypeList;
