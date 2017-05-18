@@ -45,13 +45,12 @@ public class Order implements Serializable
 	@XmlAttribute
 	private LocalDate deliveryDate;
 	
-	@ManyToMany
+	@ManyToMany(mappedBy = "orderList")
 	private List <Hospital> hospitalList;
-	@XmlElement(name = "Instrument")
-	@XmlElementWrapper(name = "Instruments")
 	
-	@ManyToMany(mappedBy = "order")
+	@ManyToMany(mappedBy = "orderList") 
 	private List <Instrument> instrumentList;
+	
 	//Primary Key --> order_ID
 	//Foreign Key --> hospitalList,instrumentList
 	

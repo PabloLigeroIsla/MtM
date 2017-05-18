@@ -3,6 +3,7 @@ package mtm.db.pojos;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -33,7 +34,7 @@ public class Employee implements Serializable {
 	private String specializationType;
 	private String typeofContract;
 	
-	@ManyToOne 
+	@ManyToOne(fetch = FetchType.LAZY)  //many employees use one machinery
 	@JoinColumn(name = "machineryID")
 	private Machinery machineryType; //FOREIGN KEY
 

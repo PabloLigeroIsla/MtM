@@ -463,9 +463,9 @@ public class UserInterface
 				System.out.println("Introduce how much time (minutes) the instrument is in the machinery:\n");
 				int time = writeNumber();
 
-				//mach = jpaManager.selectMachinery(machID);@JPAChange
-				jdbcManager.selectMachinery(machID);
-				jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(),machID,time);
+				jpaManager.selectMachinery(machID);
+				//jdbcManager.selectMachinery(machID);
+				//jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(),machID,time);
 			}
 			else
 			{

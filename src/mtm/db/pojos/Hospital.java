@@ -36,12 +36,10 @@ public class Hospital implements Serializable
 	private String location;
 	@XmlAttribute
 	private String medicalSpecialization;
-	@ManyToMany(mappedBy = "hospitalList")
 	
 	@JoinTable(name="hospital_orders",
 	joinColumns={@JoinColumn(name="hospital_ID", referencedColumnName="hospitalID")}, //points to my class
     inverseJoinColumns={@JoinColumn(name="order_ID", referencedColumnName="orderID")}) //points to the class in the next line
-	
 	@XmlElement(name = "Order")//This name doesnt make reference to the attribute element.
 								// Name the employees tag(next attribute) as Order
 	@XmlElementWrapper(name = "Orders")//make an Orders tag that stores Order
