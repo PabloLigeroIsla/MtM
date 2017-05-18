@@ -4,23 +4,40 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 @Entity
 @Table(name = "company") //sql table name  (Compatible with JDBC)
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "Company")
+@XmlType(propOrder = { "companyID","location","companyName","materialList"})
 public class Company implements Serializable {
 
 	@Id 
 	@GeneratedValue(generator="company")
 	@TableGenerator(name="company", table="sqlite_sequence",
-	    pkColumnName="name", valueColumnName="seq", pkColumnValue="company")
+	pkColumnName="name", valueColumnName="seq", pkColumnValue="company")
 	
 	private static final long serialVersionUID = -8663787080395108472L;
 
-
+	@XmlAttribute
 	private int companyID; //PRIMARY KEY
+	@XmlAttribute
 	private String location;
+	@XmlAttribute
 	private String companyName;
 	
+	@OneToMany(mappedBy="company")
+	
+	@XmlElement(name = "Material")
+	
+	@XmlElementWrapper(name = "Materials")
 	private ArrayList<Material>  materialList;
 	
 	

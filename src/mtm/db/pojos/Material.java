@@ -2,12 +2,22 @@ package mtm.db.pojos;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 
 
 
 @Entity
 @Table(name = "material") //sql table name  (Compatible with JDBC)
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "Material")
+@XmlType(propOrder = { "weight", "volume", "type","company","machinery","warehouse"})
+
+
 public class Material implements Serializable {
 	
 
@@ -18,9 +28,14 @@ public class Material implements Serializable {
 	@TableGenerator(name="material", table="sqlite_sequence",
 	    pkColumnName="name", valueColumnName="seq", pkColumnValue="material")
 	
+	
+	@XmlAttribute
 	private Integer materialID; //PRIMARY KEY
+	@XmlAttribute
 	private Integer weight;
+	@XmlAttribute
 	private Integer volume;
+	@XmlAttribute
 	private String type;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -46,8 +61,8 @@ public class Material implements Serializable {
 		this.volume = volume;
 		this.type= type;
 		this.company = c_id;
-		this.machineryID = m_id;
-		this.warehouseID = h_id;
+		this.machinery = m_id;
+		this.warehouse = h_id;
 	}
 	
 	public Material(Integer weight, Integer volume, String type, Company companyID){
@@ -70,8 +85,8 @@ public class Material implements Serializable {
 		this.volume = volume2;
 		this.type = type2;
 		this.company = companyID2;
-		this.machineryID = machineryID2;
-		this.warehouseID = warehouseID2; 
+		this.machinery = machineryID2;
+		this.warehouse = warehouseID2; 
 	}
 
 	public Integer getMaterialID() {
@@ -115,25 +130,25 @@ public class Material implements Serializable {
 	}
 
 	public Machinery getMachineryID() {
-		return machineryID;
+		return machinery;
 	}
 
 	public void setMachineryID(Machinery machineryID) {
-		this.machineryID = machineryID;
+		this.machinery = machineryID;
 	}
 
 	public Warehouse getWarehouseID() {
-		return warehouseID;
+		return warehouse;
 	}
 
 	public void setWarehouseID(Warehouse warehouseID) {
-		this.warehouseID = warehouseID;
+		this.warehouse = warehouseID;
 	}
 
 
 	public String printMaterial() {
 		return "Material [materialID=" + materialID + ", weight=" + weight + ", volume=" + volume + ", type=" + type
-				+ ", companyID=" + company.getCompanyID() + ", machineryID=" + machineryID.getMachineryID() + ", warehouseID=" + warehouseID.getWarehouseID() + "]";
+				+ ", companyID=" + company.getCompanyID() + ", machineryID=" + machinery.getMachineryID() + ", warehouseID=" + warehouse.getWarehouseID() + "]";
 	}
 
 	@Override
