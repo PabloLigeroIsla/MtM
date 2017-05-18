@@ -47,7 +47,6 @@ public class Employee implements Serializable {
 	@XmlAttribute
 	private String typeofContract;
 	@XmlAttribute
-	private Machinery machienryType;
 	
 	@ManyToOne 
 	@JoinColumn(name = "machineryType")

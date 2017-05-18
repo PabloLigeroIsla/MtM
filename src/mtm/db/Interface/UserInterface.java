@@ -463,9 +463,9 @@ public class UserInterface
 				System.out.println("Introduce how much time (minutes) the instrument is in the machinery:\n");
 				int time = writeNumber();
 
-				//mach = jpaManager.selectMachinery(machID);@JPAChange
-				jdbcManager.selectMachinery(machID);
-				jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(),machID,time);
+				jpaManager.selectMachinery(machID);
+				//jdbcManager.selectMachinery(machID);
+				//jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(),machID,time);
 			}
 			else
 			{
@@ -513,7 +513,7 @@ public class UserInterface
 		switch(op){
 		
 		case 1: //Company 
-	//		listCompanies(false);
+			listCompanies(false);
 			System.out.println("What company do you want to delete from this table? \n");
 			int pk1 = writeNumber();
 			jdbcManager.deleteCompany(pk1);

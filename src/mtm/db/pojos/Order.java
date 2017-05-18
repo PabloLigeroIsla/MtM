@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -34,7 +35,7 @@ public class Order implements Serializable
 	@Id 
 	@GeneratedValue(generator="orders")
 	@TableGenerator(name="orders", table="sqlite_sequence",
-	    pkColumnName="order_ID", valueColumnName="seq", pkColumnValue="orders")
+	    pkColumnName="name", valueColumnName="seq", pkColumnValue="orders")
 	@XmlAttribute
 	private int orderID;
 	@XmlAttribute
@@ -43,10 +44,13 @@ public class Order implements Serializable
 	private LocalDate orderDate;
 	@XmlAttribute
 	private LocalDate deliveryDate;
+	
+	@ManyToMany(mappedBy = "orderList")
 	private List <Hospital> hospitalList;
-	@XmlElement(name = "Instrument")
-	@XmlElementWrapper(name = "Instruments")
+	
+	@ManyToMany(mappedBy = "orderList") 
 	private List <Instrument> instrumentList;
+	
 	//Primary Key --> order_ID
 	//Foreign Key --> hospitalList,instrumentList
 	
