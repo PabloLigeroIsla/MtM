@@ -19,6 +19,7 @@ public class Material implements Serializable {
 	    pkColumnName="name", valueColumnName="seq", pkColumnValue="material")
 	
 	
+	
 	private Integer materialID; //PRIMARY KEY
 	private Integer weight;
 	private Integer volume;
