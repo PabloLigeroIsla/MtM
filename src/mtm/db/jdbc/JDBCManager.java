@@ -1115,8 +1115,11 @@ public class JDBCManager implements DBInterface
 	public Instrument setInstrumentRelations(Instrument inst){
 		
 		//relation instrument-orders
+		
 		String relationalTable = "instrument_orders";
 		String pk1AttSearchOrder = "order_ID";
+		
+		
 		
 		String pkAttCompare = "instrument_ID";
 		int pkValueCompare = inst.getInstrumentID();
@@ -1127,7 +1130,14 @@ public class JDBCManager implements DBInterface
 		while(iter.hasNext()){
 			int i = iter.next();
 			inst.addOrder(selectOrder(i));
+			
+			
+//nueva linea, para comprobar, BORRAR!!!!
+			inst.getOrderList().toString();
+			
+
 		}
+
 		
 		//relation instrument-machinery
 		relationalTable = "instrument_machinery";
