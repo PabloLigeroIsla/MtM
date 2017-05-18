@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
@@ -31,11 +33,14 @@ public class Machinery implements Serializable {
 	private LocalDate dateofInstallation;
 	private int sizeofMachinery;
 	
-	@JoinColumn(name="Material")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="materialID")
 	private List <Material> materialList; //FOREIGN KEY
-	@JoinColumn(name = "Instrument")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "Instrument_ID")
 	private List <Instrument> instrumentList; //FOREIGN KEY
-	@JoinColumn(name = "Employee")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "Employee_ID")
 	private List <Employee> employeeList; //FOREIGN KEY	
 	
 	

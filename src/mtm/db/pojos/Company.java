@@ -19,13 +19,15 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = { "companyID","location","companyName"})
 public class Company implements Serializable {
 
+
+	
+	private static final long serialVersionUID = -8663787080395108472L;
+
 	@Id 
 	@GeneratedValue(generator="company")
 	@TableGenerator(name="company", table="sqlite_sequence",
 	pkColumnName="name", valueColumnName="seq", pkColumnValue="company")
 	
-	private static final long serialVersionUID = -8663787080395108472L;
-
 	@XmlAttribute
 	private int companyID; //PRIMARY KEY
 	@XmlAttribute

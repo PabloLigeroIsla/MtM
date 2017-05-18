@@ -32,10 +32,9 @@ public class Employee implements Serializable {
 	private String name;
 	private String specializationType;
 	private String typeofContract;
-	private Machinery machienryType;
 	
 	@ManyToOne 
-	@JoinColumn(name = "machineryType")
+	@JoinColumn(name = "machineryID")
 	private Machinery machineryType; //FOREIGN KEY
 
 	
