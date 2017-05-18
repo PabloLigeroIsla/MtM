@@ -465,7 +465,7 @@ public class UserInterface
 
 				jpaManager.selectMachinery(machID);
 				//jdbcManager.selectMachinery(machID);
-				//jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(),machID,time);
+				jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(),machID,time);
 			}
 			else
 			{
