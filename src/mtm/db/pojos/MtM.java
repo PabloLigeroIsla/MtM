@@ -13,13 +13,16 @@ public class MtM
 	//This class is created to save the Data Base as a XML
 	@XmlElement(name = "Material")
 	@XmlElementWrapper(name = "Materials")
-	List<Material> matList;//los materiales continen compañias, asi que no creamos la lista de compañias
+	List<Material> matList;//los materiales continen compaï¿½ias, asi que no creamos la lista de compaï¿½ias
+	
 	@XmlElement(name = "Hospital")
 	@XmlElementWrapper(name = "Hospitals")
 	List<Hospital> hospList;//Los hospitales continen las Ordenes, asi que no ponemos lista de ordenes
+	
 	@XmlElement(name = "Machinery")
 	@XmlElementWrapper(name = "Machineries")
 	List<Machinery> machList;//Las maquinarias contienen empleados y materiales, por lo que no ponemos lista de empleados
+	
 	@XmlElement(name = "Instrument")
 	@XmlElementWrapper(name = "Instruments")
 	List<Instrument> instList;//Instruments contiene wharehouse, asi que no ponemos las listas de  Instrumentos

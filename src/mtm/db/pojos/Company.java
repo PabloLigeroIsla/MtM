@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlType;
 @Table(name = "company") //sql table name  (Compatible with JDBC)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Company")
-@XmlType(propOrder = { "companyID","location","companyName"})
+@XmlType(propOrder = { "companyID","location","companyName","materialList"})
 public class Company implements Serializable {
 
 	@Id 
