@@ -72,7 +72,6 @@ public class Xml2Java
 		}
 		
 		
-		
 		return mach;
 	}
 	
