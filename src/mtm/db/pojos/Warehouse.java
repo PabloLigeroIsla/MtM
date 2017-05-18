@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
@@ -38,7 +39,8 @@ public class Warehouse implements Serializable {
 	@Id 
 	@GeneratedValue(generator="warehouse")
 	@TableGenerator(name="warehouse", table="sqlite_sequence",
-	    pkColumnName="warehouseID", valueColumnName="seq", pkColumnValue="warehouse")
+	    pkColumnName="name", valueColumnName="seq", pkColumnValue="warehouse")
+	
 	
 	@XmlAttribute
 	private Integer warehouseID;

@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 
+
 @Entity
 @Table(name = "instrument")
 @XmlAccessorType(XmlAccessType.FIELD) //Be able to use XML
@@ -31,7 +32,7 @@ public class Instrument implements Serializable {
 	@Id 
 	@GeneratedValue(generator="instrument")
 	@TableGenerator(name="instrument", table="sqlite_sequence",
-	    pkColumnName="instrumentID", valueColumnName="seq", pkColumnValue="instrument")
+	    pkColumnName="name", valueColumnName="seq", pkColumnValue="instrument")
 	
 	@XmlAttribute
 	private Integer instrumentID;
@@ -59,12 +60,12 @@ public class Instrument implements Serializable {
 	
 	@ManyToMany(mappedBy = "instrument_orders")
 	@XmlElement(name = "Order")
-	@XmlElementWrapper(name = "Orders")
+	//@XmlElementWrapper(name = "Orders")
 	private List<Order> orderList;
 	
 	@ManyToMany(mappedBy = "instrument_machinery")
 	@XmlElement(name = "Machinery")
-	@XmlElementWrapper(name = "Machineries")
+	//@XmlElementWrapper(name = "Machineries")
 	private List<Machinery> machineryTypeList;
 
 
