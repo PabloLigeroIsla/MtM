@@ -39,7 +39,7 @@ public class Warehouse implements Serializable {
 	@Id 
 	@GeneratedValue(generator="warehouse")
 	@TableGenerator(name="warehouse", table="sqlite_sequence",
-	    pkColumnName="warehouseID", valueColumnName="seq", pkColumnValue="warehouse")
+	    pkColumnName="name", valueColumnName="seq", pkColumnValue="warehouse")
 	
 	
 	@XmlAttribute

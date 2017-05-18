@@ -31,7 +31,7 @@ public class Instrument implements Serializable {
 	@Id 
 	@GeneratedValue(generator="instrument")
 	@TableGenerator(name="instrument", table="sqlite_sequence",
-	    pkColumnName="instrumentID", valueColumnName="seq", pkColumnValue="instrument")
+	    pkColumnName="name", valueColumnName="seq", pkColumnValue="instrument")
 	
 	@XmlAttribute
 	private Integer instrumentID;
