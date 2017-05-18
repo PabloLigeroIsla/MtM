@@ -43,11 +43,11 @@ public class Material implements Serializable {
 	private Company company; //FOREIGN KEY
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "machinery_ID")
-	private Machinery machineryID; //FOREIGN KEY
+	private Machinery machinery; //FOREIGN KEY
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "warehouse_ID")
-	private Warehouse warehouseID; //FOREIGN KEY
-	
+	private Warehouse warehouse; //FOREIGN KEY
+
 	
 
 	public Material (){
