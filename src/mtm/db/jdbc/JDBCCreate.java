@@ -147,7 +147,7 @@ public class JDBCCreate
 		{
 			
 			act = true;
-			e.printStackTrace();
+			
 		
 		}
 		return act;

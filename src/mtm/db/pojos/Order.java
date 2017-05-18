@@ -204,9 +204,10 @@ public class Order implements Serializable
 			while(iterHosp.hasNext())
 			{
 				hosp = iterHosp.next();
-				System.out.printf("Hospital %d\n"
+				System.out.printf("Related Hospital info \n"
 						+ "Name: %d\n"
-						+ "Location: %d\n",hosp.getHospitalID(),hosp.getName(),hosp.getLocation());
+						+ "id: %d\n"
+						+ "Location: %d\n",hosp.getName(),hosp.getHospitalID(),hosp.getLocation());
 			}
 			
 		}

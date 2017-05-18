@@ -2,6 +2,17 @@ package mtm.db.pojos;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+
+
+@Entity
+@Table(name = "employee")
 public class Employee implements Serializable {
 
 	/**
@@ -11,11 +22,22 @@ public class Employee implements Serializable {
 	
 	//Atributes
 	
+	@Id 
+	@GeneratedValue(generator="employee")
+	@TableGenerator(name="employee", table="sqlite_sequence",
+	    pkColumnName="name", valueColumnName="seq", pkColumnValue="employee")
+	
+	
 	private int employeeID;
 	private String name;
 	private String specializationType;
 	private String typeofContract;
-	private Machinery machineryType;
+	private Machinery machienryType;
+	
+	@ManyToOne 
+	@JoinColumn(name = "machineryType")
+	private Machinery machineryType; //FOREIGN KEY
+
 	
 	//Gets and Sets
 

@@ -215,12 +215,12 @@ public class JDBCInsert
 
 						c.setAutoCommit(false);
 								String sql;
-								sql = "INSERT INTO material(weight,volume,type,companyID,machinery_ID,warehouse_ID) VALUES(?,?,?,?,?,?);";
+								sql = "INSERT INTO material(weight,volume,type,companyID,machineryID,warehouse_ID) VALUES(?,?,?,?,?,?);";
 								PreparedStatement prep = c.prepareStatement(sql);
 								prep.setInt(1,mat.getWeight());
 								prep.setInt(2,mat.getVolume());
 								prep.setString(3,mat.getType());
-								prep.setInt(4,mat.getCompanyID().getCompanyID());
+								prep.setInt(4,mat.getCompany().getCompanyID());
 								prep.setInt(5,mat.getMachineryID().getMachineryID());
 								prep.setInt(6,mat.getWarehouseID().getWarehouseID());
 								

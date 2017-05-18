@@ -2,7 +2,6 @@ package mtm.db.Interface;
 
 import static mtm.db.Interface.Validator.*;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import java.util.Iterator;
@@ -490,8 +489,8 @@ public class UserInterface
 		case 5: //Machinery
 			Machinery mach = createMachinery();
 			
-			jdbcManager.insert(mach);
-			//jpaManager.insert(mach);
+			//jdbcManager.insert(mach);@SIMach
+			jpaManager.insert(mach);
 			break;
 		case 6: //Material
 			createMaterial(); 
@@ -727,7 +726,6 @@ public class UserInterface
     public static Company createCompany(){
     	
     	
-    	boolean aux = true;
     	System.out.println("\nCompany location");
     	String a=writeString();
     	System.out.println("\nCompany name");
@@ -854,8 +852,8 @@ public class UserInterface
     	
     	}
 
-    	//jpaManager.insert(mat);@JPAChange
-		jdbcManager.insert(mat);
+    	jpaManager.insert(mat);
+		//jdbcManager.insert(mat);
 		System.out.println("The material is correctly attached to the database\n");
 		
     	return mat;
@@ -961,7 +959,7 @@ public class UserInterface
         		mat = matList.get(count);
         		if(relation)
         		{
-        			System.out.printf("id: %d, type: %d relations: company id:%d machinery id:%d wharehouse id:%d\n", mat.getMaterialID() , mat.getType(), mat.getCompanyID(), mat.getMachineryID(), mat.getWarehouseID());
+        			System.out.printf("id: %d, type: %d relations: company id:%d machinery id:%d wharehouse id:%d\n", mat.getMaterialID() , mat.getType(), mat.getCompany(), mat.getMachineryID(), mat.getWarehouseID());
         		}else
         		{
         			System.out.printf("id: %d, type: %d \n", mat.getMaterialID(), mat.getType());
@@ -1038,13 +1036,16 @@ public class UserInterface
     public static void listInstruments(boolean relation){
     	Instrument inst = new Instrument();
     	ArrayList<Instrument> instrumentList = new ArrayList<Instrument>();
+    	
     	instrumentList = jdbcManager.selectAllInstruments();
     	Iterator <Instrument> iter = instrumentList.iterator();
+    	
     	while(iter.hasNext()){
     		
     		inst = iter.next();
-    		jdbcManager.setInstrumentRelations(inst);
+    
     		if(relation){
+    			jdbcManager.setInstrumentRelations(inst);
     			System.out.printf("id of instrument: %d, relation with order: %d\n",inst.getInstrumentID(),inst.getOrderList().toString());
     			System.out.printf("id of instrument: %d, relation with machinery: %d\n",inst.getInstrumentID(),inst.getMachineryTypeList().toString());
     			System.out.printf("id of instrument: %d, relation with warehouse: %d\n",inst.getInstrumentID(),inst.getWarehouse().toString());	
@@ -1115,7 +1116,7 @@ public class UserInterface
     	//mach = jpaManager.selectMachinery(pk);@JPAChange
     	mach = jdbcManager.selectMachinery(pk);
     	jdbcManager.setMachineryRelations(mach);
-    	mach.toString();
+    	mach.printMach();
     }
     public static void listMachineries(boolean relation) {
     	

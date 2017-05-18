@@ -3,6 +3,9 @@ package mtm.db.pojos;
 import java.io.Serializable;
 import javax.persistence.*;
 
+
+
+
 @Entity
 @Table(name = "material") //sql table name  (Compatible with JDBC)
 public class Material implements Serializable {
@@ -13,7 +16,7 @@ public class Material implements Serializable {
 	@Id 
 	@GeneratedValue(generator="material")
 	@TableGenerator(name="material", table="sqlite_sequence",
-	    pkColumnName="materialID", valueColumnName="seq", pkColumnValue="material")
+	    pkColumnName="name", valueColumnName="seq", pkColumnValue="material")
 	
 	private Integer materialID; //PRIMARY KEY
 	private Integer weight;
@@ -22,13 +25,13 @@ public class Material implements Serializable {
 	
 	@ManyToOne 
 	@JoinColumn(name = "companyID")
-	Company companyID; //FOREIGN KEY
+	private Company company; //FOREIGN KEY
 	@ManyToOne
 	@JoinColumn(name = "machinery_ID")
-	Machinery machineryID; //FOREIGN KEY
+	private Machinery machineryID; //FOREIGN KEY
 	@ManyToOne
 	@JoinColumn(name = "warehouse_ID")
-	Warehouse warehouseID; //FOREIGN KEY
+	private Warehouse warehouseID; //FOREIGN KEY
 	
 	
 
@@ -42,7 +45,7 @@ public class Material implements Serializable {
 		this.weight = weight;
 		this.volume = volume;
 		this.type= type;
-		this.companyID = c_id;
+		this.company = c_id;
 		this.machineryID = m_id;
 		this.warehouseID = h_id;
 	}
@@ -52,7 +55,7 @@ public class Material implements Serializable {
 		this.weight = weight;
 		this.volume = volume;
 		this.type= type;
-		this.companyID = companyID;
+		this.company = companyID;
 	}
 	
 	public Material(Integer weight, Integer volume, String type){
@@ -66,7 +69,7 @@ public class Material implements Serializable {
 		this.weight = weight2;
 		this.volume = volume2;
 		this.type = type2;
-		this.companyID = companyID2;
+		this.company = companyID2;
 		this.machineryID = machineryID2;
 		this.warehouseID = warehouseID2; 
 	}
@@ -103,12 +106,12 @@ public class Material implements Serializable {
 		this.type = type;
 	}
 
-	public Company getCompanyID() {
-		return companyID;
+	public Company getCompany() {
+		return company;
 	}
 
 	public void setCompanyID(Company companyID) {
-		this.companyID = companyID;
+		this.company = companyID;
 	}
 
 	public Machinery getMachineryID() {
@@ -130,7 +133,7 @@ public class Material implements Serializable {
 
 	public String printMaterial() {
 		return "Material [materialID=" + materialID + ", weight=" + weight + ", volume=" + volume + ", type=" + type
-				+ ", companyID=" + companyID.getCompanyID() + ", machineryID=" + machineryID.getMachineryID() + ", warehouseID=" + warehouseID.getWarehouseID() + "]";
+				+ ", companyID=" + company.getCompanyID() + ", machineryID=" + machineryID.getMachineryID() + ", warehouseID=" + warehouseID.getWarehouseID() + "]";
 	}
 
 	@Override

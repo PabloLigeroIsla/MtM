@@ -23,8 +23,8 @@ public class Machinery implements Serializable {
 	//Attributes
 	@Id 
 	@GeneratedValue(generator="machinery")
-	@TableGenerator(name="material", table="sqlite_sequence",
-	    pkColumnName="machineryID", valueColumnName="seq", pkColumnValue="machinery")
+	@TableGenerator(name="machinery", table="sqlite_sequence",
+	    pkColumnName="name", valueColumnName="seq", pkColumnValue="machinery")
 	private int machineryID;
 	private String machineryType;
 	private String stateofMachinery;
@@ -225,9 +225,9 @@ public class Machinery implements Serializable {
 	}
 	
 	public String printMach(){
-		return "Machinery [machineryID=" + machineryID + ",machineryType=" 
-				+ machineryType + ",stateofMachinery=" + stateofMachinery + ", dateofInstallation=" 
-				+ dateofInstallation + ", sizeofMachinery=" + sizeofMachinery + "]";
+		return "Machinery [machineryID=" + this.machineryID + ",machineryType=" 
+				+ this.machineryType + ",stateofMachinery=" + this.stateofMachinery + ", dateofInstallation=" 
+				+ this.dateofInstallation + ", sizeofMachinery=" + this.sizeofMachinery + "]";
 	}
 
 	@Override

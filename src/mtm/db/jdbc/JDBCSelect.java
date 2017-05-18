@@ -688,7 +688,7 @@ public class JDBCSelect
 				int volume = rs.getInt("volume");
 				String type = rs.getString("type");
 				int companyID = rs.getInt("companyID");
-				int machineryID = rs.getInt("machinery_ID");
+				int machineryID = rs.getInt("machineryID");
 				int warehouseID = rs.getInt("warehouse_ID");
 				//Problema de la Conexi�n @ERROR
 				

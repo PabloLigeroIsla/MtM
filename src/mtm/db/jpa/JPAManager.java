@@ -31,7 +31,7 @@ public class JPAManager implements DBInterface
 	public Material selectMaterial(int primaryKey)
 	{
 		Material mat = new Material();
-		Query sql = em.createNativeQuery("SELECT * FROM material WHERE material_ID = ?",Material.class);
+		Query sql = em.createNativeQuery("SELECT * FROM material WHERE materialID = ?",Material.class);
 		sql.setParameter(1, primaryKey);
 		
 		mat = (Material) sql.getSingleResult();
