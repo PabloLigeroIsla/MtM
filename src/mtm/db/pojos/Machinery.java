@@ -22,6 +22,8 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import mtm.db.pojos.Employee;
+
 import java.time.LocalDate;
 
 @Entity
@@ -66,9 +68,22 @@ public class Machinery implements Serializable {
 >>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 	private List <Material> materialList; //FOREIGN KEY
 	@JoinColumn(name = "Instrument")
+	@XmlElement(name="Material")
+	@XmlElementWrapper(name ="Materials")
+	
+	@ManyToMany(mappedBy = "machineryTypeList")
 	private List <Instrument> instrumentList; //FOREIGN KEY
 	@JoinColumn(name = "Employee")
 	private List <Employee> employeeList; //FOREIGN KEY	
+	@XmlElement(name="Instrument")
+	@XmlElementWrapper(name ="Instruments")
+	
+
+	@OneToMany(mappedBy="machineryType")
+	
+	private List <Employee> employeeList; //FOREIGN KEY	
+	@XmlElement(name = "Employee") 
+    @XmlElementWrapper(name = "Employees")
 	
 	
 	//materialList
