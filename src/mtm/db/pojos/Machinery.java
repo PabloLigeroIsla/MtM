@@ -38,20 +38,43 @@ public class Machinery implements Serializable {
 	private String stateofMachinery;
 	private LocalDate dateofInstallation;
 	private int sizeofMachinery;
+<<<<<<< HEAD
 	
 	@OneToMany(mappedBy="machinery")
 	@XmlElement(name = "Material") 
     @XmlElementWrapper(name = "Materials")
+=======
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="materialID")
+
+>>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 	private List <Material> materialList; //FOREIGN KEY
+<<<<<<< HEAD
 	
 	@ManyToMany(mappedBy = "machineryTypeList")
+=======
+	@XmlElement(name="Material")
+	@XmlElementWrapper(name ="Materials")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "Instrument_ID")
+	
+>>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 	private List <Instrument> instrumentList; //FOREIGN KEY
+<<<<<<< HEAD
 	
 	@OneToMany(mappedBy="machineryType")
 	@XmlElement(name = "Employee") 
     @XmlElementWrapper(name = "Employees")
+=======
+	@XmlElement(name="Instrument")
+	@XmlElementWrapper(name ="Instruments")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "Employee_ID")
+>>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 	private List <Employee> employeeList; //FOREIGN KEY	
-	
+	@XmlElement(name="Employee")
+	@XmlElementWrapper(name ="Employees")
 	
 	//materialList
 	public List<Material> getMaterialList() {
