@@ -38,10 +38,12 @@ public class Machinery implements Serializable {
 	 */
 	private static final long serialVersionUID = -5275135022867594008L;
 	//Attributes
+	
 	@Id 
 	@GeneratedValue(generator="machinery")
 	@TableGenerator(name="machinery", table="sqlite_sequence",
 	    pkColumnName="name", valueColumnName="seq", pkColumnValue="machinery")
+	
 	@XmlAttribute
 	private int machineryID;
 	@XmlAttribute
@@ -52,38 +54,37 @@ public class Machinery implements Serializable {
 	private LocalDate dateofInstallation;
 	@XmlAttribute
 	private int sizeofMachinery;
-	@XmlElement(name = "Employee")
-	@XmlElementWrapper(name = "Employees")
+
 
 	
 	
+	
+
+
+
 	@OneToMany(mappedBy="machinery")
 	@XmlElement(name = "Material") 
     @XmlElementWrapper(name = "Materials")
-=======
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="materialID")
-
->>>>>>> branch 'master' of https://github.com/papsers/MtM.git
-	private List <Material> materialList; //FOREIGN KEY
-	@JoinColumn(name = "Instrument")
-	@XmlElement(name="Material")
-	@XmlElementWrapper(name ="Materials")
 	
-	@ManyToMany(mappedBy = "machineryTypeList")
-	private List <Instrument> instrumentList; //FOREIGN KEY
-	@JoinColumn(name = "Employee")
-	private List <Employee> employeeList; //FOREIGN KEY	
+	private List <Material> materialList; //FOREIGN KEY
+	
+	
+
 	@XmlElement(name="Instrument")
 	@XmlElementWrapper(name ="Instruments")
+	@ManyToMany(mappedBy = "machineryTypeList")
+	@JoinColumn(name = "Instrument")
+	private List <Instrument> instrumentList; //FOREIGN KEY
 	
-
+	
 	@OneToMany(mappedBy="machineryType")
-	
+	@XmlElement(name = "Employee")
+	@XmlElementWrapper(name = "Employees")
+	@JoinColumn(name = "Employee")
 	private List <Employee> employeeList; //FOREIGN KEY	
-	@XmlElement(name = "Employee") 
-    @XmlElementWrapper(name = "Employees")
+
 	
 	
 	//materialList
