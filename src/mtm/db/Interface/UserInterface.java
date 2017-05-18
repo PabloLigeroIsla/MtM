@@ -1231,6 +1231,7 @@ public class UserInterface
     		String queryMat = "SELECT * FROM material WHERE materialID = ?";
     		String queryEmp = "SELECT * FROM employee WHERE employee_ID = ?";
     		String queryComp = "SELECT * FROM company WHERE companyID = ?";
+    		String queryWare = "SELECT * FROM warehouse WHERE warehouse_ID = ?";
     		
     		ArrayList<Hospital> hospList = (ArrayList<Hospital>) mtm.getHospList();
     		Iterator<Hospital> hospIter = hospList.iterator();
@@ -1312,7 +1313,12 @@ public class UserInterface
     				jdbcManager.setRelationInstrumentMachinery(ins.getInstrumentID(), mach.getMachineryID(), 100);
     			}
     			
-    			
+    			Warehouse ware = ins.getWarehouse();
+    			if(!jdbcManager.valExist(queryWare,ware.getWarehouseID(), null))
+    			{
+    				//Introduce is relate
+    				jdbcManager.insert(ware);
+    			}
     			
     		}
     		
@@ -1347,7 +1353,7 @@ public class UserInterface
         		{
         			Material mat = matItera.next();
         			
-        			if(jdbcManager.valExist(queryMat, mat.getMaterialID(), null))
+        			if(!jdbcManager.valExist(queryMat, mat.getMaterialID(), null))
         			{
         				jdbcManager.insert(mat);
         			}
@@ -1372,7 +1378,11 @@ public class UserInterface
     				jdbcManager.insert(comp);
     			}
     			
-    			
+    			Warehouse war = mat.getWarehouseID();
+    			if(!jdbcManager.valExist(queryWare, war.getWarehouseID(),null))
+    			{
+    				jdbcManager.insert(war);
+    			}
     		}
     		
     	}
