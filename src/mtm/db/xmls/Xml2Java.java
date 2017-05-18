@@ -26,8 +26,7 @@ public class Xml2Java
 		{
 			e.printStackTrace();
 		}
-		
-		
+				
 		
 		return hosp;
 	}
