@@ -8,8 +8,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+
+import mtm.db.pojos.Employee;
 
 import java.time.LocalDate;
 
@@ -31,8 +37,13 @@ public class Machinery implements Serializable {
 	private LocalDate dateofInstallation;
 	private int sizeofMachinery;
 	
+	@OneToMany(mappedBy="machinery") //one machinery has many materials
+	@XmlElement(name = "Material") 
+    @XmlElementWrapper(name = "Materials")	
 	@JoinColumn(name="Material")
 	private List <Material> materialList; //FOREIGN KEY
+	
+	@ManyToMany(mappedBy = "machinery")
 	@JoinColumn(name = "Instrument")
 	private List <Instrument> instrumentList; //FOREIGN KEY
 	@JoinColumn(name = "Employee")

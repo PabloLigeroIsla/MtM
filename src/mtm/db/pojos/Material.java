@@ -23,13 +23,13 @@ public class Material implements Serializable {
 	private Integer volume;
 	private String type;
 	
-	@ManyToOne 
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "companyID")
 	private Company company; //FOREIGN KEY
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "machinery_ID")
 	private Machinery machineryID; //FOREIGN KEY
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "warehouse_ID")
 	private Warehouse warehouseID; //FOREIGN KEY
 	

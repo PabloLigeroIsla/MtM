@@ -52,8 +52,8 @@ public class Warehouse implements Serializable {
 	private Integer filledSpace;
 	
 	@OneToMany(mappedBy="warehouse")
-	@XmlElement(name = "Instrument") 
-    @XmlElementWrapper(name = "Instruments")
+	//@XmlElement(name = "Instrument") 
+    //@XmlElementWrapper(name = "Instruments")
 	private List<Instrument> instrumentList;
 	
 	@OneToMany(mappedBy="warehouse")
