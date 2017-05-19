@@ -1344,4 +1344,11 @@ public class JDBCManager implements DBInterface
 		    
 	}
 	
+	private LocalDate SqltoLocalDate(java.sql.Date sqlDate)
+	{
+
+		LocalDate locDate = sqlDate.toLocalDate();
+		return locDate;
+		
+	}
 }
