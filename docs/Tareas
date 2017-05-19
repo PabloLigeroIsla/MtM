@@ -1,10 +1,10 @@
 Tareas:
 
 Descomentar los metodos de UserInterface de JPA y comentar los de JDBC (buscar en refractor @JPAChange para ver donde estan comentados) 
-Hacer XML de todos los objetos (mirar el objeto MtM para saber que hay que guardar en cada objeto y que no para evitar bucles infinitos)
+Quitar los XML que sobran
 Use XSLT to produce a HTML
-create the method setMaterialRelations
 Hacer printMachinery(bien), no hacer con el return
+Probar a eliminar y a actualizar
 
 
 Actualizar el UML

@@ -488,6 +488,7 @@ public class UserInterface
 			break;
 		case 5: //Machinery
 			Machinery mach = createMachinery();
+			mach = jpaManager.setJava2JPAFormat(mach);
 			
 			//jdbcManager.insert(mach);@SIMach
 			jpaManager.insert(mach);

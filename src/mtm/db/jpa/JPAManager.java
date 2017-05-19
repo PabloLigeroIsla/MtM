@@ -55,7 +55,20 @@ public class JPAManager implements DBInterface
 		em.getTransaction().commit();
 	}
 	
+	
 	//Machinery
+	
+	public Machinery setJava2JPAFormat(Machinery obj)
+	{
+		Machinery finalMach = new Machinery();
+		
+		finalMach.setMachineryID(obj.getMachineryID());
+		finalMach.setMachineryType(obj.getMachineryType());
+		finalMach.setStateofMachinery(obj.getStateofMachinery());
+		finalMach.setDateofInstallation(obj.getDateofInstallation());
+		finalMach.setSizeofMachinery(obj.getSizeofMachinery());
+		return finalMach;
+	}
 	
 	public Machinery selectMachinery(int primaryKey)
 	{	
