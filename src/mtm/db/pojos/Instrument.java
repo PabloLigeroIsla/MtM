@@ -49,7 +49,7 @@ public class Instrument implements Serializable {
 	private String bodyLocation;
 	@XmlAttribute
 	private Integer price;
-	
+	 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "warehouse_ID")
 	// This @XmlTransient is here to avoid infinite loops --- hay que decidir si el warehouse muestra instrument o al contrario,

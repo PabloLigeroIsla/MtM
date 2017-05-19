@@ -381,8 +381,8 @@ public class UserInterface
 					    	System.out.println("Introduce the values of the New Order:\n");
 					    	
 							Order ord = createOrder();
-
 							jdbcManager.setOrderID(ord);
+							
 							System.out.println("Select the Primary Key of the instrument you want to order\n");
 					    	listInstruments(false);
 					    	int opt = writeNumber();
@@ -541,8 +541,8 @@ public class UserInterface
 			int pk5 = writeNumber();
 			jdbcManager.deleteRelationInstrumentMachinery(pk5, "machinery_ID");
 			jdbcManager.deleteRelationMachineryEmployee(pk5);
-			//jpaManager.deleteMachinery(pk5); @JPAChange
-			jdbcManager.deleteMachinery(pk5);
+			jpaManager.deleteMachinery(pk5); 
+			//jdbcManager.deleteMachinery(pk5);@JPAChange
 			break;
 		case 6: //Material
 			listMaterials(false);
@@ -672,8 +672,8 @@ public class UserInterface
 		System.out.println("Select the ID of the machinery the employee is spezialized in\n");
 		int e=writeNumber();
 		
-		//mach=jpaManager.selectMachinery(e);@JPAChange
-		mach=jdbcManager.selectMachinery(e);
+		mach=jpaManager.selectMachinery(e);
+		//mach=jdbcManager.selectMachinery(e);@JPAChange
 		
 	}
 	else
@@ -1113,8 +1113,8 @@ public class UserInterface
     public static void showMachinery(int pk)
     {
     	Machinery mach;
-    	//mach = jpaManager.selectMachinery(pk);@JPAChange
-    	mach = jdbcManager.selectMachinery(pk);
+    	mach = jpaManager.selectMachinery(pk);
+    	//mach = jdbcManager.selectMachinery(pk);@JPAChange
     	jdbcManager.setMachineryRelations(mach);
     	mach.printMach();
     }
@@ -1199,8 +1199,11 @@ public class UserInterface
 
     public static void openXML()
     {
+    	
     	System.out.println("Introduce the path to the file that contains the DB");
     	String path = writeString();
+    	//String optionalPath = "./db/xml";
+    	//String path = optionalPath;
     	
     	System.out.printf("Do you want to open:\n1:Hospital\n2:MtM");
     	int opt = writeNumber(2);
@@ -1256,7 +1259,7 @@ public class UserInterface
     			{
     				jdbcManager.insert(hosp);
     			}
-    			//Relate Object
+    			//ORDER
     			ArrayList<Order> ordList = (ArrayList<Order>)hosp.getOrderList();
     			Iterator<Order> orderIter = ordList.iterator();
     			while(orderIter.hasNext())
@@ -1298,7 +1301,7 @@ public class UserInterface
     				
     				jdbcManager.setRelationInstrumentOrder(ins.getInstrumentID(), ord.getOrderID());
     			}
-    			
+    			//MAQUINARIAS
     			ArrayList<Machinery> machListIns = (ArrayList<Machinery>)ins.getMachineryTypeList();
     			Iterator <Machinery> machInsIter = machListIns.iterator();
     			
@@ -1332,7 +1335,7 @@ public class UserInterface
     				jdbcManager.insert(mach);
     			}
     			
-    			
+    			//EMPLEADOS
     			ArrayList<Employee> empArray = (ArrayList<Employee>)mach.getEmployeeList();
     			Iterator<Employee> empIter = empArray.iterator();
     			while(empIter.hasNext())

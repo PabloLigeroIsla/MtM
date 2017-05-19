@@ -38,12 +38,14 @@ public class Material implements Serializable {
 	@XmlAttribute
 	private String type;
 	
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "companyID")
 	private Company company; //FOREIGN KEY
-	@ManyToOne(fetch = FetchType.LAZY)
+	
 	@JoinColumn(name = "machinery_ID")
 	private Machinery machinery; //FOREIGN KEY
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "warehouse_ID")
 	private Warehouse warehouse; //FOREIGN KEY

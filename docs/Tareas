@@ -1,10 +1,8 @@
-Tareas:
+Tareas: 
 
-Descomentar los metodos de UserInterface de JPA y comentar los de JDBC (buscar en refractor @JPAChange para ver donde estan comentados) 
-Quitar los XML que sobran
 Use XSLT to produce a HTML
 Hacer printMachinery(bien), no hacer con el return (CELIA)
-Probar a eliminar y a actualizar
+Probar a delete y update
 
 Actualizar el UML
 Actualizar el ultimo esquema ese que tenias que poner los metodos
@@ -17,8 +15,7 @@ Opcionales que faltan:
 1.-Documantation
 		I:Write a design document of your system, explaining why you did what
 2.-Diagrams
-3.-Structure
-		I:create a GUI separated from your database manager
+
 4.-JDBC
 		I:Use binary objects (like images) in at least 1 table (Employee)
 5.-JPA
@@ -28,13 +25,5 @@ Opcionales que faltan:
 		II:HTML->extra points if it�s cool and/or uses CSS2!
 7.-Finishing touches
 
-
-Questions Rodrigo:
-
-
-
--introduces objeto con objetos en su interior, los objetos de su interior hay que seleccionarlos con jpa para que 
-se puedan iintroducir.
-(si haces algo con jpa en un objeto, lo q hayas hecho justo antes con ese objeto, o cosas q tenga dentro, ha debido ser seleccionado con jpa) 
 
 -hay q hacer un esquema dtd manualmente con notepad, y compararlo luego con el xml para ver si sigue el mismo esquema

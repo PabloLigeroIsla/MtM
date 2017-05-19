@@ -36,7 +36,7 @@ public class Hospital implements Serializable
 	private String location;
 	@XmlAttribute
 	private String medicalSpecialization;
-	
+	 
 	@JoinTable(name="hospital_orders",
 	joinColumns={@JoinColumn(name="hospital_ID", referencedColumnName="hospitalID")}, //points to my class
     inverseJoinColumns={@JoinColumn(name="order_ID", referencedColumnName="orderID")}) //points to the class in the next line

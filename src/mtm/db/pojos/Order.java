@@ -30,7 +30,7 @@ public class Order implements Serializable
 {
 
 	private static final long serialVersionUID = -1476135363454640411L;
-	
+	 
 	@Id 
 	@GeneratedValue(generator="orders")
 	@TableGenerator(name="orders", table="sqlite_sequence",

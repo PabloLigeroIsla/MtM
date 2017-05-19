@@ -60,8 +60,7 @@ public class Machinery implements Serializable {
 	@JoinColumn(name="materialID")
 	private List <Material> materialList; //FOREIGN KEY
 
-	@XmlElement(name="Instrument")
-	@XmlElementWrapper(name ="Instruments")
+	
 	@ManyToMany(mappedBy = "machineryTypeList")
 	@JoinColumn(name = "Instrument")
 	private List <Instrument> instrumentList; //FOREIGN KEY

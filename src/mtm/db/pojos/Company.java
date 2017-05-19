@@ -7,8 +7,6 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -36,9 +34,7 @@ public class Company implements Serializable {
 	private String companyName;
 	
 
-	@OneToMany(mappedBy="company") //one company has many materials
-	@XmlElement(name = "Material") 
-    @XmlElementWrapper(name = "Materials")	
+
 	@JoinColumn(name="Material")
 	private ArrayList<Material>  materialList;
 
