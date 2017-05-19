@@ -539,7 +539,7 @@ public class UserInterface
 			listMachineries(false);
 			System.out.println("What machinery do you want to delete from this table? \n");
 			int pk5 = writeNumber();
-			jdbcManager.deleteRelationInstrumentMachinery(pk5, "machinery_ID");
+			jdbcManager.deleteRelationInstrumentMachinery(pk5, "machineryID");
 			jdbcManager.deleteRelationMachineryEmployee(pk5);
 			jpaManager.deleteMachinery(pk5); 
 			//jdbcManager.deleteMachinery(pk5);@JPAChange
@@ -1230,7 +1230,7 @@ public class UserInterface
     		String queryIns = "SELECT * FROM instrument WHERE instrument_ID = ?";
     		String queryHosp = "SELECT * FROM hospital WHERE hospital_ID = ?";
     		String queryOrd = "SELECT * FROM orders WHERE order_ID = ?";
-    		String queryMach = "SELECT * FROM machinery WHERE machinery_ID = ?";
+    		String queryMach = "SELECT * FROM machinery WHERE machineryID = ?";
     		String queryMat = "SELECT * FROM material WHERE materialID = ?";
     		String queryEmp = "SELECT * FROM employee WHERE employee_ID = ?";
     		String queryComp = "SELECT * FROM company WHERE companyID = ?";

@@ -411,14 +411,14 @@ public class JDBCManager implements DBInterface
 	}
 	
 	public void deleteCompany(int primaryKey){
-		String sqlQuery = "SELECT * FROM company WHERE company_ID = ?";
+		String sqlQuery = "SELECT * FROM company WHERE companyID = ?";
 		if(valExist(sqlQuery,primaryKey,null))
 		{
 			JDBCDelete sqlDelete = new JDBCDelete(c);
 			sqlDelete.deleteCompany(primaryKey);
 			
 			//delete relations
-			ArrayList <Integer> arrayPks = foundRelation("material","material_ID","company_ID",primaryKey);
+			ArrayList <Integer> arrayPks = foundRelation("material","materialID","companyID",primaryKey);
 			Iterator<Integer> iter = arrayPks.iterator();
 			while(iter.hasNext()){
 				deleteMaterial(iter.next());
@@ -925,7 +925,7 @@ public class JDBCManager implements DBInterface
  	public void updateMaterial(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
  	{
  		String table = "material";
- 		String selQuery = "SELECT name FROM "+table+" WHERE material_ID = ?";
+ 		String selQuery = "SELECT name FROM "+table+" WHERE materialID = ?";
  		if(valExist(selQuery,pkSearch,null))
  		{
  			
@@ -940,7 +940,7 @@ public class JDBCManager implements DBInterface
  	public void updateCompany(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
  	{
  		String table = "company";
- 		String selQuery = "SELECT * FROM o WHERE company_ID = ?";
+ 		String selQuery = "SELECT * FROM o WHERE companyID = ?";
  		if(valExist(selQuery,pkSearch,null))
  		{
  		

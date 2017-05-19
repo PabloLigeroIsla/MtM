@@ -349,7 +349,7 @@ public class JDBCSelect
 			while (rs.next()) 
 			{				
 				
-				machineryID = rs.getInt("machinery_ID");
+				machineryID = rs.getInt("machineryID");
 				machineryType = rs.getString("machineryType");
 				stateofMachinery = rs.getString("stateofMachinery");
 				java.sql.Date dateMach = rs.getDate("order_date");
@@ -423,7 +423,7 @@ public class JDBCSelect
 				volume = rs.getInt("volume");
 				type = rs.getString("type");
 				int companyID = rs.getInt("companyID");
-				int machineryID = rs.getInt("machinery_ID");
+				int machineryID = rs.getInt("machineryID");
 				int warehouseID = rs.getInt("warehouse_ID");
 				
 				Company com = new Company(companyID);
