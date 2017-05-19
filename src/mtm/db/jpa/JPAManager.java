@@ -41,6 +41,9 @@ public class JPAManager implements DBInterface
 	
 	public void insert(Material obj)
 	{
+		
+		
+		
 		em.getTransaction().begin();
 		em.persist(obj);
 		em.getTransaction().commit();
@@ -124,7 +127,7 @@ public class JPAManager implements DBInterface
 	{
 		
 		
-		Query sql = em.createNativeQuery("SELECT * FROM orders WHERE order_ID = ?",Order.class);
+		Query sql = em.createNativeQuery("SELECT * FROM orders WHERE orderID = ?",Order.class);
 		sql.setParameter(1, primaryKey);
 		Order ord = (Order) sql.getSingleResult();
 		return ord;

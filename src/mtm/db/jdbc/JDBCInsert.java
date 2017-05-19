@@ -243,7 +243,7 @@ public class JDBCInsert
 		{
 			c.setAutoCommit(false);
 			
-			String sql = "INSERT INTO hospital_orders(hospital_ID,order_ID,amountOrder)"
+			String sql = "INSERT INTO hospital_orders(hospitalID,orderID,amountOrder)"
 					+ "VALUES(?,?,?)";
 			
 			PreparedStatement prep = c.prepareStatement(sql);
@@ -266,7 +266,7 @@ public class JDBCInsert
 		{
 			c.setAutoCommit(false);
 			
-			String sql = "INSERT INTO instrument_orders(order_ID,instrument_ID)"
+			String sql = "INSERT INTO instrument_orders(orderID,instrument_ID)"
 					+"VALUES(?,?)";
 			
 			PreparedStatement prep = c.prepareStatement(sql);

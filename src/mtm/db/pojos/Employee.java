@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlType;
 @Table(name = "employee")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Employee")
-@XmlType(propOrder = { "employeeID", "name", "specializationType", "typeofContract", "machienryType" })
+@XmlType(propOrder = { "employeeID", "name", "specializationType", "typeofContract" })
 
 public class Employee implements Serializable {
 
@@ -47,7 +47,7 @@ public class Employee implements Serializable {
 	@XmlAttribute
 	
 	@ManyToOne 
-	@JoinColumn(name = "machineryType")
+	@JoinColumn(name = "machineryID")//Variable in jdbc that makes reference
 	private Machinery machineryType; //FOREIGN KEY
 
 	

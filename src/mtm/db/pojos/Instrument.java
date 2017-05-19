@@ -8,8 +8,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
 @Table(name = "instrument")
 @XmlAccessorType(XmlAccessType.FIELD) //Be able to use XML
 @XmlRootElement(name = "Instrument")
-@XmlType(propOrder = { "instrumentID", "name", "model", "purpose", "amount", "numberUses","bodyLocation","price","warehouse","orderList","machineryTypeList" })//Set the attributes in the XML
+@XmlType(propOrder = { "instrumentID", "name", "model", "purpose", "amount", "numberUses","bodyLocation","price","warehouse" })//Set the attributes in the XML
 
 public class Instrument implements Serializable {
 	
@@ -52,25 +52,24 @@ public class Instrument implements Serializable {
 	 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "warehouse_ID")
-	// This @XmlTransient is here to avoid infinite loops --- hay que decidir si el warehouse muestra instrument o al contrario,
-	// si no, llegamos a un bucle infinito.
-	@XmlTransient
+	@XmlElement(name = "Warehouse")
+	@XmlElementWrapper(name = "Warehouses")
 	private Warehouse warehouse;
 	
 	@ManyToMany // the mappedBy is in the pojo Order only
-	@JoinTable(name="instrument_orders",
+	@JoinTable(name="orderList",
 	joinColumns={@JoinColumn(name="instrument_ID", referencedColumnName="instrumentID")},
-    inverseJoinColumns={@JoinColumn(name="order_ID", referencedColumnName="orderID")})
+    inverseJoinColumns={@JoinColumn(name="orderID", referencedColumnName="orderID")})
 	@XmlElement(name = "Order")
-	//@XmlElementWrapper(name = "Orders")
+	@XmlElementWrapper(name = "Orders")
 	private List<Order> orderList;
 	
 	@ManyToMany // the mappedBy is in the pojo Machinery
-	@JoinTable(name="instrument_machinery",
+	@JoinTable(name="machineryTypeList",
 	joinColumns={@JoinColumn(name="instrument_ID", referencedColumnName="instrumentID")},
     inverseJoinColumns={@JoinColumn(name="machineryID", referencedColumnName="machineryID")})
 	@XmlElement(name = "Machinery")
-	//@XmlElementWrapper(name = "Machineries")
+	@XmlElementWrapper(name = "Machineries")
 	private List<Machinery> machineryTypeList;
 
 

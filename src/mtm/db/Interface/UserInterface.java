@@ -490,6 +490,7 @@ public class UserInterface
 			Machinery mach = createMachinery();
 			//jdbcManager.insert(mach);@SIMach
 			jpaManager.insert(mach);
+			
 			break;
 		case 6: //Material
 			createMaterial(); 
@@ -584,6 +585,251 @@ public class UserInterface
     }
     
 }
+    
+    public static void createXML()
+    {
+    	System.out.println("Do you want to:\n1:Create XML of the DataBase\n2:Create Xml of a Hospital");
+    	int opt = writeNumber(2);
+    	System.out.println("Introduce the path to the file that will store the DB");
+    	String path = writeString();
+    	if(opt == 1)
+    	{
+    		
+    		ArrayList<Material> matList = jdbcManager.selectAllMaterials();
+
+    		
+    		ArrayList<Hospital> hospList = jdbcManager.selectAllHospitals();
+    		Iterator<Hospital> hospIter = hospList.iterator();
+    		while(hospIter.hasNext())
+    		{
+    			jdbcManager.setHospitalRelations(hospIter.next());
+    		}
+    		
+    		ArrayList<Machinery> machList = jdbcManager.selectAllMachineries();
+    		Iterator<Machinery> machIter = machList.iterator();
+    		while(machIter.hasNext())
+    		{
+    			jdbcManager.setMachineryRelations(machIter.next());
+    		}
+    		
+    		ArrayList<Instrument> instList = jdbcManager.selectAllInstruments();
+    		Iterator<Instrument> wareIter = instList.iterator();
+    		while(wareIter.hasNext())
+    		{
+    			jdbcManager.setInstrumentRelations(wareIter.next());
+    		}
+    		
+    		MtM mtmObj = new MtM(matList,hospList,machList,instList);
+    		
+    		xmlManager.marshalMtM(path,mtmObj);
+    		
+    	}else
+    	{
+    		System.out.println("Select the hospital you want to convert into XML");
+    		listHospitals(false);
+    		int op = writeNumber();
+    		Hospital hosp = jdbcManager.selectHospital(op);
+    	
+    		xmlManager.marshallHospital(path, hosp);
+    	}
+    	
+    }
+    
+    public static void openXML()
+    {
+    	
+    	System.out.println("Introduce the path to the file that contains the DB");
+    	String path = writeString();
+    	//String optionalPath = "./db/xml";
+    	//String path = optionalPath;
+    	
+    	System.out.printf("Do you want to open:\n1:Hospital\n2:MtM");
+    	int opt = writeNumber(2);
+    	if(opt == 1)
+    	{
+    		Hospital hosp = xmlManager.unmarshallHospital(path);
+        	Iterator <Order> iter = hosp.getOrderList().iterator();
+        	
+        	jdbcManager.insert(hosp);
+        	jdbcManager.setHospitalID(hosp);
+        	
+        	while(iter.hasNext())
+        	{
+        		Order ord = iter.next();
+        		jdbcManager.insert(ord);
+        		jdbcManager.setOrderID(ord);
+        		jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(), ord.getOrderID(), 0);
+        	}
+    	}
+    	else
+    	{
+    		MtM mtm = xmlManager.unmarshallMtM(path);
+    		
+    		String queryIns = "SELECT * FROM instrument WHERE instrument_ID = ?";
+    		String queryHosp = "SELECT * FROM hospital WHERE hospitalID = ?";
+    		String queryOrd = "SELECT * FROM orders WHERE orderID = ?";
+    		String queryMach = "SELECT * FROM machinery WHERE machineryID = ?";
+    		String queryMat = "SELECT * FROM material WHERE materialID = ?";
+    		String queryEmp = "SELECT * FROM employee WHERE employee_ID = ?";
+    		String queryComp = "SELECT * FROM company WHERE companyID = ?";
+    		String queryWare = "SELECT * FROM warehouse WHERE warehouse_ID = ?";
+    		
+    		ArrayList<Hospital> hospList = (ArrayList<Hospital>) mtm.getHospList();
+    		Iterator<Hospital> hospIter = hospList.iterator();
+    		
+    		ArrayList<Instrument> instList= (ArrayList<Instrument>) mtm.getInstList();
+    		Iterator<Instrument> instIter = instList.iterator();
+    		
+    		ArrayList<Machinery>  machList = (ArrayList<Machinery>) mtm.getMachList();
+    		Iterator<Machinery> machIter = machList.iterator();
+    		
+    		ArrayList<Material> matList = (ArrayList<Material>)mtm.getmatList();
+    		Iterator<Material> matIter = matList.iterator();
+    		
+    		//Set the relations and store in the DB
+    		//HOSPITAL
+    		while(hospIter.hasNext())
+    		{
+    			Hospital hosp = hospIter.next();
+    			
+    			//Inserto Objeto
+    			if(!jdbcManager.valExist(queryHosp,hosp.getHospitalID(),null))//Si el objeto no existe en la base de datos
+    			{
+    				jdbcManager.insert(hosp);
+    			}
+    			//ORDER
+    			ArrayList<Order> ordList = (ArrayList<Order>)hosp.getOrderList();
+    			Iterator<Order> orderIter = ordList.iterator();
+    			while(orderIter.hasNext())
+    			{
+    				Order ord = orderIter.next();
+    				
+    				if(!jdbcManager.valExist(queryOrd, ord.getOrderID(), null))
+    				{
+    					jdbcManager.insert(ord);
+    				}
+    				
+    				//Relation moment
+    				
+    				jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(), ord.getOrderID(), 100);
+    				
+    			}
+    		}
+    		
+    		//INSTRUMENT
+    		while(instIter.hasNext())
+    		{
+    			Instrument ins = instIter.next();
+    			
+    			if(!jdbcManager.valExist(queryIns, ins.getInstrumentID(), null))
+    			{
+    				jdbcManager.insert(ins);
+    			}
+    			
+    			ArrayList<Order> ordList = (ArrayList<Order>)ins.getOrderList();
+    			Iterator<Order> orderIter = ordList.iterator();
+    			
+    			while(orderIter.hasNext())
+    			{
+    				Order ord = orderIter.next();
+    				if(!jdbcManager.valExist(queryOrd, ord.getOrderID(), null))
+    				{
+    					jdbcManager.insert(ord);
+    				}
+    				
+    				jdbcManager.setRelationInstrumentOrder(ins.getInstrumentID(), ord.getOrderID());
+    			}
+    			//MAQUINARIAS
+    			ArrayList<Machinery> machListIns = (ArrayList<Machinery>)ins.getMachineryTypeList();
+    			Iterator <Machinery> machInsIter = machListIns.iterator();
+    			
+    			while(machInsIter.hasNext())
+    			{
+    				Machinery mach = machInsIter.next();
+    				if(!jdbcManager.valExist(queryMach,mach.getMachineryID(),null))
+    				{
+    					jdbcManager.insert(mach);
+    				}
+    				
+    				jdbcManager.setRelationInstrumentMachinery(ins.getInstrumentID(), mach.getMachineryID(), 100);
+    			}
+    			//WAREHOUSES
+    			Warehouse ware = ins.getWarehouse();
+    			if(!jdbcManager.valExist(queryWare,ware.getWarehouseID(), null))
+    			{
+    				//Introduce is relate
+    				jdbcManager.insert(ware);
+    			}
+    			
+    		}
+    		
+    		//MACHINERY
+    		while(machIter.hasNext())
+    		{
+    			Machinery mach = machIter.next();
+    			
+    			if(!jdbcManager.valExist(queryMach,mach.getMachineryID(),null))
+    			{
+    				jdbcManager.insert(mach);
+    			}
+    			
+    			//EMPLEADOS
+    			ArrayList<Employee> empArray = (ArrayList<Employee>)mach.getEmployeeList();
+    			Iterator<Employee> empIter = empArray.iterator();
+    			while(empIter.hasNext())
+    			{
+    				Employee  emp = empIter.next();
+    				if(jdbcManager.valExist(queryEmp,emp.getEmployee_ID(), null))
+    				{
+    					jdbcManager.insert(emp);
+    				}
+    				
+    			}
+    			
+    			//Cargar desde maquinaria los materiales
+        		ArrayList<Material> matArray = (ArrayList<Material>)mach.getMaterialList();
+        		Iterator<Material> matItera = matArray.iterator();
+        		
+        		while(matItera.hasNext())
+        		{
+        			Material mat = matItera.next();
+        			
+        			if(!jdbcManager.valExist(queryMat, mat.getMaterialID(), null))
+        			{
+        				jdbcManager.insert(mat);
+        			}
+        		}
+    			
+    		}
+    		
+    		
+    		//MATERIAL
+    		while(matIter.hasNext())
+    		{
+    			Material mat = matIter.next();
+    			if(!jdbcManager.valExist(queryMat, mat.getMaterialID(), null))
+    			{
+    				jdbcManager.insert(mat);
+    			}
+    			
+    			Company comp = mat.getCompany();
+    			
+    			if(!jdbcManager.valExist(queryComp, mat.getMaterialID(), null))
+    			{
+    				jdbcManager.insert(comp);
+    			}
+    			
+    			Warehouse war = mat.getWarehouseID();
+    			if(!jdbcManager.valExist(queryWare, war.getWarehouseID(),null))
+    			{
+    				jdbcManager.insert(war);
+    			}
+    		}
+    		
+    	}
+    	
+    	 
+    }
     
     //Creation of Objects
     
@@ -738,7 +984,6 @@ public class UserInterface
     	return com;
     }
     
-   
     public static Material createMaterial()
     {
     	
@@ -860,70 +1105,68 @@ public class UserInterface
     	
     }
 
-    public static Material createMaterial(Boolean aux, Company com){
-    	System.out.println("\nWeight");
-    	int a = writeNumber();
-    	System.out.println("\nVolume");
-    	int b = writeNumber();
-    	System.out.println("\nType");
-    	String c = writeString();
-    	Material mat = new Material(a,b,c,com);
-
-    	//machinery
-    	boolean aux2 = true;
-    	while(aux2)
-    	{
-    		System.out.println("Do you want to attach the material to a machinery from the database YES or NO: \n");
-    		String answ = writeString();
-    		if(answ.equals("YES")){
-    			listMachineries(true);
-    			System.out.println("Type the PK of the machinery:\n");
-    			int pk = writeNumber();
-    			Machinery mach = jdbcManager.selectMachinery(pk);
-    			if(mach != null)
-    			{
-    				mat.setMachineryID(mach);
-    				aux2 = false;
-    			}
-    		
-
-    		}else if(answ.equals("NO"))
-    		{
-    			System.out.println("Material not created. The material needs to be attached to a machinery\n");
-    			return null;
-    		
-    		}else
-    		{
-    			System.out.println("Please type YES or NO\n");
-    		}
-    	}
-    	
-    	//warehouse
-    	boolean aux3 = true;
-    	while(aux3){
-    	System.out.println("The material need to be stored in a warehouse. Please select one of the following warehouses\n");
-    	listWarehouses(true);
-    	System.out.println("Type the PK of the Warehouse:\n");
-    	int pk = writeNumber();
-    	Warehouse ware = jpaManager.selectWarehouse(pk);
-    	
-    	if(ware != null){
-    	mat.setWarehouseID(ware);
-    	aux3 = false;
-    	}
-    	jpaManager.insert(mat);
-    	
-    }
-		return mat;
-    }
     
     //Show the Objects
-    
     public static void showCompany(int pk){
     	Company com;
 		com = jdbcManager.selectCompany(pk);
 		com.printCompany();
     }
+    
+    public static void showMaterial(int pk){
+    	Material mat;
+    	mat = jpaManager.selectMaterial(pk);
+    	mat.printMaterial();
+    }
+    
+    public static void showHospital(int pk)
+    {
+    	Hospital hosp;
+		hosp = jdbcManager.selectHospital(pk);
+		jdbcManager.setHospitalRelations(hosp);
+		hosp.printHospital(true);
+    }
+    
+    public static void showOrder(int pk)
+    {
+    	Order ord;
+    	ord = jdbcManager.selectOrder(pk);
+    	jdbcManager.setOrderRelations(ord);
+    	ord.printOrder(true);
+    }
+    
+    public static void showInstrument(int pk){
+    	Instrument inst;
+    	inst = jdbcManager.selectInstrument(pk);
+    	jdbcManager.setInstrumentRelations(inst);
+    	inst.toString();
+    	
+    }
+    
+    public static void showWarehouse(int pk){
+    	Warehouse war;
+    	war = jdbcManager.selectWarehouse(pk);
+    	war.printWarehouse();
+    	//war.toString();
+    }
+    
+    public static void showEmployee(int pk)
+    {
+    	Employee emp;
+    	emp = jdbcManager.selectEmployee(pk);
+    	emp.toString();
+    }
+    
+    public static void showMachinery(int pk)
+    {
+    	Machinery mach;
+    	mach = jpaManager.selectMachinery(pk);
+    	//mach = jdbcManager.selectMachinery(pk);@JPAChange
+    	jdbcManager.setMachineryRelations(mach);
+    	mach.printMach();
+    }
+    
+    //List the objects
     public static void listCompanies(boolean relation){
     	Company com;
 		ArrayList<Company> comList = new ArrayList<Company>();
@@ -942,11 +1185,6 @@ public class UserInterface
 			}
 	}
   
-    public static void showMaterial(int pk){
-    	Material mat;
-    	mat = jpaManager.selectMaterial(pk);
-    	mat.printMaterial();
-    }
     public static void listMaterials(boolean relation){
         	Material mat;
         	ArrayList<Material> matList = new ArrayList<Material>();
@@ -969,13 +1207,6 @@ public class UserInterface
         	
         }
      
-    public static void showHospital(int pk)
-    {
-    	Hospital hosp;
-		hosp = jdbcManager.selectHospital(pk);
-		jdbcManager.setHospitalRelations(hosp);
-		hosp.printHospital(true);
-    }
     public static void listHospitals(boolean relation)
     {
     	Hospital hosp;
@@ -988,7 +1219,15 @@ public class UserInterface
 			if(relation)
 			{
 				jdbcManager.setHospitalRelations(hosp);
-				System.out.printf("id: %d,name: %s, Order relations: %d\n",hosp.getHospitalID(),hosp.getName(),hosp.getOrderList().toString());
+				System.out.printf("id: %d,name: %s\n",hosp.getHospitalID(),hosp.getName());
+				System.out.printf("Orden Relations: ids: ");
+				Iterator<Order> iterOrd = hosp.getOrderList().iterator();
+				while(iterOrd.hasNext())
+				{
+					Order ord = iterOrd.next();
+					System.out.printf("%d, ",ord.getOrderID());
+				}
+				
 
 			}else
 			{
@@ -996,14 +1235,7 @@ public class UserInterface
 			}
 		}
     }
-    
-    public static void showOrder(int pk)
-    {
-    	Order ord;
-    	ord = jdbcManager.selectOrder(pk);
-    	jdbcManager.setOrderRelations(ord);
-    	ord.printOrder(true);
-    }
+  
     public static void listOrders(boolean relation)
     {
     	Order ord;;
@@ -1017,7 +1249,23 @@ public class UserInterface
     		jdbcManager.setOrderRelations(ord);
     		if(relation)
     		{
-    			System.out.printf("id: %d, relations: %d\n",ord.getOrderID(),ord.getHospitalList().toString());
+    			System.out.printf("id: %d,\n",ord.getOrderID());
+    			
+    			System.out.println("Hospital Relations \nids: ");
+    			Iterator<Hospital> hospIter = ord.getHospitalList().iterator();
+    			while(hospIter.hasNext())
+    			{
+    				Hospital hosp = hospIter.next();
+    				System.out.printf("%d, ",hosp.getHospitalID());
+    			}
+    			
+    			System.out.println("Instruments Relations: \nids: ");
+    			Iterator<Instrument> insIter = ord.getInstrumentList().iterator();
+    			while(insIter.hasNext())
+    			{
+    				Instrument ins = insIter.next();
+    				System.out.printf("%d, ",ins.getInstrumentID());
+    			}
     		}else
     		{
     			System.out.printf("id: %d\n",ord.getOrderID());
@@ -1026,13 +1274,6 @@ public class UserInterface
     	
     }
         
-    public static void showInstrument(int pk){
-    	Instrument inst;
-    	inst = jdbcManager.selectInstrument(pk);
-    	jdbcManager.setInstrumentRelations(inst);
-    	inst.toString();
-    	
-    }
     public static void listInstruments(boolean relation){
     	Instrument inst = new Instrument();
     	ArrayList<Instrument> instrumentList = new ArrayList<Instrument>();
@@ -1057,12 +1298,6 @@ public class UserInterface
     	
     }
     
-    public static void showWarehouse(int pk){
-    	Warehouse war;
-    	war = jdbcManager.selectWarehouse(pk);
-    	war.printWarehouse();
-    	//war.toString();
-    }
     public static void listWarehouses(boolean relation){
     	Warehouse war = new Warehouse();
     	ArrayList<Warehouse> warehouseList = new ArrayList<Warehouse>();
@@ -1080,12 +1315,6 @@ public class UserInterface
 			}
     }
     
-    public static void showEmployee(int pk)
-    {
-    	Employee emp;
-    	emp = jdbcManager.selectEmployee(pk);
-    	emp.toString();
-    }
     public static void listEmployees(boolean relation)
     {
     	Employee emp;
@@ -1110,14 +1339,6 @@ public class UserInterface
     	} 	
     }
     
-    public static void showMachinery(int pk)
-    {
-    	Machinery mach;
-    	mach = jpaManager.selectMachinery(pk);
-    	//mach = jdbcManager.selectMachinery(pk);@JPAChange
-    	jdbcManager.setMachineryRelations(mach);
-    	mach.printMach();
-    }
     public static void listMachineries(boolean relation) {
     	
     	Machinery mach;
@@ -1146,253 +1367,6 @@ public class UserInterface
     	}
     
     }
-    
-    //XML
-    public static void createXML()
-    {
-    	System.out.println("Do you want to:\n1:Create XML of the DataBase\n2:Create Xml of a Hospital");
-    	int opt = writeNumber(2);
-    	System.out.println("Introduce the path to the file that will store the DB");
-    	String path = writeString();
-    	if(opt == 1)
-    	{
-    		
-    		ArrayList<Material> matList = jdbcManager.selectAllMaterials();
-
-    		
-    		ArrayList<Hospital> hospList = jdbcManager.selectAllHospitals();
-    		Iterator<Hospital> hospIter = hospList.iterator();
-    		while(hospIter.hasNext())
-    		{
-    			jdbcManager.setHospitalRelations(hospIter.next());
-    		}
-    		
-    		ArrayList<Machinery> machList = jdbcManager.selectAllMachineries();
-    		Iterator<Machinery> machIter = machList.iterator();
-    		while(machIter.hasNext())
-    		{
-    			jdbcManager.setMachineryRelations(machIter.next());
-    		}
-    		
-    		ArrayList<Instrument> instList = jdbcManager.selectAllInstruments();
-    		Iterator<Instrument> wareIter = instList.iterator();
-    		while(wareIter.hasNext())
-    		{
-    			jdbcManager.setInstrumentRelations(wareIter.next());
-    		}
-    		
-    		MtM mtmObj = new MtM(matList,hospList,machList,instList);
-    		
-    		xmlManager.marshalMtM(path,mtmObj);
-    		
-    	}else
-    	{
-    		System.out.println("Select the hospital you want to convert into XML");
-    		listHospitals(false);
-    		int op = writeNumber();
-    		Hospital hosp = jdbcManager.selectHospital(op);
-    	
-    		xmlManager.marshallHospital(path, hosp);
-    	}
-    	
-    }
-
-    public static void openXML()
-    {
-    	
-    	System.out.println("Introduce the path to the file that contains the DB");
-    	String path = writeString();
-    	//String optionalPath = "./db/xml";
-    	//String path = optionalPath;
-    	
-    	System.out.printf("Do you want to open:\n1:Hospital\n2:MtM");
-    	int opt = writeNumber(2);
-    	if(opt == 1)
-    	{
-    		Hospital hosp = xmlManager.unmarshallHospital(path);
-        	Iterator <Order> iter = hosp.getOrderList().iterator();
-        	
-        	jdbcManager.insert(hosp);
-        	jdbcManager.setHospitalID(hosp);
-        	
-        	while(iter.hasNext())
-        	{
-        		Order ord = iter.next();
-        		jdbcManager.insert(ord);
-        		jdbcManager.setOrderID(ord);
-        		jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(), ord.getOrderID(), 0);
-        	}
-    	}
-    	else
-    	{
-    		MtM mtm = xmlManager.unmarshallMtM(path);
-    		
-    		String queryIns = "SELECT * FROM instrument WHERE instrument_ID = ?";
-    		String queryHosp = "SELECT * FROM hospital WHERE hospital_ID = ?";
-    		String queryOrd = "SELECT * FROM orders WHERE order_ID = ?";
-    		String queryMach = "SELECT * FROM machinery WHERE machineryID = ?";
-    		String queryMat = "SELECT * FROM material WHERE materialID = ?";
-    		String queryEmp = "SELECT * FROM employee WHERE employee_ID = ?";
-    		String queryComp = "SELECT * FROM company WHERE companyID = ?";
-    		String queryWare = "SELECT * FROM warehouse WHERE warehouse_ID = ?";
-    		
-    		ArrayList<Hospital> hospList = (ArrayList<Hospital>) mtm.getHospList();
-    		Iterator<Hospital> hospIter = hospList.iterator();
-    		
-    		ArrayList<Instrument> instList= (ArrayList<Instrument>) mtm.getInstList();
-    		Iterator<Instrument> instIter = instList.iterator();
-    		
-    		ArrayList<Machinery>  machList = (ArrayList<Machinery>) mtm.getMachList();
-    		Iterator<Machinery> machIter = machList.iterator();
-    		
-    		ArrayList<Material> matList = (ArrayList<Material>)mtm.getmatList();
-    		Iterator<Material> matIter = matList.iterator();
-    		
-    		//Set the relations and store in the DB
-    		//HOSPITAL
-    		while(hospIter.hasNext())
-    		{
-    			Hospital hosp = hospIter.next();
-    			
-    			//Inserto Objeto
-    			if(!jdbcManager.valExist(queryHosp,hosp.getHospitalID(),null))//Si el objeto no existe en la base de datos
-    			{
-    				jdbcManager.insert(hosp);
-    			}
-    			//ORDER
-    			ArrayList<Order> ordList = (ArrayList<Order>)hosp.getOrderList();
-    			Iterator<Order> orderIter = ordList.iterator();
-    			while(orderIter.hasNext())
-    			{
-    				Order ord = orderIter.next();
-    				
-    				if(!jdbcManager.valExist(queryOrd, ord.getOrderID(), null))
-    				{
-    					jdbcManager.insert(ord);
-    				}
-    				
-    				//Relation moment
-    				
-    				jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(), ord.getOrderID(), 100);
-    				
-    			}
-    		}
-    		
-    		//INSTRUMENT
-    		while(instIter.hasNext())
-    		{
-    			Instrument ins = instIter.next();
-    			
-    			if(!jdbcManager.valExist(queryIns, ins.getInstrumentID(), null))
-    			{
-    				jdbcManager.insert(ins);
-    			}
-    			
-    			ArrayList<Order> ordList = (ArrayList<Order>)ins.getOrderList();
-    			Iterator<Order> orderIter = ordList.iterator();
-    			
-    			while(orderIter.hasNext())
-    			{
-    				Order ord = orderIter.next();
-    				if(!jdbcManager.valExist(queryOrd, ord.getOrderID(), null))
-    				{
-    					jdbcManager.insert(ord);
-    				}
-    				
-    				jdbcManager.setRelationInstrumentOrder(ins.getInstrumentID(), ord.getOrderID());
-    			}
-    			//MAQUINARIAS
-    			ArrayList<Machinery> machListIns = (ArrayList<Machinery>)ins.getMachineryTypeList();
-    			Iterator <Machinery> machInsIter = machListIns.iterator();
-    			
-    			while(machInsIter.hasNext())
-    			{
-    				Machinery mach = machInsIter.next();
-    				if(!jdbcManager.valExist(queryMach,mach.getMachineryID(),null))
-    				{
-    					jdbcManager.insert(mach);
-    				}
-    				
-    				jdbcManager.setRelationInstrumentMachinery(ins.getInstrumentID(), mach.getMachineryID(), 100);
-    			}
-    			
-    			Warehouse ware = ins.getWarehouse();
-    			if(!jdbcManager.valExist(queryWare,ware.getWarehouseID(), null))
-    			{
-    				//Introduce is relate
-    				jdbcManager.insert(ware);
-    			}
-    			
-    		}
-    		
-    		//MACHINERY
-    		while(machIter.hasNext())
-    		{
-    			Machinery mach = machIter.next();
-    			
-    			if(!jdbcManager.valExist(queryMach,mach.getMachineryID(),null))
-    			{
-    				jdbcManager.insert(mach);
-    			}
-    			
-    			//EMPLEADOS
-    			ArrayList<Employee> empArray = (ArrayList<Employee>)mach.getEmployeeList();
-    			Iterator<Employee> empIter = empArray.iterator();
-    			while(empIter.hasNext())
-    			{
-    				Employee  emp = empIter.next();
-    				if(jdbcManager.valExist(queryEmp,emp.getEmployee_ID(), null))
-    				{
-    					jdbcManager.insert(emp);
-    				}
-    				
-    			}
-    			
-    			//Cargar desde maquinaria los materiales
-        		ArrayList<Material> matArray = (ArrayList<Material>)mach.getMaterialList();
-        		Iterator<Material> matItera = matArray.iterator();
-        		
-        		while(matItera.hasNext())
-        		{
-        			Material mat = matItera.next();
-        			
-        			if(!jdbcManager.valExist(queryMat, mat.getMaterialID(), null))
-        			{
-        				jdbcManager.insert(mat);
-        			}
-        		}
-    			
-    		}
-    		
-    		
-    		//MATERIAL
-    		while(matIter.hasNext())
-    		{
-    			Material mat = matIter.next();
-    			if(!jdbcManager.valExist(queryMat, mat.getMaterialID(), null))
-    			{
-    				jdbcManager.insert(mat);
-    			}
-    			
-    			Company comp = mat.getCompany();
-    			
-    			if(!jdbcManager.valExist(queryComp, mat.getMaterialID(), null))
-    			{
-    				jdbcManager.insert(comp);
-    			}
-    			
-    			Warehouse war = mat.getWarehouseID();
-    			if(!jdbcManager.valExist(queryWare, war.getWarehouseID(),null))
-    			{
-    				jdbcManager.insert(war);
-    			}
-    		}
-    		
-    	}
-    	
-    	 
-    }
-
     
     //Management Methods
 

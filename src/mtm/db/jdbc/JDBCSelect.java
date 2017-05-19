@@ -44,7 +44,7 @@ public class JDBCSelect
 			
 			while (rs.next()) 
 			{
-				hospitalID = rs.getInt("hospital_ID");
+				hospitalID = rs.getInt("hospitalID");
 				name = rs.getString("name");
 				location = rs.getString("location");
 				medicalSpecialization = rs.getString("medical_specialization");
@@ -79,7 +79,7 @@ public class JDBCSelect
 			
 			while (rs.next()) 
 			{
-				hospitalID = rs.getInt("hospital_ID");
+				hospitalID = rs.getInt("hospitalID");
 				name = rs.getString("name");
 				location = rs.getString("location");
 				medicalSpecialization = rs.getString("medical_specialization");
@@ -113,7 +113,7 @@ public class JDBCSelect
 			
 			while(rs.next())
 			{
-				int orderID = rs.getInt("order_ID");
+				int orderID = rs.getInt("orderID");
 				int totalAmountInstruments = rs.getInt("total_amount_instruments");
 				java.sql.Date orderDate = rs.getDate("order_date");
 				java.sql.Date deliveryDate = rs.getDate("delivery_date");
@@ -462,7 +462,7 @@ public class JDBCSelect
 			
 			while(rs.next())
 			{
-				int hospitalID = rs.getInt("hospital_ID");
+				int hospitalID = rs.getInt("hospitalID");
 				String name = rs.getString("name");
 				String location = rs.getString("location");
 				String medicalSpecialization = rs.getString("medical_specialization");
@@ -493,7 +493,7 @@ public class JDBCSelect
 			
 			while(rs.next())
 			{
-				int orderID = rs.getInt("order_ID");
+				int orderID = rs.getInt("orderID");
 				int totalAmountInstruments = rs.getInt("total_amount_instruments");
 				java.sql.Date orderDate = rs.getDate("order_date");
 				java.sql.Date deliveryDate = rs.getDate("delivery_date");

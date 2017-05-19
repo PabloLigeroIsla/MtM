@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlType;
 @Table(name = "warehouse")
 @XmlAccessorType(XmlAccessType.FIELD) //Be able to use XML
 @XmlRootElement(name = "Warehouse")
-@XmlType(propOrder = { "warehouseID", "warehouseLocation", "capacity", "filledSpace", "instrumentList", "materialTypeList" })//Set the attributes in the XML
+@XmlType(propOrder = { "warehouseID", "warehouseLocation", "capacity", "filledSpace" })//Set the attributes in the XML
 
 public class Warehouse implements Serializable {
 /**

@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlType;
 @Table(name = "company") //sql table name  (Compatible with JDBC)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Company")
-@XmlType(propOrder = { "companyID","location","companyName","materialList"})
+@XmlType(propOrder = { "companyID","location","companyName"})
 public class Company implements Serializable {
 
 
@@ -34,8 +34,8 @@ public class Company implements Serializable {
 	private String companyName;
 	
 
-
-	@JoinColumn(name="Material")
+	
+	@OneToMany(mappedBy="company")//Company:Name of the object Company in the Material Object
 	private ArrayList<Material>  materialList;
 
 

@@ -25,7 +25,7 @@ import java.time.LocalDate;
 @Table(name = "orders")
 @XmlAccessorType(XmlAccessType.FIELD) //Be able to use XML
 @XmlRootElement(name = "Order")
-@XmlType(propOrder = { "orderId", "TotalAmountInstruments", "orderDate", "deliveryDate", "instrumentList" })
+@XmlType(propOrder = { "orderId", "TotalAmountInstruments", "orderDate", "deliveryDate" })
 public class Order implements Serializable
 {
 
@@ -50,7 +50,7 @@ public class Order implements Serializable
 	@ManyToMany(mappedBy = "orderList") 
 	private List <Instrument> instrumentList;
 	
-	//Primary Key --> order_ID
+	//Primary Key --> orderID
 	//Foreign Key --> hospitalList,instrumentList
 	
 	// Gets and Sets

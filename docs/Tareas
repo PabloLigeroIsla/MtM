@@ -28,3 +28,7 @@ Opcionales que faltan:
 
 
 -hay q hacer un esquema dtd manualmente con notepad, y compararlo luego con el xml para ver si sigue el mismo esquema
+
+-El único fallo de JPA es que parece que hay que pasarle el ID por algunmotivo para que se pueda introducir. Una vez hecho 
+esto, esta comprobado que se puede Seleccionar con JPA.
+Si quereis probar cosas de la base, comentar los metodos de jpa y probais

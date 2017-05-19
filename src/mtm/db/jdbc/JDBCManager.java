@@ -251,7 +251,7 @@ public class JDBCManager implements DBInterface
 	public void deleteHospital(int primaryKey)
 	{
 		
-		String sqlQuery = "SELECT * FROM hospital WHERE hospital_ID = ?";
+		String sqlQuery = "SELECT * FROM hospital WHERE hospitalID = ?";
 		if(valExist(sqlQuery,primaryKey,null))
 		{
 			JDBCDelete sqlDelete = new JDBCDelete(c);
@@ -261,8 +261,8 @@ public class JDBCManager implements DBInterface
 			//We delate the corresponding orders related with the hospital
 			
 			String relationalTable = "hospital_orders";
-			String pk1AttributeSearch = "order_ID";
-			String pkAttributeCompere = "hospital_ID";
+			String pk1AttributeSearch = "orderID";
+			String pkAttributeCompere = "hospitalID";
 			int pkValueCompare = primaryKey;
 			
 			ArrayList<Integer> orderPkRelationFound = new ArrayList<Integer>();
@@ -292,7 +292,7 @@ public class JDBCManager implements DBInterface
 	
 	public void deleteOrder(int primaryKey)
 	{
-		String sqlQuery = "SELECT * FROM orders WHERE order_ID = ?";
+		String sqlQuery = "SELECT * FROM orders WHERE orderID = ?";
 		
 		if(valExist(sqlQuery,primaryKey,null))
 		{
@@ -302,24 +302,24 @@ public class JDBCManager implements DBInterface
 			
 			//We also delete the relation
 			String table = "hospital_orders";
-			String  pk1AtributeSearch = "hospital_ID";
-			String pkAtributeCompere = "order_ID";
+			String  pk1AtributeSearch = "hospitalID";
+			String pkAtributeCompere = "orderID";
 			int pkValueCompere = primaryKey;
 			if(!sharedRelation(table, pk1AtributeSearch, pkAtributeCompere, pkValueCompere))
 			{
 				
-				String colPk = "order_ID";
+				String colPk = "orderID";
 				deleteRelationHospitalOrder(primaryKey,colPk);
 			}
 			
 			
 			table = "instrument_orders";
-			pk1AtributeSearch = "order_ID";
-			pkAtributeCompere = "order_ID";
+			pk1AtributeSearch = "orderID";
+			pkAtributeCompere = "orderID";
 			pkValueCompere = primaryKey;
 			if(!sharedRelation(table, pk1AtributeSearch, pkAtributeCompere, pkValueCompere))
 			{
-				String colPk = "order_ID";
+				String colPk = "orderID";
 				deleteRelationInstrumentOrder(primaryKey,colPk);
 			}
 			
@@ -374,7 +374,7 @@ public class JDBCManager implements DBInterface
 			// We also delete the relation with the order in which it is contained
 			
 			String table = "instruments_order";
-			String pk1AtSearch = "order_ID";
+			String pk1AtSearch = "orderID";
 			String pk1Compare = "instrument_ID";
 			int pkValueCompare = primaryKeyInstrument;
 			if(!sharedRelation(table, pk1AtSearch, pk1Compare, pkValueCompare))
@@ -503,7 +503,7 @@ public class JDBCManager implements DBInterface
 	public Hospital selectHospital(int primaryKey)
 	{
 		String table = "hospital";
-		String selQuery = "SELECT * FROM "+table+" WHERE hospital_ID = ?";
+		String selQuery = "SELECT * FROM "+table+" WHERE hospitalID = ?";
 		
 		
 		if(valExist(selQuery,primaryKey,null))
@@ -549,7 +549,7 @@ public class JDBCManager implements DBInterface
 
  	public Order selectOrder(int primaryKey)
 	{
-		String selQuery = "SELECT * FROM orders WHERE order_ID = ?";
+		String selQuery = "SELECT * FROM orders WHERE orderID = ?";
 		
 		if(valExist(selQuery,primaryKey,null))
 		{
@@ -873,7 +873,7 @@ public class JDBCManager implements DBInterface
  	public void updateHospital(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
  	{
  		String table = "hospital";
- 		String selQuery = "SELECT name FROM "+table+" WHERE hospital_ID = ?";
+ 		String selQuery = "SELECT name FROM "+table+" WHERE hospitalID = ?";
  		if(valExist(selQuery,pkSearch,null))
  		{
  			
@@ -888,7 +888,7 @@ public class JDBCManager implements DBInterface
  	public void updateOrder(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
  	{
  		String table = "orders";
- 		String selQuery = "SELECT * FROM orders WHERE order_ID = ?";
+ 		String selQuery = "SELECT * FROM orders WHERE orderID = ?";
  		if(valExist(selQuery,pkSearch,null))
  		{
  		
@@ -1067,8 +1067,8 @@ public class JDBCManager implements DBInterface
 	public Hospital setHospitalRelations(Hospital hosp)
 	{
 		String relationalTable = "hospital_orders";
-		String pk1AtributeSearch = "order_ID";
-		String pkAtributeCompere = "hospital_ID";
+		String pk1AtributeSearch = "orderID";
+		String pkAtributeCompere = "hospitalID";
 		int pkValueCompere = hosp.getHospitalID();
 		
 		
@@ -1085,12 +1085,12 @@ public class JDBCManager implements DBInterface
 	
 	public Order setOrderRelations(Order ord)
 	{
-		String pkAtributeCompere = "order_ID";
+		String pkAtributeCompere = "orderID";
 		int pkValueCompere = ord.getOrderID();
 		
 		//Hospital List
 		String relationalTable = "hospital_orders";
-		String pk1AtributeSearch = "hospital_ID";
+		String pk1AtributeSearch = "hospitalID";
 		
 		ArrayList<Integer> hospitalPkRelationFound = new ArrayList<Integer>();
 		hospitalPkRelationFound = foundRelation(relationalTable,pk1AtributeSearch,pkAtributeCompere,pkValueCompere);
@@ -1123,7 +1123,7 @@ public class JDBCManager implements DBInterface
 		//relation instrument-orders
 		
 		String relationalTable = "instrument_orders";
-		String pk1AttSearchOrder = "order_ID";
+		String pk1AttSearchOrder = "orderID";
 		
 		
 		

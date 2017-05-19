@@ -5,6 +5,7 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -39,15 +40,18 @@ public class Material implements Serializable {
 	private String type;
 	
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "companyID")
+	@XmlElement(name = "Company")
 	private Company company; //FOREIGN KEY
 	
-	@JoinColumn(name = "machinery_ID")
+	@ManyToOne
+	@JoinColumn(name = "machineryID")
 	private Machinery machinery; //FOREIGN KEY
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "warehouse_ID")
+	@XmlElement(name = "Warehouse")
 	private Warehouse warehouse; //FOREIGN KEY
 
 	

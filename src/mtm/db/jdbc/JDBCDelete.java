@@ -124,7 +124,7 @@ public class JDBCDelete
 	{
 		try
 		{
-			String sql = "DELETE FROM hospital WHERE hospital_ID = ?";
+			String sql = "DELETE FROM hospital WHERE hospitalID = ?";
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setInt(1, pk);
 			prep.executeUpdate();
@@ -142,7 +142,7 @@ public class JDBCDelete
 	{
 		try
 		{
-			String sql = "DELETE FROM orders WHERE order_ID = ?";
+			String sql = "DELETE FROM orders WHERE orderID = ?";
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setInt(1, pk);
 			prep.executeUpdate();
