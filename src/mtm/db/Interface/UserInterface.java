@@ -488,8 +488,6 @@ public class UserInterface
 			break;
 		case 5: //Machinery
 			Machinery mach = createMachinery();
-			mach = jpaManager.setJava2JPAFormat(mach);
-			
 			//jdbcManager.insert(mach);@SIMach
 			jpaManager.insert(mach);
 			break;
@@ -797,7 +795,7 @@ public class UserInterface
     			listMachineries(false);
     			System.out.println("Type the PK of the machinery:\n");
     			int pk = writeNumber();
-    			Machinery mach = jdbcManager.selectMachinery(pk);
+    			Machinery mach = jpaManager.selectMachinery(pk);
     			if(mach != null){
     				mat.setMachineryID(mach);
     				aux2 = false;
@@ -842,7 +840,8 @@ public class UserInterface
     			listWarehouses(true);
         		System.out.println("Type the PK of the Warehouse:\n");
         		int pk = writeNumber();
-        		Warehouse ware = jdbcManager.selectWarehouse(pk);
+        		//Warehouse ware = jdbcManager.selectWarehouse(pk);
+        		Warehouse ware = jpaManager.selectWarehouse(pk);
         	
         		if(ware != null)
         		{
@@ -906,7 +905,7 @@ public class UserInterface
     	listWarehouses(true);
     	System.out.println("Type the PK of the Warehouse:\n");
     	int pk = writeNumber();
-    	Warehouse ware = jdbcManager.selectWarehouse(pk);
+    	Warehouse ware = jpaManager.selectWarehouse(pk);
     	
     	if(ware != null){
     	mat.setWarehouseID(ware);

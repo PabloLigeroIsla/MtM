@@ -3,9 +3,8 @@ Tareas:
 Descomentar los metodos de UserInterface de JPA y comentar los de JDBC (buscar en refractor @JPAChange para ver donde estan comentados) 
 Quitar los XML que sobran
 Use XSLT to produce a HTML
-Hacer printMachinery(bien), no hacer con el return
+Hacer printMachinery(bien), no hacer con el return (CELIA)
 Probar a eliminar y a actualizar
-
 
 Actualizar el UML
 Actualizar el ultimo esquema ese que tenias que poner los metodos
@@ -31,38 +30,6 @@ Opcionales que faltan:
 
 
 Questions Rodrigo:
-1.- The JPA attributes should have the same name as in the tables?
-	I: YES => Change the create tables and all the strings in JDBCManager of Machinery and Material
-2.- should we open the full databas that is stores with XML once we save it?
-3.- What means? create a GUI separated from your database manager
-
-
-@Error
-Lamamos a una conexion dentro de otra conexion. ¿Como lo solucionamos?
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

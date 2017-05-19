@@ -72,7 +72,7 @@ public class JPAManager implements DBInterface
 	
 	public Machinery selectMachinery(int primaryKey)
 	{	
-		Query sql = em.createNativeQuery("SELECT * FROM machinery WHERE machinery_ID = ?",Machinery.class);
+		Query sql = em.createNativeQuery("SELECT * FROM machinery WHERE machineryID = ?",Machinery.class);
 		sql.setParameter(1, primaryKey);
 		
 		Machinery mach = (Machinery) sql.getSingleResult();
@@ -115,6 +115,60 @@ public class JPAManager implements DBInterface
 		mach.setStateofMachinery(workingState);
 		em.getTransaction().commit();
 		
+	}
+	
+	
+	//ORDER
+	
+	public Order selectOrder(int primaryKey)
+	{
+		
+		
+		Query sql = em.createNativeQuery("SELECT * FROM orders WHERE order_ID = ?",Order.class);
+		sql.setParameter(1, primaryKey);
+		Order ord = (Order) sql.getSingleResult();
+		return ord;
+	}
+	
+	//INSTRUMENT
+	
+	public Instrument selectInstrument(int primaryKey)
+	{
+		Query sql = em.createNativeQuery("SELECT * FROM instruments WHERE instrument_ID = ?",Order.class);
+		sql.setParameter(1, primaryKey);
+		
+		Instrument inst = (Instrument) sql.getSingleResult();
+		
+		return inst;
+	}
+	
+	public Company selectCompany(int primaryKey)
+	{
+		Query sql = em.createNativeQuery("SELECT * FROM company WHERE companyID = ?",Company.class);
+		sql.setParameter(1, primaryKey);
+		
+		Company comp = (Company) sql.getSingleResult();
+		
+		return comp;
+	}
+	
+	public Employee selectEMployee(int primaryKey)
+	{
+		
+		Query sql = em.createNativeQuery("SELECT * FROM employee WHERE employee_ID = ?",Employee.class);
+		sql.setParameter(1, primaryKey);
+		
+		Employee emp = (Employee) sql.getSingleResult();
+		return emp;
+	}
+	
+	public Warehouse selectWarehouse(int primaryKey)
+	{
+		Query sql = em.createNativeQuery("SELECT * FROM warehouse WHERE warehouse_ID = ?",Warehouse.class);
+		sql.setParameter(1, primaryKey);
+		
+		Warehouse ware = (Warehouse) sql.getSingleResult();
+		return ware;
 	}
 	
 }
