@@ -1,14 +1,15 @@
 Tareas: 
 
 Use XSLT to produce a HTML
-Hacer printMachinery(bien), no hacer con el return (CELIA)
-Probar a delete y update
+Hacer printMachinery(bien), no hacer con el return, imprimir una cosa u otra dependiendo de un boolean que me marque la relación (CELIA)
+Probar  delete y update
+Probar XML
 
 Actualizar el UML
 Actualizar el ultimo esquema ese que tenias que poner los metodos
 Hacer el Esquema de XML
 
-Probar toda la base de datos
+Probar toda la base de datos en su conjunto
 
 
 Opcionales que faltan:
