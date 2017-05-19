@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 
 import mtm.db.pojos.Company;
 import mtm.db.pojos.Employee;
@@ -59,13 +58,10 @@ public class JDBCInsert
 			String sql = "INSERT INTO orders(total_amount_instruments,order_date,delivery_date)"
 					+ "VALUES(?,?,?);";
 			
-			java.sql.Date delDate = LocaltoSqlDate(ord.getDeliveryDate());
-			java.sql.Date ordDate = LocaltoSqlDate(ord.getOrderDate());
-			
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setDouble(1, ord.getTotalAmountInstruments());
-			prep.setDate(2,ordDate);
-			prep.setDate(3, delDate);
+			prep.setDate(2,ord.getOrderDate());
+			prep.setDate(3, ord.getDeliveryDate());
 			
 			prep.executeUpdate();
 		
@@ -166,11 +162,11 @@ public class JDBCInsert
 			String sql = "INSERT INTO machinery(machineryType,stateofMachinery,dateofInstallation,sizeofMachinery)"
 				+ "VALUES (?,?,?,?);";
 			
-			java.sql.Date InstallationDate = LocaltoSqlDate(mach.getDateofInstallation());
+			
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setString(1, mach.getMachineryType());
 			prep.setString(2, mach.getStateofMachinery());
-			prep.setDate(3, InstallationDate);
+			prep.setDate(3, mach.getDateofInstallation());
 			prep.setInt(4, mach.getSizeofMachinery());
 			
 			prep.executeUpdate();
@@ -184,7 +180,7 @@ public class JDBCInsert
 		{
 			e.printStackTrace();
 		}
-		}
+	}
 		
 	public void insert(Company com){
 		try{
@@ -332,16 +328,6 @@ public class JDBCInsert
 		{
 			e.printStackTrace();
 		}	
-	}
-
-			
-	//Help Methods
+	}	
 	
-	private java.sql.Date LocaltoSqlDate(LocalDate locDate) 
-	{
-		java.sql.Date sqlDate;
-		sqlDate = java.sql.Date.valueOf(locDate);
-		return sqlDate;
-		    
-	}
 }

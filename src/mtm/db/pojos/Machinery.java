@@ -1,6 +1,8 @@
 package mtm.db.pojos;
 
 import java.io.Serializable;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +23,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import mtm.db.pojos.Employee;
-
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "machinery") //sql table name  (Compatible with JDBC)
@@ -49,7 +49,7 @@ public class Machinery implements Serializable {
 	@XmlAttribute
 	private String stateofMachinery;
 	@XmlAttribute
-	private LocalDate dateofInstallation;
+	private Date dateofInstallation;
 	@XmlAttribute
 	private int sizeofMachinery;
 
@@ -140,11 +140,11 @@ public class Machinery implements Serializable {
 		this.stateofMachinery = stateofMachinery;
 	}
 
-	public LocalDate getDateofInstallation() {
+	public Date getDateofInstallation() {
 		return dateofInstallation;
 	}
 
-	public void setDateofInstallation(LocalDate dateofInstallation) {
+	public void setDateofInstallation(Date dateofInstallation) {
 		this.dateofInstallation = dateofInstallation;
 	}
 
@@ -166,7 +166,7 @@ public class Machinery implements Serializable {
 
 	}
 	
-	public Machinery(String machineryType, String stateofMachinery, LocalDate dateofInstallation, int sizeofMachinery) {
+	public Machinery(String machineryType, String stateofMachinery, Date dateofInstallation, int sizeofMachinery) {
 		super();
 		this.machineryType = machineryType;
 		this.stateofMachinery = stateofMachinery;
@@ -178,7 +178,7 @@ public class Machinery implements Serializable {
 		this.employeeList = new ArrayList<Employee>();
 	}
 	
-	public Machinery(int machineryID,String machineryType, String stateofMachinery, LocalDate dateofInstallation, int sizeofMachinery) {
+	public Machinery(int machineryID,String machineryType, String stateofMachinery, Date dateofInstallation, int sizeofMachinery) {
 		super();
 		this.machineryID = machineryID;
 		this.machineryType = machineryType;
@@ -192,7 +192,7 @@ public class Machinery implements Serializable {
 
 	}	
 	
-	public Machinery(int machineryID,String machineryType, String stateofMachinery, LocalDate dateofInstallation, 
+	public Machinery(int machineryID,String machineryType, String stateofMachinery, Date dateofInstallation, 
 			int sizeofMachinery, List<Instrument> instrumentList, List<Material> materialList, List<Employee> employeeList) {
 		super();
 		this.machineryID = machineryID;
@@ -249,6 +249,14 @@ public class Machinery implements Serializable {
 		}
 	}
 	
+	private LocalDate SqltoLocalDate(java.sql.Date sqlDate)
+	{
+
+		LocalDate locDate = sqlDate.toLocalDate();
+		return locDate;
+		
+	}
+	
 	@Override
 	public String toString() 
 	{
@@ -260,7 +268,7 @@ public class Machinery implements Serializable {
 	public String printMach(){
 		return "Machinery [machineryID=" + this.machineryID + ",machineryType=" 
 				+ this.machineryType + ",stateofMachinery=" + this.stateofMachinery + ", dateofInstallation=" 
-				+ this.dateofInstallation + ", sizeofMachinery=" + this.sizeofMachinery + "]";
+				+ SqltoLocalDate(this.dateofInstallation) + ", sizeofMachinery=" + this.sizeofMachinery + "]";
 	}
 
 	@Override

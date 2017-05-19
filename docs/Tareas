@@ -39,3 +39,35 @@ Questions Rodrigo:
 
 @Error
 Lamamos a una conexion dentro de otra conexion. ¿Como lo solucionamos?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-introduces objeto con objetos en su interior, los objetos de su interior hay que seleccionarlos con jpa para que 
+se puedan iintroducir.
+(si haces algo con jpa en un objeto, lo q hayas hecho justo antes con ese objeto, o cosas q tenga dentro, ha debido ser seleccionado con jpa) 
+
+-hay q hacer un esquema dtd manualmente con notepad, y compararlo luego con el xml para ver si sigue el mismo esquema

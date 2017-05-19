@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.time.LocalDate;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.time.format.DateTimeFormatter;
@@ -21,15 +22,20 @@ public class JDBCManager implements DBInterface
 	
 	public Order createPojoOrder(int number,String d11,String d12,String d13,String d21,String d22,String d23)
 	{
-		LocalDate date1SQL = StringtoLocalDate(d13,d12,d11);
-		LocalDate date2SQL = StringtoLocalDate(d23,d22,d21);
+		LocalDate date1Ld = StringtoLocalDate(d13,d12,d11);
+		LocalDate date2Ld = StringtoLocalDate(d23,d22,d21);
+		
+		Date date1SQL = LocaltoSqlDate(date1Ld);
+		Date date2SQL = LocaltoSqlDate(date2Ld);
+		
 		Order ord = new Order(number,date1SQL,date2SQL);
 		return ord;
 	}
 	
 	public Machinery createPojoMachinery(String machineryType, String stateofMachinery,String d,String m, String y, int sizeofMachinery){
 		
-		LocalDate date3SQL = StringtoLocalDate(y,m,d);
+		LocalDate date3LD = StringtoLocalDate(y,m,d);
+		Date date3SQL = LocaltoSqlDate(date3LD);
 		Machinery mach = new Machinery (machineryType, stateofMachinery, date3SQL, sizeofMachinery);
 		return mach;
 		
@@ -1328,6 +1334,14 @@ public class JDBCManager implements DBInterface
 	
 		return a;
 		
+	}
+	
+	private java.sql.Date LocaltoSqlDate(LocalDate locDate) 
+	{
+		java.sql.Date sqlDate;
+		sqlDate = java.sql.Date.valueOf(locDate);
+		return sqlDate;
+		    
 	}
 	
 }
