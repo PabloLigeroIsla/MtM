@@ -9,7 +9,6 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -57,19 +56,15 @@ public class Machinery implements Serializable {
 	@OneToMany(mappedBy="machinery")
 	@XmlElement(name = "Material") 
     @XmlElementWrapper(name = "Materials")
-	@JoinColumn(name="materialID")
 	private List <Material> materialList; //FOREIGN KEY
 
-	@XmlElement(name="Instrument")
-	@XmlElementWrapper(name ="Instruments")
+	
 	@ManyToMany(mappedBy = "machineryTypeList")
-	@JoinColumn(name = "Instrument")
 	private List <Instrument> instrumentList; //FOREIGN KEY
 	
 	@OneToMany(mappedBy="machineryType")
 	@XmlElement(name = "Employee")
 	@XmlElementWrapper(name = "Employees")
-	@JoinColumn(name = "Employee")
 	private List <Employee> employeeList; //FOREIGN KEY	
 
 	//materialList

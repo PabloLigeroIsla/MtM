@@ -7,8 +7,6 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -16,7 +14,7 @@ import javax.xml.bind.annotation.XmlType;
 @Table(name = "company") //sql table name  (Compatible with JDBC)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Company")
-@XmlType(propOrder = { "companyID","location","companyName","materialList"})
+@XmlType(propOrder = { "companyID","location","companyName"})
 public class Company implements Serializable {
 
 
@@ -36,10 +34,8 @@ public class Company implements Serializable {
 	private String companyName;
 	
 
-	@OneToMany(mappedBy="company") //one company has many materials
-	@XmlElement(name = "Material") 
-    @XmlElementWrapper(name = "Materials")	
-	@JoinColumn(name="Material")
+	
+	@OneToMany(mappedBy="company")//Company:Name of the object Company in the Material Object
 	private ArrayList<Material>  materialList;
 
 

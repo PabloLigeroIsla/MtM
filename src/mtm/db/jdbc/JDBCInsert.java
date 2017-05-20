@@ -133,7 +133,7 @@ public class JDBCInsert
 		{	
 			c.setAutoCommit(false);
 			Statement stmt = c.createStatement();
-			String sql = "INSERT INTO employee(name,typeofContract,specializationType,machinery_ID) "
+			String sql = "INSERT INTO employee(name,typeofContract,specializationType,machineryID) "
 			+ "VALUES ('" + emp.getName() + "', '" + emp.getTypeofContract()	+ "', '" 
 					+ emp.getSpecializationType()	+ "', '" + emp.getMachineryType().getMachineryID()	+ "');";
 			stmt.executeUpdate(sql);
@@ -243,7 +243,7 @@ public class JDBCInsert
 		{
 			c.setAutoCommit(false);
 			
-			String sql = "INSERT INTO hospital_orders(hospital_ID,order_ID,amountOrder)"
+			String sql = "INSERT INTO hospital_orders(hospitalID,orderID,amountOrder)"
 					+ "VALUES(?,?,?)";
 			
 			PreparedStatement prep = c.prepareStatement(sql);
@@ -266,7 +266,7 @@ public class JDBCInsert
 		{
 			c.setAutoCommit(false);
 			
-			String sql = "INSERT INTO instrument_orders(order_ID,instrument_ID)"
+			String sql = "INSERT INTO instrument_orders(orderID,instrument_ID)"
 					+"VALUES(?,?)";
 			
 			PreparedStatement prep = c.prepareStatement(sql);
@@ -314,7 +314,7 @@ public class JDBCInsert
 		{
 			c.setAutoCommit(false);
 			
-			String sql = "INSERT INTO material_warehouse(material_ID,warehouse_ID)"
+			String sql = "INSERT INTO material_warehouse(materialID,warehouse_ID)"
 					+ "VALUES(?,?)";
 				
 			PreparedStatement prep = c.prepareStatement(sql);

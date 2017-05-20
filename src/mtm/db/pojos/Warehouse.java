@@ -13,8 +13,6 @@ import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -23,7 +21,7 @@ import javax.xml.bind.annotation.XmlType;
 @Table(name = "warehouse")
 @XmlAccessorType(XmlAccessType.FIELD) //Be able to use XML
 @XmlRootElement(name = "Warehouse")
-@XmlType(propOrder = { "warehouseID", "warehouseLocation", "capacity", "filledSpace", "instrumentList", "materialTypeList" })//Set the attributes in the XML
+@XmlType(propOrder = { "warehouseID", "warehouseLocation", "capacity", "filledSpace" })//Set the attributes in the XML
 
 public class Warehouse implements Serializable {
 /**
@@ -51,13 +49,9 @@ public class Warehouse implements Serializable {
 	private Integer filledSpace;
 	
 	@OneToMany(mappedBy="warehouse") //one warehouse has many instruments
-	@XmlElement(name = "Instrument") 
-    @XmlElementWrapper(name = "Instruments")
 	private List<Instrument> instrumentList;
 
 	@OneToMany(mappedBy="warehouse") //one warehouse has many materials
-	@XmlElement(name = "Material") 
-    @XmlElementWrapper(name = "Materials")	
 	private List <Material> materialTypeList; //FOREIGN KEY
 	
 	

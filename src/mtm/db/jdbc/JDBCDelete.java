@@ -90,7 +90,7 @@ public class JDBCDelete
 	{
 		try
 		{
-			String sql = "DELETE FROM company WHERE company_id = ?";
+			String sql = "DELETE FROM company WHERE companyID = ?";
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setInt(1, pk);
 			prep.executeUpdate();
@@ -107,7 +107,7 @@ public class JDBCDelete
 	{
 		try
 		{
-			String sql = "DELETE FROM material WHERE material_id = ?";
+			String sql = "DELETE FROM material WHERE materialID = ?";
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setInt(1, pk);
 			prep.executeUpdate();
@@ -124,7 +124,7 @@ public class JDBCDelete
 	{
 		try
 		{
-			String sql = "DELETE FROM hospital WHERE hospital_ID = ?";
+			String sql = "DELETE FROM hospital WHERE hospitalID = ?";
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setInt(1, pk);
 			prep.executeUpdate();
@@ -142,7 +142,7 @@ public class JDBCDelete
 	{
 		try
 		{
-			String sql = "DELETE FROM orders WHERE order_ID = ?";
+			String sql = "DELETE FROM orders WHERE orderID = ?";
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setInt(1, pk);
 			prep.executeUpdate();

@@ -59,7 +59,7 @@ public class JDBCUpdate
 		
 	try
 	{
-		String sql = "UPDATE machinery SET stateofMachinery LIKE ? WHERE machinery_ID = ? ";
+		String sql = "UPDATE machinery SET stateofMachinery LIKE ? WHERE machineryID = ? ";
 
 				PreparedStatement prep = c.prepareStatement(sql);
 				prep.setString(1, stateofMachinery);
