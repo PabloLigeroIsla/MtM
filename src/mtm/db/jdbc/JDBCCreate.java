@@ -52,7 +52,7 @@ public class JDBCCreate
 			String sqlp4 = "CREATE TABLE instrument_orders("
 					+ "orderID INTEGER REFERENCES orders(orderID),"
 					+ "instrument_ID INTEGER REFERENCES instrument(instrument_ID),"
-					+ "amount_order INTEGER,"
+					+ "amountorder INTEGER,"
 					+ "PRIMARY KEY(orderID,instrument_ID))";
 			fPt2.executeUpdate(sqlp4);
 			fPt2.close();
@@ -138,10 +138,26 @@ public class JDBCCreate
 				sAt.executeUpdate(sqla2);
 				sAt.close();
 			
+			
+			
+			Statement stmtSeq = c.createStatement();
+			String sqlSeq;
+			
+			sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('hospital', 1)";
+			stmtSeq.executeUpdate(sqlSeq);
+			sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('orders', 1)";
+			stmtSeq.executeUpdate(sqlSeq);
+			sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('company', 1)";
+			stmtSeq.executeUpdate(sqlSeq);
+			sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('instrument', 1)";
+			stmtSeq.executeUpdate(sqlSeq);
+			sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('warehouse', 1)";
+			stmtSeq.executeUpdate(sqlSeq);
+			sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('employee', 1)";
+			stmtSeq.executeUpdate(sqlSeq);
+			sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('machinery', 1)";
+			stmtSeq.executeUpdate(sqlSeq);
 			c.commit();
-			
-			
-			
 			act = false;
 		}catch (Exception e)
 		{

@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import java.time.LocalDate;
@@ -45,9 +46,11 @@ public class Order implements Serializable
 	private Date deliveryDate;
 	
 	@ManyToMany(mappedBy = "orderList")
+	@XmlTransient
 	private List <Hospital> hospitalList;
 	
 	@ManyToMany(mappedBy = "orderList") 
+	@XmlTransient
 	private List <Instrument> instrumentList;
 	
 	//Primary Key --> orderID

@@ -2,12 +2,14 @@ package mtm.db.pojos;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 @Entity
@@ -36,7 +38,8 @@ public class Company implements Serializable {
 
 	
 	@OneToMany(mappedBy="company")//Company:Name of the object Company in the Material Object
-	private ArrayList<Material>  materialList;
+	@XmlTransient
+	private List<Material>  materialList;
 
 
 	
@@ -45,11 +48,11 @@ public class Company implements Serializable {
 		System.out.println("Company [companyID=" + companyID + ", location=" + location + ", companyName=" + companyName);
 	}
 
-	public ArrayList<Material> getMaterialList() {
+	public List<Material> getMaterialList() {
 		return materialList;
 	}
 
-	public void setMaterialList(ArrayList<Material> materialList) {
+	public void setMaterialList(List<Material> materialList) {
 		this.materialList = materialList;
 	}
 
@@ -57,7 +60,7 @@ public class Company implements Serializable {
 
 	}
 	
-	public Company(int company_id, String location, String companyName, ArrayList<Material> materialList){
+	public Company(int company_id, String location, String companyName, List<Material> materialList){
 		this.companyID= company_id;
 		this.location=location;
 		this.companyName=companyName;

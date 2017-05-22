@@ -359,7 +359,7 @@ public class UserInterface
 			String option = writeString();
 			if(writeOption(option))
 			{
-				if(jdbcManager.valExist("SELECT * FROM instrument WHERE instrument_ID = ?",1,null))
+				if(jdbcManager.valExist("SELECT * FROM hospital"))
 				{
 					boolean keepRelating = true;
 					listOrders(false);
