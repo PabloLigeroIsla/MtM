@@ -986,12 +986,12 @@ public class JDBCManager implements DBInterface
  	
 	//Set ID's
 	public Company setCompanyID(Company com){
-		ArrayList <Company> arraycom = selectAllCompanies();
-		Iterator<Company> iter = arraycom.iterator();
+		
 		int pkSearch = 0;
-		while(iter.hasNext()){
-			pkSearch = iter.next().getCompanyID();
-		} 
+		String query = "SELECT seq FROM sqlite_sequence WHERE name=?";
+		String table = "company";
+		JDBCSelect sqlSelect = new JDBCSelect(c);
+		pkSearch = sqlSelect.selectIdTable(query,table);
 		
 		com.setCompanyID(pkSearch);
 		
@@ -1000,62 +1000,60 @@ public class JDBCManager implements DBInterface
 	
 	public Hospital setHospitalID(Hospital hosp)
 	{
-		ArrayList <Hospital> arrayHosp = selectAllHospitals();
-		Iterator<Hospital> iter = arrayHosp.iterator();
+
 		int pkSearch = 0;
-		while(iter.hasNext())
-		{
-			pkSearch = iter.next().getHospitalID();
-		} 
+		String query = "SELECT seq FROM sqlite_sequence WHERE name=?";
+		String table = "hospital";
+		JDBCSelect sqlSelect = new JDBCSelect(c);
+		pkSearch = sqlSelect.selectIdTable(query,table);
+		
 		hosp.setHospitalID(pkSearch);
 		return hosp;
 	}
 
 	public Order setOrderID(Order ord)
 	{
-		ArrayList<Order> arrayOrd = selectAllOrders();
-		Iterator<Order> iter = arrayOrd.iterator();
+
 		int pkSearch = 0;
-		while(iter.hasNext())
-		{
-			pkSearch = iter.next().getOrderID();
-		}
+		
+		String query = "SELECT seq FROM sqlite_sequence WHERE name=?";
+		String table = "orders";
+		
+		JDBCSelect sqlSelect = new JDBCSelect(c);
+		pkSearch = sqlSelect.selectIdTable(query,table);
 		
 		ord.setOrderID(pkSearch);
+		
 		return ord;
 	}
 	
 	public Instrument setInstrumentID(Instrument inst){
-		ArrayList<Instrument> arrayinst = selectAllInstruments();
-		Iterator<Instrument> iter = arrayinst.iterator();
 		int pkSearch = 0;
-		while(iter.hasNext()){
-			pkSearch = iter.next().getInstrumentID();
-		}
+		String query = "SELECT seq FROM sqlite_sequence WHERE name=?";
+		String table = "instrument";
+		JDBCSelect sqlSelect = new JDBCSelect(c);
+		pkSearch = sqlSelect.selectIdTable(query,table);
 		inst.setInstrumentID(pkSearch);
 		return inst;
 	}
 	
 	public Warehouse setWarehouseID(Warehouse war){
-		ArrayList<Warehouse> arrayWar = selectAllWarehouses();
-		Iterator<Warehouse> iter = arrayWar.iterator();
 		int pkSearch = 0;
-		while(iter.hasNext()){
-			pkSearch = iter.next().getWarehouseID();
-		}
+		String query = "SELECT seq FROM sqlite_sequence WHERE name=?";
+		String table = "warehouse";
+		JDBCSelect sqlSelect = new JDBCSelect(c);
+		pkSearch = sqlSelect.selectIdTable(query,table);
 		war.setWarehouseID(pkSearch);
 		return war;
 	}
 
 	public Machinery setMachineryID(Machinery mach)
 	{
-		ArrayList<Machinery> arrayMach = selectAllMachineries();
-		Iterator <Machinery> iter = arrayMach.iterator();
 		int pkSearch = 0;
-		while(iter.hasNext())
-		{
-			pkSearch = iter.next().getMachineryID();
-		}
+		String query = "SELECT seq FROM sqlite_sequence WHERE name=?";
+		String table = "machinery";
+		JDBCSelect sqlSelect = new JDBCSelect(c);
+		pkSearch = sqlSelect.selectIdTable(query,table);
 		
 		mach.setMachineryID(pkSearch);
 		return mach;
@@ -1336,6 +1334,16 @@ public class JDBCManager implements DBInterface
 		
 	}
 	
+	public boolean valExist(String query)
+	{
+		
+		 boolean bool;
+		 JDBCSearch sel = new JDBCSearch(c);
+		 
+		 bool = sel.valGen(query);
+		 
+		return bool;
+	}
 	private java.sql.Date LocaltoSqlDate(LocalDate locDate) 
 	{
 		java.sql.Date sqlDate;

@@ -704,5 +704,27 @@ public class JDBCSelect
 		return materials;
 	}
 
+	// Help Methods
+	
+	public int selectIdTable(String query, String tableName)
+	{
+		int id = -1;
+		try
+		{
+			
+			String sql = query;
+			PreparedStatement prep = c.prepareStatement(sql);
+			prep.setString(1, tableName);
+			ResultSet rs = prep.executeQuery();
+			
+			id = rs.getInt("seq");
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return id;
+	}
 	
 }

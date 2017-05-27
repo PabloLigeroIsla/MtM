@@ -2,12 +2,14 @@ Tareas:
 
 Use XSLT to produce a HTML
 Hacer printMachinery(bien), no hacer con el return, imprimir una cosa u otra dependiendo de un boolean que me marque la relación (CELIA)
-Probar  delete y update
+Probar delete y update
 Probar XML
 
 Actualizar el UML
 Actualizar el ultimo esquema ese que tenias que poner los metodos
 Hacer el Esquema de XML
+
+Revisar los menus de los métodos para dar las opciones que seleccionamos 
 
 Probar toda la base de datos en su conjunto
 
@@ -27,8 +29,5 @@ Opcionales que faltan:
 7.-Finishing touches
 
 
--hay q hacer un esquema dtd manualmente con notepad, y compararlo luego con el xml para ver si sigue el mismo esquema
 
--El único fallo de JPA es que parece que hay que pasarle el ID por algunmotivo para que se pueda introducir. Una vez hecho 
-esto, esta comprobado que se puede Seleccionar con JPA.
-Si quereis probar cosas de la base, comentar los metodos de jpa y probais
+

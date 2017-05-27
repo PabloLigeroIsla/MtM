@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import mtm.db.pojos.Employee;
@@ -58,7 +59,7 @@ public class Machinery implements Serializable {
     @XmlElementWrapper(name = "Materials")
 	private List <Material> materialList; //FOREIGN KEY
 
-	
+	@XmlTransient ////////////////////////////////////////////////////////////////////////////////////////////
 	@ManyToMany(mappedBy = "machineryTypeList")
 	private List <Instrument> instrumentList; //FOREIGN KEY
 	
