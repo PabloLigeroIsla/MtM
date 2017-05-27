@@ -100,7 +100,7 @@ public class JDBCUpdate
 		
 		try {
 			
-			String sql = "UPDATE warehouse SET filled_space LIKE "+locationUpdated+" WHERE warehouse_ID=?";
+			String sql = "UPDATE warehouse SET warehouse_location LIKE "+locationUpdated+" WHERE warehouse_ID=?";
 			
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setInt(1, pkSearch);
