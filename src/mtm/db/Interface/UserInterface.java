@@ -255,7 +255,8 @@ public class UserInterface
 			listHospitals(relationOption);
 			break;
 		case 4:
-			listInstruments(relationOption);
+			ArrayList<Instrument> instList = jdbcManager.selectAllInstruments();
+			listInstruments(instList,relationOption);
 			break;
 		case 5:
 			listMachineries(relationOption);
@@ -308,7 +309,8 @@ public class UserInterface
 			
 			break;
 		case 4:
-			listInstruments(false);
+			ArrayList<Instrument> instList = jdbcManager.selectAllInstruments();
+			listInstruments(instList,false);
 			System.out.printf("Select the ID of the instrument you want to see\n");
 			showInstrument(writeNumber());
 			break;
@@ -359,7 +361,8 @@ public class UserInterface
 			String option = writeString();
 			if(writeOption(option))
 			{
-				if(jdbcManager.valExist("SELECT * FROM hospital"))
+				ArrayList<Instrument> instList = jdbcManager.selectAllInstruments();
+				if(instList.size()<=0)
 				{
 					boolean keepRelating = true;
 					listOrders(false);
@@ -384,7 +387,7 @@ public class UserInterface
 							jdbcManager.setOrderID(ord);
 							
 							System.out.println("Select the Primary Key of the instrument you want to order\n");
-					    	listInstruments(false);
+					    	listInstruments(instList,false);
 					    	int opt = writeNumber();
 					    	ord.addInstrument(jdbcManager.selectInstrument(opt));
 							System.out.println("Insert the amountOrder\n");
@@ -531,7 +534,8 @@ public class UserInterface
 			jdbcManager.deleteHospital(pk3);
 			break;
 		case 4: //Instrument
-			listInstruments(false);
+			ArrayList<Instrument> instList = jdbcManager.selectAllInstruments();
+			listInstruments(instList,false);
 			System.out.println("What instrument do you want to delete from this table? \n");
 			int pk4 = writeNumber();
 			jdbcManager.deleteInstrument(pk4);
@@ -1274,11 +1278,10 @@ public class UserInterface
     	
     }
         
-    public static void listInstruments(boolean relation){
-    	Instrument inst = new Instrument();
-    	ArrayList<Instrument> instrumentList = new ArrayList<Instrument>();
+    public static void listInstruments(ArrayList<Instrument>instrumentList ,boolean relation){
     	
-    	instrumentList = jdbcManager.selectAllInstruments();
+    	Instrument inst = new Instrument();
+    	
     	Iterator <Instrument> iter = instrumentList.iterator();
     	
     	while(iter.hasNext()){
