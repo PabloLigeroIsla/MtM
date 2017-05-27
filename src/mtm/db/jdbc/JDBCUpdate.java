@@ -13,6 +13,7 @@ public class JDBCUpdate
 		this.c = c;
 	}
 	
+	
 
 	public void update(String table, String colChange, String stringChange, int intChange, String colSearch, int pkSearch)
 	{
