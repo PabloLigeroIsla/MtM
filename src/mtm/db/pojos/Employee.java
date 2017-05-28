@@ -9,10 +9,20 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 
 @Entity
 @Table(name = "employee")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "Employee")
+@XmlType(propOrder = { "employeeID", "name", "specializationType", "typeofContract" })
+
 public class Employee implements Serializable {
 
 	/**
@@ -27,15 +37,19 @@ public class Employee implements Serializable {
 	@TableGenerator(name="employee", table="sqlite_sequence",
 	    pkColumnName="name", valueColumnName="seq", pkColumnValue="employee")
 	
-	
+	@XmlAttribute
 	private int employeeID;
+	@XmlAttribute
 	private String name;
+	@XmlAttribute
 	private String specializationType;
+	@XmlAttribute
 	private String typeofContract;
-	private Machinery machienryType;
+	@XmlAttribute
 	
 	@ManyToOne 
-	@JoinColumn(name = "machineryType")
+	@JoinColumn(name = "machineryID")//Variable in jdbc that makes reference
+	@XmlTransient
 	private Machinery machineryType; //FOREIGN KEY
 
 	

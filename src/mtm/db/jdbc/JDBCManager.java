@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.time.LocalDate;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.time.format.DateTimeFormatter;
@@ -21,15 +22,20 @@ public class JDBCManager implements DBInterface
 	
 	public Order createPojoOrder(int number,String d11,String d12,String d13,String d21,String d22,String d23)
 	{
-		LocalDate date1SQL = StringtoLocalDate(d13,d12,d11);
-		LocalDate date2SQL = StringtoLocalDate(d23,d22,d21);
+		LocalDate date1Ld = StringtoLocalDate(d13,d12,d11);
+		LocalDate date2Ld = StringtoLocalDate(d23,d22,d21);
+		
+		Date date1SQL = LocaltoSqlDate(date1Ld);
+		Date date2SQL = LocaltoSqlDate(date2Ld);
+		
 		Order ord = new Order(number,date1SQL,date2SQL);
 		return ord;
 	}
 	
 	public Machinery createPojoMachinery(String machineryType, String stateofMachinery,String d,String m, String y, int sizeofMachinery){
 		
-		LocalDate date3SQL = StringtoLocalDate(y,m,d);
+		LocalDate date3LD = StringtoLocalDate(y,m,d);
+		Date date3SQL = LocaltoSqlDate(date3LD);
 		Machinery mach = new Machinery (machineryType, stateofMachinery, date3SQL, sizeofMachinery);
 		return mach;
 		
@@ -245,7 +251,7 @@ public class JDBCManager implements DBInterface
 	public void deleteHospital(int primaryKey)
 	{
 		
-		String sqlQuery = "SELECT * FROM hospital WHERE hospital_ID = ?";
+		String sqlQuery = "SELECT * FROM hospital WHERE hospitalID = ?";
 		if(valExist(sqlQuery,primaryKey,null))
 		{
 			JDBCDelete sqlDelete = new JDBCDelete(c);
@@ -255,8 +261,8 @@ public class JDBCManager implements DBInterface
 			//We delate the corresponding orders related with the hospital
 			
 			String relationalTable = "hospital_orders";
-			String pk1AttributeSearch = "order_ID";
-			String pkAttributeCompere = "hospital_ID";
+			String pk1AttributeSearch = "orderID";
+			String pkAttributeCompere = "hospitalID";
 			int pkValueCompare = primaryKey;
 			
 			ArrayList<Integer> orderPkRelationFound = new ArrayList<Integer>();
@@ -286,7 +292,7 @@ public class JDBCManager implements DBInterface
 	
 	public void deleteOrder(int primaryKey)
 	{
-		String sqlQuery = "SELECT * FROM orders WHERE order_ID = ?";
+		String sqlQuery = "SELECT * FROM orders WHERE orderID = ?";
 		
 		if(valExist(sqlQuery,primaryKey,null))
 		{
@@ -296,24 +302,24 @@ public class JDBCManager implements DBInterface
 			
 			//We also delete the relation
 			String table = "hospital_orders";
-			String  pk1AtributeSearch = "hospital_ID";
-			String pkAtributeCompere = "order_ID";
+			String  pk1AtributeSearch = "hospitalID";
+			String pkAtributeCompere = "orderID";
 			int pkValueCompere = primaryKey;
 			if(!sharedRelation(table, pk1AtributeSearch, pkAtributeCompere, pkValueCompere))
 			{
 				
-				String colPk = "order_ID";
+				String colPk = "orderID";
 				deleteRelationHospitalOrder(primaryKey,colPk);
 			}
 			
 			
 			table = "instrument_orders";
-			pk1AtributeSearch = "order_ID";
-			pkAtributeCompere = "order_ID";
+			pk1AtributeSearch = "orderID";
+			pkAtributeCompere = "orderID";
 			pkValueCompere = primaryKey;
 			if(!sharedRelation(table, pk1AtributeSearch, pkAtributeCompere, pkValueCompere))
 			{
-				String colPk = "order_ID";
+				String colPk = "orderID";
 				deleteRelationInstrumentOrder(primaryKey,colPk);
 			}
 			
@@ -368,7 +374,7 @@ public class JDBCManager implements DBInterface
 			// We also delete the relation with the order in which it is contained
 			
 			String table = "instruments_order";
-			String pk1AtSearch = "order_ID";
+			String pk1AtSearch = "orderID";
 			String pk1Compare = "instrument_ID";
 			int pkValueCompare = primaryKeyInstrument;
 			if(!sharedRelation(table, pk1AtSearch, pk1Compare, pkValueCompare))
@@ -405,14 +411,14 @@ public class JDBCManager implements DBInterface
 	}
 	
 	public void deleteCompany(int primaryKey){
-		String sqlQuery = "SELECT * FROM company WHERE company_ID = ?";
+		String sqlQuery = "SELECT * FROM company WHERE companyID = ?";
 		if(valExist(sqlQuery,primaryKey,null))
 		{
 			JDBCDelete sqlDelete = new JDBCDelete(c);
 			sqlDelete.deleteCompany(primaryKey);
 			
 			//delete relations
-			ArrayList <Integer> arrayPks = foundRelation("material","material_ID","company_ID",primaryKey);
+			ArrayList <Integer> arrayPks = foundRelation("material","materialID","companyID",primaryKey);
 			Iterator<Integer> iter = arrayPks.iterator();
 			while(iter.hasNext()){
 				deleteMaterial(iter.next());
@@ -497,7 +503,7 @@ public class JDBCManager implements DBInterface
 	public Hospital selectHospital(int primaryKey)
 	{
 		String table = "hospital";
-		String selQuery = "SELECT * FROM "+table+" WHERE hospital_ID = ?";
+		String selQuery = "SELECT * FROM "+table+" WHERE hospitalID = ?";
 		
 		
 		if(valExist(selQuery,primaryKey,null))
@@ -543,7 +549,7 @@ public class JDBCManager implements DBInterface
 
  	public Order selectOrder(int primaryKey)
 	{
-		String selQuery = "SELECT * FROM orders WHERE order_ID = ?";
+		String selQuery = "SELECT * FROM orders WHERE orderID = ?";
 		
 		if(valExist(selQuery,primaryKey,null))
 		{
@@ -867,7 +873,7 @@ public class JDBCManager implements DBInterface
  	public void updateHospital(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
  	{
  		String table = "hospital";
- 		String selQuery = "SELECT name FROM "+table+" WHERE hospital_ID = ?";
+ 		String selQuery = "SELECT name FROM "+table+" WHERE hospitalID = ?";
  		if(valExist(selQuery,pkSearch,null))
  		{
  			
@@ -882,7 +888,7 @@ public class JDBCManager implements DBInterface
  	public void updateOrder(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
  	{
  		String table = "orders";
- 		String selQuery = "SELECT * FROM orders WHERE order_ID = ?";
+ 		String selQuery = "SELECT * FROM orders WHERE orderID = ?";
  		if(valExist(selQuery,pkSearch,null))
  		{
  		
@@ -919,7 +925,7 @@ public class JDBCManager implements DBInterface
  	public void updateMaterial(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
  	{
  		String table = "material";
- 		String selQuery = "SELECT name FROM "+table+" WHERE material_ID = ?";
+ 		String selQuery = "SELECT name FROM "+table+" WHERE materialID = ?";
  		if(valExist(selQuery,pkSearch,null))
  		{
  			
@@ -934,7 +940,7 @@ public class JDBCManager implements DBInterface
  	public void updateCompany(String colChange,String stringChange,int intChange,String colSearch,int pkSearch)
  	{
  		String table = "company";
- 		String selQuery = "SELECT * FROM o WHERE company_ID = ?";
+ 		String selQuery = "SELECT * FROM o WHERE companyID = ?";
  		if(valExist(selQuery,pkSearch,null))
  		{
  		
@@ -980,12 +986,12 @@ public class JDBCManager implements DBInterface
  	
 	//Set ID's
 	public Company setCompanyID(Company com){
-		ArrayList <Company> arraycom = selectAllCompanies();
-		Iterator<Company> iter = arraycom.iterator();
+		
 		int pkSearch = 0;
-		while(iter.hasNext()){
-			pkSearch = iter.next().getCompanyID();
-		} 
+		String query = "SELECT seq FROM sqlite_sequence WHERE name=?";
+		String table = "company";
+		JDBCSelect sqlSelect = new JDBCSelect(c);
+		pkSearch = sqlSelect.selectIdTable(query,table);
 		
 		com.setCompanyID(pkSearch);
 		
@@ -994,62 +1000,60 @@ public class JDBCManager implements DBInterface
 	
 	public Hospital setHospitalID(Hospital hosp)
 	{
-		ArrayList <Hospital> arrayHosp = selectAllHospitals();
-		Iterator<Hospital> iter = arrayHosp.iterator();
+
 		int pkSearch = 0;
-		while(iter.hasNext())
-		{
-			pkSearch = iter.next().getHospitalID();
-		} 
+		String query = "SELECT seq FROM sqlite_sequence WHERE name=?";
+		String table = "hospital";
+		JDBCSelect sqlSelect = new JDBCSelect(c);
+		pkSearch = sqlSelect.selectIdTable(query,table);
+		
 		hosp.setHospitalID(pkSearch);
 		return hosp;
 	}
 
 	public Order setOrderID(Order ord)
 	{
-		ArrayList<Order> arrayOrd = selectAllOrders();
-		Iterator<Order> iter = arrayOrd.iterator();
+
 		int pkSearch = 0;
-		while(iter.hasNext())
-		{
-			pkSearch = iter.next().getOrderID();
-		}
+		
+		String query = "SELECT seq FROM sqlite_sequence WHERE name=?";
+		String table = "orders";
+		
+		JDBCSelect sqlSelect = new JDBCSelect(c);
+		pkSearch = sqlSelect.selectIdTable(query,table);
 		
 		ord.setOrderID(pkSearch);
+		
 		return ord;
 	}
 	
 	public Instrument setInstrumentID(Instrument inst){
-		ArrayList<Instrument> arrayinst = selectAllInstruments();
-		Iterator<Instrument> iter = arrayinst.iterator();
 		int pkSearch = 0;
-		while(iter.hasNext()){
-			pkSearch = iter.next().getInstrumentID();
-		}
+		String query = "SELECT seq FROM sqlite_sequence WHERE name=?";
+		String table = "instrument";
+		JDBCSelect sqlSelect = new JDBCSelect(c);
+		pkSearch = sqlSelect.selectIdTable(query,table);
 		inst.setInstrumentID(pkSearch);
 		return inst;
 	}
 	
 	public Warehouse setWarehouseID(Warehouse war){
-		ArrayList<Warehouse> arrayWar = selectAllWarehouses();
-		Iterator<Warehouse> iter = arrayWar.iterator();
 		int pkSearch = 0;
-		while(iter.hasNext()){
-			pkSearch = iter.next().getWarehouseID();
-		}
+		String query = "SELECT seq FROM sqlite_sequence WHERE name=?";
+		String table = "warehouse";
+		JDBCSelect sqlSelect = new JDBCSelect(c);
+		pkSearch = sqlSelect.selectIdTable(query,table);
 		war.setWarehouseID(pkSearch);
 		return war;
 	}
 
 	public Machinery setMachineryID(Machinery mach)
 	{
-		ArrayList<Machinery> arrayMach = selectAllMachineries();
-		Iterator <Machinery> iter = arrayMach.iterator();
 		int pkSearch = 0;
-		while(iter.hasNext())
-		{
-			pkSearch = iter.next().getMachineryID();
-		}
+		String query = "SELECT seq FROM sqlite_sequence WHERE name=?";
+		String table = "machinery";
+		JDBCSelect sqlSelect = new JDBCSelect(c);
+		pkSearch = sqlSelect.selectIdTable(query,table);
 		
 		mach.setMachineryID(pkSearch);
 		return mach;
@@ -1061,8 +1065,8 @@ public class JDBCManager implements DBInterface
 	public Hospital setHospitalRelations(Hospital hosp)
 	{
 		String relationalTable = "hospital_orders";
-		String pk1AtributeSearch = "order_ID";
-		String pkAtributeCompere = "hospital_ID";
+		String pk1AtributeSearch = "orderID";
+		String pkAtributeCompere = "hospitalID";
 		int pkValueCompere = hosp.getHospitalID();
 		
 		
@@ -1079,12 +1083,12 @@ public class JDBCManager implements DBInterface
 	
 	public Order setOrderRelations(Order ord)
 	{
-		String pkAtributeCompere = "order_ID";
+		String pkAtributeCompere = "orderID";
 		int pkValueCompere = ord.getOrderID();
 		
 		//Hospital List
 		String relationalTable = "hospital_orders";
-		String pk1AtributeSearch = "hospital_ID";
+		String pk1AtributeSearch = "hospitalID";
 		
 		ArrayList<Integer> hospitalPkRelationFound = new ArrayList<Integer>();
 		hospitalPkRelationFound = foundRelation(relationalTable,pk1AtributeSearch,pkAtributeCompere,pkValueCompere);
@@ -1117,7 +1121,7 @@ public class JDBCManager implements DBInterface
 		//relation instrument-orders
 		
 		String relationalTable = "instrument_orders";
-		String pk1AttSearchOrder = "order_ID";
+		String pk1AttSearchOrder = "orderID";
 		
 		
 		
@@ -1330,4 +1334,22 @@ public class JDBCManager implements DBInterface
 		
 	}
 	
+	public boolean valExist(String query)
+	{
+		
+		 boolean bool;
+		 JDBCSearch sel = new JDBCSearch(c);
+		 
+		 bool = sel.valGen(query);
+		 
+		return bool;
+	}
+	private java.sql.Date LocaltoSqlDate(LocalDate locDate) 
+	{
+		java.sql.Date sqlDate;
+		sqlDate = java.sql.Date.valueOf(locDate);
+		return sqlDate;
+		    
+	}
+
 }

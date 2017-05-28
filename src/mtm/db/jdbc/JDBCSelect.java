@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import mtm.db.pojos.Company;
@@ -45,7 +44,7 @@ public class JDBCSelect
 			
 			while (rs.next()) 
 			{
-				hospitalID = rs.getInt("hospital_ID");
+				hospitalID = rs.getInt("hospitalID");
 				name = rs.getString("name");
 				location = rs.getString("location");
 				medicalSpecialization = rs.getString("medical_specialization");
@@ -80,7 +79,7 @@ public class JDBCSelect
 			
 			while (rs.next()) 
 			{
-				hospitalID = rs.getInt("hospital_ID");
+				hospitalID = rs.getInt("hospitalID");
 				name = rs.getString("name");
 				location = rs.getString("location");
 				medicalSpecialization = rs.getString("medical_specialization");
@@ -114,12 +113,12 @@ public class JDBCSelect
 			
 			while(rs.next())
 			{
-				int orderID = rs.getInt("order_ID");
+				int orderID = rs.getInt("orderID");
 				int totalAmountInstruments = rs.getInt("total_amount_instruments");
 				java.sql.Date orderDate = rs.getDate("order_date");
 				java.sql.Date deliveryDate = rs.getDate("delivery_date");
 				
-				order = new Order(orderID,totalAmountInstruments,SqltoLocalDate(orderDate),SqltoLocalDate(deliveryDate));
+				order = new Order(orderID,totalAmountInstruments,orderDate,deliveryDate);
 				
 			}
 			
@@ -319,9 +318,7 @@ public class JDBCSelect
 				java.sql.Date machiDate = rs.getDate("dateofInstallation");
 				int sizeofMachinery = rs.getInt("sizeofMachinery");
 				
-				LocalDate machineryDate = SqltoLocalDate(machiDate);
-				
-				machinery = new Machinery(machineryID,machineryType,stateofMachinery,machineryDate,sizeofMachinery);
+				machinery = new Machinery(machineryID,machineryType,stateofMachinery,machiDate,sizeofMachinery);
 				
 			}
 			
@@ -352,15 +349,13 @@ public class JDBCSelect
 			while (rs.next()) 
 			{				
 				
-				machineryID = rs.getInt("machinery_ID");
+				machineryID = rs.getInt("machineryID");
 				machineryType = rs.getString("machineryType");
 				stateofMachinery = rs.getString("stateofMachinery");
 				java.sql.Date dateMach = rs.getDate("order_date");
 				sizeofMachinery = rs.getInt("sizeofMachinery");
-
-				LocalDate dateMachinery = SqltoLocalDate(dateMach);
 				
-				mach = new Machinery(machineryID,machineryType,stateofMachinery,dateMachinery,sizeofMachinery);	
+				mach = new Machinery(machineryID,machineryType,stateofMachinery,dateMach,sizeofMachinery);	
 			}
 			
 			prep.close();
@@ -428,7 +423,7 @@ public class JDBCSelect
 				volume = rs.getInt("volume");
 				type = rs.getString("type");
 				int companyID = rs.getInt("companyID");
-				int machineryID = rs.getInt("machinery_ID");
+				int machineryID = rs.getInt("machineryID");
 				int warehouseID = rs.getInt("warehouse_ID");
 				
 				Company com = new Company(companyID);
@@ -467,7 +462,7 @@ public class JDBCSelect
 			
 			while(rs.next())
 			{
-				int hospitalID = rs.getInt("hospital_ID");
+				int hospitalID = rs.getInt("hospitalID");
 				String name = rs.getString("name");
 				String location = rs.getString("location");
 				String medicalSpecialization = rs.getString("medical_specialization");
@@ -498,12 +493,12 @@ public class JDBCSelect
 			
 			while(rs.next())
 			{
-				int orderID = rs.getInt("order_ID");
+				int orderID = rs.getInt("orderID");
 				int totalAmountInstruments = rs.getInt("total_amount_instruments");
 				java.sql.Date orderDate = rs.getDate("order_date");
 				java.sql.Date deliveryDate = rs.getDate("delivery_date");
 				
-				Order order = new Order(orderID,totalAmountInstruments,SqltoLocalDate(orderDate),SqltoLocalDate(deliveryDate));
+				Order order = new Order(orderID,totalAmountInstruments,orderDate,deliveryDate);
 				orderList.add(order);
 			}
 			
@@ -629,9 +624,7 @@ public class JDBCSelect
 				java.sql.Date machiDate = rs.getDate("dateofInstallation");
 				int sizeofMachinery = rs.getInt("sizeofMachinery");
 				
-				LocalDate machineryDate = SqltoLocalDate(machiDate);
-				
-				Machinery machinery = new Machinery(machineryID,machineryType,stateofMachinery,machineryDate,sizeofMachinery);
+				Machinery machinery = new Machinery(machineryID,machineryType,stateofMachinery,machiDate,sizeofMachinery);
 				machineryList.add(machinery);
 			}
 			
@@ -711,14 +704,27 @@ public class JDBCSelect
 		return materials;
 	}
 
-
-	//Help Methods
-	private LocalDate SqltoLocalDate(java.sql.Date sqlDate)
+	// Help Methods
+	
+	public int selectIdTable(String query, String tableName)
 	{
-
-		LocalDate locDate = sqlDate.toLocalDate();
-		return locDate;
+		int id = -1;
+		try
+		{
+			
+			String sql = query;
+			PreparedStatement prep = c.prepareStatement(sql);
+			prep.setString(1, tableName);
+			ResultSet rs = prep.executeQuery();
+			
+			id = rs.getInt("seq");
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 		
+		return id;
 	}
 	
 }

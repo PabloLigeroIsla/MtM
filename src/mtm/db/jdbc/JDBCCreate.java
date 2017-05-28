@@ -24,7 +24,7 @@ public class JDBCCreate
 			// fPt -->firstPablotable , sqlp1 --> sqlpablo1//
 			Statement fPt = c.createStatement();
 			String sqlp1 = "CREATE TABLE hospital("
-				+ "hospital_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+				+ "hospitalID INTEGER PRIMARY KEY AUTOINCREMENT,"
 				+ "name TEXT NOT NULL,"
 				+ "location TEXT NOT NULL,"
 				+ "medical_specialization TEXT NOT NULL)";
@@ -33,7 +33,7 @@ public class JDBCCreate
 			
 			Statement sPt = c.createStatement();
 			String sqlp2 = "CREATE TABLE orders("
-				+ "order_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+				+ "orderID INTEGER PRIMARY KEY AUTOINCREMENT,"
 				+ "total_amount_instruments INTEGER NOT NULL,"
 				+ "order_date DATE NOT NULL,"
 				+ "delivery_date DATE NOT NULL)";
@@ -42,18 +42,18 @@ public class JDBCCreate
 			
 			Statement tPt = c.createStatement();
 			String sqlp3 = "CREATE TABLE hospital_orders("
-					+ "hospital_ID INTEGER REFERENCES hospital(hospital_ID),"
-					+ "order_ID INTEGER REFERENCES orders(order_ID),"
-					+ "PRIMARY KEY(hospital_ID,order_ID))";
+					+ "hospitalID INTEGER REFERENCES hospital(hospitalID),"
+					+ "orderID INTEGER REFERENCES orders(orderID),"
+					+ "PRIMARY KEY(hospitalID,orderID))";
 			tPt.executeUpdate(sqlp3);
 			tPt.close();
 			
 			Statement fPt2 = c.createStatement();
 			String sqlp4 = "CREATE TABLE instrument_orders("
-					+ "order_ID INTEGER REFERENCES orders(order_ID),"
+					+ "orderID INTEGER REFERENCES orders(orderID),"
 					+ "instrument_ID INTEGER REFERENCES instrument(instrument_ID),"
-					+ "amount_order INTEGER,"
-					+ "PRIMARY KEY(order_ID,instrument_ID))";
+					+ "amountorder INTEGER,"
+					+ "PRIMARY KEY(orderID,instrument_ID))";
 			fPt2.executeUpdate(sqlp4);
 			fPt2.close();
 			
@@ -61,7 +61,7 @@ public class JDBCCreate
 			// fAt -->firstAlextable // sqla1 --> sqlalex1
 			Statement fAt = c.createStatement();
 			String sqla1 = "CREATE TABLE company ("
-					+ "companyID INTEGER PRIMARY KEY,"
+					+ "companyID INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ "location TEXT,"
 					+"companyName TEXT);";
 			fAt.executeUpdate(sqla1);
@@ -85,8 +85,8 @@ public class JDBCCreate
 			
 			Statement rCht = c.createStatement();
 			String sqlch3 = "CREATE TABLE instrument_machinery("
-					+ "instrument_ID INTEGER NOT NULL REFERENCES instrument(instrument_ID),"
-					+ "machineryID INTEGER NOT NULL REFERENCES machinery(machineryID),"
+					+ "instrument_ID INTEGER REFERENCES instrument(instrument_ID),"
+					+ "machineryID INTEGER REFERENCES machinery(machineryID),"
 					+ "timeofMade INTEGER,"
 					+ "PRIMARY KEY (instrument_ID,machineryID))";
 			rCht.executeUpdate(sqlch3);
@@ -138,10 +138,26 @@ public class JDBCCreate
 				sAt.executeUpdate(sqla2);
 				sAt.close();
 			
+			
+			
+			Statement stmtSeq = c.createStatement();
+			String sqlSeq;
+			
+			sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('hospital', 1)";
+			stmtSeq.executeUpdate(sqlSeq);
+			sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('orders', 1)";
+			stmtSeq.executeUpdate(sqlSeq);
+			sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('company', 1)";
+			stmtSeq.executeUpdate(sqlSeq);
+			sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('instrument', 1)";
+			stmtSeq.executeUpdate(sqlSeq);
+			sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('warehouse', 1)";
+			stmtSeq.executeUpdate(sqlSeq);
+			sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('employee', 1)";
+			stmtSeq.executeUpdate(sqlSeq);
+			sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('machinery', 1)";
+			stmtSeq.executeUpdate(sqlSeq);
 			c.commit();
-			
-			
-			
 			act = false;
 		}catch (Exception e)
 		{
@@ -159,7 +175,7 @@ public class JDBCCreate
 		{
 			Statement fPt = c.createStatement();
 			String sqlp1 = "CREATE TABLE hospital("
-				+ "hospital_ID    INTEGER PRIMARY KEY AUTOINCREMENT,"
+				+ "hospitalID    INTEGER PRIMARY KEY AUTOINCREMENT,"
 				+ "name TEXT NOT NULL,"
 				+ "location TEXT NOT NULL,"
 				+ "medical_specialization TEXT NOT NULL)";
@@ -178,7 +194,7 @@ public class JDBCCreate
 		{
 			Statement sPt = c.createStatement();
 			String sqlp2 = "CREATE TABLE orders("
-				+ "order_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+				+ "orderID INTEGER PRIMARY KEY AUTOINCREMENT,"
 				+ "total_amount_instruments INTEGER NOT NULL,"
 				+ "order_date DATE NOT NULL,"
 				+ "delivery_date DATE NOT NULL)";
@@ -326,9 +342,9 @@ public class JDBCCreate
 		{
 			Statement tPt = c.createStatement();
 			String sqlp3 = "CREATE TABLE hospital_orders("
-					+ "hospital_ID INTEGER REFERENCES hospital(hospital_ID),"
-					+ "order_ID INTEGER REFERENCES orders(order_ID),"
-					+ "PRIMARY KEY(hospital_ID,order_ID))";
+					+ "hospitalID INTEGER REFERENCES hospital(hospitalID),"
+					+ "orderID INTEGER REFERENCES orders(orderID),"
+					+ "PRIMARY KEY(hospitalID,orderID))";
 			tPt.executeUpdate(sqlp3);
 			tPt.close();
 		}catch(SQLException e)
@@ -343,10 +359,10 @@ public class JDBCCreate
 		{
 			Statement fPt = c.createStatement();
 			String sqlp4 = "CREATE TABLE instrument_orders("
-					+ "order_ID INTEGER REFERENCES orders(order_ID),"
+					+ "orderID INTEGER REFERENCES orders(orderID),"
 					+ "instrument_ID INTEGER REFERENCES instrument(instrument_ID),"
 					+ "amount_order INTEGER,"
-					+ "PRIMARY KEY(order_ID,instrument_ID))";
+					+ "PRIMARY KEY(orderID,instrument_ID))";
 			fPt.executeUpdate(sqlp4);
 			fPt.close();
 		}catch(SQLException e)

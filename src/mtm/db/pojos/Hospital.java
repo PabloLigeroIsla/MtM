@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
 @Table(name = "hospital")
 @XmlAccessorType(XmlAccessType.FIELD) //Be able to use XML
 @XmlRootElement(name = "Hospital")
-@XmlType(propOrder = { "hospitalID", "name", "location", "medicalSpecialization", "orderList" })//Set the order of the attributes in the XML
+@XmlType(propOrder = { "hospitalID", "name", "location", "medicalSpecialization" })//Set the order of the attributes in the XML
 public class Hospital implements Serializable
 {
 	
@@ -26,7 +26,7 @@ public class Hospital implements Serializable
 	@Id 
 	@GeneratedValue(generator="hospital")
 	@TableGenerator(name="hospital", table="sqlite_sequence",
-	    pkColumnName="hospitalID", valueColumnName="seq", pkColumnValue="hospital")
+	    pkColumnName="name", valueColumnName="seq", pkColumnValue="hospital")
 	
 	@XmlAttribute
 	private int hospitalID; 
@@ -36,7 +36,11 @@ public class Hospital implements Serializable
 	private String location;
 	@XmlAttribute
 	private String medicalSpecialization;
-	@ManyToMany(mappedBy = "hospital_orders")
+	 
+	@ManyToMany
+	@JoinTable(name="hospitalList",
+	joinColumns={@JoinColumn(name="hospitalID", referencedColumnName="hospitalID")}, //points to my class
+    inverseJoinColumns={@JoinColumn(name="orderID", referencedColumnName="orderID")}) //points to the class in the next line
 	@XmlElement(name = "Order")//This name doesnt make reference to the attribute element.
 								// Name the employees tag(next attribute) as Order
 	@XmlElementWrapper(name = "Orders")//make an Orders tag that stores Order
@@ -107,19 +111,19 @@ public class Hospital implements Serializable
 		this.medicalSpecialization = medical_specialization;
 		this.orderList = new ArrayList<Order>();
 	}
-	public Hospital(Integer hospital_ID, String name, String location, String medicalSpecialization)
+	public Hospital(Integer hospitalID, String name, String location, String medicalSpecialization)
 	{
 		super();
-		this.hospitalID = hospital_ID;
+		this.hospitalID = hospitalID;
 		this.name = name;
 		this.location = location;
 		this.medicalSpecialization = medicalSpecialization;
 		this.orderList = new ArrayList<Order>();
 	}
-	public Hospital(Integer hospital_ID, String name, String location, String medicalSpecialization, List<Order> orderList)
+	public Hospital(Integer hospitalID, String name, String location, String medicalSpecialization, List<Order> orderList)
 	{
 		super();
-		this.hospitalID = hospital_ID;
+		this.hospitalID = hospitalID;
 		this.name = name;
 		this.location = location;
 		this.medicalSpecialization = medicalSpecialization;

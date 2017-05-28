@@ -1,6 +1,7 @@
 package mtm.db.pojos;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -8,14 +9,14 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import java.time.LocalDate;
@@ -25,29 +26,34 @@ import java.time.LocalDate;
 @Table(name = "orders")
 @XmlAccessorType(XmlAccessType.FIELD) //Be able to use XML
 @XmlRootElement(name = "Order")
-@XmlType(propOrder = { "orderId", "TotalAmountInstruments", "orderDate", "deliveryDate", "instrumentList" })
+@XmlType(propOrder = { "orderId", "TotalAmountInstruments", "orderDate", "deliveryDate" })
 public class Order implements Serializable
 {
 
 	private static final long serialVersionUID = -1476135363454640411L;
-	
+	 
 	@Id 
 	@GeneratedValue(generator="orders")
 	@TableGenerator(name="orders", table="sqlite_sequence",
-	    pkColumnName="order_ID", valueColumnName="seq", pkColumnValue="orders")
+	    pkColumnName="name", valueColumnName="seq", pkColumnValue="orders")
 	@XmlAttribute
 	private int orderID;
 	@XmlAttribute
 	private int totalAmountInstruments;
 	@XmlAttribute
-	private LocalDate orderDate;
+	private Date orderDate;
 	@XmlAttribute
-	private LocalDate deliveryDate;
+	private Date deliveryDate;
+	
+	@ManyToMany(mappedBy = "orderList")
+	@XmlTransient
 	private List <Hospital> hospitalList;
-	@XmlElement(name = "Instrument")
-	@XmlElementWrapper(name = "Instruments")
+	
+	@ManyToMany(mappedBy = "orderList") 
+	@XmlTransient
 	private List <Instrument> instrumentList;
-	//Primary Key --> order_ID
+	
+	//Primary Key --> orderID
 	//Foreign Key --> hospitalList,instrumentList
 	
 	// Gets and Sets
@@ -88,20 +94,20 @@ public class Order implements Serializable
 		this.totalAmountInstruments = totalAmountInstruments;
 	}
 	
-	public LocalDate getOrderDate()
+	public Date getOrderDate()
 	{
 		return orderDate;
 	}
-	public void setOrderDate(LocalDate orderDate) 
+	public void setOrderDate(Date orderDate) 
 	{
 		this.orderDate = orderDate;
 	}
 	
-	public LocalDate getDeliveryDate() 
+	public Date getDeliveryDate() 
 	{
 		return deliveryDate;
 	}
-	public void setDeliveryDate(LocalDate deliveryDate) 
+	public void setDeliveryDate(Date deliveryDate) 
 	{
 		this.deliveryDate = deliveryDate;
 	}
@@ -116,7 +122,7 @@ public class Order implements Serializable
 	}
 
 
-	public Order(int orderID,int totalAmountInstruments, LocalDate orderDate, LocalDate deliveryDate)
+	public Order(int orderID,int totalAmountInstruments, Date orderDate, Date deliveryDate)
 	{
 		super();
 		this.orderID = orderID;
@@ -127,7 +133,7 @@ public class Order implements Serializable
 		this.instrumentList = new ArrayList<Instrument>();
 	}
 	
-	public Order(int totalAmountInstruments, LocalDate orderDate, LocalDate deliveryDate)
+	public Order(int totalAmountInstruments, Date orderDate, Date deliveryDate)
 	{
 		super();
 		this.totalAmountInstruments = totalAmountInstruments;
@@ -137,7 +143,7 @@ public class Order implements Serializable
 		this.instrumentList = new ArrayList<Instrument>();
 	}
 	
-	public Order(int orderID, int totalAmountInstruments, LocalDate orderDate, LocalDate deliveryDate, List<Hospital> hospitalList, List<Instrument> instrumentList)
+	public Order(int orderID, int totalAmountInstruments, Date orderDate, Date deliveryDate, List<Hospital> hospitalList, List<Instrument> instrumentList)
 	{
 		super();
 		this.orderID = orderID;
@@ -179,15 +185,28 @@ public class Order implements Serializable
 		}
 	}
 	
+	private LocalDate SqltoLocalDate(java.sql.Date sqlDate)
+	{
+
+		LocalDate locDate = sqlDate.toLocalDate();
+		return locDate;
+		
+	}
+	
 	public void printOrder(boolean relate)
 	{
+		LocalDate locOrder = SqltoLocalDate(this.getOrderDate());
+		LocalDate locDelivery = SqltoLocalDate(this.getDeliveryDate());
+		System.out.printf("Order Information:\n Id: %d\n"
+				+ "Total Amount Instruments: %d\n"
+				+ "Order Date: %d\n"
+				+ "Delivery Date: %d\n"
+				+ "",this.getOrderID(),this.getTotalAmountInstruments(),locOrder,locDelivery);
+		
+		
 		if(relate)
 		{
-			System.out.printf("Order Information:\n Id: %d\n"
-					+ "Total Amount Instruments: %d\n"
-					+ "Order Date: %d\n"
-					+ "Delivery Date: %d\n"
-					+ "",this.getOrderID(),this.getTotalAmountInstruments(),this.getOrderDate(),this.getDeliveryDate());
+			
 			
 			Iterator <Instrument> iterIns = this.getInstrumentList().iterator();
 			Instrument inst;
@@ -213,14 +232,9 @@ public class Order implements Serializable
 		}
 		else
 		{
-			System.out.printf("Order Information:\n Id: %d\n"
-					+ "Total Amount Instruments: %d\n"
-					+ "Order Date: %d\n"
-					+ "Delivery Date: %d\n"
-					+ "",this.getOrderID(),this.getTotalAmountInstruments(),this.getOrderDate(),this.getDeliveryDate());
-		
+			
 		}
-		}
+	}
 	
 	@Override
 	public String toString() 

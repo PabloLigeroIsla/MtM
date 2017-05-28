@@ -7,16 +7,14 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -24,7 +22,7 @@ import javax.xml.bind.annotation.XmlType;
 @Table(name = "warehouse")
 @XmlAccessorType(XmlAccessType.FIELD) //Be able to use XML
 @XmlRootElement(name = "Warehouse")
-@XmlType(propOrder = { "warehouseID", "warehouseLocation", "capacity", "filledSpace", "instrumentList", "materialTypeList" })//Set the attributes in the XML
+@XmlType(propOrder = { "warehouseID", "warehouseLocation", "capacity", "filledSpace" })//Set the attributes in the XML
 
 public class Warehouse implements Serializable {
 /**
@@ -51,15 +49,12 @@ public class Warehouse implements Serializable {
 	@XmlAttribute
 	private Integer filledSpace;
 	
-	@OneToMany(mappedBy="warehouse")
-	//@XmlElement(name = "Instrument") 
-    //@XmlElementWrapper(name = "Instruments")
+	@OneToMany(mappedBy="warehouse") //one warehouse has many instruments
+	@XmlTransient
 	private List<Instrument> instrumentList;
 
-	@OneToMany(mappedBy="warehouse") //one machinery has many materials
-	@XmlElement(name = "Material") 
-    @XmlElementWrapper(name = "Materials")	
-	@JoinColumn(name="Material")
+	@OneToMany(mappedBy="warehouse") //one warehouse has many materials
+	@XmlTransient
 	private List <Material> materialTypeList; //FOREIGN KEY
 	
 	

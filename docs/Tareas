@@ -1,25 +1,24 @@
-Tareas:
+Tareas: 
 
-Descomentar los metodos de UserInterface de JPA y comentar los de JDBC (buscar en refractor @JPAChange para ver donde estan comentados) 
-Hacer XML de todos los objetos (mirar el objeto MtM para saber que hay que guardar en cada objeto y que no para evitar bucles infinitos)
 Use XSLT to produce a HTML
-create the method setMaterialRelations
-Hacer printMachinery(bien), no hacer con el return
-
+Hacer printMachinery(bien), no hacer con el return, imprimir una cosa u otra dependiendo de un boolean que me marque la relación (CELIA)
+Probar delete y update
+Probar XML
 
 Actualizar el UML
 Actualizar el ultimo esquema ese que tenias que poner los metodos
 Hacer el Esquema de XML
 
-Probar toda la base de datos
+Revisar los menus de los métodos para dar las opciones que seleccionamos 
+
+Probar toda la base de datos en su conjunto
 
 
 Opcionales que faltan:
 1.-Documantation
 		I:Write a design document of your system, explaining why you did what
 2.-Diagrams
-3.-Structure
-		I:create a GUI separated from your database manager
+
 4.-JDBC
 		I:Use binary objects (like images) in at least 1 table (Employee)
 5.-JPA
@@ -30,12 +29,5 @@ Opcionales que faltan:
 7.-Finishing touches
 
 
-Questions Rodrigo:
-1.- The JPA attributes should have the same name as in the tables?
-	I: YES => Change the create tables and all the strings in JDBCManager of Machinery and Material
-2.- should we open the full databas that is stores with XML once we save it?
-3.- What means? create a GUI separated from your database manager
 
 
-@Error
-Lamamos a una conexion dentro de otra conexion. ¿Como lo solucionamos?

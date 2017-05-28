@@ -13,6 +13,7 @@ public class JDBCUpdate
 		this.c = c;
 	}
 	
+	
 
 	public void update(String table, String colChange, String stringChange, int intChange, String colSearch, int pkSearch)
 	{
@@ -59,7 +60,7 @@ public class JDBCUpdate
 		
 	try
 	{
-		String sql = "UPDATE machinery SET stateofMachinery LIKE ? WHERE machinery_ID = ? ";
+		String sql = "UPDATE machinery SET stateofMachinery LIKE ? WHERE machineryID = ? ";
 
 				PreparedStatement prep = c.prepareStatement(sql);
 				prep.setString(1, stateofMachinery);
@@ -100,7 +101,7 @@ public class JDBCUpdate
 		
 		try {
 			
-			String sql = "UPDATE warehouse SET filled_space LIKE "+locationUpdated+" WHERE warehouse_ID=?";
+			String sql = "UPDATE warehouse SET warehouse_location LIKE "+locationUpdated+" WHERE warehouse_ID=?";
 			
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setInt(1, pkSearch);

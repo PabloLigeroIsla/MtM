@@ -115,7 +115,39 @@ public class JDBCSearch
 	return a;
 }
 
+	public boolean valGen(String query)
+	{
+		boolean resp = false;
+		try
+		{
+			int count = 0;
+			String sql = query;
+			PreparedStatement prep = c.prepareStatement(sql);
+			ResultSet rs = prep.executeQuery();
 			
+			while(rs.next())
+			{
+				count = count +1;
+			}
+		
+			if(count == 0){
+				//We dont find the 
+				resp = false;
+			}else
+			{
+				resp = true;
+			}
+			
+			prep.close();
+			rs.close();
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return resp;
+	}
+	
 	public ArrayList<Integer> searchPkRelation(String query,int pk,String colAtSearch)
 	{
 		ArrayList<Integer> pkArray = new ArrayList<Integer>();

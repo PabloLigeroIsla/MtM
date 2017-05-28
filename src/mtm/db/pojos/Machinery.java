@@ -1,55 +1,73 @@
 package mtm.db.pojos;
 
 import java.io.Serializable;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 import mtm.db.pojos.Employee;
 
-import java.time.LocalDate;
-
 @Entity
 @Table(name = "machinery") //sql table name  (Compatible with JDBC)
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "Machinery")
+@XmlType(propOrder = { "machineryID", "machineryType", "stateofMachinery", "dateofInstallation", "sizeofMachinery" })
+
 public class Machinery implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -5275135022867594008L;
 	//Attributes
+	
 	@Id 
 	@GeneratedValue(generator="machinery")
 	@TableGenerator(name="machinery", table="sqlite_sequence",
 	    pkColumnName="name", valueColumnName="seq", pkColumnValue="machinery")
+	
+	@XmlAttribute
 	private int machineryID;
+	@XmlAttribute
 	private String machineryType;
+	@XmlAttribute
 	private String stateofMachinery;
-	private LocalDate dateofInstallation;
+	@XmlAttribute
+	private Date dateofInstallation;
+	@XmlAttribute
 	private int sizeofMachinery;
+
 	
-	@OneToMany(mappedBy="machinery") //one machinery has many materials
+	@OneToMany(mappedBy="machinery")
 	@XmlElement(name = "Material") 
-    @XmlElementWrapper(name = "Materials")	
-	@JoinColumn(name="Material")
+    @XmlElementWrapper(name = "Materials")
 	private List <Material> materialList; //FOREIGN KEY
-	
-	@ManyToMany(mappedBy = "machinery")
-	@JoinColumn(name = "Instrument")
+
+	@XmlTransient ////////////////////////////////////////////////////////////////////////////////////////////
+	@ManyToMany(mappedBy = "machineryTypeList")
 	private List <Instrument> instrumentList; //FOREIGN KEY
-	@JoinColumn(name = "Employee")
+	
+	@OneToMany(mappedBy="machineryType")
+	@XmlElement(name = "Employee")
+	@XmlElementWrapper(name = "Employees")
 	private List <Employee> employeeList; //FOREIGN KEY	
-	
-	
+
 	//materialList
 	public List<Material> getMaterialList() {
 		return materialList;
@@ -118,11 +136,11 @@ public class Machinery implements Serializable {
 		this.stateofMachinery = stateofMachinery;
 	}
 
-	public LocalDate getDateofInstallation() {
+	public Date getDateofInstallation() {
 		return dateofInstallation;
 	}
 
-	public void setDateofInstallation(LocalDate dateofInstallation) {
+	public void setDateofInstallation(Date dateofInstallation) {
 		this.dateofInstallation = dateofInstallation;
 	}
 
@@ -144,7 +162,7 @@ public class Machinery implements Serializable {
 
 	}
 	
-	public Machinery(String machineryType, String stateofMachinery, LocalDate dateofInstallation, int sizeofMachinery) {
+	public Machinery(String machineryType, String stateofMachinery, Date dateofInstallation, int sizeofMachinery) {
 		super();
 		this.machineryType = machineryType;
 		this.stateofMachinery = stateofMachinery;
@@ -156,7 +174,7 @@ public class Machinery implements Serializable {
 		this.employeeList = new ArrayList<Employee>();
 	}
 	
-	public Machinery(int machineryID,String machineryType, String stateofMachinery, LocalDate dateofInstallation, int sizeofMachinery) {
+	public Machinery(int machineryID,String machineryType, String stateofMachinery, Date dateofInstallation, int sizeofMachinery) {
 		super();
 		this.machineryID = machineryID;
 		this.machineryType = machineryType;
@@ -170,7 +188,7 @@ public class Machinery implements Serializable {
 
 	}	
 	
-	public Machinery(int machineryID,String machineryType, String stateofMachinery, LocalDate dateofInstallation, 
+	public Machinery(int machineryID,String machineryType, String stateofMachinery, Date dateofInstallation, 
 			int sizeofMachinery, List<Instrument> instrumentList, List<Material> materialList, List<Employee> employeeList) {
 		super();
 		this.machineryID = machineryID;
@@ -227,6 +245,14 @@ public class Machinery implements Serializable {
 		}
 	}
 	
+	private LocalDate SqltoLocalDate(java.sql.Date sqlDate)
+	{
+
+		LocalDate locDate = sqlDate.toLocalDate();
+		return locDate;
+		
+	}
+	
 	@Override
 	public String toString() 
 	{
@@ -238,7 +264,7 @@ public class Machinery implements Serializable {
 	public String printMach(){
 		return "Machinery [machineryID=" + this.machineryID + ",machineryType=" 
 				+ this.machineryType + ",stateofMachinery=" + this.stateofMachinery + ", dateofInstallation=" 
-				+ this.dateofInstallation + ", sizeofMachinery=" + this.sizeofMachinery + "]";
+				+ SqltoLocalDate(this.dateofInstallation) + ", sizeofMachinery=" + this.sizeofMachinery + "]";
 	}
 
 	@Override
