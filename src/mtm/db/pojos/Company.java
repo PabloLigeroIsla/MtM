@@ -38,7 +38,7 @@ public class Company implements Serializable {
 	@OneToMany(mappedBy="company") //one company has many materials
 	@XmlElement(name = "Material") 
     @XmlElementWrapper(name = "Materials")	
-	@JoinColumn(name="Material")
+
 	private ArrayList<Material>  materialList;
 
 
