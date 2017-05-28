@@ -157,9 +157,9 @@ public class Material implements Serializable {
 	}
 
 
-	public String printMaterial() {
-		return "Material [materialID=" + materialID + ", weight=" + weight + ", volume=" + volume + ", type=" + type
-				+ ", companyID=" + company.getCompanyID() + ", machineryID=" + machinery.getMachineryID() + ", warehouseID=" + warehouse.getWarehouseID() + "]";
+	public void printMaterial() {
+		System.out.println("Material [materialID=" + materialID + ", weight=" + weight + ", volume=" + volume + ", type=" + type
+				+ ", companyID=" + company.getCompanyID() + ", machineryID=" + machinery.getMachineryID() + ", warehouseID=" + warehouse.getWarehouseID() + "]");
 	}
 
 	@Override

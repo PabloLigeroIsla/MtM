@@ -157,6 +157,8 @@ public class JDBCCreate
 			stmtSeq.executeUpdate(sqlSeq);
 			sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('machinery', 1)";
 			stmtSeq.executeUpdate(sqlSeq);
+			sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('material', 1)";
+			stmtSeq.executeQuery(sqlSeq);
 			c.commit();
 			act = false;
 		}catch (Exception e)
