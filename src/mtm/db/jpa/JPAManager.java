@@ -41,9 +41,6 @@ public class JPAManager implements DBInterface
 	
 	public void insert(Material obj)
 	{
-		
-		
-		
 		em.getTransaction().begin();
 		em.persist(obj);
 		em.getTransaction().commit();

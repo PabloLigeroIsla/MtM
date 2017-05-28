@@ -41,7 +41,7 @@ public class Company implements Serializable {
 	//@XmlElement(name = "Material") why not?
     //@XmlElementWrapper(name = "Materials")	
 
-	private ArrayList<Material>  materialList;
+	private List<Material>  materialList;
 	
 
 
