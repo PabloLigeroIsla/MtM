@@ -26,6 +26,23 @@ public class JPAManager implements DBInterface
 		em.close();
 	}
 	
+	//Company
+	
+	
+	
+	//Employee
+	
+	public Employee selectEMployee(int primaryKey)
+	{
+		
+		Query sql = em.createNativeQuery("SELECT * FROM employee WHERE employee_ID = ?",Employee.class);
+		sql.setParameter(1, primaryKey);
+		
+		Employee emp = (Employee) sql.getSingleResult();
+		return emp;
+	}
+	
+	
 	//Material
 	
 	public Material selectMaterial(int primaryKey)
@@ -67,6 +84,7 @@ public class JPAManager implements DBInterface
 		finalMach.setStateofMachinery(obj.getStateofMachinery());
 		finalMach.setDateofInstallation(obj.getDateofInstallation());
 		finalMach.setSizeofMachinery(obj.getSizeofMachinery());
+		
 		return finalMach;
 	}
 	
@@ -142,24 +160,12 @@ public class JPAManager implements DBInterface
 		return inst;
 	}
 	
-	public Company selectCompany(int primaryKey)
-	{
-		Query sql = em.createNativeQuery("SELECT * FROM company WHERE companyID = ?",Company.class);
-		sql.setParameter(1, primaryKey);
-		
-		Company comp = (Company) sql.getSingleResult();
-		
-		return comp;
-	}
 	
-	public Employee selectEMployee(int primaryKey)
+	// WAREHOUSE
+	
+	public void insertWareHouse()
 	{
 		
-		Query sql = em.createNativeQuery("SELECT * FROM employee WHERE employee_ID = ?",Employee.class);
-		sql.setParameter(1, primaryKey);
-		
-		Employee emp = (Employee) sql.getSingleResult();
-		return emp;
 	}
 	
 	public Warehouse selectWarehouse(int primaryKey)
@@ -170,5 +176,4 @@ public class JPAManager implements DBInterface
 		Warehouse ware = (Warehouse) sql.getSingleResult();
 		return ware;
 	}
-	
 }
