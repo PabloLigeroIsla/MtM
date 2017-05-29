@@ -114,7 +114,7 @@ public class JDBCInsert
 			
 			Statement stmCh = c.createStatement();
 			String sqlCh;
-			sqlCh = "INSERT INTO warehouse (warehouse_location,capacity,filled_space)"
+			sqlCh = "INSERT INTO warehouse (warehouseLocation,capacity,filledSpace)"
 					+ "VALUES ('" + wareh.getWarehouseLocation() +"','" +wareh.getCapacity() + "','"+ wareh.getFilledSpace() +"');";
 			stmCh.executeUpdate(sqlCh);
 			stmCh.close();
