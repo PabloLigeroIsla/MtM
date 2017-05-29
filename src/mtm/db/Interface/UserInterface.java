@@ -886,10 +886,11 @@ public class UserInterface
 	String name = writeString();
 	System.out.println("Type of contract: \n");
 	String typec = writeString();
-	System.out.println("Does the machinery exist?\n");
+	System.out.println("Does the machinery exist? Introduce YES or NO\n");
 	String d = writeString();
 	Machinery mach=new Machinery();
-	if(writeOption(d)){
+	if(writeOption(d))
+	{
 		listMachineries(false);
 		System.out.println("Select the ID of the machinery the employee is spezialized in\n");
 		int e=writeNumber();
