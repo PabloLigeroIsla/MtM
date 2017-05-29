@@ -2,7 +2,6 @@ package mtm.db.pojos;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -246,13 +245,6 @@ public class Machinery implements Serializable {
 		}
 	}
 	
-	private LocalDate SqltoLocalDate(java.sql.Date sqlDate)
-	{
-
-		LocalDate locDate = sqlDate.toLocalDate();
-		return locDate;
-		
-	}
 	
 	@Override
 	public String toString() 
