@@ -40,18 +40,21 @@ public class Material implements Serializable {
 	@XmlAttribute
 	private String type;
 	
-	
 	@ManyToOne
+	//@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "companyID")
+	//@XmlTransient
 	@XmlElement(name = "Company")
 	private Company company; //FOREIGN KEY
 	
 	@ManyToOne
-	@JoinColumn(name = "machineryID")
+	//@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "machinery_ID")
 	@XmlTransient
 	private Machinery machinery; //FOREIGN KEY
 	
 	@ManyToOne
+	//@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "warehouse_ID")
 	@XmlElement(name = "Warehouse")
 	private Warehouse warehouse; //FOREIGN KEY
@@ -154,9 +157,9 @@ public class Material implements Serializable {
 	}
 
 
-	public String printMaterial() {
-		return "Material [materialID=" + materialID + ", weight=" + weight + ", volume=" + volume + ", type=" + type
-				+ ", companyID=" + company.getCompanyID() + ", machineryID=" + machinery.getMachineryID() + ", warehouseID=" + warehouse.getWarehouseID() + "]";
+	public void printMaterial() {
+		System.out.println("Material [materialID=" + materialID + ", weight=" + weight + ", volume=" + volume + ", type=" + type
+				+ ", companyID=" + company.getCompanyID() + ", machineryID=" + machinery.getMachineryID() + ", warehouseID=" + warehouse.getWarehouseID() + "]");
 	}
 
 	@Override

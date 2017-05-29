@@ -36,10 +36,13 @@ public class Company implements Serializable {
 	private String companyName;
 	
 
-	
 	@OneToMany(mappedBy="company")//Company:Name of the object Company in the Material Object
 	@XmlTransient
+	//@XmlElement(name = "Material") why not?
+    //@XmlElementWrapper(name = "Materials")	
+
 	private List<Material>  materialList;
+	
 
 
 	

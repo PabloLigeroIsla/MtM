@@ -1100,7 +1100,7 @@ public class UserInterface
     		}
     	
     	}
-
+    	mat.printMaterial();
     	jpaManager.insert(mat);
 		//jdbcManager.insert(mat);
 		System.out.println("The material is correctly attached to the database\n");
