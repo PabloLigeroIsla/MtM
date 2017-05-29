@@ -105,7 +105,7 @@ public class JDBCCreate
 			
 			sAt.executeUpdate(sqla2);
 			sAt.close();
-				
+				//
 			//RELATIONAL TABLES
 				
 			Statement rCht = c.createStatement();
