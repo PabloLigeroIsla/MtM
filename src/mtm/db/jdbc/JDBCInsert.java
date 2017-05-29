@@ -82,7 +82,7 @@ public class JDBCInsert
 			c.setAutoCommit(false);//With false the data base will be updated in the c.commit();
 			   // If true, then in line executeUpdate() the data base is updated
 
-			String sql = "INSERT INTO instrument(name,model,purpose,amount,number_uses,body_location,price,warehouse_ID)"
+			String sql = "INSERT INTO instrument(name,model,purpose,amount,number_uses,body_location,price,warehouseID)"
 					+ "VALUES(?,?,?,?,?,?,?,?);";
 
 			PreparedStatement prep = c.prepareStatement(sql);
@@ -211,7 +211,7 @@ public class JDBCInsert
 
 						c.setAutoCommit(false);
 								String sql;
-								sql = "INSERT INTO material(weight,volume,type,companyID,machineryID,warehouse_ID) VALUES(?,?,?,?,?,?);";
+								sql = "INSERT INTO material(weight,volume,type,companyID,machineryID,warehouseID) VALUES(?,?,?,?,?,?);";
 								PreparedStatement prep = c.prepareStatement(sql);
 								prep.setInt(1,mat.getWeight());
 								prep.setInt(2,mat.getVolume());
@@ -314,7 +314,7 @@ public class JDBCInsert
 		{
 			c.setAutoCommit(false);
 			
-			String sql = "INSERT INTO material_warehouse(materialID,warehouse_ID)"
+			String sql = "INSERT INTO material_warehouse(materialID,warehouseID)"
 					+ "VALUES(?,?)";
 				
 			PreparedStatement prep = c.prepareStatement(sql);

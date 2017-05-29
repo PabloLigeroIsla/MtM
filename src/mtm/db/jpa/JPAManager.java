@@ -164,7 +164,7 @@ public class JPAManager implements DBInterface
 	
 	public Warehouse selectWarehouse(int primaryKey)
 	{
-		Query sql = em.createNativeQuery("SELECT * FROM warehouse WHERE warehouse_ID = ?",Warehouse.class);
+		Query sql = em.createNativeQuery("SELECT * FROM warehouse WHERE warehouseID = ?",Warehouse.class);
 		sql.setParameter(1, primaryKey);
 		
 		Warehouse ware = (Warehouse) sql.getSingleResult();

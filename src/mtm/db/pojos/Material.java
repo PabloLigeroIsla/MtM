@@ -55,7 +55,7 @@ public class Material implements Serializable {
 	
 	@ManyToOne
 	//@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "warehouse_ID")
+	@JoinColumn(name = "warehouseID")
 	@XmlElement(name = "Warehouse")
 	private Warehouse warehouse; //FOREIGN KEY
 

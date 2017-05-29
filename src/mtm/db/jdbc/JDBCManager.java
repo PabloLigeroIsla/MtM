@@ -395,7 +395,7 @@ public class JDBCManager implements DBInterface
 	public void deleteWarehouse(int primaryKeyWarehouse)
 	{
 		
-		String sqlQuery = "SELECT * FROM warehouse WHERE warehouse_ID = ?";
+		String sqlQuery = "SELECT * FROM warehouse WHERE warehouseID = ?";
 		if(valExist(sqlQuery,primaryKeyWarehouse,null))
 		{
 			JDBCDelete sqlDelete = new JDBCDelete(c);
@@ -728,7 +728,7 @@ public class JDBCManager implements DBInterface
  	public Warehouse selectWarehouse(int primaryKey)
  	{
  		String table = "warehouse";
- 		String selQuery = "SELECT * FROM "+table+" WHERE warehouse_ID = ?";
+ 		String selQuery = "SELECT * FROM "+table+" WHERE warehouseID = ?";
  			
  		if(valExist(selQuery,primaryKey,null))
  		{
@@ -956,7 +956,7 @@ public class JDBCManager implements DBInterface
  	{ 	
  		
  		String table = "warehouse";
-		String selQuery = "SELECT warehouse_ID FROM "+table+" WHERE warehouse_ID = ?";
+		String selQuery = "SELECT warehouseID FROM "+table+" WHERE warehouseID = ?";
 		if(valExist(selQuery,pkSearch,null))
 		{
  		
@@ -971,7 +971,7 @@ public class JDBCManager implements DBInterface
  	{ 	
  		
  		String table = "warehouse";
-		String selQuery = "SELECT warehouse_ID FROM "+table+" WHERE warehouse_ID = ?";
+		String selQuery = "SELECT warehouseID FROM "+table+" WHERE warehouseID = ?";
 		if(valExist(selQuery,pkSearch,null))
 		{
  		
