@@ -205,7 +205,7 @@ public class JDBCSelect
 			while (rs.next()) 
 			{
 				warehouseID = rs.getInt("warehouseID");
-				warehouseLocation = rs.getString("warehouse_location");
+				warehouseLocation = rs.getString("warehouseLocation");
 				capacity = rs.getInt("capacity");
 				filledSpace = rs.getInt("filledSpace");
 			
@@ -557,7 +557,7 @@ public class JDBCSelect
 			while(rs.next())
 			{
 				int warehouseID = rs.getInt("warehouseID");
-				String warehouseLocation = rs.getString("warehouse_location");
+				String warehouseLocation = rs.getString("warehouseLocation");
 				int capacity = rs.getInt("capacity");
 				int filledSpace = rs.getInt("filledSpace");
 				
