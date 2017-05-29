@@ -19,7 +19,7 @@ public class JDBCManager implements DBInterface
 	public Connection c = null;
 	
 	//Methods to create the Pojos
-	
+	//
 	public Order createPojoOrder(int number,String d11,String d12,String d13,String d21,String d22,String d23)
 	{
 		LocalDate date1Ld = StringtoLocalDate(d13,d12,d11);
