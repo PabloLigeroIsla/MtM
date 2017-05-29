@@ -204,12 +204,8 @@ public class UserInterface
     	case 5:
     		//Menu for the delete option
     		System.out.println("\n\nSelect the table where you want to delete a value:\n"
-    				+ "1:Company\n"
-    				+ "2:Employee\n"
-    				+ "3:Hospital\n"
-    				+ "4:Instrument\n"
-    				+ "5:Machinery\n"
-    				+ "6:Material\n");
+    				+ "1:Employee\n"
+    				+ "2:Material\n");
     		break;
     	case 6:
     		//Menu for the Update
@@ -514,45 +510,17 @@ public class UserInterface
 	{
 		System.out.println("What table do you want to delete a value from? \n");
 		selectionMenu(5);
-		int op=0;
+		int op=writeNumber(2);
 		
 		switch(op){
 		
-		case 1: //Company 
-			listCompanies(false);
-			System.out.println("What company do you want to delete from this table? \n");
-			int pk1 = writeNumber();
-			jdbcManager.deleteCompany(pk1);
-			break;
-		case 2: //Employee
+		case 1: //Employee
 			listEmployees(false);
 			System.out.println("What employee do you want to delete from this table? \n");
 			int pk2 = writeNumber();
 			jdbcManager.deleteEmployee(pk2);
 			break;
-		case 3: //Hospital 
-			listHospitals(false);
-			System.out.println("What hospital do you want to delete from this table? \n");
-			int pk3 = writeNumber();
-			jdbcManager.deleteHospital(pk3);
-			break;
-		case 4: //Instrument
-			ArrayList<Instrument> instList = jdbcManager.selectAllInstruments();
-			listInstruments(instList,false);
-			System.out.println("What instrument do you want to delete from this table? \n");
-			int pk4 = writeNumber();
-			jdbcManager.deleteInstrument(pk4);
-			break;
-		case 5: //Machinery
-			listMachineries(false);
-			System.out.println("What machinery do you want to delete from this table? \n");
-			int pk5 = writeNumber();
-			jdbcManager.deleteRelationInstrumentMachinery(pk5, "machineryID");
-			jdbcManager.deleteRelationMachineryEmployee(pk5);
-			jpaManager.deleteMachinery(pk5); 
-			//jdbcManager.deleteMachinery(pk5);@JPAChange
-			break;
-		case 6: //Material
+		case 2: //Material
 			listMaterials(false);
 			System.out.println("What material do you want to delete from this table? \n");
 			int pk6 = writeNumber();
