@@ -568,7 +568,7 @@ public class UserInterface
     int op = writeNumber(2);
     switch(op)
     {
-    case 1://Machinery
+    case 1://Machinery//
     	System.out.println("Select the primary key of the machinery you want to change:");
     	listMachineries(false);
     	int pk = writeNumber();
