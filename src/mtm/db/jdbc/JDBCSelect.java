@@ -207,7 +207,7 @@ public class JDBCSelect
 				warehouseID = rs.getInt("warehouseID");
 				warehouseLocation = rs.getString("warehouse_location");
 				capacity = rs.getInt("capacity");
-				filledSpace = rs.getInt("filled_space");
+				filledSpace = rs.getInt("filledSpace");
 			
 				warehouse = new Warehouse(warehouseID,warehouseLocation,capacity,filledSpace);
 				
@@ -559,7 +559,7 @@ public class JDBCSelect
 				int warehouseID = rs.getInt("warehouseID");
 				String warehouseLocation = rs.getString("warehouse_location");
 				int capacity = rs.getInt("capacity");
-				int filledSpace = rs.getInt("filled_space");
+				int filledSpace = rs.getInt("filledSpace");
 				
 				Warehouse warehouse = new Warehouse(warehouseID,warehouseLocation,capacity,filledSpace);
 				warehouseList.add(warehouse);
