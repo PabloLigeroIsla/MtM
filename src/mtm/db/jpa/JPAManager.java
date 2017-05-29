@@ -163,9 +163,11 @@ public class JPAManager implements DBInterface
 	
 	// WAREHOUSE
 	
-	public void insertWareHouse()
+	public void insert(Warehouse obj)
 	{
-		
+		em.getTransaction().begin();
+		em.persist(obj);
+		em.getTransaction().commit();
 	}
 	
 	public Warehouse selectWarehouse(int primaryKey)

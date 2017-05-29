@@ -1013,7 +1013,7 @@ public class UserInterface
     			listCompanies(false);
     			System.out.println("Type the PK of the company:\n");
     			int pk = writeNumber();
-    			Company com = jdbcManager.selectCompany(pk);
+    			Company com = jpaManager.selectCompany(pk);
     			mat.setCompanyID(com);
     			System.out.println("The material is attached to the company\n");
     			aux = false;
@@ -1022,6 +1022,7 @@ public class UserInterface
     		{
     			System.out.println("Therefore, you need to create a new company\n");
     			Company com = createCompany();
+    			jpaManager.insert(com);
     			mat.setCompanyID(com);
     			System.out.println("The material is attached to the company\n");
     			aux = false;
@@ -1056,8 +1057,7 @@ public class UserInterface
     		{
     			System.out.println("\n Therefore, a Machinery must be created\n");
     			Machinery mach = createMachinery();
-    			jdbcManager.insert(mach);
-    			jdbcManager.setMachineryID(mach);
+    			jpaManager.insert(mach);
     			
     			mat.setMachineryID(mach);
     			aux2 = false;
@@ -1081,8 +1081,8 @@ public class UserInterface
     			//crear
     			System.out.println("A new WareHouse will be created");
     			Warehouse war = createWarehouse();
-    			jdbcManager.insert(war);
-    			jdbcManager.setWarehouseID(war);
+    			jpaManager.insert(war);
+
     			mat.setWarehouseID(war);
     			aux3 = false;
     		}else
