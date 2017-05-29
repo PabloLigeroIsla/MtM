@@ -114,8 +114,8 @@ public class Employee implements Serializable {
 		this.typeofContract = typeofContract;
 	}
 	
-	public Employee(String name, String specializationType, String typeofContract,
-			Machinery machineryType) {
+	public Employee(String name, String specializationType, String typeofContract, Machinery machineryType) 
+	{
 		super();
 		this.name = name;
 		this.specializationType = specializationType;

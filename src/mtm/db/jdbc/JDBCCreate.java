@@ -161,7 +161,6 @@ public class JDBCCreate
 		}catch (Exception e)
 		{
 			act = true;
-			System.out.println("Tables already existed.");
 		}
 		return act;
 	}

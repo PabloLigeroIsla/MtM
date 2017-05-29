@@ -894,20 +894,18 @@ public class UserInterface
 		System.out.println("Select the ID of the machinery the employee is spezialized in\n");
 		int e=writeNumber();
 		
-		mach=jpaManager.selectMachinery(e);
-		//mach=jdbcManager.selectMachinery(e);@JPAChange
+		mach = jdbcManager.selectMachinery(e);
 		
 	}
 	else
 	{
-		mach=createMachinery();
+		mach = createMachinery();
 		jdbcManager.insert(mach);
 		mach = jdbcManager.setMachineryID(mach);
 		
 	}
 	
-	String st = mach.getMachineryType();
-	Employee emp = new Employee(name,st,typec,mach);
+	Employee emp = new Employee(name,typec,mach.getMachineryType(),mach);
 	
 	return emp;
     
