@@ -1166,7 +1166,7 @@ public class UserInterface
     	mach = jpaManager.selectMachinery(pk);
     	//mach = jdbcManager.selectMachinery(pk);@JPAChange
     	jdbcManager.setMachineryRelations(mach);
-    	mach.printMach();
+    	mach.printMach(true);
     }
     
     //List the objects
