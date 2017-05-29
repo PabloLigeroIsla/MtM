@@ -496,7 +496,9 @@ public class UserInterface
 			
 			break;
 		case 6: //Material
-			createMaterial(); 
+			Material mat = createMaterial(); 
+			jpaManager.insert(mat);
+			
 			break;
 		case 7: // Warehouse 
 			Warehouse wareh = createWarehouse();
@@ -1101,9 +1103,6 @@ public class UserInterface
     	
     	}
     	mat.printMaterial();
-    	jpaManager.insert(mat);
-		//jdbcManager.insert(mat);
-		System.out.println("The material is correctly attached to the database\n");
 		
     	return mat;
     	

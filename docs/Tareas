@@ -1,9 +1,9 @@
 Tareas: 
 
+Poner en DOCS todo lo que hay que entregar YA ACTUALIZADO
 Use XSLT to produce a HTML
 Hacer printMachinery(bien), no hacer con el return, imprimir una cosa u otra dependiendo de un boolean que me marque la relación (CELIA)
 Probar delete y update
-Probar XML
 
 Actualizar el UML
 Actualizar el ultimo esquema ese que tenias que poner los metodos
@@ -30,4 +30,24 @@ Opcionales que faltan:
 
 
 
+
+
+
+//////////////////////////////////////////////////
+ERRORS
+ --DataBase locked sometimes, I don know why.
+ 
+OPEN CONNECTION
+ -- Learn to catch the exception
+ 
+HTTP of the XML
+ --Do we have some bluePrints to create the HTML doc using the XML?? I think so but I am not sure
+ 
+JPA anotations
+ -- We need to put in the joinColumn, the name of the table in SQL that relate the n2n relation pr the value of the atrivute in JAVA object
+ 
+
+Insert material 
+ -- Problems with Database stacked 
+ -- Need to insert the objects inside material before created before save materials???
 

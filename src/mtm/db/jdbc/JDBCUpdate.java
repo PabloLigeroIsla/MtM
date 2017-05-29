@@ -84,7 +84,8 @@ public class JDBCUpdate
 			String sql = "UPDATE warehouse SET filled_space = "+filledSpaceUpdated+" WHERE warehouse_ID=?";
 			
 			PreparedStatement prep = c.prepareStatement(sql);
-			prep.setInt(1, pkSearch);
+			prep.setInt(1,filledSpaceUpdated);
+			prep.setInt(2, pkSearch);
 			prep.executeUpdate();
 			
 			prep.close();
@@ -101,10 +102,11 @@ public class JDBCUpdate
 		
 		try {
 			
-			String sql = "UPDATE warehouse SET warehouse_location LIKE "+locationUpdated+" WHERE warehouse_ID=?";
+			String sql = "UPDATE warehouse SET warehouse_location =? WHERE warehouse_ID=?";
 			
 			PreparedStatement prep = c.prepareStatement(sql);
-			prep.setInt(1, pkSearch);
+			prep.setString(1, locationUpdated);
+			prep.setInt(2, pkSearch);
 			prep.executeUpdate();
 			
 			prep.close();
