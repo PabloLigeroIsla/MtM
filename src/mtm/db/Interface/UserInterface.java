@@ -64,12 +64,11 @@ public class UserInterface
 					waitEnter();
 					break;
 				case 6:
-					//xmlManager.createXML();
-					//createXML();
+					createXML();
 					waitEnter();
 					break;
 				case 7:
-					//openXML();
+					openXML();
 					waitEnter();
 					break;
 				case 8:
