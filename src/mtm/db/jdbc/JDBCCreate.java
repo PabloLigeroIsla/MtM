@@ -95,9 +95,9 @@ public class JDBCCreate
 			Statement sCht = c.createStatement();
 			String sqlch2 = "CREATE TABLE warehouse("
 					+ "warehouseID INTEGER PRIMARY KEY AUTOINCREMENT,"
-					+ "warehouse_location TEXT NOT NULL,"
 					+ "capacity INTEGER NOT NULL,"
-					+ "filled_space INTEGER NOT NULL)";
+					+ "filled_space INTEGER NOT NULL,"
+					+ "warehouse_location TEXT NOT NULL)";
 			sCht.executeUpdate(sqlch2);
 			sCht.close();
 			

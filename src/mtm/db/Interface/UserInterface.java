@@ -346,7 +346,8 @@ public class UserInterface
 		switch(op){
 		
 		case 1: //Company   
-			createCompany();
+			Company comp = createCompany();
+			jdbcManager.insert(comp);
 			break;
 		case 2: //Employee
 			Employee emp = createEmployee();
@@ -983,9 +984,6 @@ public class UserInterface
     	String b=writeString();
     	
     	Company com = new Company(a,b);
-    	jdbcManager.insert(com);
-    	com = jdbcManager.setCompanyID(com);
-
     	
     	return com;
     }
