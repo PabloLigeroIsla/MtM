@@ -64,12 +64,11 @@ public class UserInterface
 					waitEnter();
 					break;
 				case 6:
-					//xmlManager.createXML();
-					//createXML();
+					createXML();
 					waitEnter();
 					break;
 				case 7:
-					//openXML();
+					openXML();
 					waitEnter();
 					break;
 				case 8:
@@ -204,12 +203,8 @@ public class UserInterface
     	case 5:
     		//Menu for the delete option
     		System.out.println("\n\nSelect the table where you want to delete a value:\n"
-    				+ "1:Company\n"
-    				+ "2:Employee\n"
-    				+ "3:Hospital\n"
-    				+ "4:Instrument\n"
-    				+ "5:Machinery\n"
-    				+ "6:Material\n");
+    				+ "1:Employee\n"
+    				+ "2:Material\n");
     		break;
     	case 6:
     		//Menu for the Update
@@ -514,45 +509,17 @@ public class UserInterface
 	{
 		System.out.println("What table do you want to delete a value from? \n");
 		selectionMenu(5);
-		int op=0;
+		int op=writeNumber(2);
 		
 		switch(op){
 		
-		case 1: //Company 
-			listCompanies(false);
-			System.out.println("What company do you want to delete from this table? \n");
-			int pk1 = writeNumber();
-			jdbcManager.deleteCompany(pk1);
-			break;
-		case 2: //Employee
+		case 1: //Employee
 			listEmployees(false);
 			System.out.println("What employee do you want to delete from this table? \n");
 			int pk2 = writeNumber();
 			jdbcManager.deleteEmployee(pk2);
 			break;
-		case 3: //Hospital 
-			listHospitals(false);
-			System.out.println("What hospital do you want to delete from this table? \n");
-			int pk3 = writeNumber();
-			jdbcManager.deleteHospital(pk3);
-			break;
-		case 4: //Instrument
-			ArrayList<Instrument> instList = jdbcManager.selectAllInstruments();
-			listInstruments(instList,false);
-			System.out.println("What instrument do you want to delete from this table? \n");
-			int pk4 = writeNumber();
-			jdbcManager.deleteInstrument(pk4);
-			break;
-		case 5: //Machinery
-			listMachineries(false);
-			System.out.println("What machinery do you want to delete from this table? \n");
-			int pk5 = writeNumber();
-			jdbcManager.deleteRelationInstrumentMachinery(pk5, "machineryID");
-			jdbcManager.deleteRelationMachineryEmployee(pk5);
-			jpaManager.deleteMachinery(pk5); 
-			//jdbcManager.deleteMachinery(pk5);@JPAChange
-			break;
-		case 6: //Material
+		case 2: //Material
 			listMaterials(false);
 			System.out.println("What material do you want to delete from this table? \n");
 			int pk6 = writeNumber();
@@ -787,7 +754,7 @@ public class UserInterface
     			while(empIter.hasNext())
     			{
     				Employee  emp = empIter.next();
-    				if(jdbcManager.valExist(queryEmp,emp.getEmployee_ID(), null))
+    				if(jdbcManager.valExist(queryEmp,emp.getEmployeeID(), null))
     				{
     					jdbcManager.insert(emp);
     				}
@@ -918,28 +885,29 @@ public class UserInterface
 	String name = writeString();
 	System.out.println("Type of contract: \n");
 	String typec = writeString();
-	System.out.println("Does the machinery exist?\n");
+	System.out.println("Does the machinery exist? Introduce YES or NO\n");
 	String d = writeString();
 	Machinery mach=new Machinery();
-	if(writeOption(d)){
+	if(writeOption(d))
+	{
 		listMachineries(false);
 		System.out.println("Select the ID of the machinery the employee is spezialized in\n");
 		int e=writeNumber();
 		
-		mach=jpaManager.selectMachinery(e);
-		//mach=jdbcManager.selectMachinery(e);@JPAChange
+		mach = jdbcManager.selectMachinery(e);
 		
 	}
 	else
 	{
-		mach=createMachinery();
+		mach = createMachinery();
 		jdbcManager.insert(mach);
 		mach = jdbcManager.setMachineryID(mach);
 		
 	}
 	
-	String st = mach.getMachineryType();
-	Employee emp = new Employee(name,st,typec,mach);
+	Employee emp = new Employee(name,typec,mach.getMachineryType(),mach);
+	
+	emp.printEmployee(false);
 	
 	return emp;
     
@@ -1346,10 +1314,10 @@ public class UserInterface
     	{
     		emp = empList.get(count);
     		String name = emp.getName();
-			int id = emp.getEmployee_ID();
+			int id = emp.getEmployeeID();
     		emp = empList.get(count);
     		if(relation){
-        		System.out.printf("id: %d, mach: %d\n",emp.getEmployee_ID(),emp.getMachineryType().getMachineryType());
+        		System.out.printf("id: %d, mach: %d\n",emp.getEmployeeID(),emp.getMachineryType().getMachineryType());
             	
     		}
     		else{

@@ -29,8 +29,6 @@ public class JDBCInsert
 	{
 		try
 		{
-			c.setAutoCommit(false);//With false the data base will be updated in the c.commit();
-								   // If true, then in line executeUpdate() the data base is updated
 			
 			String sql = "INSERT INTO hospital(name,location,medical_specialization)"
 					+ "VALUES(?,?,?);";
@@ -53,7 +51,6 @@ public class JDBCInsert
 	{
 		try
 		{
-			c.setAutoCommit(false);
 			
 			String sql = "INSERT INTO orders(total_amount_instruments,order_date,delivery_date)"
 					+ "VALUES(?,?,?);";
@@ -64,8 +61,6 @@ public class JDBCInsert
 			prep.setDate(3, ord.getDeliveryDate());
 			
 			prep.executeUpdate();
-		
-			c.commit();
 			prep.close();
 			
 		}catch(SQLException e)
@@ -79,8 +74,6 @@ public class JDBCInsert
 		try
 		{
 			
-			c.setAutoCommit(false);//With false the data base will be updated in the c.commit();
-			   // If true, then in line executeUpdate() the data base is updated
 
 			String sql = "INSERT INTO instrument(name,model,purpose,amount,number_uses,body_location,price,warehouseID)"
 					+ "VALUES(?,?,?,?,?,?,?,?);";
@@ -98,7 +91,6 @@ public class JDBCInsert
 			prep.executeUpdate();
 		
 			prep.close();
-			c.commit();
 
 		}catch(SQLException e)
 		{
@@ -110,7 +102,6 @@ public class JDBCInsert
 	{
 		try
 		{
-			c.setAutoCommit(false);
 			
 			Statement stmCh = c.createStatement();
 			String sqlCh;
@@ -119,7 +110,6 @@ public class JDBCInsert
 			stmCh.executeUpdate(sqlCh);
 			stmCh.close();
 			
-			c.commit();
 					
 		}catch(SQLException e)
 		{
@@ -131,17 +121,17 @@ public class JDBCInsert
 	{
 		try
 		{	
-			c.setAutoCommit(false);
-			Statement stmt = c.createStatement();
-			String sql = "INSERT INTO employee(name,typeofContract,specializationType,machineryID) "
-			+ "VALUES ('" + emp.getName() + "', '" + emp.getTypeofContract()	+ "', '" 
-					+ emp.getSpecializationType()	+ "', '" + emp.getMachineryType().getMachineryID()	+ "');";
-			stmt.executeUpdate(sql);
-			stmt.close();
-			System.out.println("Employee information processed");
-			System.out.println("Records inserted.");
 			
-			c.commit();
+			
+			String sql = "INSERT INTO employee(name,typeofContract,specializationType,machineryID) VALUES (?,?,?,?)";
+			PreparedStatement prep = c.prepareStatement(sql);
+			
+			prep.setString(1,emp.getName());
+			prep.setString(2,emp.getTypeofContract());
+			prep.setString(3,emp.getSpecializationType());
+			prep.setInt(4,emp.getMachineryType().getMachineryID());
+			
+			prep.close();
 			
 			}catch(SQLException e)
 		{
@@ -157,7 +147,6 @@ public class JDBCInsert
 		try
 		{
 						
-			c.setAutoCommit(false);
 			
 			String sql = "INSERT INTO machinery(machineryType,stateofMachinery,dateofInstallation,sizeofMachinery)"
 				+ "VALUES (?,?,?,?);";
@@ -172,8 +161,6 @@ public class JDBCInsert
 			prep.executeUpdate();
 			prep.close();
 			
-			c.commit();
-			
 			
 			
 			}catch(SQLException e)
@@ -184,22 +171,17 @@ public class JDBCInsert
 		
 	public void insert(Company com){
 		try{
-			c.setAutoCommit(false);
 			
-				String sql;
-				sql = "INSERT INTO company(location,companyName)" + "VALUES(?,?);"; 
+				String sql = "INSERT INTO company(location,companyName)" + "VALUES(?,?);"; 
 				PreparedStatement prep = c.prepareStatement(sql);
 				prep.setString(1,com.getLocation());
 				prep.setString(2,com.getCompanyName());
 								
-				prep.executeUpdate();
-									
+				prep.executeUpdate();	
 				prep.close();
 								
-				System.out.println("Records inserted.");
 				
 				
-				c.commit();
 			}
 			catch (Exception e) {
 				e.printStackTrace();
@@ -209,25 +191,19 @@ public class JDBCInsert
 	public void insert(Material mat){
 		try{
 
-						c.setAutoCommit(false);
-								String sql;
-								sql = "INSERT INTO material(weight,volume,type,companyID,machineryID,warehouseID) VALUES(?,?,?,?,?,?);";
-								PreparedStatement prep = c.prepareStatement(sql);
-								prep.setInt(1,mat.getWeight());
-								prep.setInt(2,mat.getVolume());
-								prep.setString(3,mat.getType());
-								prep.setInt(4,mat.getCompany().getCompanyID());
-								prep.setInt(5,mat.getMachineryID().getMachineryID());
-								prep.setInt(6,mat.getWarehouse().getWarehouseID());
+				String sql;
+				sql = "INSERT INTO material(weight,volume,type,companyID,machineryID,warehouseID) VALUES(?,?,?,?,?,?);";
+				PreparedStatement prep = c.prepareStatement(sql);
+				prep.setInt(1,mat.getWeight());
+				prep.setInt(2,mat.getVolume());
+				prep.setString(3,mat.getType());
+				prep.setInt(4,mat.getCompany().getCompanyID());
+				prep.setInt(5,mat.getMachineryID().getMachineryID());
+				prep.setInt(6,mat.getWarehouse().getWarehouseID());
 								
-								prep.executeUpdate();
+				prep.executeUpdate();
+				prep.close();
 								
-								
-								prep.close();
-								
-								System.out.println("Records inserted.");
-
-								c.commit();
 				}
 				catch (Exception e) {
 					e.printStackTrace();
@@ -241,7 +217,6 @@ public class JDBCInsert
 	{
 		try
 		{
-			c.setAutoCommit(false);
 			
 			String sql = "INSERT INTO hospital_orders(hospitalID,orderID,amountOrder)"
 					+ "VALUES(?,?,?)";
@@ -252,8 +227,8 @@ public class JDBCInsert
 			prep.setInt(3,amOrd);
 			
 			prep.executeUpdate();
-				
-		c.commit();
+			
+			
 		}catch(SQLException e)
 		{
 			e.printStackTrace();
@@ -264,7 +239,6 @@ public class JDBCInsert
 	{
 		try
 		{
-			c.setAutoCommit(false);
 			
 			String sql = "INSERT INTO instrument_orders(orderID,instrument_ID)"
 					+"VALUES(?,?)";
@@ -274,7 +248,7 @@ public class JDBCInsert
 			prep.setInt(2,pkOrder);
 			
 			prep.executeUpdate();
-			c.commit();
+
 		}catch(SQLException e)
 		{
 			e.printStackTrace();
@@ -287,9 +261,6 @@ public class JDBCInsert
 	try
 	{
 		
-		
-		c.setAutoCommit(false);
-		
 		String sql = "INSERT INTO instrument_machinery(instrument_ID, machineryID, timeofMade)"
 				+ "VALUES(?,?,?)";
 		
@@ -300,7 +271,7 @@ public class JDBCInsert
 		
 		prep.executeUpdate();
 			
-	c.commit();
+
 	}catch(SQLException e)
 	{
 		e.printStackTrace();
@@ -312,7 +283,6 @@ public class JDBCInsert
 	public void insertMaterialWarehouseRelation(int pkMaterial, int pkWarehouse ){
 		try
 		{
-			c.setAutoCommit(false);
 			
 			String sql = "INSERT INTO material_warehouse(materialID,warehouseID)"
 					+ "VALUES(?,?)";
@@ -323,7 +293,6 @@ public class JDBCInsert
 			
 			prep.executeUpdate();
 			
-			c.commit();
 		}catch(SQLException e)
 		{
 			e.printStackTrace();
