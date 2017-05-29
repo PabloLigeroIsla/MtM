@@ -28,7 +28,22 @@ public class JPAManager implements DBInterface
 	
 	//Company
 	
+	public Company selectCompany(int primaryKey){
+		Company com = new Company();
+		Query sql = em.createNativeQuery("SELECT * FROM company WHERE companyID = ?",Company.class);
+		sql.setParameter(1, primaryKey);
+		
+		com = (Company) sql.getSingleResult();
+		
+		return com;
+	}
 	
+	public void insert(Company obj)
+	{
+		em.getTransaction().begin();
+		em.persist(obj);
+		em.getTransaction().commit();
+	} 
 	
 	//Employee
 	
