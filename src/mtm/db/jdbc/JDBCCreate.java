@@ -95,9 +95,17 @@ public class JDBCCreate
 			Statement sCht = c.createStatement();
 			String sqlch2 = "CREATE TABLE warehouse("
 					+ "warehouseID INTEGER PRIMARY KEY AUTOINCREMENT,"
+<<<<<<< HEAD
 					+ "warehouseLocation TEXT NOT NULL,"
+=======
+>>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 					+ "capacity INTEGER NOT NULL,"
+<<<<<<< HEAD
 					+ "filledSpace INTEGER NOT NULL)";
+=======
+					+ "filled_space INTEGER NOT NULL,"
+					+ "warehouse_location TEXT NOT NULL)";
+>>>>>>> branch 'master' of https://github.com/papsers/MtM.git
 			sCht.executeUpdate(sqlch2);
 			sCht.close();
 			
