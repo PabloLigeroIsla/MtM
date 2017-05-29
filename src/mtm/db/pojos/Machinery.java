@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -260,11 +261,42 @@ public class Machinery implements Serializable {
 	+ machineryType + ",stateofMachinery=" + stateofMachinery + ", dateofInstallation=" 
 	+ dateofInstallation + ", sizeofMachinery=" + sizeofMachinery + "]";
 	}
-	
-	public String printMach(){
-		return "Machinery [machineryID=" + this.machineryID + ",machineryType=" 
-				+ this.machineryType + ",stateofMachinery=" + this.stateofMachinery + ", dateofInstallation=" 
-				+ SqltoLocalDate(this.dateofInstallation) + ", sizeofMachinery=" + this.sizeofMachinery + "]";
+
+	public void printMach(boolean b){
+		
+		System.out.printf("Machinery information:\n Id: %d" + "Machinery Type: %s\n" 
+			+ "State of machinery: %s\n"+"Date of installation: %s\n"+ "Size of machinery:%d\n\n"
+			,this.getMachineryID(),this.getMachineryType(),this.getStateofMachinery(),
+			this.getDateofInstallation(),this.getSizeofMachinery());
+		if(b){
+			//With relations
+			
+			
+			Iterator <Employee> iter = this.getEmployeeList().iterator();
+			while(iter.hasNext())
+			{
+				Employee emp  = iter.next();
+				System.out.printf("Employees Related:\n"
+						+ "Id: %d\n"+"Name: %s",emp.getEmployee_ID(),emp.getName());
+			}
+			Iterator <Material> iter2 = this.getMaterialList().iterator();
+			while(iter2.hasNext())
+			{
+				Material mat  = iter2.next();
+				System.out.printf("Materials Related:\n"
+						+ "Id: %d\n"+"Type: %s",mat.getMaterialID(),mat.getType());
+			}
+			Iterator <Instrument> iter3 = this.getInstrumentList().iterator();
+			while(iter3.hasNext())
+			{
+				Instrument inst  = iter3.next();
+				System.out.printf("Instruments Related:\n"
+						+ "Id: %d\n"+"Name: %s",inst.getInstrumentID(),inst.getName());
+			}
+			
+		}
+		 
+		
 	}
 
 	@Override
