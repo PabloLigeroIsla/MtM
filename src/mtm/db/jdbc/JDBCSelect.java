@@ -259,10 +259,11 @@ public class JDBCSelect
 			e.printStackTrace();
 		}
 
-		
+		emp.printEmployee(false);
+		System.out.println("Método de SelectEmployee");
 		return emp;
 	}
-	
+	//Fallo en el Select//
 	public Employee selectEmployee(String query, String nameEmp)
 	{
 		Employee emp = null;
@@ -283,6 +284,7 @@ public class JDBCSelect
 				specializationType = rs.getString("specializationType");
 				typeofContract = rs.getString("typeofContract");
 				emp = new Employee(employeeID,name,specializationType,typeofContract);	
+
 			}
 			
 			prep.close();

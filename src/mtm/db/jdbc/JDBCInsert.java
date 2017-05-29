@@ -122,7 +122,6 @@ public class JDBCInsert
 		try
 		{	
 			
-			emp.printEmployee(false);
 			
 			String sql = "INSERT INTO employee(name,typeofContract,specializationType,machineryID) VALUES (?,?,?,?)";
 			PreparedStatement prep = c.prepareStatement(sql);

@@ -104,8 +104,6 @@ public class Employee implements Serializable {
 		this.employeeID = eID;
 	}
 	
-	
-	
 	public Employee(String name, String specializationType, String typeofContract, Machinery machineryType) 
 	{
 		super();
