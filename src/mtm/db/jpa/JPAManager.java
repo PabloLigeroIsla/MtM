@@ -144,6 +144,7 @@ public class JPAManager implements DBInterface
  			workingState="no work";
  			
  		}
+		
 		em.getTransaction().begin();
 		mach.setStateofMachinery(workingState);
 		em.getTransaction().commit();

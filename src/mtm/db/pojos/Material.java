@@ -49,7 +49,7 @@ public class Material implements Serializable {
 	
 	@ManyToOne
 	//@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "machinery_ID")
+	@JoinColumn(name = "machineryID")
 	@XmlTransient
 	private Machinery machinery; //FOREIGN KEY
 	
@@ -148,12 +148,12 @@ public class Material implements Serializable {
 		this.machinery = machineryID;
 	}
 
-	public Warehouse getWarehouseID() {
+	public Warehouse getWarehouse() {
 		return warehouse;
 	}
 
-	public void setWarehouseID(Warehouse warehouseID) {
-		this.warehouse = warehouseID;
+	public void setWarehouse(Warehouse warehouse) {
+		this.warehouse = warehouse;
 	}
 
 

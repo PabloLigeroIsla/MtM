@@ -218,7 +218,7 @@ public class JDBCInsert
 								prep.setString(3,mat.getType());
 								prep.setInt(4,mat.getCompany().getCompanyID());
 								prep.setInt(5,mat.getMachineryID().getMachineryID());
-								prep.setInt(6,mat.getWarehouseID().getWarehouseID());
+								prep.setInt(6,mat.getWarehouse().getWarehouseID());
 								
 								prep.executeUpdate();
 								
