@@ -810,6 +810,7 @@ public class JDBCManager implements DBInterface
 	 		
 		ArrayList<Employee> emp = new ArrayList<Employee>();
 		ArrayList<Employee> empFinal = new ArrayList<Employee>();
+		
 		JDBCSelect sqlSelect = new JDBCSelect(c);
 		
 		emp = sqlSelect.selectAllEmployee();

@@ -22,7 +22,7 @@ public interface DBInterface
 		public Machinery selectMachinery(int primaryKey);
 		//Delete
 		public void deleteMachinery(int primaryKey);
-		//Update
-		public void updateMachinery(int pkSearch, int b);
+	
+
 		//Show
 }

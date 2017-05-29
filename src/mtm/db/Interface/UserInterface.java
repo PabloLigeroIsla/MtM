@@ -577,7 +577,8 @@ public class UserInterface
     			+ "1:Work\n"
     			+ "2:No Work\n");
     	int op2 = writeNumber(2);
-    	jpaManager.updateMachinery(pk,op2);
+    	Machinery mach = jpaManager.selectMachinery(pk);
+    	jpaManager.updateMachinery(mach,op2);
     	//jdbcManager.updateMachinery(pk,op2);
     	break;
     case 2://warehouse
