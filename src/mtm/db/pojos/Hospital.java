@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlType;
 public class Hospital implements Serializable
 {
 	
+	
 	private static final long serialVersionUID = -5262203984422829331L;
 	
 	@Id 
