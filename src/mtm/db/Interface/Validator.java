@@ -144,21 +144,33 @@ public abstract class Validator
 	public static boolean writeOption(String option)
 	{
 		boolean a = false;
-		boolean cont = true;
-		while(cont)
+		boolean change = false;
+		while(!change)
 		{
 			if(option.compareTo("YES") == 0 || option.compareTo("yes") == 0)
 			{
+				System.out.println("yes Selected");
 				a = true;
+				change = true;
 			}
-			else if(option.compareTo("YES") == 0 || option.compareTo("yes") == 0)
+			
+			if(option.compareTo("No") == 0 || option.compareTo("no") == 0)		
 			{
+				System.out.println("no Selected");
 				a = false;
-			}else
-			{
-				cont = false;
+				change = true;
 			}
+			
+			if(!change)
+			{
+				System.out.println("\n Introduce YES or NO\n");
+				option = writeString();
+			}
+			
 		}
+		
+
+		
 		
 		return a;
 	}
