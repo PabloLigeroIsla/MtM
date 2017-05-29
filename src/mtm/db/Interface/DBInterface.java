@@ -15,7 +15,7 @@ public interface DBInterface
 		//show
 			
 			
-	//Machinery
+	//Machinery//
 		//Create
 		public void insert(Machinery obj);
 		//Select

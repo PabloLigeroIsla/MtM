@@ -26,6 +26,38 @@ public class JPAManager implements DBInterface
 		em.close();
 	}
 	
+	//Company
+	
+	public Company selectCompany(int primaryKey){
+		Company com = new Company();
+		Query sql = em.createNativeQuery("SELECT * FROM company WHERE companyID = ?",Company.class);
+		sql.setParameter(1, primaryKey);
+		
+		com = (Company) sql.getSingleResult();
+		
+		return com;
+	}
+	
+	public void insert(Company obj)
+	{
+		em.getTransaction().begin();
+		em.persist(obj);
+		em.getTransaction().commit();
+	} 
+	
+	//Employee
+	
+	public Employee selectEMployee(int primaryKey)
+	{
+		
+		Query sql = em.createNativeQuery("SELECT * FROM employee WHERE employee_ID = ?",Employee.class);
+		sql.setParameter(1, primaryKey);
+		
+		Employee emp = (Employee) sql.getSingleResult();
+		return emp;
+	}
+	
+	
 	//Material
 	
 	public Material selectMaterial(int primaryKey)
@@ -67,6 +99,7 @@ public class JPAManager implements DBInterface
 		finalMach.setStateofMachinery(obj.getStateofMachinery());
 		finalMach.setDateofInstallation(obj.getDateofInstallation());
 		finalMach.setSizeofMachinery(obj.getSizeofMachinery());
+		
 		return finalMach;
 	}
 	
@@ -111,6 +144,7 @@ public class JPAManager implements DBInterface
  			workingState="no work";
  			
  		}
+		
 		em.getTransaction().begin();
 		mach.setStateofMachinery(workingState);
 		em.getTransaction().commit();
@@ -142,33 +176,22 @@ public class JPAManager implements DBInterface
 		return inst;
 	}
 	
-	public Company selectCompany(int primaryKey)
-	{
-		Query sql = em.createNativeQuery("SELECT * FROM company WHERE companyID = ?",Company.class);
-		sql.setParameter(1, primaryKey);
-		
-		Company comp = (Company) sql.getSingleResult();
-		
-		return comp;
-	}
 	
-	public Employee selectEMployee(int primaryKey)
+	// WAREHOUSE
+	
+	public void insert(Warehouse obj)
 	{
-		
-		Query sql = em.createNativeQuery("SELECT * FROM employee WHERE employee_ID = ?",Employee.class);
-		sql.setParameter(1, primaryKey);
-		
-		Employee emp = (Employee) sql.getSingleResult();
-		return emp;
+		em.getTransaction().begin();
+		em.persist(obj);
+		em.getTransaction().commit();
 	}
 	
 	public Warehouse selectWarehouse(int primaryKey)
 	{
-		Query sql = em.createNativeQuery("SELECT * FROM warehouse WHERE warehouse_ID = ?",Warehouse.class);
+		Query sql = em.createNativeQuery("SELECT * FROM warehouse WHERE warehouseID = ?",Warehouse.class);
 		sql.setParameter(1, primaryKey);
 		
 		Warehouse ware = (Warehouse) sql.getSingleResult();
 		return ware;
 	}
-	
 }

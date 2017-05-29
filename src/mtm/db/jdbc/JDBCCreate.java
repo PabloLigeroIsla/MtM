@@ -16,7 +16,7 @@ public class JDBCCreate
 	//Create
 	public boolean createTables()
 	{
-		boolean act;
+		boolean act=true;
 		try
 		{
 			c.setAutoCommit(false);
@@ -79,7 +79,7 @@ public class JDBCCreate
 					+ "number_uses INTEGER NOT NULL,"
 					+ "body_location TEXT NOT NULL,"
 					+ "price INTEGER NOT NULL,"
-					+ "warehouse_ID INTEGER REFERENCES warehouse(warehouse_ID))";
+					+ "warehouseID INTEGER REFERENCES warehouse(warehouseID))";
 			fCht.executeUpdate(sqlch1);
 			fCht.close();
 			
@@ -94,10 +94,10 @@ public class JDBCCreate
 			
 			Statement sCht = c.createStatement();
 			String sqlch2 = "CREATE TABLE warehouse("
-					+ "warehouse_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
-					+ "warehouse_location TEXT NOT NULL,"
+					+ "warehouseID INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ "warehouseLocation TEXT NOT NULL,"
 					+ "capacity INTEGER NOT NULL,"
-					+ "filled_space INTEGER NOT NULL)";
+					+ "filledSpace INTEGER NOT NULL)";
 			sCht.executeUpdate(sqlch2);
 			sCht.close();
 			
@@ -134,7 +134,7 @@ public class JDBCCreate
 								+"type TEXT,"
 								+"companyID  INTEGER REFERENCES company(companyID),"
 								+"machineryID INTEGER REFERENCES machinery(machineryID),"
-								+"warehouse_ID INTEGER REFERENCES warehouse(warehouse_ID))";
+								+"warehouseID INTEGER REFERENCES warehouse(warehouseID))";
 				sAt.executeUpdate(sqla2);
 				sAt.close();
 			
@@ -161,12 +161,11 @@ public class JDBCCreate
 			stmtSeq.executeUpdate(sqlSeq);
 			c.commit();
 			act = false;
+			c.setAutoCommit(true);
 		}catch (Exception e)
 		{
-			
 			act = true;
-			e.printStackTrace();
-		
+			System.out.println("Tables already existed.");
 		}
 		return act;
 	}
@@ -219,7 +218,7 @@ public class JDBCCreate
 						+"type TEXT,"
 						+"companyID  INTEGER REFERENCES company(companyID),"
 						+"machineryID INTEGER REFERENCES machinery(machineryID),"
-						+"warehouse_ID INTEGER REFERENCES warehouse(warehouse_ID))";
+						+"warehouseID INTEGER REFERENCES warehouse(warehouseID))";
 		sAt.executeUpdate(sqla2);
 		sAt.close();
 		}catch (Exception e)
@@ -263,7 +262,7 @@ public class JDBCCreate
 					+ "number_uses INTEGER NOT NULL,"
 					+ "body_location TEXT NOT NULL,"
 					+ "price INTEGER NOT NULL,"
-					+ "warehouse_ID INTEGER REFERENCES warehouse (warehouse_ID))";
+					+ "warehouseID INTEGER REFERENCES warehouse (warehouseID))";
 			fCht.executeUpdate(sqlch1);
 			fCht.close();
 			
@@ -281,7 +280,7 @@ public class JDBCCreate
 		{
 			Statement sCht = c.createStatement();
 			String sqlch2 = "CREATE TABLE warehouse("
-					+"warehouse_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+"warehouseID INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ "warehouse_location TEXT NOT NULL,"
 					+ "capacity INTEGER NOT NULL,"
 					+ "filledSpace INTEGER NOT NULL)";

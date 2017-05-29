@@ -395,7 +395,7 @@ public class JDBCManager implements DBInterface
 	public void deleteWarehouse(int primaryKeyWarehouse)
 	{
 		
-		String sqlQuery = "SELECT * FROM warehouse WHERE warehouse_ID = ?";
+		String sqlQuery = "SELECT * FROM warehouse WHERE warehouseID = ?";
 		if(valExist(sqlQuery,primaryKeyWarehouse,null))
 		{
 			JDBCDelete sqlDelete = new JDBCDelete(c);
@@ -600,8 +600,8 @@ public class JDBCManager implements DBInterface
 			mat.setCompanyID(selectCompany(idComp));
 			int idMach = mat.getMachineryID().getMachineryID();
 			mat.setMachineryID(selectMachinery(idMach));
-			int idWare = mat.getWarehouseID().getWarehouseID();
-			mat.setWarehouseID(selectWarehouse(idWare));
+			int idWare = mat.getWarehouse().getWarehouseID();
+			mat.setWarehouse(selectWarehouse(idWare));
 			
 			
 			
@@ -728,7 +728,7 @@ public class JDBCManager implements DBInterface
  	public Warehouse selectWarehouse(int primaryKey)
  	{
  		String table = "warehouse";
- 		String selQuery = "SELECT * FROM "+table+" WHERE warehouse_ID = ?";
+ 		String selQuery = "SELECT * FROM "+table+" WHERE warehouseID = ?";
  			
  		if(valExist(selQuery,primaryKey,null))
  		{
@@ -796,8 +796,8 @@ public class JDBCManager implements DBInterface
 			mat.setCompanyID(selectCompany(com));
 			int mach = mat.getMachineryID().getMachineryID();
 			mat.setMachineryID(selectMachinery(mach));
-			int war = mat.getWarehouseID().getWarehouseID();
-			mat.setWarehouseID(selectWarehouse(war));
+			int war = mat.getWarehouse().getWarehouseID();
+			mat.setWarehouse(selectWarehouse(war));
 			
 			materialListFinal.add(mat);
 		}
@@ -956,7 +956,7 @@ public class JDBCManager implements DBInterface
  	{ 	
  		
  		String table = "warehouse";
-		String selQuery = "SELECT warehouse_ID FROM "+table+" WHERE warehouse_ID = ?";
+		String selQuery = "SELECT warehouseID FROM "+table+" WHERE warehouseID = ?";
 		if(valExist(selQuery,pkSearch,null))
 		{
  		
@@ -971,7 +971,7 @@ public class JDBCManager implements DBInterface
  	{ 	
  		
  		String table = "warehouse";
-		String selQuery = "SELECT warehouse_ID FROM "+table+" WHERE warehouse_ID = ?";
+		String selQuery = "SELECT warehouseID FROM "+table+" WHERE warehouseID = ?";
 		if(valExist(selQuery,pkSearch,null))
 		{
  		
@@ -1167,7 +1167,7 @@ public class JDBCManager implements DBInterface
 		Iterator<Material> iter = allMaterials.iterator();
 		while(iter.hasNext()){
 			Material mat = iter.next();
-			if(mat.getWarehouseID().getWarehouseID() == war.getWarehouseID()){
+			if(mat.getWarehouse().getWarehouseID() == war.getWarehouseID()){
 				war.addMaterial(mat);
 			}
 		}

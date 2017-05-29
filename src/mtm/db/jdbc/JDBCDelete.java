@@ -36,7 +36,7 @@ public class JDBCDelete
 	{
 		try
 		{
-			String sql = "DELETE FROM warehouse WHERE warehouse_ID = ?";
+			String sql = "DELETE FROM warehouse WHERE warehouseID = ?";
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setInt(1, pkWarehouse);
 			prep.executeUpdate();

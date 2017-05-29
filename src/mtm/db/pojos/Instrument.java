@@ -51,7 +51,7 @@ public class Instrument implements Serializable {
 	private Integer price;
 	 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "warehouse_ID")
+	@JoinColumn(name = "warehouseID")
 	@XmlElement(name = "Warehouse")
 	@XmlElementWrapper(name = "Warehouses")
 	private Warehouse warehouse;

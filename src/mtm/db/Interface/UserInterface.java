@@ -346,7 +346,8 @@ public class UserInterface
 		switch(op){
 		
 		case 1: //Company   
-			createCompany();
+			Company comp = createCompany();
+			jdbcManager.insert(comp);
 			break;
 		case 2: //Employee
 			Employee emp = createEmployee();
@@ -678,7 +679,7 @@ public class UserInterface
     		String queryMat = "SELECT * FROM material WHERE materialID = ?";
     		String queryEmp = "SELECT * FROM employee WHERE employee_ID = ?";
     		String queryComp = "SELECT * FROM company WHERE companyID = ?";
-    		String queryWare = "SELECT * FROM warehouse WHERE warehouse_ID = ?";
+    		String queryWare = "SELECT * FROM warehouse WHERE warehouseID = ?";
     		
     		ArrayList<Hospital> hospList = (ArrayList<Hospital>) mtm.getHospList();
     		Iterator<Hospital> hospIter = hospList.iterator();
@@ -825,7 +826,7 @@ public class UserInterface
     				jdbcManager.insert(comp);
     			}
     			
-    			Warehouse war = mat.getWarehouseID();
+    			Warehouse war = mat.getWarehouse();
     			if(!jdbcManager.valExist(queryWare, war.getWarehouseID(),null))
     			{
     				jdbcManager.insert(war);
@@ -983,9 +984,6 @@ public class UserInterface
     	String b=writeString();
     	
     	Company com = new Company(a,b);
-    	jdbcManager.insert(com);
-    	com = jdbcManager.setCompanyID(com);
-
     	
     	return com;
     }
@@ -1002,7 +1000,7 @@ public class UserInterface
     	
     	Material mat = new Material(a,b,c);
     	
-    	//company
+    	//company//
     	boolean aux = true;
     	while(aux)
     	{
@@ -1013,7 +1011,7 @@ public class UserInterface
     			listCompanies(false);
     			System.out.println("Type the PK of the company:\n");
     			int pk = writeNumber();
-    			Company com = jdbcManager.selectCompany(pk);
+    			Company com = jpaManager.selectCompany(pk);
     			mat.setCompanyID(com);
     			System.out.println("The material is attached to the company\n");
     			aux = false;
@@ -1022,6 +1020,7 @@ public class UserInterface
     		{
     			System.out.println("Therefore, you need to create a new company\n");
     			Company com = createCompany();
+    			jpaManager.insert(com);
     			mat.setCompanyID(com);
     			System.out.println("The material is attached to the company\n");
     			aux = false;
@@ -1056,8 +1055,7 @@ public class UserInterface
     		{
     			System.out.println("\n Therefore, a Machinery must be created\n");
     			Machinery mach = createMachinery();
-    			jdbcManager.insert(mach);
-    			jdbcManager.setMachineryID(mach);
+    			jpaManager.insert(mach);
     			
     			mat.setMachineryID(mach);
     			aux2 = false;
@@ -1081,9 +1079,9 @@ public class UserInterface
     			//crear
     			System.out.println("A new WareHouse will be created");
     			Warehouse war = createWarehouse();
-    			jdbcManager.insert(war);
-    			jdbcManager.setWarehouseID(war);
-    			mat.setWarehouseID(war);
+    			jpaManager.insert(war);
+
+    			mat.setWarehouse(war);
     			aux3 = false;
     		}else
     		{
@@ -1096,7 +1094,7 @@ public class UserInterface
         	
         		if(ware != null)
         		{
-        			mat.setWarehouseID(ware);
+        			mat.setWarehouse(ware);
         			aux3 = false;
         		}
     		}
@@ -1183,9 +1181,26 @@ public class UserInterface
 			String name = com.getCompanyName();
 			int id = com.getCompanyID();
 			
-				System.out.printf("id: %d,name: %s\n",id,name);
-				count++;
+			if(relation)
+			{
+				ArrayList<Material> matList = (ArrayList<Material>)com.getMaterialList();
+				Iterator<Material> iter = matList.iterator();
+				while(iter.hasNext())
+			{
+				Material mat = iter.next();
+				System.out.printf("\nmat id:%d\n",mat.getMaterialID());
 			}
+			}
+			else
+			{
+				System.out.printf("id: %d,name: %s\n",id,name);
+			}
+			
+			
+			count++;
+			
+			
+		}
 	}
   
     public static void listMaterials(boolean relation){
@@ -1200,11 +1215,13 @@ public class UserInterface
         		mat = matList.get(count);
         		if(relation)
         		{
-        			System.out.printf("id: %d, type: %d relations: company id:%d machinery id:%d wharehouse id:%d\n", mat.getMaterialID() , mat.getType(), mat.getCompany(), mat.getMachineryID(), mat.getWarehouseID());
+        			System.out.printf("id: %d, type: %s relations: company id: %d machinery id:%d wharehouse id:%d\n", mat.getMaterialID() , mat.getType(), mat.getCompany().getCompanyID(), mat.getMachineryID().getMachineryID(), mat.getWarehouse().getWarehouseID());
         		}else
         		{
-        			System.out.printf("id: %d, type: %d \n", mat.getMaterialID(), mat.getType());
+        			System.out.printf("id: %d, type: %s \n", mat.getMaterialID(), mat.getType());
         		}
+        		
+        		count++;
         		
         	}
         	

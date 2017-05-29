@@ -5,6 +5,7 @@ Use XSLT to produce a HTML
 Probar delete y update
 
 
+
 Actualizar el Word del principio 
 Actualizar la presentación
 Actualizar el UML
@@ -39,16 +40,9 @@ Opcionales que faltan:
 ERRORS
  --DataBase locked sometimes, I don know why.
  
-OPEN CONNECTION
- -- Learn to catch the exception
- 
-HTTP of the XML
+HTTP of the XML ------------ rodrigo vafdjvnadfkjbad
  --Do we have some bluePrints to create the HTML doc using the XML?? I think so but I am not sure
  
-JPA anotations
- -- We need to put in the joinColumn, the name of the table in SQL that relate the n2n relation pr the value of the atrivute in JAVA object
- 
-
 Insert material 
  -- Problems with Database stacked 
  -- Need to insert the objects inside material before created before save materials???
@@ -57,4 +51,12 @@ Insert material
 
 THEORY
 
- -- XML / Slide 5 / 
+ -- XML / Slide 5 / -- is the draw ok???
+                    -- ARROWS!!!!!!
+                    
+ -- XML / Slide 16  to 18 / 
+ 
+ -- XML / Slide 21 / Questions 
+ 
+ -- Slide 23 to the END, Need to study for the exam?
+ 

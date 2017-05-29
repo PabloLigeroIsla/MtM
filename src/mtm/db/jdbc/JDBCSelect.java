@@ -166,7 +166,7 @@ public class JDBCSelect
 				numberUses = rs.getInt("number_uses");
 				bodyLocation = rs.getString("body_location");
 				price = rs.getInt("price");
-				int idW = rs.getInt("warehouse_ID");
+				int idW = rs.getInt("warehouseID");
 
 				war = new Warehouse(idW);				
 				instrument = new Instrument(instrumentID,name,model,purpose,amount,numberUses,bodyLocation,price,war);
@@ -204,10 +204,10 @@ public class JDBCSelect
 
 			while (rs.next()) 
 			{
-				warehouseID = rs.getInt("warehouse_ID");
-				warehouseLocation = rs.getString("warehouse_location");
+				warehouseID = rs.getInt("warehouseID");
+				warehouseLocation = rs.getString("warehouseLocation");
 				capacity = rs.getInt("capacity");
-				filledSpace = rs.getInt("filled_space");
+				filledSpace = rs.getInt("filledSpace");
 			
 				warehouse = new Warehouse(warehouseID,warehouseLocation,capacity,filledSpace);
 				
@@ -424,7 +424,7 @@ public class JDBCSelect
 				type = rs.getString("type");
 				int companyID = rs.getInt("companyID");
 				int machineryID = rs.getInt("machineryID");
-				int warehouseID = rs.getInt("warehouse_ID");
+				int warehouseID = rs.getInt("warehouseID");
 				
 				Company com = new Company(companyID);
 				Machinery mach = new Machinery(machineryID);
@@ -530,7 +530,7 @@ public class JDBCSelect
 				int numberUses = rs.getInt("number_uses");
 				String bodyLocation = rs.getString("body_location");
 				int price = rs.getInt("price");
-				int wID = rs.getInt("warehouse_ID");
+				int wID = rs.getInt("warehouseID");
 				Warehouse war = new Warehouse(wID);
 				Instrument instrument = new Instrument(instrumentID,name,model,purpose,amount,numberUses,bodyLocation,price,war);
 				instrumentList.add(instrument);
@@ -556,10 +556,10 @@ public class JDBCSelect
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next())
 			{
-				int warehouseID = rs.getInt("warehouse_ID");
-				String warehouseLocation = rs.getString("warehouse_location");
+				int warehouseID = rs.getInt("warehouseID");
+				String warehouseLocation = rs.getString("warehouseLocation");
 				int capacity = rs.getInt("capacity");
-				int filledSpace = rs.getInt("filled_space");
+				int filledSpace = rs.getInt("filledSpace");
 				
 				Warehouse warehouse = new Warehouse(warehouseID,warehouseLocation,capacity,filledSpace);
 				warehouseList.add(warehouse);
@@ -682,7 +682,7 @@ public class JDBCSelect
 				String type = rs.getString("type");
 				int companyID = rs.getInt("companyID");
 				int machineryID = rs.getInt("machineryID");
-				int warehouseID = rs.getInt("warehouse_ID");
+				int warehouseID = rs.getInt("warehouseID");
 				//Problema de la Conexi�n @ERROR
 				
 				Company com = new Company(companyID);
@@ -718,6 +718,8 @@ public class JDBCSelect
 			ResultSet rs = prep.executeQuery();
 			
 			id = rs.getInt("seq");
+			prep.close();
+			rs.close();
 			
 		}catch(Exception e)
 		{
