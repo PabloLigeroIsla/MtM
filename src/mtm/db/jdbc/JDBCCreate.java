@@ -16,7 +16,7 @@ public class JDBCCreate
 	//Create
 	public boolean createTables()
 	{
-		boolean act;
+		boolean act=true;
 		try
 		{
 			c.setAutoCommit(false);
@@ -161,12 +161,11 @@ public class JDBCCreate
 			stmtSeq.executeUpdate(sqlSeq);
 			c.commit();
 			act = false;
+			c.setAutoCommit(true);
 		}catch (Exception e)
 		{
-			
 			act = true;
-			e.printStackTrace();
-		
+			System.out.println("Tables already existed.");
 		}
 		return act;
 	}
