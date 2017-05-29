@@ -100,7 +100,7 @@ public class JDBCCreate
 					+ "filledSpace INTEGER NOT NULL)";
 			sCht.executeUpdate(sqlch2);
 			sCht.close();
-			//
+			
 			//Celia
 			Statement fCt = c.createStatement();
 			String sqlc1= "CREATE TABLE employee("
