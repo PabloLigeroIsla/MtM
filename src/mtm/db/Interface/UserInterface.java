@@ -1002,7 +1002,7 @@ public class UserInterface
     	
     	Material mat = new Material(a,b,c);
     	
-    	//company
+    	//company//
     	boolean aux = true;
     	while(aux)
     	{
