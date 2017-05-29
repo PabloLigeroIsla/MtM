@@ -102,7 +102,7 @@ public class JDBCUpdate
 		
 		try {
 			
-			String sql = "UPDATE warehouse SET warehouse_location =? WHERE warehouseID=?";
+			String sql = "UPDATE warehouse SET warehouseLocation =? WHERE warehouseID=?";
 			
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setString(1, locationUpdated);
