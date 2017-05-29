@@ -754,7 +754,7 @@ public class UserInterface
     			while(empIter.hasNext())
     			{
     				Employee  emp = empIter.next();
-    				if(jdbcManager.valExist(queryEmp,emp.getEmployee_ID(), null))
+    				if(jdbcManager.valExist(queryEmp,emp.getEmployeeID(), null))
     				{
     					jdbcManager.insert(emp);
     				}
@@ -906,6 +906,8 @@ public class UserInterface
 	}
 	
 	Employee emp = new Employee(name,typec,mach.getMachineryType(),mach);
+	
+	emp.printEmployee(false);
 	
 	return emp;
     
@@ -1312,10 +1314,10 @@ public class UserInterface
     	{
     		emp = empList.get(count);
     		String name = emp.getName();
-			int id = emp.getEmployee_ID();
+			int id = emp.getEmployeeID();
     		emp = empList.get(count);
     		if(relation){
-        		System.out.printf("id: %d, mach: %d\n",emp.getEmployee_ID(),emp.getMachineryType().getMachineryType());
+        		System.out.printf("id: %d, mach: %d\n",emp.getEmployeeID(),emp.getMachineryType().getMachineryType());
             	
     		}
     		else{

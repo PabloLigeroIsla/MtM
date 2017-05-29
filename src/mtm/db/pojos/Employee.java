@@ -25,9 +25,6 @@ import javax.xml.bind.annotation.XmlType;
 
 public class Employee implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -8477517713230030048L;
 	
 	//Atributes
@@ -55,11 +52,11 @@ public class Employee implements Serializable {
 	
 	//Gets and Sets
 
-	public int getEmployee_ID() {
+	public int getEmployeeID() {
 		return employeeID;
 	}
 
-	public void setEmployee_ID(int employeeID) {
+	public void setEmployeeID(int employeeID) {
 		this.employeeID = employeeID;
 	}
 
@@ -103,16 +100,11 @@ public class Employee implements Serializable {
 	
 	public Employee(int eID)
 	{
+		super();
 		this.employeeID = eID;
 	}
 	
 	
-	public Employee(String name, String specializationType, String typeofContract) {
-		super();
-		this.name = name;
-		this.specializationType = specializationType;
-		this.typeofContract = typeofContract;
-	}
 	
 	public Employee(String name, String specializationType, String typeofContract, Machinery machineryType) 
 	{
@@ -145,6 +137,15 @@ public class Employee implements Serializable {
 
 	// Methods
 
+	public void printEmployee(boolean relate)
+	{
+		System.out.printf("\nid: %d, name: %s, Specialization Type: %s\n",getEmployeeID(),getName(),getSpecializationType());
+		if(relate)
+		{
+			System.out.printf("\nRelated Machinery id: %d\n",getMachineryType().getMachineryID());
+		}
+	}
+	
 	@Override
 	public String toString() 
 	{

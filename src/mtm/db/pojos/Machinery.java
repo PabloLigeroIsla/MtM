@@ -277,7 +277,7 @@ public class Machinery implements Serializable {
 			{
 				Employee emp  = iter.next();
 				System.out.printf("Employees Related:\n"
-						+ "Id: %d\n"+"Name: %s",emp.getEmployee_ID(),emp.getName());
+						+ "Id: %d\n"+"Name: %s",emp.getEmployeeID(),emp.getName());
 			}
 			Iterator <Material> iter2 = this.getMaterialList().iterator();
 			while(iter2.hasNext())
