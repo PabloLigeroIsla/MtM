@@ -583,13 +583,14 @@ public class JDBCSelect
 			Statement stmt = c.createStatement();
 			String sql = "SELECT * FROM employee";
 			ResultSet rs = stmt.executeQuery(sql);
+			
 			while(rs.next())
 			{
 				int employeeID = rs.getInt("employee_ID");
 				String name = rs.getString("name");
-				String specializationType = rs.getString("specializationType");
 				String typeofContract = rs.getString("typeofContract");
-				int machID = rs.getInt("machineryType");
+				String specializationType = rs.getString("specializationType");
+				int machID = rs.getInt("machineryID");
 				
 				Machinery mach = new Machinery(machID);
 				Employee emp = new Employee(employeeID,name,specializationType,typeofContract,mach);

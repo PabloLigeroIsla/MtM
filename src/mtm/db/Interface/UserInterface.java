@@ -346,6 +346,7 @@ public class UserInterface
 			break;
 		case 2: //Employee
 			Employee emp = createEmployee();
+			
 			jdbcManager.insert(emp);
 			break;
 		case 3: //Hospital 
@@ -906,8 +907,6 @@ public class UserInterface
 	}
 	
 	Employee emp = new Employee(name,typec,mach.getMachineryType(),mach);
-	
-	emp.printEmployee(false);
 	
 	return emp;
     

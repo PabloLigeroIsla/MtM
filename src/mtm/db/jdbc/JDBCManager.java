@@ -229,9 +229,8 @@ public class JDBCManager implements DBInterface
 	public void insert(Employee obj)
 	{
 		JDBCInsert codeInsert = new JDBCInsert(c);
-
 		
-			codeInsert.insert(obj);
+		codeInsert.insert(obj);
 			
 		
 	}

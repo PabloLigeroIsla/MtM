@@ -59,7 +59,7 @@ public class Machinery implements Serializable {
     @XmlElementWrapper(name = "Materials")
 	private List <Material> materialList; //FOREIGN KEY
 
-	@XmlTransient ////////////////////////////////////////////////////////////////////////////////////////////
+	@XmlTransient //POSIBLE ERROR
 	@ManyToMany(mappedBy = "machineryTypeList")
 	private List <Instrument> instrumentList; //FOREIGN KEY
 	
