@@ -57,7 +57,7 @@ public class Instrument implements Serializable {
 	private Warehouse warehouse;
 	
 	@ManyToMany // the mappedBy is in the pojo Order only
-	@JoinTable(name="orderList",
+	@JoinTable(name="instrument_orders",
 	joinColumns={@JoinColumn(name="instrument_ID", referencedColumnName="instrumentID")},
     inverseJoinColumns={@JoinColumn(name="orderID", referencedColumnName="orderID")})
 	@XmlElement(name = "Order")
@@ -65,7 +65,7 @@ public class Instrument implements Serializable {
 	private List<Order> orderList;
 	
 	@ManyToMany // the mappedBy is in the pojo Machinery
-	@JoinTable(name="machineryTypeList",
+	@JoinTable(name="instrument_machinery",
 	joinColumns={@JoinColumn(name="instrument_ID", referencedColumnName="instrumentID")},
     inverseJoinColumns={@JoinColumn(name="machineryID", referencedColumnName="machineryID")})
 	@XmlElement(name = "Machinery")
