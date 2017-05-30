@@ -346,6 +346,7 @@ public class UserInterface
 			break;
 		case 2: //Employee
 			Employee emp = createEmployee();
+			
 			jdbcManager.insert(emp);
 			break;
 		case 3: //Hospital 
@@ -754,7 +755,7 @@ public class UserInterface
     			while(empIter.hasNext())
     			{
     				Employee  emp = empIter.next();
-    				if(jdbcManager.valExist(queryEmp,emp.getEmployee_ID(), null))
+    				if(jdbcManager.valExist(queryEmp,emp.getEmployeeID(), null))
     				{
     					jdbcManager.insert(emp);
     				}
@@ -894,20 +895,18 @@ public class UserInterface
 		System.out.println("Select the ID of the machinery the employee is spezialized in\n");
 		int e=writeNumber();
 		
-		mach=jpaManager.selectMachinery(e);
-		//mach=jdbcManager.selectMachinery(e);@JPAChange
+		mach = jdbcManager.selectMachinery(e);
 		
 	}
 	else
 	{
-		mach=createMachinery();
+		mach = createMachinery();
 		jdbcManager.insert(mach);
 		mach = jdbcManager.setMachineryID(mach);
 		
 	}
 	
-	String st = mach.getMachineryType();
-	Employee emp = new Employee(name,st,typec,mach);
+	Employee emp = new Employee(name,typec,mach.getMachineryType(),mach);
 	
 	return emp;
     
@@ -1314,10 +1313,10 @@ public class UserInterface
     	{
     		emp = empList.get(count);
     		String name = emp.getName();
-			int id = emp.getEmployee_ID();
+			int id = emp.getEmployeeID();
     		emp = empList.get(count);
     		if(relation){
-        		System.out.printf("id: %d, mach: %d\n",emp.getEmployee_ID(),emp.getMachineryType().getMachineryType());
+        		System.out.printf("id: %d, mach: %d\n",emp.getEmployeeID(),emp.getMachineryType().getMachineryType());
             	
     		}
     		else{

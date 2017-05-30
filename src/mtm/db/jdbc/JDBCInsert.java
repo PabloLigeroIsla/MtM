@@ -131,6 +131,7 @@ public class JDBCInsert
 			prep.setString(3,emp.getSpecializationType());
 			prep.setInt(4,emp.getMachineryType().getMachineryID());
 			
+			prep.executeUpdate();
 			prep.close();
 			
 			}catch(SQLException e)

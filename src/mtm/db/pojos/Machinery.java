@@ -2,7 +2,6 @@ package mtm.db.pojos;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -60,7 +59,7 @@ public class Machinery implements Serializable {
     @XmlElementWrapper(name = "Materials")
 	private List <Material> materialList; //FOREIGN KEY
 
-	@XmlTransient ////////////////////////////////////////////////////////////////////////////////////////////
+	@XmlTransient //POSIBLE ERROR
 	@ManyToMany(mappedBy = "machineryTypeList")
 	private List <Instrument> instrumentList; //FOREIGN KEY
 	
@@ -246,13 +245,6 @@ public class Machinery implements Serializable {
 		}
 	}
 	
-	private LocalDate SqltoLocalDate(java.sql.Date sqlDate)
-	{
-
-		LocalDate locDate = sqlDate.toLocalDate();
-		return locDate;
-		
-	}
 	
 	@Override
 	public String toString() 
@@ -277,7 +269,7 @@ public class Machinery implements Serializable {
 			{
 				Employee emp  = iter.next();
 				System.out.printf("Employees Related:\n"
-						+ "Id: %d\n"+"Name: %s",emp.getEmployee_ID(),emp.getName());
+						+ "Id: %d\n"+"Name: %s",emp.getEmployeeID(),emp.getName());
 			}
 			Iterator <Material> iter2 = this.getMaterialList().iterator();
 			while(iter2.hasNext())

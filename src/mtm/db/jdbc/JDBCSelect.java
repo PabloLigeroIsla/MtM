@@ -259,10 +259,11 @@ public class JDBCSelect
 			e.printStackTrace();
 		}
 
-		
+		emp.printEmployee(false);
+		System.out.println("Método de SelectEmployee");
 		return emp;
 	}
-	
+	//Fallo en el Select//
 	public Employee selectEmployee(String query, String nameEmp)
 	{
 		Employee emp = null;
@@ -283,6 +284,7 @@ public class JDBCSelect
 				specializationType = rs.getString("specializationType");
 				typeofContract = rs.getString("typeofContract");
 				emp = new Employee(employeeID,name,specializationType,typeofContract);	
+
 			}
 			
 			prep.close();
@@ -583,13 +585,14 @@ public class JDBCSelect
 			Statement stmt = c.createStatement();
 			String sql = "SELECT * FROM employee";
 			ResultSet rs = stmt.executeQuery(sql);
+			
 			while(rs.next())
 			{
 				int employeeID = rs.getInt("employee_ID");
 				String name = rs.getString("name");
-				String specializationType = rs.getString("specializationType");
 				String typeofContract = rs.getString("typeofContract");
-				int machID = rs.getInt("machineryType");
+				String specializationType = rs.getString("specializationType");
+				int machID = rs.getInt("machineryID");
 				
 				Machinery mach = new Machinery(machID);
 				Employee emp = new Employee(employeeID,name,specializationType,typeofContract,mach);

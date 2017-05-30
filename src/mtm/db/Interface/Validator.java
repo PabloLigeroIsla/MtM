@@ -149,14 +149,13 @@ public abstract class Validator
 		{
 			if(option.compareTo("YES") == 0 || option.compareTo("yes") == 0)
 			{
-				System.out.println("yes Selected");
 				a = true;
 				change = true;
 			}
 			
-			if(option.compareTo("No") == 0 || option.compareTo("no") == 0)		
+			if(option.compareTo("NO") == 0 || option.compareTo("no") == 0)		
 			{
-				System.out.println("no Selected");
+
 				a = false;
 				change = true;
 			}
