@@ -57,16 +57,16 @@ public class Machinery implements Serializable {
 	@OneToMany(mappedBy="machinery")
 	@XmlElement(name = "Material") 
     @XmlElementWrapper(name = "Materials")
-	private List <Material> materialList; //FOREIGN KEY
+	private List <Material> materialList;
 
 	@XmlTransient //POSIBLE ERROR
 	@ManyToMany(mappedBy = "machineryTypeList")
-	private List <Instrument> instrumentList; //FOREIGN KEY
+	private List <Instrument> instrumentList; 
 	
 	@OneToMany(mappedBy="machineryType")
 	@XmlElement(name = "Employee")
 	@XmlElementWrapper(name = "Employees")
-	private List <Employee> employeeList; //FOREIGN KEY	
+	private List <Employee> employeeList;	
 
 	//materialList
 	public List<Material> getMaterialList() {
