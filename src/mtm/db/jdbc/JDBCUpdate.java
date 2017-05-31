@@ -81,7 +81,7 @@ public class JDBCUpdate
 		
 		try {
 			
-			String sql = "UPDATE warehouse SET filledSpace = "+filledSpaceUpdated+" WHERE warehouseID=?";
+			String sql = "UPDATE warehouse SET filledSpace = ? WHERE warehouseID=?";
 			
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setInt(1,filledSpaceUpdated);
