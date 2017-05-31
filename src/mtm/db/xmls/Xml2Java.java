@@ -20,7 +20,7 @@ public class Xml2Java
 			JAXBContext jaxbContext = JAXBContext.newInstance(Hospital.class);
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
-		hosp = (Hospital) unmarshaller.unmarshal(file);
+			hosp = (Hospital) unmarshaller.unmarshal(file);
 		
 		}catch(Exception e)
 		{
@@ -41,7 +41,7 @@ public class Xml2Java
 			JAXBContext jaxbContext = JAXBContext.newInstance(Employee.class);
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
-		emp = (Employee) unmarshaller.unmarshal(file);
+			emp = (Employee) unmarshaller.unmarshal(file);
 		
 		}catch(Exception e)
 		{
@@ -61,7 +61,7 @@ public class Xml2Java
 			JAXBContext jaxbContext = JAXBContext.newInstance(Machinery.class);
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
-		mach = (Machinery) unmarshaller.unmarshal(file);
+			mach = (Machinery) unmarshaller.unmarshal(file);
 		
 		}catch(Exception e)
 		{
@@ -90,4 +90,5 @@ public class Xml2Java
 		
 		return mtm;
 	}
+	
 }

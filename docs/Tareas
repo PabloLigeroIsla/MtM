@@ -51,3 +51,7 @@ Insert material
  -- Need to insert the objects inside material before created before save materials???
 
 FALLO EN EL SELECT, EMPLOYEE SE INSERTA BINE
+
+LINEA 1142 de JDBCManager, Charo puso que borraramos esa linea, pero no se si ha terminado 
+
+Métodos que NUnca usamos, ¿Los borramos?

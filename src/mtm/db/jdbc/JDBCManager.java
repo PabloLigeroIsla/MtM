@@ -912,8 +912,8 @@ public class JDBCManager implements DBInterface
  			workingState="no work";
  			
  		}
- 		String table = "machinery";
- 		String selQuery = "SELECT name FROM "+table+" WHERE machineryID = ?";
+
+ 		String selQuery = "SELECT name FROM machinery WHERE machineryID = ?";
  		if(valExist(selQuery,pkSearch,null))
  		{
  			
@@ -1093,9 +1093,10 @@ public class JDBCManager implements DBInterface
 		String pk1AtributeSearch = "hospitalID";
 		
 		ArrayList<Integer> hospitalPkRelationFound = new ArrayList<Integer>();
-		hospitalPkRelationFound = foundRelation(relationalTable,pk1AtributeSearch,pkAtributeCompere,pkValueCompere);
 		
+		hospitalPkRelationFound = foundRelation(relationalTable,pk1AtributeSearch,pkAtributeCompere,pkValueCompere);
 		Iterator<Integer> iter = hospitalPkRelationFound.iterator();
+		
 		while(iter.hasNext())
 		{
 			int i = iter.next();
