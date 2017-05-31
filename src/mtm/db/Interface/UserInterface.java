@@ -224,9 +224,10 @@ public class UserInterface
 	
 	public static void createTable()
 	{
-		System.out.println("All tables created\n");
+		
 		jdbcManager.createTables();
-		//System.out.println(" Tables created succesfully\n");
+		System.out.println("All tables created\n");
+		
 	}
 
 	public static void listEntity()
@@ -381,6 +382,7 @@ public class UserInterface
 					    	System.out.println("Introduce the values of the New Order:\n");
 					    	
 							Order ord = createOrder();
+							jdbcManager.insert(ord);
 							jdbcManager.setOrderID(ord);
 							
 							System.out.println("Select the Primary Key of the instrument you want to order\n");
