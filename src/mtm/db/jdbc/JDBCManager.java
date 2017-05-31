@@ -614,16 +614,16 @@ public class JDBCManager implements DBInterface
 
  	public Employee selectEmployee(int primaryKey)
  	{
- 		String table = "employee";
- 		String selQuarry = "SELECT * FROM "+table+" WHERE employee_ID = ?";
+ 		
+ 		String selQuery = "SELECT * FROM employee WHERE employee_ID = ?";
  		
  		
- 		if(valExist(selQuarry,primaryKey,null))
+ 		if(valExist(selQuery,primaryKey,null))
  		{
  			JDBCSelect sqlSelect = new JDBCSelect(c);
  	 		Employee emp = new Employee();
  	 		
- 			emp = sqlSelect.selectEmployee(selQuarry,primaryKey);
+ 			emp = sqlSelect.selectEmployee(selQuery,primaryKey);
  			int machID = emp.getMachineryType().getMachineryID();
  			emp.setMachineryType(selectMachinery(machID));
  			return emp;
@@ -814,11 +814,13 @@ public class JDBCManager implements DBInterface
 		
 		emp = sqlSelect.selectAllEmployee();
 		Iterator<Employee> empIter = emp.iterator();
+		
 		while(empIter.hasNext())
 		{
 			Employee empObj = empIter.next();
 			int machID = empObj.getMachineryType().getMachineryID();
 			empObj.setMachineryType(selectMachinery(machID));
+			empFinal.add(empObj);
 		}
 		
 		return empFinal;
