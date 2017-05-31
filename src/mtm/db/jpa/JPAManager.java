@@ -164,6 +164,7 @@ public class JPAManager implements DBInterface
 	}
 	
 	
+	
 	// WAREHOUSE
 	
 	public void insert(Warehouse obj)
