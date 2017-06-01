@@ -77,21 +77,6 @@ public class Instrument implements Serializable {
 
 		
 
-
-	public Instrument(int instrumentID, String name, String model, String purpose, int amount, int numberUses,
-			String bodyLocation, int price) {
-		super();
-		this.instrumentID = instrumentID;
-		this.name = name;
-		this.model = model;
-		this.purpose = purpose;
-		this.amount = amount;
-		this.numberUses = numberUses;
-		this.bodyLocation = bodyLocation;
-		this.setPrice(price);
-		
-	}
-
 	public Instrument(int instrumentID, String name, String model, String purpose, int amount, int numberUses,
 			String bodyLocation, int price, Warehouse warehouse) {
 		super();
@@ -104,27 +89,12 @@ public class Instrument implements Serializable {
 		this.bodyLocation = bodyLocation;
 		this.setPrice(price);
 		this.warehouse = warehouse;
+		this.orderList = new ArrayList<Order>();
+		this.machineryTypeList = new ArrayList<Machinery>();
 		
 	}
-	
-	public Instrument (int iid)
-	{
-		this.instrumentID = iid;
-	}
-	
-	public Instrument(String name, String model, String purpose, int amount, int numberUses, String bodyL,
-			int price,Warehouse warehouse) {
-		super();
-		this.name = name;
-		this.model = model;
-		this.purpose = purpose;
-		this.amount = amount;
-		this.numberUses = numberUses;
-		this.bodyLocation = bodyL;
-		this.setPrice(price);
-		this.warehouse = warehouse;
-	}
 
+	
 	public Instrument(String name, String model, String purpose, int amount, int numberUses, String bodyL,
 			int price) {
 		super();
@@ -135,11 +105,14 @@ public class Instrument implements Serializable {
 		this.numberUses = numberUses;
 		this.bodyLocation = bodyL;
 		this.setPrice(price);
+		this.orderList = new ArrayList<Order>();
+		this.machineryTypeList = new ArrayList<Machinery>();
 	}
 
 	
 	// Additional method to add and remove from a list	
 
+	
 	public Instrument() {
 		super();
 		this.orderList = new ArrayList<Order>();

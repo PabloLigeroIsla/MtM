@@ -65,6 +65,7 @@ public class Warehouse implements Serializable {
 		this.filledSpace = filledSpace;
 		this.instrumentList = new ArrayList<Instrument>();
 		this.materialTypeList = new ArrayList<Material>();
+		
 	}
 	
 	
@@ -74,6 +75,8 @@ public class Warehouse implements Serializable {
 		this.warehouseLocation = warehouseLocation;
 		this.capacity = capacity;
 		this.filledSpace = filledSpace;
+		this.instrumentList = new ArrayList<Instrument>();
+		this.materialTypeList = new ArrayList<Material>();
 		
 	}
 	
@@ -88,7 +91,7 @@ public class Warehouse implements Serializable {
 	public Warehouse() {
 		super();
 		this.instrumentList = new ArrayList<Instrument>();
-		}
+		this.materialTypeList = new ArrayList<Material>();		}
 	
 	
 	public void addInstrument(Instrument instrument){

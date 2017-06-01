@@ -1187,7 +1187,7 @@ public class JDBCManager implements DBInterface
 	//Relation Help Methods
 	public ArrayList<Integer> foundRelation(String table,String pk1AttributeSearch,String pkAttributeCompare ,int pkValueCompare)
 	{
-		String query = "SELECT "+pk1AttributeSearch+" FROM "+table+" WHERE "+pkAttributeCompare+" = ?";
+		String query = "SELECT "+pk1AttributeSearch+" FROM "+table+" WHERE "+pkAttributeCompare+"=?";
 		
 		ArrayList<Integer> pkArray = new ArrayList<Integer>();
 		
