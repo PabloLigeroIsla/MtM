@@ -515,12 +515,16 @@ public class JDBCSelect
 	
 	public ArrayList<Instrument> selectAllInstruments()
 	{
+		
+
 		ArrayList<Instrument> instrumentList = new ArrayList<Instrument>();
 		try
 		{
 			Statement stmt = c.createStatement();
 			String sql = "SELECT * FROM instrument";
 			ResultSet rs = stmt.executeQuery(sql);
+
+
 			while(rs.next())
 			{
 				int instrumentID = rs.getInt("instrument_ID");
@@ -535,6 +539,7 @@ public class JDBCSelect
 				Warehouse war = new Warehouse(wID);
 				Instrument instrument = new Instrument(instrumentID,name,model,purpose,amount,numberUses,bodyLocation,price,war);
 				instrumentList.add(instrument);
+				
 			}
 			
 			stmt.close();
@@ -545,6 +550,8 @@ public class JDBCSelect
 			e.printStackTrace();
 		}
 		return instrumentList;
+		
+		
 	}
 	
 	public ArrayList<Warehouse> selectAllWarehouses()

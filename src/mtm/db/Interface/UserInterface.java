@@ -1101,7 +1101,7 @@ public class UserInterface
     	Instrument inst;
     	inst = jdbcManager.selectInstrument(pk);
     	jdbcManager.setInstrumentRelations(inst);
-    	inst.toString();
+    	inst.printInstrument();
     	
     }
     
