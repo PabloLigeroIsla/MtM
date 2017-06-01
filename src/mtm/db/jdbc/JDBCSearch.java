@@ -84,37 +84,7 @@ public class JDBCSearch
 		}
 		return a;
 	}
-		
-	public boolean valPK2(String query)
-	{
-		boolean a = false;
-			
-		try 
-		{
-			
-			Statement stm = c.createStatement();
-			String sql = query;
-			ResultSet rs = stm.executeQuery(sql);
-			int count = 0;
-			count = rs.getRow();
-		
-		if(count == 0)
-		{
-			stm.close();
-			a = false;
-		}else
-		{
-			stm.close();
-			a = true;
-		}
-		
-	} catch (SQLException e) 
-	{		
-		e.printStackTrace();
-	}
-	return a;
-}
-
+	
 	public boolean valGen(String query)
 	{
 		boolean resp = false;

@@ -43,7 +43,7 @@ Opcionales que faltan:
 ERRORS
  --DataBase locked sometimes, I don know why.
  
-HTTP of the XML ------------ rodrigo vafdjvnadfkjbad
+HTTP of the XML ------------
  --Do we have some bluePrints to create the HTML doc using the XML?? I think so but I am not sure
  
 Insert material 
@@ -54,4 +54,4 @@ FALLO EN EL SELECT, EMPLOYEE SE INSERTA BINE
 
 LINEA 1142 de JDBCManager, Charo puso que borraramos esa linea, pero no se si ha terminado 
 
-Métodos que NUnca usamos, ¿Los borramos?
+Métodos que Nunca usamos, ¿Los borramos?
