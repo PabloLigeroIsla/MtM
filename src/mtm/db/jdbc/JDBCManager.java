@@ -971,6 +971,7 @@ public class JDBCManager implements DBInterface
 		pkSearch = sqlSelect.selectIdTable(query,table);
 		
 		mach.setMachineryID(pkSearch);
+		
 		return mach;
 	}
 	
@@ -1042,9 +1043,12 @@ public class JDBCManager implements DBInterface
 		int pkValueCompare = inst.getInstrumentID();
 		
 		ArrayList<Integer> instPkRelationFound1 = new ArrayList<Integer>();
+		
 		instPkRelationFound1 = foundRelation(relationalTable, pk1AttSearchOrder, pkAttCompareInst, pkValueCompare);
 		Iterator<Integer> iter1 = instPkRelationFound1.iterator();
-		while(iter1.hasNext()){
+		
+		while(iter1.hasNext())
+		{
 			int i1 = iter1.next();
 			inst.addOrder(selectOrder(i1));
 	
@@ -1054,14 +1058,16 @@ public class JDBCManager implements DBInterface
 		relationalTable = "instrument_machinery";
 		String pkAttSearchMach = "machineryID";
 		pkAttCompareInst = "instrument_ID";
-		pkValueCompare = inst.getInstrumentID();
 		
 		
 		ArrayList<Integer> instPkRelationFound2 = new ArrayList<Integer>();
+		
 		instPkRelationFound2 = foundRelation(relationalTable, pkAttSearchMach, pkAttCompareInst, pkValueCompare);
 		Iterator<Integer> iter2 = instPkRelationFound2.iterator();
+		
 		while(iter2.hasNext()){
 			int i2 = iter2.next();
+			System.out.printf("%d",i2);
 			inst.addMachinery(selectMachinery(i2));
 
 		}
