@@ -220,7 +220,7 @@ public class JDBCInsert
 		{
 			
 			String sql = "INSERT INTO hospital_orders(hospitalID,orderID)"
-					+ "VALUES(?,?,?)";
+					+ "VALUES(?,?)";
 			
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setInt(1,pkHospital);
