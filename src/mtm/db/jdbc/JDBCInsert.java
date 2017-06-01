@@ -237,10 +237,11 @@ public class JDBCInsert
 		
 	public void insertInstrumentOrderRelation(int pkInstrument, int pkOrder)
 	{
+	
+		
 		try
 		{
-			
-			String sql = "INSERT INTO instrument_orders(orderID,instrument_ID)"
+			String sql = "INSERT INTO instrument_orders(instrument_ID,orderID)"
 					+"VALUES(?,?)";
 			
 			PreparedStatement prep = c.prepareStatement(sql);

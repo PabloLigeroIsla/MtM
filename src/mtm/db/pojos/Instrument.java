@@ -22,10 +22,12 @@ import javax.xml.bind.annotation.XmlType;
 
 public class Instrument implements Serializable {
 	
+
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1788155612443950967L;
+	private static final long serialVersionUID = -1514530835720427306L;
 	
 	
 	@Id 
@@ -157,33 +159,17 @@ public class Instrument implements Serializable {
 		}
 	}
 	
-	public void addMachinery(Machinery machineryType){
-		if (!machineryTypeList.contains(machineryType)) {
-			this.machineryTypeList.add(machineryType);
+	public void addMachinery(Machinery machinery){
+		if (!machineryTypeList.contains(machinery)) {
+			this.machineryTypeList.add(machinery);
 		}
 	}
 	
-	public void removeMachinery(Machinery machineryType){
-		if (machineryTypeList.contains(machineryType)) {
-			this.machineryTypeList.remove(machineryType);
+	public void removeMachinery(Machinery machinery){
+		if (machineryTypeList.contains(machinery)) {
+			this.machineryTypeList.remove(machinery);
 		}
 	}
-
-
-
-
-
-
-
-
-
-
-	
-
-
-
-
-
 
 
 
@@ -217,6 +203,18 @@ public class Instrument implements Serializable {
 	}
 
 
+	public void printInstrument(){
+		System.out.printf("the instrument ID is: %d\n", this.instrumentID);
+		System.out.printf("the name of the instrument is: %s\n", this.name);
+		System.out.printf("the model of the instrument is: %d\n", this.model);
+		System.out.printf("the purpose of the instrument is: %d\n", this.purpose);
+		System.out.printf("the amount of instruments is: %d\n", this.amount);
+		System.out.printf("the number of uses of the instrument is: %d\n", this.numberUses);
+		System.out.printf("the body location of the instrument is: %d\n", this.bodyLocation);
+		System.out.printf("the price of the instrument is: %d\n", this.price);
+
+
+	}
 
 
 	public Integer getInstrumentID() {

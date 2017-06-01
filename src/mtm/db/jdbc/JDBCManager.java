@@ -578,6 +578,7 @@ public class JDBCManager implements DBInterface
  		if(valExist(selQuarry,primaryKey,null))
  		{
  			JDBCSelect sqlSelect = new JDBCSelect(c);
+ 			
  			Machinery mach = new Machinery();
  	 		
  			mach = sqlSelect.selectMachinery(selQuarry,primaryKey);
@@ -1037,40 +1038,37 @@ public class JDBCManager implements DBInterface
 		
 		String relationalTable = "instrument_orders";
 		String pk1AttSearchOrder = "orderID";
-		
-		
-		
-		String pkAttCompare = "instrument_ID";
+		String pkAttCompareInst = "instrument_ID";
 		int pkValueCompare = inst.getInstrumentID();
 		
-		ArrayList<Integer> instPkRelationFound = new ArrayList<Integer>();
-		instPkRelationFound = foundRelation(relationalTable, pk1AttSearchOrder, pkAttCompare, pkValueCompare);
-		Iterator<Integer> iter = instPkRelationFound.iterator();
-		while(iter.hasNext()){
-			int i = iter.next();
-			inst.addOrder(selectOrder(i));
-			
-			
-//nueva linea, para comprobar, BORRAR!!!!
-			inst.getOrderList().toString();
-			
-
+		ArrayList<Integer> instPkRelationFound1 = new ArrayList<Integer>();
+		instPkRelationFound1 = foundRelation(relationalTable, pk1AttSearchOrder, pkAttCompareInst, pkValueCompare);
+		Iterator<Integer> iter1 = instPkRelationFound1.iterator();
+		while(iter1.hasNext()){
+			int i1 = iter1.next();
+			inst.addOrder(selectOrder(i1));
+	
 		}
-
 		
 		//relation instrument-machinery
 		relationalTable = "instrument_machinery";
 		String pkAttSearchMach = "machineryID";
-		pkAttCompare = "instrument_ID";
+		pkAttCompareInst = "instrument_ID";
+		pkValueCompare = inst.getInstrumentID();
 		
-		instPkRelationFound = foundRelation(relationalTable, pkAttSearchMach, pkAttCompare, pkValueCompare);
-		iter = instPkRelationFound.iterator();
-		while(iter.hasNext()){
-			int i = iter.next();
-			inst.addMachinery(selectMachinery(i));
+		
+		ArrayList<Integer> instPkRelationFound2 = new ArrayList<Integer>();
+		instPkRelationFound2 = foundRelation(relationalTable, pkAttSearchMach, pkAttCompareInst, pkValueCompare);
+		Iterator<Integer> iter2 = instPkRelationFound2.iterator();
+		while(iter2.hasNext()){
+			int i2 = iter2.next();
+			inst.addMachinery(selectMachinery(i2));
+
 		}
 		
 		//relation instrument-warehouse
+		
+		
 		
 		return inst;		
 	}

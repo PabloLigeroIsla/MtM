@@ -260,7 +260,7 @@ public class JDBCSelect
 		}
 
 		emp.printEmployee(false);
-		System.out.println("Método de SelectEmployee");
+		System.out.println("Method of SelectEmployee");
 		return emp;
 	}
 	//Fallo en el Select//
@@ -516,6 +516,8 @@ public class JDBCSelect
 	
 	public ArrayList<Instrument> selectAllInstruments()
 	{
+		
+
 		ArrayList<Instrument> instrumentList = new ArrayList<Instrument>();
 		try
 		{
@@ -523,6 +525,8 @@ public class JDBCSelect
 			String sql = "SELECT * FROM instrument";
 			ResultSet rs = stmt.executeQuery(sql);
 			
+
+
 			while(rs.next())
 			{
 				int instrumentID = rs.getInt("instrument_ID");
@@ -534,11 +538,10 @@ public class JDBCSelect
 				String bodyLocation = rs.getString("body_location");
 				int price = rs.getInt("price");
 				int wID = rs.getInt("warehouseID");
-				
 				Warehouse war = new Warehouse(wID);
-				
 				Instrument instrument = new Instrument(instrumentID,name,model,purpose,amount,numberUses,bodyLocation,price,war);
 				instrumentList.add(instrument);
+				
 			}
 			
 			stmt.close();
