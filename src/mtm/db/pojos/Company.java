@@ -63,14 +63,6 @@ public class Company implements Serializable {
 
 	}
 	
-	public Company(int company_id, String location, String companyName, List<Material> materialList){
-		this.companyID= company_id;
-		this.location=location;
-		this.companyName=companyName;
-		this.materialList=materialList;
-	}
-	
-	
 	public Company(int company_id, String location, String companyName){
 		this.companyID = company_id;
 		this.location = location;

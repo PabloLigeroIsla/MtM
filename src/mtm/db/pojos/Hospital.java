@@ -110,6 +110,7 @@ public class Hospital implements Serializable
 		this.name = name;
 		this.location = location;
 		this.medicalSpecialization = medical_specialization;
+		
 		this.orderList = new ArrayList<Order>();
 	}
 	public Hospital(Integer hospitalID, String name, String location, String medicalSpecialization)
@@ -119,6 +120,7 @@ public class Hospital implements Serializable
 		this.name = name;
 		this.location = location;
 		this.medicalSpecialization = medicalSpecialization;
+		
 		this.orderList = new ArrayList<Order>();
 	}
 	public Hospital(Integer hospitalID, String name, String location, String medicalSpecialization, List<Order> orderList)
@@ -128,6 +130,7 @@ public class Hospital implements Serializable
 		this.name = name;
 		this.location = location;
 		this.medicalSpecialization = medicalSpecialization;
+		
 		this.orderList = orderList;
 	}
 	// Methods

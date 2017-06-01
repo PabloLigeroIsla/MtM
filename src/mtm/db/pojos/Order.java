@@ -117,6 +117,7 @@ public class Order implements Serializable
 	public Order()
 	{
 		super();
+		
 		this.hospitalList = new ArrayList<Hospital>();
 		this.instrumentList = new ArrayList<Instrument>();
 	}
@@ -129,6 +130,7 @@ public class Order implements Serializable
 		this.totalAmountInstruments = totalAmountInstruments;
 		this.orderDate = orderDate;
 		this.deliveryDate = deliveryDate;
+		
 		this.hospitalList = new ArrayList<Hospital>();
 		this.instrumentList = new ArrayList<Instrument>();
 	}
@@ -139,6 +141,7 @@ public class Order implements Serializable
 		this.totalAmountInstruments = totalAmountInstruments;
 		this.orderDate = orderDate;
 		this.deliveryDate = deliveryDate;
+		
 		this.hospitalList = new ArrayList<Hospital>();
 		this.instrumentList = new ArrayList<Instrument>();
 	}
@@ -150,6 +153,7 @@ public class Order implements Serializable
 		this.totalAmountInstruments = totalAmountInstruments;
 		this.orderDate = orderDate;
 		this.deliveryDate = deliveryDate;
+		
 		this.hospitalList = hospitalList;
 		this.instrumentList = instrumentList;
 	}
