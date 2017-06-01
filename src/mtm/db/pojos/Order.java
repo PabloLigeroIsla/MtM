@@ -18,6 +18,9 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import mtm.db.xmls.SQLDateAdapter;
 
 import java.time.LocalDate;
 
@@ -26,7 +29,7 @@ import java.time.LocalDate;
 @Table(name = "orders")
 @XmlAccessorType(XmlAccessType.FIELD) //Be able to use XML
 @XmlRootElement(name = "Order")
-@XmlType(propOrder = { "orderId", "TotalAmountInstruments", "orderDate", "deliveryDate" })
+@XmlType(propOrder = { "orderID", "totalAmountInstruments", "orderDate", "deliveryDate" })
 public class Order implements Serializable
 {
 
@@ -41,8 +44,10 @@ public class Order implements Serializable
 	@XmlAttribute
 	private int totalAmountInstruments;
 	@XmlAttribute
+	@XmlJavaTypeAdapter(SQLDateAdapter.class)
 	private Date orderDate;
 	@XmlAttribute
+	@XmlJavaTypeAdapter(SQLDateAdapter.class)
 	private Date deliveryDate;
 	
 	@ManyToMany(mappedBy = "orderList")

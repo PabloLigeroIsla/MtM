@@ -578,6 +578,7 @@ public class JDBCManager implements DBInterface
  		if(valExist(selQuarry,primaryKey,null))
  		{
  			JDBCSelect sqlSelect = new JDBCSelect(c);
+ 			
  			Machinery mach = new Machinery();
  	 		
  			mach = sqlSelect.selectMachinery(selQuarry,primaryKey);
@@ -1052,9 +1053,7 @@ public class JDBCManager implements DBInterface
 			inst.addOrder(selectOrder(i));
 			
 			
-//nueva linea, para comprobar, BORRAR!!!!
-			inst.getOrderList().toString();
-			
+
 
 		}
 
@@ -1072,6 +1071,8 @@ public class JDBCManager implements DBInterface
 		}
 		
 		//relation instrument-warehouse
+		
+		
 		
 		return inst;		
 	}

@@ -35,6 +35,9 @@ Opcionales que faltan:
 7.-Finishing touches
 
 
+ESTO ES LO QUE HAY QUE PONER EN LA TERMINAL
+
+xmllint --noout --dtdvalid DTD.dtd XML.xml
 
 
 
@@ -54,4 +57,4 @@ FALLO EN EL SELECT, EMPLOYEE SE INSERTA BINE
 
 LINEA 1142 de JDBCManager, Charo puso que borraramos esa linea, pero no se si ha terminado 
 
-Métodos que Nunca usamos, ¿Los borramos?
+Mï¿½todos que Nunca usamos, ï¿½Los borramos?
