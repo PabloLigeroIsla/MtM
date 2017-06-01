@@ -1313,7 +1313,7 @@ public class UserInterface
             	
     		}
     		else{
-        		System.out.printf("id: %d, name: %d\n",id,name);
+        		System.out.printf("id: %d, name: %s\n",id,name);
     		}
     		count ++;
     	} 	
