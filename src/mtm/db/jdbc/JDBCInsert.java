@@ -237,6 +237,7 @@ public class JDBCInsert
 		
 	public void insertInstrumentOrderRelation(int pkInstrument, int pkOrder)
 	{
+		
 		try
 		{
 			String sql = "INSERT INTO instrument_orders(instrument_ID,orderID)"
