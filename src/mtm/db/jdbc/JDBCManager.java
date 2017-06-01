@@ -1051,19 +1051,18 @@ public class JDBCManager implements DBInterface
 			int i = iter.next();
 			inst.addOrder(selectOrder(i));
 			
-			
 //nueva linea, para comprobar, BORRAR!!!!
 			inst.getOrderList().toString();
-			
-
 		}
 
-		
 		//relation instrument-machinery
 		relationalTable = "instrument_machinery";
 		String pkAttSearchMach = "machineryID";
 		pkAttCompare = "instrument_ID";
+		pkValueCompare = inst.getInstrumentID();
 		
+		
+		instPkRelationFound = new ArrayList<Integer>();
 		instPkRelationFound = foundRelation(relationalTable, pkAttSearchMach, pkAttCompare, pkValueCompare);
 		iter = instPkRelationFound.iterator();
 		while(iter.hasNext()){
