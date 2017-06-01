@@ -245,7 +245,7 @@ public class JDBCSelect
 				name = rs.getString("name");
 				specializationType = rs.getString("specializationType");
 				typeofContract = rs.getString("typeofContract");
-				machID = rs.getInt("machineryType");
+				machID = rs.getInt("machineryID");
 				
 				Machinery mach = new Machinery(machID);
 				emp = new Employee(employeeID,name,specializationType,typeofContract,mach);
@@ -259,8 +259,7 @@ public class JDBCSelect
 			e.printStackTrace();
 		}
 
-		emp.printEmployee(false);
-		System.out.println("Method of SelectEmployee");
+		emp.printEmployee(true);
 		return emp;
 	}
 	//Fallo en el Select//

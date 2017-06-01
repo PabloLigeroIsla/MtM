@@ -1109,15 +1109,16 @@ public class UserInterface
     	Warehouse war;
     	war = jdbcManager.selectWarehouse(pk);
     	war.printWarehouse();
-    	//war.toString();
+    
     }
     
     public static void showEmployee(int pk)
     {
     	Employee emp;
     	emp = jdbcManager.selectEmployee(pk);
+    	emp.printEmployee(true);
     	
-    	emp.toString();
+    	//emp.toString();
     }
     
     public static void showMachinery(int pk)
@@ -1310,7 +1311,7 @@ public class UserInterface
 			int id = emp.getEmployeeID();
     		emp = empList.get(count);
     		if(relation){
-        		System.out.printf("id: %d, mach: %d\n",emp.getEmployeeID(),emp.getMachineryType().getMachineryType());
+        		System.out.printf("id: %d, mach: %d\n",id,emp.getMachineryType());
             	
     		}
     		else{

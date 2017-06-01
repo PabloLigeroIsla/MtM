@@ -137,10 +137,13 @@ public class Employee implements Serializable {
 
 	public void printEmployee(boolean relate)
 	{
-		System.out.printf("\nid: %d, name: %s, Specialization Type: %s\n",getEmployeeID(),getName(),getSpecializationType());
 		if(relate)
 		{
+			System.out.printf("\nid: %d, name: %s, Type of contract: %s\n",getEmployeeID(),getName(),getSpecializationType());
 			System.out.printf("\nRelated Machinery id: %d\n",getMachineryType().getMachineryID());
+		}
+		else{
+			System.out.printf("\nid: %d, name: %s, Type of contract: %s\n",getEmployeeID(),getName(),getSpecializationType());
 		}
 	}
 	
