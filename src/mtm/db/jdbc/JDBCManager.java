@@ -1251,7 +1251,7 @@ public class JDBCManager implements DBInterface
 	
 		return a;
 		
-	}
+	}//
 	
 	public boolean valExist(String query)
 	{
