@@ -1270,9 +1270,9 @@ public class UserInterface
     
     		if(relation){
     			jdbcManager.setInstrumentRelations(inst);
-    			System.out.printf("id of instrument: %d, relation with order: %d\n",inst.getInstrumentID(),inst.getOrderList().toString());
-    			System.out.printf("id of instrument: %d, relation with machinery: %d\n",inst.getInstrumentID(),inst.getMachineryTypeList().toString());
-    			System.out.printf("id of instrument: %d, relation with warehouse: %d\n",inst.getInstrumentID(),inst.getWarehouse().toString());	
+    			System.out.printf("id of instrument: %d, relation with order: %s\n",inst.getInstrumentID(),inst.getOrderList().toString());
+    			System.out.printf("id of instrument: %d, relation with machinery: %s\n",inst.getInstrumentID(),inst.getMachineryTypeList().toString());
+    			System.out.printf("id of instrument: %d, relation with warehouse: %s\n",inst.getInstrumentID(),inst.getWarehouse().toString());	
     		}else{
     			System.out.printf("id: %d\n",inst.getInstrumentID());
     		}

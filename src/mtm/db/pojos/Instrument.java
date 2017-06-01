@@ -77,21 +77,6 @@ public class Instrument implements Serializable {
 
 		
 
-
-	public Instrument(int instrumentID, String name, String model, String purpose, int amount, int numberUses,
-			String bodyLocation, int price) {
-		super();
-		this.instrumentID = instrumentID;
-		this.name = name;
-		this.model = model;
-		this.purpose = purpose;
-		this.amount = amount;
-		this.numberUses = numberUses;
-		this.bodyLocation = bodyLocation;
-		this.setPrice(price);
-		
-	}
-
 	public Instrument(int instrumentID, String name, String model, String purpose, int amount, int numberUses,
 			String bodyLocation, int price, Warehouse warehouse) {
 		super();
@@ -104,27 +89,12 @@ public class Instrument implements Serializable {
 		this.bodyLocation = bodyLocation;
 		this.setPrice(price);
 		this.warehouse = warehouse;
+		this.orderList = new ArrayList<Order>();
+		this.machineryTypeList = new ArrayList<Machinery>();
 		
 	}
-	
-	public Instrument (int iid)
-	{
-		this.instrumentID = iid;
-	}
-	
-	public Instrument(String name, String model, String purpose, int amount, int numberUses, String bodyL,
-			int price,Warehouse warehouse) {
-		super();
-		this.name = name;
-		this.model = model;
-		this.purpose = purpose;
-		this.amount = amount;
-		this.numberUses = numberUses;
-		this.bodyLocation = bodyL;
-		this.setPrice(price);
-		this.warehouse = warehouse;
-	}
 
+	
 	public Instrument(String name, String model, String purpose, int amount, int numberUses, String bodyL,
 			int price) {
 		super();
@@ -135,11 +105,14 @@ public class Instrument implements Serializable {
 		this.numberUses = numberUses;
 		this.bodyLocation = bodyL;
 		this.setPrice(price);
+		this.orderList = new ArrayList<Order>();
+		this.machineryTypeList = new ArrayList<Machinery>();
 	}
 
 	
 	// Additional method to add and remove from a list	
 
+	
 	public Instrument() {
 		super();
 		this.orderList = new ArrayList<Order>();
@@ -206,11 +179,11 @@ public class Instrument implements Serializable {
 	public void printInstrument(){
 		System.out.printf("the instrument ID is: %d\n", this.instrumentID);
 		System.out.printf("the name of the instrument is: %s\n", this.name);
-		System.out.printf("the model of the instrument is: %d\n", this.model);
-		System.out.printf("the purpose of the instrument is: %d\n", this.purpose);
+		System.out.printf("the model of the instrument is: %s\n", this.model);
+		System.out.printf("the purpose of the instrument is: %s\n", this.purpose);
 		System.out.printf("the amount of instruments is: %d\n", this.amount);
 		System.out.printf("the number of uses of the instrument is: %d\n", this.numberUses);
-		System.out.printf("the body location of the instrument is: %d\n", this.bodyLocation);
+		System.out.printf("the body location of the instrument is: %s\n", this.bodyLocation);
 		System.out.printf("the price of the instrument is: %d\n", this.price);
 
 
