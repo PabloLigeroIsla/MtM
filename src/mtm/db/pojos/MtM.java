@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.xml.bind.annotation.*;
 
-
 @XmlAccessorType(XmlAccessType.FIELD) //Be able to use XML
 @XmlRootElement(name = "MtM")
 @XmlType(propOrder = { "matpList", "hospList", "machList", "instList" })//Set the order of the attributes in the XML
