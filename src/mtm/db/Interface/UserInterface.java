@@ -1332,7 +1332,7 @@ public class UserInterface
     		int id = mach.getMachineryID();
         	String machineryType = mach.getMachineryType();
     		
-
+        	
     		if(relation)
     		{
     			jdbcManager.setMachineryRelations(mach);
