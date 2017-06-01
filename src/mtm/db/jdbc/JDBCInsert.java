@@ -257,18 +257,17 @@ public class JDBCInsert
 		
 	}
 	
-	public void insertMachineryInstrumentRelation(int pkInstrument ,int pkMachinery, int timeofMade){
+	public void insertMachineryInstrumentRelation(int pkInstrument ,int pkMachinery){
 	
 	try
 	{
 		
-		String sql = "INSERT INTO instrument_machinery(instrument_ID, machineryID, timeofMade)"
-				+ "VALUES(?,?,?)";
+		String sql = "INSERT INTO instrument_machinery(instrument_ID, machineryID)"
+				+ "VALUES(?,?)";
 		
 		PreparedStatement prep = c.prepareStatement(sql);
 		prep.setInt(1, pkInstrument );
 		prep.setInt(2, pkMachinery);
-		prep.setInt(3, timeofMade);
 		
 		prep.executeUpdate();
 			

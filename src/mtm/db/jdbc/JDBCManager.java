@@ -1266,10 +1266,10 @@ public class JDBCManager implements DBInterface
 		sqlInsert.insertInstrumentOrderRelation(inst,ord);
 	}
 		
-	public void setRelationInstrumentMachinery(int instID, int machID, int time){
+	public void setRelationInstrumentMachinery(int instID, int machID){
 		
 		JDBCInsert sqlInsert = new JDBCInsert(c);
-		sqlInsert.insertMachineryInstrumentRelation(instID,machID,time);
+		sqlInsert.insertMachineryInstrumentRelation(instID,machID);
 		
 	}
 	

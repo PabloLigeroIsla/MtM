@@ -462,12 +462,10 @@ public class UserInterface
 				listMachineries(false);
 				System.out.println("Select the ID of the machinery the instrument has been through:\n");
 				int machID=writeNumber();
-				System.out.println("Introduce how much time (minutes) the instrument is in the machinery:\n");
-				int time = writeNumber();
 
 				jpaManager.selectMachinery(machID);
 				//jdbcManager.selectMachinery(machID);
-				jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(),machID,time);
+				jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(),machID);
 			}
 			else
 			{
@@ -477,11 +475,8 @@ public class UserInterface
 				jdbcManager.insert(mach);
 				jdbcManager.setMachineryID(mach);
 
-				System.out.println("Introduce how much time (minutes) the instrument is in the machinery:\n");
-				int time = writeNumber();
 				
-				
-				jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(),mach.getMachineryID(),time);
+				jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(),mach.getMachineryID());
 				
 				
 			}			
@@ -729,7 +724,7 @@ public class UserInterface
     					jdbcManager.insert(mach);
     				}
     				
-    				jdbcManager.setRelationInstrumentMachinery(ins.getInstrumentID(), mach.getMachineryID(), 100);
+    				jdbcManager.setRelationInstrumentMachinery(ins.getInstrumentID(), mach.getMachineryID());
     			}
     			//WAREHOUSES
     			Warehouse ware = ins.getWarehouse();

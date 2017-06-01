@@ -112,7 +112,6 @@ public class JDBCCreate
 			String sqlch3 = "CREATE TABLE instrument_machinery("
 					+ "instrument_ID INTEGER REFERENCES instrument(instrument_ID),"
 					+ "machineryID INTEGER REFERENCES machinery(machineryID),"
-					+ "timeofMade INTEGER,"
 					+ "PRIMARY KEY (instrument_ID,machineryID))";
 			rCht.executeUpdate(sqlch3);
 			rCht.close();
@@ -376,7 +375,6 @@ public class JDBCCreate
 			String sqlch3 = "CREATE TABLE instrument_machinery("
 					+ "instrument_ID INTEGER NOT NULL REFERENCES instrument(instrument_ID),"
 					+ "machineryID INTEGER NOT NULL REFERENCES machinery(machineryID),"
-					+ "timeofMade INTEGER,"
 					+ "PRIMARY KEY (instrument_ID,machineryID))";
 			rCht.executeUpdate(sqlch3);
 			rCht.close();
