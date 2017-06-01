@@ -259,7 +259,6 @@ public class JDBCSelect
 			e.printStackTrace();
 		}
 
-		emp.printEmployee(true);
 		return emp;
 	}
 	//Fallo en el Select//
