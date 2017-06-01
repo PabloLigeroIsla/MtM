@@ -374,9 +374,7 @@ public class UserInterface
 							listOrders(false);
 							int op2 = writeNumber();
 							hosp.addOrder(jdbcManager.selectOrder(op2));
-							System.out.println("Insert the amountOrder");
-							int amOrd = writeNumber();
-							jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(),op2,amOrd);
+							jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(),op2);
 						}else
 						{
 					    	System.out.println("Introduce the values of the New Order:\n");
@@ -389,10 +387,8 @@ public class UserInterface
 					    	listInstruments(instList,false);
 					    	int opt = writeNumber();
 					    	ord.addInstrument(jdbcManager.selectInstrument(opt));
-							System.out.println("Insert the amountOrder\n");
-							int tao = writeNumber();
 							
-							jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(),ord.getOrderID(),tao);
+							jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(),ord.getOrderID());
 							jdbcManager.setRelationInstrumentOrder(opt,ord.getOrderID());
 						}
 						System.out.println("Do you want to keep relating? YES,NO\n");
@@ -631,7 +627,7 @@ public class UserInterface
         		Order ord = iter.next();
         		jdbcManager.insert(ord);
         		jdbcManager.setOrderID(ord);
-        		jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(), ord.getOrderID(), 0);
+        		jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(), ord.getOrderID());
         	}
     	}
     	else
@@ -684,7 +680,7 @@ public class UserInterface
     				
     				//Relation moment
     				
-    				jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(), ord.getOrderID(), 100);
+    				jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(), ord.getOrderID());
     				
     			}
     		}

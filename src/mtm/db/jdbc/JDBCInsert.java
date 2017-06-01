@@ -214,18 +214,17 @@ public class JDBCInsert
 	
 	//Relational Tables 
 		
-	public void insertHospitalOrderRelation( int pkHospital, int pkOrder, int amOrd)
+	public void insertHospitalOrderRelation( int pkHospital, int pkOrder)
 	{
 		try
 		{
 			
-			String sql = "INSERT INTO hospital_orders(hospitalID,orderID,amountOrder)"
-					+ "VALUES(?,?,?)";
+			String sql = "INSERT INTO hospital_orders(hospitalID,orderID)"
+					+ "VALUES(?,?)";
 			
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setInt(1,pkHospital);
 			prep.setInt(2,pkOrder);
-			prep.setInt(3,amOrd);
 			
 			prep.executeUpdate();
 			
