@@ -467,7 +467,7 @@ public class UserInterface
 			{
 		    	System.out.println("Introduce the values of the new machinery:\n");
 
-				Machinery mach=createMachinery();
+				Machinery mach = createMachinery();
 				jdbcManager.insert(mach);
 				jdbcManager.setMachineryID(mach);
 
