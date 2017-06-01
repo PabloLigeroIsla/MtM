@@ -523,6 +523,7 @@ public class JDBCSelect
 			Statement stmt = c.createStatement();
 			String sql = "SELECT * FROM instrument";
 			ResultSet rs = stmt.executeQuery(sql);
+			
 
 
 			while(rs.next())
@@ -550,8 +551,6 @@ public class JDBCSelect
 			e.printStackTrace();
 		}
 		return instrumentList;
-		
-		
 	}
 	
 	public ArrayList<Warehouse> selectAllWarehouses()
