@@ -31,6 +31,9 @@ Opcionales que faltan:
 7.-Finishing touches
 
 
+ESTO ES LO QUE HAY QUE PONER EN LA TERMINAL
+
+xmllint --noout --dtdvalid DTD.dtd XML.xml
 
 
 
@@ -46,3 +49,8 @@ Insert material
  -- Need to insert the objects inside material before created before save materials???
 
 LINEA 1142 de JDBCManager, Charo puso que borraramos esa linea, pero no se si ha terminado 
+<<<<<<< HEAD
+
+M�todos que Nunca usamos, �Los borramos?
+=======
+>>>>>>> branch 'master' of https://github.com/papsers/MtM.git

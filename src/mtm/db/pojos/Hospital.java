@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
 @Table(name = "hospital")
 @XmlAccessorType(XmlAccessType.FIELD) //Be able to use XML
 @XmlRootElement(name = "Hospital")
-@XmlType(propOrder = { "hospitalID", "name", "location", "medicalSpecialization" })//Set the order of the attributes in the XML
+@XmlType(propOrder = { "hospitalID", "name", "location", "medicalSpecialization", "orderList"})//Set the order of the attributes in the XML
 public class Hospital implements Serializable
 {
 	
@@ -33,9 +33,9 @@ public class Hospital implements Serializable
 	private int hospitalID; 
 	@XmlAttribute
 	private String name;
-	@XmlAttribute
+	@XmlElement
 	private String location;
-	@XmlAttribute
+	@XmlElement
 	private String medicalSpecialization;
 	 
 	@ManyToMany
