@@ -103,6 +103,7 @@ public class JPAManager implements DBInterface
 		return mach;
 	}
 	
+	
 	public void insert(Machinery obj)
 	{
 		em.getTransaction().begin();
