@@ -1035,7 +1035,7 @@ public class JDBCManager implements DBInterface
 	
 	public Instrument setInstrumentRelations(Instrument inst){
 		
-		//relation instrument-orders
+		//relation instrument-orders//
 		
 		String relationalTable = "instrument_orders";
 		String pk1AttSearchOrder = "orderID";
@@ -1263,6 +1263,7 @@ public class JDBCManager implements DBInterface
 		 
 		return bool;
 	}
+	
 	private java.sql.Date LocaltoSqlDate(LocalDate locDate) 
 	{
 		java.sql.Date sqlDate;
