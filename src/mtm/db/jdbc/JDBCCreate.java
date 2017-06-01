@@ -121,7 +121,6 @@ public class JDBCCreate
 			String sqlp4 = "CREATE TABLE instrument_orders("
 					+ "orderID INTEGER REFERENCES orders(orderID),"
 					+ "instrument_ID INTEGER REFERENCES instrument(instrument_ID),"
-					+ "amountorder INTEGER,"
 					+ "PRIMARY KEY(orderID,instrument_ID))";
 			fPt2.executeUpdate(sqlp4);
 			fPt2.close();
