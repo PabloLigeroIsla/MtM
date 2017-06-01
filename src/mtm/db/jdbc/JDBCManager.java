@@ -615,8 +615,7 @@ public class JDBCManager implements DBInterface
 
  	public Instrument selectInstrument(int primaryKey)
  	{
- 		String table = "instrument";
- 		String selQuery = "SELECT * FROM "+table+" WHERE instrument_ID = ?";
+ 		String selQuery = "SELECT * FROM instrument WHERE instrument_ID=?";
  		
  		
  		if(valExist(selQuery,primaryKey,null))

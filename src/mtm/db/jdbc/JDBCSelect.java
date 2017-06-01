@@ -522,6 +522,7 @@ public class JDBCSelect
 			Statement stmt = c.createStatement();
 			String sql = "SELECT * FROM instrument";
 			ResultSet rs = stmt.executeQuery(sql);
+			
 			while(rs.next())
 			{
 				int instrumentID = rs.getInt("instrument_ID");
@@ -533,7 +534,9 @@ public class JDBCSelect
 				String bodyLocation = rs.getString("body_location");
 				int price = rs.getInt("price");
 				int wID = rs.getInt("warehouseID");
+				
 				Warehouse war = new Warehouse(wID);
+				
 				Instrument instrument = new Instrument(instrumentID,name,model,purpose,amount,numberUses,bodyLocation,price,war);
 				instrumentList.add(instrument);
 			}
