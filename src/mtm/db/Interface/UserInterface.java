@@ -460,7 +460,6 @@ public class UserInterface
 				int machID=writeNumber();
 
 				jpaManager.selectMachinery(machID);
-				//jdbcManager.selectMachinery(machID);
 				jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(),machID);
 			}
 			else
@@ -1101,7 +1100,7 @@ public class UserInterface
     	Instrument inst;
     	inst = jdbcManager.selectInstrument(pk);
     	jdbcManager.setInstrumentRelations(inst);
-    	inst.toString();
+    	inst.printInstrument();
     	
     }
     
@@ -1109,7 +1108,6 @@ public class UserInterface
     	Warehouse war;
     	war = jdbcManager.selectWarehouse(pk);
     	war.printWarehouse();
-    	//war.toString();
     }
     
     public static void showEmployee(int pk)
