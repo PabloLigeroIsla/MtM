@@ -6,6 +6,7 @@ import java.sql.Statement;
 
 public class JDBCCreate 
 {
+
 	
 	private Connection c;
 	
