@@ -91,14 +91,6 @@ public class Material implements Serializable {
 		this.type= type;
 	}
 
-	public Material(Integer weight2, Integer volume2, String type2, Company companyID2, Machinery machineryID2, Warehouse warehouseID2) {
-		this.weight = weight2;
-		this.volume = volume2;
-		this.type = type2;
-		this.company = companyID2;
-		this.machinery = machineryID2;
-		this.warehouse = warehouseID2; 
-	}
 
 	public Integer getMaterialID() {
 		return materialID;
