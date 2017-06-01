@@ -37,8 +37,8 @@ public class JDBCInsert
 			prep.setString(1,obj.getName());
 			prep.setString(2,obj.getLocation());
 			prep.setString(3,obj.getMedicalSpecialization());
-			prep.executeUpdate();
 			
+			prep.executeUpdate();
 			prep.close();
 			
 		}catch(SQLException e)
@@ -89,7 +89,6 @@ public class JDBCInsert
 			prep.setInt(8, instr.getWarehouse().getWarehouseID());
 			
 			prep.executeUpdate();
-		
 			prep.close();
 
 		}catch(SQLException e)
@@ -107,6 +106,7 @@ public class JDBCInsert
 			String sqlCh;
 			sqlCh = "INSERT INTO warehouse (warehouseLocation,capacity,filledSpace)"
 					+ "VALUES ('" + wareh.getWarehouseLocation() +"','" +wareh.getCapacity() + "','"+ wareh.getFilledSpace() +"');";
+			
 			stmCh.executeUpdate(sqlCh);
 			stmCh.close();
 			
@@ -227,7 +227,7 @@ public class JDBCInsert
 			prep.setInt(2,pkOrder);
 			
 			prep.executeUpdate();
-			
+			prep.close();
 			
 		}catch(SQLException e)
 		{
@@ -249,6 +249,7 @@ public class JDBCInsert
 			prep.setInt(2,pkOrder);
 			
 			prep.executeUpdate();
+			prep.close();
 
 		}catch(SQLException e)
 		{
@@ -270,7 +271,7 @@ public class JDBCInsert
 		prep.setInt(2, pkMachinery);
 		
 		prep.executeUpdate();
-			
+		prep.close();
 
 	}catch(SQLException e)
 	{
@@ -292,6 +293,7 @@ public class JDBCInsert
 			prep.setInt(2,pkWarehouse);
 			
 			prep.executeUpdate();
+			prep.close();
 			
 		}catch(SQLException e)
 		{

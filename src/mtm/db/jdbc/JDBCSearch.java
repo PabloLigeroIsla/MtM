@@ -75,8 +75,10 @@ public class JDBCSearch
 			{
 				a = true;
 			}
+			
 			prep.close();
 			rs.close();
+			
 		} catch (SQLException e) 
 		{		
 			e.printStackTrace();
@@ -109,6 +111,7 @@ public class JDBCSearch
 			
 			prep.close();
 			rs.close();
+			
 		}catch(Exception e)
 		{
 			e.printStackTrace();
@@ -132,6 +135,7 @@ public class JDBCSearch
 				int pkFound = rs.getInt(colAtSearch);
 				pkArray.add(pkFound);
 			}
+			
 			rs.close();
 			prep.close();
 				

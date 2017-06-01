@@ -256,21 +256,24 @@ public class Machinery implements Serializable {
 
 	public void printMach(boolean b){
 		
-		System.out.printf("Machinery information:\n Id: %d" + "Machinery Type: %s\n" 
+		System.out.printf("Machinery information:\n Id: %d" + "\nMachinery Type: %s\n" 
 			+ "State of machinery: %s\n"+"Date of installation: %s\n"+ "Size of machinery:%d\n\n"
 			,this.getMachineryID(),this.getMachineryType(),this.getStateofMachinery(),
 			this.getDateofInstallation(),this.getSizeofMachinery());
+		
 		if(b){
 			//With relations
 			
 			
 			Iterator <Employee> iter = this.getEmployeeList().iterator();
+			
 			while(iter.hasNext())
 			{
 				Employee emp  = iter.next();
 				System.out.printf("Employees Related:\n"
 						+ "Id: %d\n"+"Name: %s",emp.getEmployeeID(),emp.getName());
 			}
+			
 			Iterator <Material> iter2 = this.getMaterialList().iterator();
 			while(iter2.hasNext())
 			{
@@ -278,6 +281,7 @@ public class Machinery implements Serializable {
 				System.out.printf("Materials Related:\n"
 						+ "Id: %d\n"+"Type: %s",mat.getMaterialID(),mat.getType());
 			}
+			
 			Iterator <Instrument> iter3 = this.getInstrumentList().iterator();
 			while(iter3.hasNext())
 			{

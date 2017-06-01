@@ -47,13 +47,14 @@ public class JPAManager implements DBInterface
 	
 	//Employee
 	
-	public Employee selectEMployee(int primaryKey)
+	public Employee selectEmployee(int primaryKey)
 	{
 		
 		Query sql = em.createNativeQuery("SELECT * FROM employee WHERE employee_ID = ?",Employee.class);
 		sql.setParameter(1, primaryKey);
 		
 		Employee emp = (Employee) sql.getSingleResult();
+		
 		return emp;
 	}
 	

@@ -971,6 +971,7 @@ public class JDBCManager implements DBInterface
 		pkSearch = sqlSelect.selectIdTable(query,table);
 		
 		mach.setMachineryID(pkSearch);
+		
 		return mach;
 	}
 	
@@ -1034,7 +1035,7 @@ public class JDBCManager implements DBInterface
 	
 	public Instrument setInstrumentRelations(Instrument inst){
 		
-		//relation instrument-orders
+		//relation instrument-orders//
 		
 		String relationalTable = "instrument_orders";
 		String pk1AttSearchOrder = "orderID";
@@ -1042,9 +1043,12 @@ public class JDBCManager implements DBInterface
 		int pkValueCompare = inst.getInstrumentID();
 		
 		ArrayList<Integer> instPkRelationFound1 = new ArrayList<Integer>();
+		
 		instPkRelationFound1 = foundRelation(relationalTable, pk1AttSearchOrder, pkAttCompareInst, pkValueCompare);
 		Iterator<Integer> iter1 = instPkRelationFound1.iterator();
-		while(iter1.hasNext()){
+		
+		while(iter1.hasNext())
+		{
 			int i1 = iter1.next();
 			inst.addOrder(selectOrder(i1));
 	
@@ -1054,14 +1058,16 @@ public class JDBCManager implements DBInterface
 		relationalTable = "instrument_machinery";
 		String pkAttSearchMach = "machineryID";
 		pkAttCompareInst = "instrument_ID";
-		pkValueCompare = inst.getInstrumentID();
 		
 		
 		ArrayList<Integer> instPkRelationFound2 = new ArrayList<Integer>();
+		
 		instPkRelationFound2 = foundRelation(relationalTable, pkAttSearchMach, pkAttCompareInst, pkValueCompare);
 		Iterator<Integer> iter2 = instPkRelationFound2.iterator();
+		
 		while(iter2.hasNext()){
 			int i2 = iter2.next();
+			System.out.printf("%d",i2);
 			inst.addMachinery(selectMachinery(i2));
 
 		}
@@ -1187,7 +1193,7 @@ public class JDBCManager implements DBInterface
 	//Relation Help Methods
 	public ArrayList<Integer> foundRelation(String table,String pk1AttributeSearch,String pkAttributeCompare ,int pkValueCompare)
 	{
-		String query = "SELECT "+pk1AttributeSearch+" FROM "+table+" WHERE "+pkAttributeCompare+" = ?";
+		String query = "SELECT "+pk1AttributeSearch+" FROM "+table+" WHERE "+pkAttributeCompare+"=?";
 		
 		ArrayList<Integer> pkArray = new ArrayList<Integer>();
 		
@@ -1245,7 +1251,7 @@ public class JDBCManager implements DBInterface
 	
 		return a;
 		
-	}
+	}//
 	
 	public boolean valExist(String query)
 	{
@@ -1257,6 +1263,7 @@ public class JDBCManager implements DBInterface
 		 
 		return bool;
 	}
+	
 	private java.sql.Date LocaltoSqlDate(LocalDate locDate) 
 	{
 		java.sql.Date sqlDate;
