@@ -46,9 +46,9 @@ public class Company implements Serializable {
 
 
 	
-	//metodos
+	//methods
 	public void printCompany() {
-		System.out.println("Company [companyID=" + companyID + ", location=" + location + ", companyName=" + companyName);
+		System.out.println("Company [companyID=" + companyID + ", companyName=" + location + ",location= " + companyName);
 	}
 
 	public List<Material> getMaterialList() {

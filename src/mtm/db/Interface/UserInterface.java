@@ -1116,6 +1116,7 @@ public class UserInterface
     {
     	Employee emp;
     	emp = jdbcManager.selectEmployee(pk);
+    	
     	emp.toString();
     }
     
@@ -1313,7 +1314,7 @@ public class UserInterface
             	
     		}
     		else{
-        		System.out.printf("id: %d, name: %d\n",id,name);
+        		System.out.printf("id: %d, name: %s\n",id,name);
     		}
     		count ++;
     	} 	
@@ -1332,7 +1333,7 @@ public class UserInterface
     		int id = mach.getMachineryID();
         	String machineryType = mach.getMachineryType();
     		
-
+        	
     		if(relation)
     		{
     			jdbcManager.setMachineryRelations(mach);

@@ -1062,7 +1062,10 @@ public class JDBCManager implements DBInterface
 		relationalTable = "instrument_machinery";
 		String pkAttSearchMach = "machineryID";
 		pkAttCompare = "instrument_ID";
+		pkValueCompare = inst.getInstrumentID();
 		
+		
+		instPkRelationFound = new ArrayList<Integer>();
 		instPkRelationFound = foundRelation(relationalTable, pkAttSearchMach, pkAttCompare, pkValueCompare);
 		iter = instPkRelationFound.iterator();
 		while(iter.hasNext()){

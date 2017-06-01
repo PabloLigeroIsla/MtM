@@ -260,7 +260,7 @@ public class JDBCSelect
 		}
 
 		emp.printEmployee(false);
-		System.out.println("Método de SelectEmployee");
+		System.out.println("Method of SelectEmployee");
 		return emp;
 	}
 	//Fallo en el Select//
