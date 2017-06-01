@@ -725,6 +725,7 @@ public class JDBCSelect
 			ResultSet rs = prep.executeQuery();
 			
 			id = rs.getInt("seq");
+			
 			prep.close();
 			rs.close();
 			

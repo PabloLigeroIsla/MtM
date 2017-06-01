@@ -360,7 +360,7 @@ public class UserInterface
 			if(writeOption(option))
 			{
 				ArrayList<Instrument> instList = jdbcManager.selectAllInstruments();
-				if(instList.size()>=0)
+				if(instList.size()<=0)
 				{
 					boolean keepRelating = true;
 					listOrders(false);
@@ -467,9 +467,9 @@ public class UserInterface
 			{
 		    	System.out.println("Introduce the values of the new machinery:\n");
 
-				Machinery mach = createMachinery();
-				jdbcManager.insert(mach);
-				jdbcManager.setMachineryID(mach);
+				Machinery mach=createMachinery();
+				jpaManager.insert(mach);
+
 
 				
 				jdbcManager.setRelationInstrumentMachinery(inst.getInstrumentID(),mach.getMachineryID());
@@ -1270,9 +1270,9 @@ public class UserInterface
     
     		if(relation){
     			jdbcManager.setInstrumentRelations(inst);
-    			System.out.printf("id of instrument: %d, relation with order: %s\n",inst.getInstrumentID(),inst.getOrderList().toString());
-    			System.out.printf("id of instrument: %d, relation with machinery: %s\n",inst.getInstrumentID(),inst.getMachineryTypeList().toString());
-    			System.out.printf("id of instrument: %d, relation with warehouse: %s\n",inst.getInstrumentID(),inst.getWarehouse().toString());	
+    			System.out.printf("id of instrument: %d, relation with order: %d\n",inst.getInstrumentID(),inst.getOrderList().toString());
+    			System.out.printf("id of instrument: %d, relation with machinery: %d\n",inst.getInstrumentID(),inst.getMachineryTypeList().toString());
+    			System.out.printf("id of instrument: %d, relation with warehouse: %d\n",inst.getInstrumentID(),inst.getWarehouse().toString());	
     		}else{
     			System.out.printf("id: %d\n",inst.getInstrumentID());
     		}

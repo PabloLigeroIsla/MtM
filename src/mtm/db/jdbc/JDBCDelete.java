@@ -97,6 +97,7 @@ public class JDBCDelete
 			System.out.println("Deletion finished\n");
 			
 			prep.close();
+			
 		}catch(SQLException e)
 		{
 			e.printStackTrace();
@@ -114,6 +115,7 @@ public class JDBCDelete
 			System.out.println("Deletion finished\n");
 				
 			prep.close();
+			
 		}catch(SQLException e)
 		{
 			e.printStackTrace();

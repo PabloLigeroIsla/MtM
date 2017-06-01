@@ -29,6 +29,7 @@ public class JDBCUpdate
 				prep.executeUpdate();
 				
 				prep.close();
+				
 			}catch(SQLException e)
 			{
 				e.printStackTrace();
@@ -68,6 +69,7 @@ public class JDBCUpdate
 				prep.executeUpdate();
 				
 				prep.close();
+				
 			}catch(SQLException e)
 			{
 				e.printStackTrace();
@@ -89,6 +91,7 @@ public class JDBCUpdate
 			prep.executeUpdate();
 			
 			prep.close();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -110,11 +113,11 @@ public class JDBCUpdate
 			prep.executeUpdate();
 			
 			prep.close();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		
 	}
+	
 
 }

@@ -20,7 +20,6 @@ public class JDBCCreate
 		boolean act=true;
 		try
 		{
-			c.setAutoCommit(false);
 			
 			Statement fPt = c.createStatement();
 			String sqlp1 = "CREATE TABLE hospital("
@@ -153,8 +152,6 @@ public class JDBCCreate
 			sqlSeq = "INSERT INTO sqlite_sequence (name, seq) VALUES ('material', 1)";
 			stmtSeq.executeUpdate(sqlSeq);
 			
-			c.commit();
-			c.setAutoCommit(true);
 			
 			act = false;
 		}catch (Exception e)
