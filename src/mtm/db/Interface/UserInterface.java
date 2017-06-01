@@ -1123,6 +1123,7 @@ public class UserInterface
     
     public static void showMachinery(int pk)
     {
+    	
     	Machinery mach;
     	mach = jpaManager.selectMachinery(pk);
     	//mach = jdbcManager.selectMachinery(pk);@JPAChange
