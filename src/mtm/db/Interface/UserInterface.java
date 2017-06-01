@@ -967,7 +967,7 @@ public class UserInterface
     	{
     		System.out.println("This material is provided by a company from the database YES or NO: \n");
     		String answ = writeString();
-    		if(answ.equals("YES"))
+    		if(writeOption(answ))
     		{
     			listCompanies(false);
     			System.out.println("Type the PK of the company:\n");
@@ -977,7 +977,7 @@ public class UserInterface
     			System.out.println("The material is attached to the company\n");
     			aux = false;
     		
-    		}else if(answ.equals("NO"))
+    		}else if(writeOption(answ))
     		{
     			System.out.println("Therefore, you need to create a new company\n");
     			Company com = createCompany();
@@ -1001,7 +1001,7 @@ public class UserInterface
     		
     		System.out.println("Does the machinery exists in the data base? YES or NO: \n");
     		String answ = writeString();
-    		if(answ.equals("YES"))
+    		if(writeOption(answ))
     		{
     			listMachineries(false);
     			System.out.println("Type the PK of the machinery:\n");
@@ -1012,7 +1012,7 @@ public class UserInterface
     				aux2 = false;
     			}
     		
-    		}else if(answ.equals("NO"))
+    		}else if(writeOption(answ))
     		{
     			System.out.println("\n Therefore, a Machinery must be created\n");
     			Machinery mach = createMachinery();
