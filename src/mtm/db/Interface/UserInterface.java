@@ -1444,7 +1444,8 @@ public class UserInterface
     	System.out.println("\nIntroduce the xml Path with her name:\n");
     	String sourcePath = writeString();
 
-    	String xsltPath = "C:/Users/Pablo/git/MtM/db/HospitalStyle.xslt";
+    	System.out.println("\nIntroduce the Path of the HospitalStyle.xslt in your local repository:\n");
+    	String xsltPath = writeString();
     	
     	System.out.println("\nInsert the path where the link will be saved:\n");
     	String resultDir = writeString();
