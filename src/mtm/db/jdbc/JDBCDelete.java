@@ -22,7 +22,6 @@ public class JDBCDelete
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setInt(1, pkInstrument);
 			prep.executeUpdate();
-			System.out.println("Deletion finished\n");
 			
 			prep.close();
 			
