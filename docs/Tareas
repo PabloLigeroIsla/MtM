@@ -31,9 +31,12 @@ Opcionales que faltan:
 7.-Finishing touches
 
 
-ESTO ES LO QUE HAY QUE PONER EN LA TERMINAL
+ESTO ES LO QUE HAY QUE PONER EN LA TERMINAL PARA VALIDAR EL DTD
 
-xmllint --noout --dtdvalid DTD.dtd XML.xml
+xmllint --noout --valid DTDSchemaPrueba.xml
+Aparece el error no DTD found!
+
+
 
 
 
