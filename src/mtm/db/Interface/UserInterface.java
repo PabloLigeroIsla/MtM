@@ -1192,7 +1192,6 @@ public class UserInterface
         		}
         		
         		count++;
-        		
         	}
         	
         }
@@ -1217,8 +1216,6 @@ public class UserInterface
 					Order ord = iterOrd.next();
 					System.out.printf("\nOrder id:%d\n ",ord.getOrderID());
 				}
-				
-
 			}else
 			{
 				System.out.printf("id: %d,name: %s\n",hosp.getHospitalID(),hosp.getName());				
@@ -1283,9 +1280,7 @@ public class UserInterface
     		}else{
     			System.out.printf("id: %d\n",inst.getInstrumentID());
     		}
-    	}
-    	
-    	
+    	}	
     }
     
     public static void listWarehouses(boolean relation){
