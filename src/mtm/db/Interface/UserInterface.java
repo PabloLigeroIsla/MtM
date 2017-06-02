@@ -1156,14 +1156,20 @@ public class UserInterface
     public static void listCompanies(boolean relation){
     	Company com;
 		ArrayList<Company> comList = new ArrayList<Company>();
+		ArrayList<Company> comLisRel = new ArrayList<Company>();
 		comList = jdbcManager.selectAllCompanies();
-			
-		Iterator<Company> compIter = comList.iterator(); 
-			
 		
+		Iterator<Company> compIter = comList.iterator(); 
 		while(compIter.hasNext())
 		{
-			com = compIter.next();
+			Company comp = compIter.next();
+			comp = jdbcManager.setCompanyRelations(comp);
+			comLisRel.add(comp);
+		}
+		Iterator<Company> compIter2 = comLisRel.iterator();
+		while(compIter2.hasNext())
+		{
+			com = compIter2.next();
 			String name = com.getCompanyName();
 			int id = com.getCompanyID();
 
@@ -1285,34 +1291,38 @@ public class UserInterface
     		if(relation){
     			jdbcManager.setInstrumentRelations(inst);
     			System.out.printf("id: %d\n",inst.getInstrumentID());
-    			System.out.printf("\nOrder id: %d\n",inst.getOrderList());
-    			System.out.printf("\nMachinery id: %d\n",inst.getMachineryList());
-    			System.out.printf("\nWarehouse id: %d\n",inst.getWarehouse());	
+    			System.out.printf("\nOrder id: %s\n",inst.getOrderList());
+    			System.out.printf("\nMachinery id: %s\n",inst.getMachineryList());
+    			System.out.printf("\nWarehouse id: %s\n",inst.getWarehouse());	
     		}else{
     			System.out.printf("id: %d\n",inst.getInstrumentID());
     		}
     	}	
     }
-    
+
     public static void listWarehouses(boolean relation){
-    	Warehouse war = new Warehouse();
-    	ArrayList<Warehouse> warehouseList = new ArrayList<Warehouse>();
-    	warehouseList = jdbcManager.selectAllWarehouses();
-    	int count = 0;
+    	Warehouse war;
+    	ArrayList<Warehouse> warList = new ArrayList<Warehouse>();
+    	warList = jdbcManager.selectAllWarehouses();
+    	Iterator <Warehouse> iter = warList.iterator();
 		System.out.printf("Warehouse\n");
 
-    	while(count < warehouseList.size())
+    	while(iter.hasNext())
 		{
-			war = warehouseList.get(count);
-			String warehouseLocation = war.getWarehouseLocation();
-			int id = war.getWarehouseID();
-			
-				System.out.printf("id: %d,location: %s\n",id,warehouseLocation);
-				count++;
+			war = iter.next();
+			jdbcManager.setWarehouseRelations(war);
+
 				if(relation){
-					System.out.printf("id: %d,location: %s\n",id,warehouseLocation);
-	    			System.out.printf("\nInstrument id: %d\n",war.getInstrumentList());
-	    			System.out.printf("\nWarehouse id: %d\n",war.getWarehouseID());
+					System.out.printf("id: %d,location: %s\n",war.getWarehouseID(),war.getWarehouseLocation());
+					Iterator<Instrument> instIter = war.getInstrumentList().iterator();
+					while(instIter.hasNext())
+					{
+						Instrument inst = instIter.next();
+						System.out.printf("\nInstrument id:%d\n",inst.getInstrumentID());
+					}
+				}
+				else{
+					System.out.printf("id: %d,location: %s\n",war.getWarehouseID(),war.getWarehouseLocation());
 				}
 			}
     }
@@ -1345,26 +1355,77 @@ public class UserInterface
     	
     	Machinery mach;
     	ArrayList<Machinery> machList = jdbcManager.selectAllMachineries();
-    	int count = 0;
+    	Iterator<Machinery> machIter = machList.iterator();
+    	
 		System.out.printf("Machinery\n");
-
-    	while(count < machList.size()){
+		
+    	while(machIter.hasNext()){
     		
-    		mach =machList.get(count);
+    		mach = machIter.next();
     		
     		int id = mach.getMachineryID();    		
-        	
+    		System.out.printf("id: %d\n",id);
+    		
     		if(relation)
     		{
     			jdbcManager.setMachineryRelations(mach);
-    			System.out.printf("id: %d \nInstrument id: %d \nEmployee id: %d Material id: %ds\n"
-    					,mach.getMachineryID(),mach.getInstrumentList(),mach.getEmployeeList(),mach.getMaterialList());
+    			
+    			//Instrument
+    			System.out.println("Instrument id:\n");
+    			
+    			Instrument inst;
+    			
+    			ArrayList<Instrument> instList = new ArrayList<Instrument>();
+    	    	instList = (ArrayList<Instrument>)mach.getInstrumentList();
+    			System.out.printf("Instrument\n");
+
+    	    	int count = 0;
+    	    	while(count < instList.size())
+    	    	{
+    	    		inst = instList.get(count);
+    				 id = inst.getInstrumentID();
+    	    		System.out.printf("%d\n",inst.getInstrumentID());
+    	    		count ++;
+    	    	}     			
+    			//Employee
+    			System.out.println("Employee\n");
+    			
+    			Employee emp;
+    	    	ArrayList<Employee> empList = new ArrayList<Employee>();
+    	    	empList = (ArrayList<Employee>)mach.getEmployeeList();
+    			System.out.printf("Employee\n");
+
+    	    	count = 0;
+    	    	while(count < empList.size())
+    	    	{
+    	    		emp = empList.get(count);
+    				 id = emp.getEmployeeID();
+    	    		emp = empList.get(count);
+    	    		System.out.printf("%d\n",emp.getEmployeeID());
+    	    		count ++;
+    	    	} 	
+    			//Material
+    			Material mat;
+            	ArrayList<Material> matList = new ArrayList<Material>();
+            	matList = (ArrayList<Material>)mach.getMaterialList();
+            	
+            	count = 0;
+    			System.out.printf("Material id:\n");
+
+            	while(count < matList.size())
+            	{
+            		mat = matList.get(count);
+            		System.out.printf("%d",mat.getMaterialID());
+            		
+            		count++;
+            	}
+    			
        
     		}else
     		{
     			System.out.printf("id: %d\n",id);
     		}    		
-        	count ++;
+        	
     	}
     
     }

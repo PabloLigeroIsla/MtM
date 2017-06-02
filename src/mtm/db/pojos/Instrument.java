@@ -189,7 +189,13 @@ public class Instrument implements Serializable {
 
 	}
 
-
+	@Override
+	public String toString() {
+		return "Instrument [instrumentID=" + instrumentID + ", name=" + name + ", model="
+				+ model + ", purpose=" + purpose +", amount=" + amount +", Number of uses=" + numberUses +
+				", Body location=" + bodyLocation +", price=" + price +"]";
+	}
+	
 	public Integer getInstrumentID() {
 		return instrumentID;
 	}

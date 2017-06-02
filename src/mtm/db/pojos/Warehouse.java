@@ -2,6 +2,7 @@ package mtm.db.pojos;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -151,6 +152,25 @@ public class Warehouse implements Serializable {
 		System.out.printf("Warehouse location: %s\n", this.warehouseLocation);
 		System.out.printf("Warehouse capacity: %d\n", this.capacity);
 		System.out.printf("Warehouse filled space: %d\n", this.filledSpace);
+		System.out.printf("Material id:\n" );
+		
+		Iterator<Material> matIter = this.getMaterialTypeList().iterator();
+		while(matIter.hasNext())
+		{
+			Material mat = matIter.next();
+			System.out.printf("%d\n ",mat.getMaterialID());
+		}
+		
+		System.out.println("\n\nIstrument id:\n");
+		
+		Iterator<Instrument>instIter =this.getInstrumentList().iterator();
+		
+		while(instIter.hasNext())
+		{
+			Instrument inst = instIter.next();
+			System.out.printf("%d \n",inst.getInstrumentID());
+		}
+		
 
 	}
 	
