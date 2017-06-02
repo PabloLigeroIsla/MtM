@@ -256,8 +256,8 @@ public class Machinery implements Serializable {
 
 	public void printMach(boolean b){
 		
-		System.out.printf("Machinery information:\n Id: %d" + "\nMachinery Type: %s\n" 
-			+ "State of machinery: %s\n"+"Date of installation: %s\n"+ "Size of machinery:%d\n\n"
+		System.out.printf("Machinery information:\n" + " \nId: %d\n" + "\nMachinery Type: %s\n" 
+			+ "State of machinery: %s\n" + "Date of installation: %s\n" + "Size of machinery:%d\n\n"
 			,this.getMachineryID(),this.getMachineryType(),this.getStateofMachinery(),
 			this.getDateofInstallation(),this.getSizeofMachinery());
 		

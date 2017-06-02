@@ -210,7 +210,7 @@ public class Order implements Serializable
 		System.out.printf("Order Information:\n Id: %d\n"
 				+ "Total Amount Instruments: %d\n"
 				+ "Order Date: %s\n"
-				+ "Delivery Date: %d\n"
+				+ "Delivery Date: %s\n"
 				+ "",this.getOrderID(),this.getTotalAmountInstruments(),locOrder,locDelivery);
 		
 		
@@ -227,16 +227,16 @@ public class Order implements Serializable
 			{
 				inst = iterIns.next();
 				System.out.printf("Instrument %d\n"
-						+ "Name: %d\n"
-						+ "Price: %d",inst.getInstrumentID(),inst.getName(),inst.getPrice());
+						+ "Name: %s\n"
+						+ "Price: %d\n",inst.getInstrumentID(),inst.getName(),inst.getPrice());
 			}
 			while(iterHosp.hasNext())
 			{
 				hosp = iterHosp.next();
 				System.out.printf("Related Hospital info \n"
-						+ "Name: %d\n"
+						+ "Name: %s\n"
 						+ "id: %d\n"
-						+ "Location: %d\n",hosp.getName(),hosp.getHospitalID(),hosp.getLocation());
+						+ "Location: %s\n",hosp.getName(),hosp.getHospitalID(),hosp.getLocation());
 			}
 			
 		}

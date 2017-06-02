@@ -149,9 +149,15 @@ public class Material implements Serializable {
 	}
 
 
-	public void printMaterial() {
-		System.out.println("Material [materialID=" + materialID + ", weight=" + weight + ", volume=" + volume + ", type=" + type
-				+ ", companyID=" + company.getCompanyID() + ", machineryID=" + machinery.getMachineryID() + ", warehouseID=" + warehouse.getWarehouseID() + "]");
+	public void printMaterial(boolean relate) {
+		
+		System.out.println("Material information:\n materialID:" + materialID + "\nWeight:" + weight + "\nVolume=" + volume + "\nType:" + type);
+		System.out.printf("\nRelated Machinery id: %d\n",machinery.getMachineryID());
+		System.out.printf("\nRelated Company id: %d\n",company.getCompanyID());
+		System.out.printf("\nRelated Warehouse id: %d\n\n",warehouse.getWarehouseID());
+
+
+	
 	}
 
 	@Override

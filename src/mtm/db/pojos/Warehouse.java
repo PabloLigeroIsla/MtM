@@ -185,11 +185,12 @@ public class Warehouse implements Serializable {
 	}
 
 	
-	public void printWarehouse(){
-		System.out.printf("the warehouse ID is: %d\n", this.warehouseID);
-		System.out.printf("the warehouse location is: %s\n", this.warehouseLocation);
-		System.out.printf("the warehouse capacity is: %d\n", this.capacity);
-		System.out.printf("the warehouse has already a filled space of: %d\n", this.filledSpace);
+	public void printWarehouse(boolean relate){
+		System.out.printf("Warehouse ID: %d\n", this.warehouseID);
+		System.out.printf("Warehouse location: %s\n", this.warehouseLocation);
+		System.out.printf("Warehouse capacity: %d\n", this.capacity);
+		System.out.printf("Warehouse filled space: %d\n", this.filledSpace);
+
 
 	}
 	

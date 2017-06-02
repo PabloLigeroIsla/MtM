@@ -50,7 +50,7 @@ public class Company implements Serializable {
 	//methods
 	public void printCompany(boolean relate) 
 	{
-		System.out.println("Company [companyID=" + companyID + ", companyName=" + location + ",location= " + companyName);	
+		System.out.println("Company  companyID=" + companyID + ", companyName=" + location + ",location= " + companyName);	
 
 		if(relate){
 			
@@ -60,9 +60,9 @@ public class Company implements Serializable {
 			while(iterMat.hasNext())
 			{
 				mat = iterMat.next();
-				System.out.printf("Material %d\n"
-						+ "ID: %d\n"
-						+ "Type: %s",mat.getMaterialID(),mat.getType());
+				System.out.printf("Material  "
+						+ "material ID: %d"
+						+ "material type: %s\n",mat.getMaterialID(),mat.getType());
 			}		
 			
 		}
