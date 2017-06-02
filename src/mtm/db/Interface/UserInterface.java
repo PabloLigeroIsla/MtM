@@ -598,6 +598,7 @@ public class UserInterface
     		listHospitals(false);
     		int op = writeNumber();
     		Hospital hosp = jdbcManager.selectHospital(op);
+    		hosp = jdbcManager.setHospitalRelations(hosp);
     	
     		xmlManager.marshallHospital(path, hosp);
     	}

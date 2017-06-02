@@ -42,9 +42,11 @@ public class Hospital implements Serializable
 	@JoinTable(name="hospital_orders",
 	joinColumns={@JoinColumn(name="hospitalID", referencedColumnName="hospitalID")}, //points to my class
     inverseJoinColumns={@JoinColumn(name="orderID", referencedColumnName="orderID")}) //points to the class in the next line
+	
 	@XmlElement(name = "Order")//This name doesnt make reference to the attribute element.
 								// Name the employees tag(next attribute) as Order
 	@XmlElementWrapper(name = "Orders")//make an Orders tag that stores Order
+	
 	private List<Order> orderList;
 	//Primary Key --> hospitalID
 	//Foreign Key --> orderList

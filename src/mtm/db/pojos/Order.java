@@ -15,6 +15,7 @@ import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
@@ -41,12 +42,12 @@ public class Order implements Serializable
 	    pkColumnName="name", valueColumnName="seq", pkColumnValue="orders")
 	@XmlAttribute
 	private int orderID;
-	@XmlAttribute
+	@XmlElement
 	private int totalAmountInstruments;
-	@XmlAttribute
+	@XmlElement
 	@XmlJavaTypeAdapter(SQLDateAdapter.class)
 	private Date orderDate;
-	@XmlAttribute
+	@XmlElement
 	@XmlJavaTypeAdapter(SQLDateAdapter.class)
 	private Date deliveryDate;
 	
