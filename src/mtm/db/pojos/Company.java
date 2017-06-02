@@ -80,6 +80,8 @@ public class Company implements Serializable {
 	public Company()
 	{
 		super();
+		this.materialList = new ArrayList<Material>();
+		
 	}
 	
 	public Company(int company_id, String location, String companyName){
