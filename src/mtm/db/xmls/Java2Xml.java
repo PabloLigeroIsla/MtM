@@ -32,7 +32,7 @@ public class Java2Xml
 	{
 		try
 		{
-			JAXBContext jaxbContext = JAXBContext.newInstance(Hospital.class);
+			JAXBContext jaxbContext = JAXBContext.newInstance(MtM.class);
 			Marshaller marshaller = jaxbContext.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,Boolean.TRUE);
 			

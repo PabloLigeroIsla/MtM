@@ -521,12 +521,14 @@ public class UserInterface
 			System.out.println("What employee do you want to delete from this table? \n");
 			int pk2 = writeNumber();
 			jdbcManager.deleteEmployee(pk2);
+			System.out.println("Employee deleted correctly\n");
 			break;
 		case 2: //Material
 			listMaterials(false);
 			System.out.println("What material do you want to delete from this table? \n");
 			int pk6 = writeNumber();
 			jpaManager.deleteMaterial(pk6);
+			System.out.println("Material deleted correctly\n");
 			break;	
 		}
 		
@@ -675,6 +677,7 @@ public class UserInterface
     			if(!jdbcManager.valExist(queryHosp,hosp.getHospitalID(),null))//Si el objeto no existe en la base de datos
     			{
     				jdbcManager.insert(hosp);
+    				hosp = jdbcManager.setHospitalID(hosp);
     			}
     			//ORDER
     			ArrayList<Order> ordList = (ArrayList<Order>)hosp.getOrderList();
@@ -686,11 +689,10 @@ public class UserInterface
     				if(!jdbcManager.valExist(queryOrd, ord.getOrderID(), null))
     				{
     					jdbcManager.insert(ord);
+    					ord = jdbcManager.setOrderID(ord);
+    					jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(), ord.getOrderID());
     				}
     				
-    				//Relation moment
-    				
-    				jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(), ord.getOrderID());
     				
     			}
     		}
@@ -703,6 +705,7 @@ public class UserInterface
     			if(!jdbcManager.valExist(queryIns, ins.getInstrumentID(), null))
     			{
     				jdbcManager.insert(ins);
+    				ins = jdbcManager.setInstrumentID(ins);
     			}
     			
     			ArrayList<Order> ordList = (ArrayList<Order>)ins.getOrderList();
@@ -714,9 +717,11 @@ public class UserInterface
     				if(!jdbcManager.valExist(queryOrd, ord.getOrderID(), null))
     				{
     					jdbcManager.insert(ord);
+    					ord = jdbcManager.setOrderID(ord);
+    					jdbcManager.setRelationInstrumentOrder(ins.getInstrumentID(), ord.getOrderID());
     				}
     				
-    				jdbcManager.setRelationInstrumentOrder(ins.getInstrumentID(), ord.getOrderID());
+    				
     			}
     			//MAQUINARIAS
     			ArrayList<Machinery> machListIns = (ArrayList<Machinery>)ins.getMachineryList();
@@ -728,9 +733,11 @@ public class UserInterface
     				if(!jdbcManager.valExist(queryMach,mach.getMachineryID(),null))
     				{
     					jdbcManager.insert(mach);
+    					mach = jdbcManager.setMachineryID(mach);
+    					jdbcManager.setRelationInstrumentMachinery(ins.getInstrumentID(), mach.getMachineryID());
     				}
     				
-    				jdbcManager.setRelationInstrumentMachinery(ins.getInstrumentID(), mach.getMachineryID());
+    				
     			}
     			//WAREHOUSES
     			Warehouse ware = ins.getWarehouse();
@@ -738,6 +745,7 @@ public class UserInterface
     			{
     				//Introduce is relate
     				jdbcManager.insert(ware);
+    				ware = jdbcManager.setWarehouseID(ware);
     			}
     			
     		}
@@ -750,10 +758,11 @@ public class UserInterface
     			if(!jdbcManager.valExist(queryMach,mach.getMachineryID(),null))
     			{
     				jdbcManager.insert(mach);
+    				mach = jdbcManager.setMachineryID(mach);
     			}
     			
     			//EMPLEADOS
-    			ArrayList<Employee> empArray = (ArrayList<Employee>)mach.getEmployeeList();
+    			ArrayList<Employee> empArray = (ArrayList<Employee>) mach.getEmployeeList();
     			Iterator<Employee> empIter = empArray.iterator();
     			while(empIter.hasNext())
     			{
@@ -761,6 +770,7 @@ public class UserInterface
     				if(jdbcManager.valExist(queryEmp,emp.getEmployeeID(), null))
     				{
     					jdbcManager.insert(emp);
+    					
     				}
     				
     			}
@@ -776,6 +786,7 @@ public class UserInterface
         			if(!jdbcManager.valExist(queryMat, mat.getMaterialID(), null))
         			{
         				jdbcManager.insert(mat);
+        				
         			}
         		}
     			
@@ -796,12 +807,14 @@ public class UserInterface
     			if(!jdbcManager.valExist(queryComp, mat.getMaterialID(), null))
     			{
     				jdbcManager.insert(comp);
+    				comp = jdbcManager.setCompanyID(comp);
     			}
     			
     			Warehouse war = mat.getWarehouse();
     			if(!jdbcManager.valExist(queryWare, war.getWarehouseID(),null))
     			{
     				jdbcManager.insert(war);
+    				war = jdbcManager.setWarehouseID(war);
     			}
     		}
     		
@@ -814,11 +827,11 @@ public class UserInterface
     
     public static Hospital createHospital()
     {
-    	System.out.println("Name of the hospital:");
+    	System.out.println("Name of the hospital:\n");
 		String a = writeString();
-		System.out.println("Location of the Hospital: ");
+		System.out.println("Location of the Hospital:\n");
 		String b = writeString();
-		System.out.println("Medical Specialization of the hospital:");
+		System.out.println("Medical Specialization of the hospital:\n");
 		String c = writeString();
 		
 		Hospital hosp = new Hospital(a,b,c);
@@ -831,15 +844,15 @@ public class UserInterface
     {		
     	
     	Order ord = new Order();
-    	System.out.println("Total Amount of Instruments\n");
+    	System.out.println("Total Amount of Instruments:\n");
 		int d = writeNumber();
 		
 		String []d1 = new String[2];
 		String []d2 = new String[2];
 		
-		System.out.println("Order Date\n");
+		System.out.println("Order Date:");
 		d1 = createDate();
-		System.out.println("Delivery Date");
+		System.out.println("Delivery Date:\n");
 		d2 = createDate();
 		
 		ord = jdbcManager.createPojoOrder(d,d1[0],d1[1],d1[2],d2[0],d2[1],d2[2]);
@@ -849,11 +862,11 @@ public class UserInterface
     
     public static Warehouse createWarehouse(){
     	
-    	System.out.println("Location of the warehouse\n");
+    	System.out.println("Location of the warehouse:\n");
 		String warehouseLocation=writeString();
-		System.out.println("Capacity of the warehouse\n");
+		System.out.println("Capacity of the warehouse:\n");
 		int capacity=writeNumber();
-		System.out.println("Filled space in the warehouse\n");
+		System.out.println("Filled space in the warehouse:\n");
 		int filledSpace=writeNumber();
 		
 		Warehouse warehouse = new Warehouse( warehouseLocation,capacity,filledSpace);	
@@ -863,19 +876,19 @@ public class UserInterface
 
     public static Instrument createInstrument(){
     	
-    	System.out.println("Name of the instrument\n");
+    	System.out.println("Name of the instrument:\n");
     	String name=writeString();
-    	System.out.println("Model of the instrument\n");
+    	System.out.println("Model of the instrument:\n");
 		String model=writeString();
-		System.out.println("Purpose of the instrument\n");
+		System.out.println("Purpose of the instrument:\n");
 		String purpose=writeString();
-		System.out.println("Amount of instrument\n");
+		System.out.println("Amount of instrument:\n");
 		int amount=writeNumber();
-		System.out.println("Number of uses of the instrument\n");
+		System.out.println("Number of uses of the instrument:\n");
 		int numberUses=writeNumber();
-		System.out.println("Body location of the instrument\n");
+		System.out.println("Body location of the instrument:\n");
 		String bodyLocation=writeString();
-		System.out.println("Price of the instrument\n");
+		System.out.println("Price of the instrument:\n");
 		int price=writeNumber();
 		
 		Instrument inst = new Instrument (name,model,purpose,amount,numberUses,bodyLocation,price);
@@ -895,7 +908,7 @@ public class UserInterface
 	if(writeOption(d))
 	{
 		listMachineries(false);
-		System.out.println("Select the ID of the machinery the employee is spezialized in\n");
+		System.out.println("Select the ID of the machinery the employee is spezialized in:\n");
 		int e=writeNumber();
 		
 		mach = jdbcManager.selectMachinery(e);
@@ -949,9 +962,9 @@ public class UserInterface
     public static Company createCompany(){
     	
     	
-    	System.out.println("\nCompany location");
+    	System.out.println("Company location:\n");
     	String a=writeString();
-    	System.out.println("\nCompany name");
+    	System.out.println("Company name:\n");
     	String b=writeString();
     	
     	Company com = new Company(a,b);
@@ -962,11 +975,11 @@ public class UserInterface
     public static Material createMaterial()
     {
     	
-    	System.out.println("\nWeight");
+    	System.out.println("Weight:\n");
     	int a = writeNumber();
-    	System.out.println("\nVolume");
+    	System.out.println("Volume:\n");
     	int b = writeNumber();
-    	System.out.println("\nType");
+    	System.out.println("Type:\n");
     	String c = writeString();
     	
     	Material mat = new Material(a,b,c);
@@ -1025,7 +1038,7 @@ public class UserInterface
     		
     		}else
     		{
-    			System.out.println("\n Therefore, a Machinery must be created\n");
+    			System.out.println("Therefore, a Machinery must be created\n");
     			Machinery mach = createMachinery();
     			jpaManager.insert(mach);
     			
@@ -1046,7 +1059,7 @@ public class UserInterface
     		if(op == 1)
     		{
     			//crear
-    			System.out.println("A new WareHouse will be created");
+    			System.out.println("A new WareHouse will be created\n");
     			Warehouse war = createWarehouse();
     			jpaManager.insert(war);
 
@@ -1153,7 +1166,8 @@ public class UserInterface
 			com = compIter.next();
 			String name = com.getCompanyName();
 			int id = com.getCompanyID();
-			
+
+			System.out.printf("Company\n");
 			System.out.printf("id: %d,name: %s\n",id,name);
 			
 			if(relation)
@@ -1163,7 +1177,7 @@ public class UserInterface
 				while(iter.hasNext())
 				{
 					Material mat = iter.next();
-					System.out.printf("\nmat id:%d\n",mat.getMaterialID());
+					System.out.printf("\nMaterial id:%d\n",mat.getMaterialID());
 				}
 			}			
 		}
@@ -1175,20 +1189,20 @@ public class UserInterface
         	matList = jdbcManager.selectAllMaterials();
         	
         	int count = 0;
-        	
+			System.out.printf("Material\n");
+
         	while(count < matList.size())
         	{
         		mat = matList.get(count);
         		if(relation)
         		{
-        			System.out.printf("id: %d, type: %s relations: company id: %d machinery id:%d wharehouse id:%d\n", mat.getMaterialID() , mat.getType(), mat.getCompany().getCompanyID(), mat.getMachineryID().getMachineryID(), mat.getWarehouse().getWarehouseID());
+        			System.out.printf("id: %d, type: %s \nCompany id: %d \nMachinery id:%d \nWharehouse id:%d\n", mat.getMaterialID() , mat.getType(), mat.getCompany().getCompanyID(), mat.getMachineryID().getMachineryID(), mat.getWarehouse().getWarehouseID());
         		}else
         		{
         			System.out.printf("id: %d, type: %s \n", mat.getMaterialID(), mat.getType());
         		}
         		
         		count++;
-        		
         	}
         	
         }
@@ -1198,7 +1212,8 @@ public class UserInterface
     	Hospital hosp;
 		ArrayList<Hospital> hospList = jdbcManager.selectAllHospitals();
 		Iterator <Hospital> iter = hospList.iterator();
-		
+		System.out.printf("Hospital\n");
+
 		while(iter.hasNext())
 		{
 			hosp = iter.next();
@@ -1206,15 +1221,12 @@ public class UserInterface
 			{
 				jdbcManager.setHospitalRelations(hosp);
 				System.out.printf("id: %d,name: %s\n",hosp.getHospitalID(),hosp.getName());
-				System.out.printf("Order Relations:\n ids:\n ");
 				Iterator<Order> iterOrd = hosp.getOrderList().iterator();
 				while(iterOrd.hasNext())
 				{
 					Order ord = iterOrd.next();
-					System.out.printf("%d, ",ord.getOrderID());
+					System.out.printf("\nOrder id:%d\n ",ord.getOrderID());
 				}
-				
-
 			}else
 			{
 				System.out.printf("id: %d,name: %s\n",hosp.getHospitalID(),hosp.getName());				
@@ -1228,7 +1240,8 @@ public class UserInterface
     	ArrayList<Order> ordList = new ArrayList<Order>();
     	ordList = jdbcManager.selectAllOrders();
     	Iterator <Order> iter = ordList.iterator();
-    	
+		System.out.printf("Order\n");
+
     	while(iter.hasNext())
     	{
     		ord = iter.next();
@@ -1237,20 +1250,18 @@ public class UserInterface
     		{
     			System.out.printf("id: %d,\n",ord.getOrderID());
     			
-    			System.out.println("Hospital Relations \nids: ");
     			Iterator<Hospital> hospIter = ord.getHospitalList().iterator();
     			while(hospIter.hasNext())
     			{
     				Hospital hosp = hospIter.next();
-    				System.out.printf("%d, ",hosp.getHospitalID());
+    				System.out.printf("\nHospital id:%d\n",hosp.getHospitalID());
     			}
     			
-    			System.out.println("Instruments Relations: \nids: ");
     			Iterator<Instrument> insIter = ord.getInstrumentList().iterator();
     			while(insIter.hasNext())
     			{
     				Instrument ins = insIter.next();
-    				System.out.printf("%d, ",ins.getInstrumentID());
+    				System.out.printf("\nInstrument id:%d\n",ins.getInstrumentID());
     			}
     		}else
     		{
@@ -1265,22 +1276,22 @@ public class UserInterface
     	Instrument inst = new Instrument();
     	
     	Iterator <Instrument> iter = instrumentList.iterator();
-    	
+		System.out.printf("Instrument\n");
+
     	while(iter.hasNext()){
     		
     		inst = iter.next();
     
     		if(relation){
     			jdbcManager.setInstrumentRelations(inst);
-    			System.out.printf("id of instrument: %d, relation with order: %s\n",inst.getInstrumentID(),inst.getOrderList().toString());
-    			System.out.printf("id of instrument: %d, relation with machinery: %d\n",inst.getInstrumentID(),inst.getMachineryList().toString());
-    			System.out.printf("id of instrument: %d, relation with warehouse: %d\n",inst.getInstrumentID(),inst.getWarehouse().toString());	
+    			System.out.printf("id: %d\n",inst.getInstrumentID());
+    			System.out.printf("\nOrder id: %d\n",inst.getOrderList());
+    			System.out.printf("\nMachinery id: %d\n",inst.getMachineryList());
+    			System.out.printf("\nWarehouse id: %d\n",inst.getWarehouse());	
     		}else{
     			System.out.printf("id: %d\n",inst.getInstrumentID());
     		}
-    	}
-    	
-    	
+    	}	
     }
     
     public static void listWarehouses(boolean relation){
@@ -1288,15 +1299,21 @@ public class UserInterface
     	ArrayList<Warehouse> warehouseList = new ArrayList<Warehouse>();
     	warehouseList = jdbcManager.selectAllWarehouses();
     	int count = 0;
-    	
+		System.out.printf("Warehouse\n");
+
     	while(count < warehouseList.size())
 		{
 			war = warehouseList.get(count);
 			String warehouseLocation = war.getWarehouseLocation();
 			int id = war.getWarehouseID();
 			
-				System.out.printf("Id of the warehouse: %d,location of the warehouse: %s\n",id,warehouseLocation);
+				System.out.printf("id: %d,location: %s\n",id,warehouseLocation);
 				count++;
+				if(relation){
+					System.out.printf("id: %d,location: %s\n",id,warehouseLocation);
+	    			System.out.printf("\nInstrument id: %d\n",war.getInstrumentList());
+	    			System.out.printf("\nWarehouse id: %d\n",war.getWarehouseID());
+				}
 			}
     }
     
@@ -1305,20 +1322,20 @@ public class UserInterface
     	Employee emp;
     	ArrayList<Employee> empList = new ArrayList<Employee>();
     	empList = jdbcManager.selectAllEmployees();
-    	
+		System.out.printf("Employee\n");
+
     	int count = 0;
     	while(count < empList.size())
     	{
     		emp = empList.get(count);
-    		String name = emp.getName();
 			int id = emp.getEmployeeID();
     		emp = empList.get(count);
     		if(relation){
-        		System.out.printf("id: %d, mach: %s\n",id,emp.getMachineryID());
+        		System.out.printf("id: %d, \nMachinery id: %d\n",id,emp.getMachineryID());
             	
     		}
     		else{
-        		System.out.printf("id: %d, name: %s\n",id,name);
+        		System.out.printf("id: %d\n",id);
     		}
     		count ++;
     	} 	
@@ -1329,24 +1346,23 @@ public class UserInterface
     	Machinery mach;
     	ArrayList<Machinery> machList = jdbcManager.selectAllMachineries();
     	int count = 0;
-    	
+		System.out.printf("Machinery\n");
+
     	while(count < machList.size()){
     		
     		mach =machList.get(count);
     		
-    		int id = mach.getMachineryID();
-        	String machineryType = mach.getMachineryType();
-    		
+    		int id = mach.getMachineryID();    		
         	
     		if(relation)
     		{
     			jdbcManager.setMachineryRelations(mach);
-    			System.out.printf("id: %d, relation Instrument: %s, relation employee: %s, relation materials: %s\n"
+    			System.out.printf("id: %d \nInstrument id: %d \nEmployee id: %d Material id: %ds\n"
     					,mach.getMachineryID(),mach.getInstrumentList(),mach.getEmployeeList(),mach.getMaterialList());
        
     		}else
     		{
-    			System.out.printf("id: %d, machinery type: %s\n",id,machineryType);
+    			System.out.printf("id: %d\n",id);
     		}    		
         	count ++;
     	}
@@ -1367,7 +1383,8 @@ public class UserInterface
     	System.out.println("\nIntroduce the xml Path with her name:\n");
     	String sourcePath = writeString();
 
-    	String xsltPath = "C:/Users/Pablo/git/MtM/db/HospitalStyle.xslt";
+    	System.out.println("\nIntroduce the Path of the HospitalStyle.xslt in your local repository:\n");
+    	String xsltPath = writeString();
     	
     	System.out.println("\nInsert the path where the link will be saved:\n");
     	String resultDir = writeString();

@@ -13,6 +13,7 @@ import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
@@ -22,7 +23,7 @@ import javax.xml.bind.annotation.XmlType;
 @Table(name = "employee")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Employee")
-@XmlType(propOrder = { "employeeID", "name", "specializationType", "typeofContract" })
+@XmlType(propOrder = { "employeeID", "name", "specializationType", "typeofContract","machineryID" })
 
 public class Employee implements Serializable {
 
@@ -43,11 +44,11 @@ public class Employee implements Serializable {
 	private String specializationType;
 	@XmlAttribute
 	private String typeofContract;
-	@XmlAttribute
+
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "machineryID")//Variable in jdbc that makes reference
-	@XmlTransient
+	@XmlElement
 	private Machinery machineryID; //FOREIGN KEY
 
 	

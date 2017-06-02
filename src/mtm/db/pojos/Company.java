@@ -50,7 +50,7 @@ public class Company implements Serializable {
 	//methods
 	public void printCompany(boolean relate) 
 	{
-		System.out.println("Company  companyID=" + companyID + ", companyName=" + location + ",location= " + companyName);	
+		System.out.println("Company  companyID:" + companyID + ", companyName:" + location + ",location: " + companyName);	
 
 		if(relate){
 			
@@ -139,12 +139,5 @@ public class Company implements Serializable {
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
-	
-
-	
-	
-
-	
-	
 	
 }
