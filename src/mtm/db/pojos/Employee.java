@@ -134,7 +134,7 @@ public class Employee implements Serializable {
 	public void printEmployee(boolean relate)
 	{
 			System.out.printf("\nEmployee  id: %d, name: %s, type of contract: %s\n",getEmployeeID(),getName(),getSpecializationType());
-			System.out.printf("\nRelated Machinery id: %d\n\n",getMachineryID().getMachineryID());
+			System.out.printf("\nRelated Machinery id: %d\n\n",getMachineryID());
 		
 	}
 	
