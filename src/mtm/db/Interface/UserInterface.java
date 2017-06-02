@@ -1342,7 +1342,7 @@ public class UserInterface
 			int id = emp.getEmployeeID();
     		emp = empList.get(count);
     		if(relation){
-        		System.out.printf("id: %d, \nMachinery id: %d\n",id,emp.getMachineryID());
+        		System.out.printf("id: %d, \nMachinery id: %s\n",id,emp.getMachineryID());
             	
     		}
     		else{
