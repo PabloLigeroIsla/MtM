@@ -1322,7 +1322,6 @@ public class UserInterface
     	while(count < empList.size())
     	{
     		emp = empList.get(count);
-    		String name = emp.getName();
 			int id = emp.getEmployeeID();
     		emp = empList.get(count);
     		if(relation){
