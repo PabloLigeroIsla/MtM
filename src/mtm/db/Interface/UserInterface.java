@@ -347,7 +347,6 @@ public class UserInterface
 	
 	public static void intValTable()
 	{
-		System.out.println("What table do you want to insert the value to? \n");
 		selectionMenu(4);
 		int op=writeNumber(7);
 		switch(op){
@@ -512,7 +511,6 @@ public class UserInterface
 	
 	public static void delValTable()
 	{
-		System.out.println("What table do you want to delete a value from? \n");
 		selectionMenu(5);
 		int op=writeNumber(2);
 		
@@ -1043,7 +1041,7 @@ public class UserInterface
     	while(aux3)
     	{
     		System.out.println("The material need to be stored in a warehouse\n");
-    		System.out.println("Do you wnat to:\n1:Create a New WareHouse\n2:Use a warehouse from the DataBase");
+    		System.out.println("Do you want to:\n1:Create a new wareHouse\n2:Use a warehouse from the DataBase");
     		int op = writeNumber(2);
     		if(op == 1)
     		{
@@ -1087,7 +1085,8 @@ public class UserInterface
     public static void showMaterial(int pk){
     	Material mat;
     	mat = jpaManager.selectMaterial(pk);
-    	mat.printMaterial();
+    	//jdbcManager.setMaterialRelations(mat);
+    	mat.printMaterial(true);
     }
     
     public static void showHospital(int pk)
@@ -1117,7 +1116,8 @@ public class UserInterface
     public static void showWarehouse(int pk){
     	Warehouse war;
     	war = jdbcManager.selectWarehouse(pk);
-    	war.printWarehouse();
+    	jdbcManager.setWarehouseRelations(war);    	
+    	war.printWarehouse(true);
     
     }
     
@@ -1132,7 +1132,6 @@ public class UserInterface
     
     public static void showMachinery(int pk)
     {
-    	
     	Machinery mach;
     	mach = jpaManager.selectMachinery(pk);
     	//mach = jdbcManager.selectMachinery(pk);@JPAChange
@@ -1207,7 +1206,7 @@ public class UserInterface
 			{
 				jdbcManager.setHospitalRelations(hosp);
 				System.out.printf("id: %d,name: %s\n",hosp.getHospitalID(),hosp.getName());
-				System.out.printf("Orden Relations: ids: ");
+				System.out.printf("Order Relations:\n ids:\n ");
 				Iterator<Order> iterOrd = hosp.getOrderList().iterator();
 				while(iterOrd.hasNext())
 				{
@@ -1273,7 +1272,7 @@ public class UserInterface
     
     		if(relation){
     			jdbcManager.setInstrumentRelations(inst);
-    			System.out.printf("id of instrument: %d, relation with order: %d\n",inst.getInstrumentID(),inst.getOrderList().toString());
+    			System.out.printf("id of instrument: %d, relation with order: %s\n",inst.getInstrumentID(),inst.getOrderList().toString());
     			System.out.printf("id of instrument: %d, relation with machinery: %d\n",inst.getInstrumentID(),inst.getMachineryList().toString());
     			System.out.printf("id of instrument: %d, relation with warehouse: %d\n",inst.getInstrumentID(),inst.getWarehouse().toString());	
     		}else{

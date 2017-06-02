@@ -155,12 +155,14 @@ public class Hospital implements Serializable
 	
 	public void printHospital(boolean relat)
 	{
+		System.out.printf("Hospital Information:\n"
+				+ "Id: %d\n"
+				+ "Name: %s\n"
+				+ "Location: %s\n"
+				+ "Medical Specialization:%s\n\n",this.getHospitalID(),this.getName(),this.getLocation(),this.getMedicalSpecialization());
+		
 		if(relat)
 		{
-			System.out.printf("Hospital Info:\n Id: %d"
-					+ "Name: %s\n"
-					+ "Location: %s\n"
-					+ "Medical Specialization:%s\n\n",this.getHospitalID(),this.getName(),this.getLocation(),this.getMedicalSpecialization());
 			//Relations
 			Iterator <Order> iter = this.getOrderList().iterator();
 			while(iter.hasNext())
@@ -168,15 +170,9 @@ public class Hospital implements Serializable
 				Order ord = iter.next();
 				System.out.printf("Orders Related:\n"
 						+ "Id:%d\n"
-						+ "Total Amount Instruments:%d\n",ord.getOrderID(),ord.getTotalAmountInstruments());
+						+ "Total Amount Instruments:%d\n\n",ord.getOrderID(),ord.getTotalAmountInstruments());
 			}
 			
-		}else
-		{
-			System.out.printf("Hospital Info:\n Id: %d"
-					+ "Name: %s\n"
-					+ "Location: %s\n"
-					+ "Medical Specialization:%s",this.getHospitalID(),this.getName(),this.getLocation(),this.getMedicalSpecialization());
 		}
 		
 	}
