@@ -677,6 +677,7 @@ public class UserInterface
     			if(!jdbcManager.valExist(queryHosp,hosp.getHospitalID(),null))//Si el objeto no existe en la base de datos
     			{
     				jdbcManager.insert(hosp);
+    				hosp = jdbcManager.setHospitalID(hosp);
     			}
     			//ORDER
     			ArrayList<Order> ordList = (ArrayList<Order>)hosp.getOrderList();
@@ -688,11 +689,10 @@ public class UserInterface
     				if(!jdbcManager.valExist(queryOrd, ord.getOrderID(), null))
     				{
     					jdbcManager.insert(ord);
+    					ord = jdbcManager.setOrderID(ord);
+    					jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(), ord.getOrderID());
     				}
     				
-    				//Relation moment
-    				
-    				jdbcManager.setRelationHospitalOrder(hosp.getHospitalID(), ord.getOrderID());
     				
     			}
     		}
@@ -705,6 +705,7 @@ public class UserInterface
     			if(!jdbcManager.valExist(queryIns, ins.getInstrumentID(), null))
     			{
     				jdbcManager.insert(ins);
+    				ins = jdbcManager.setInstrumentID(ins);
     			}
     			
     			ArrayList<Order> ordList = (ArrayList<Order>)ins.getOrderList();
@@ -716,9 +717,11 @@ public class UserInterface
     				if(!jdbcManager.valExist(queryOrd, ord.getOrderID(), null))
     				{
     					jdbcManager.insert(ord);
+    					ord = jdbcManager.setOrderID(ord);
+    					jdbcManager.setRelationInstrumentOrder(ins.getInstrumentID(), ord.getOrderID());
     				}
     				
-    				jdbcManager.setRelationInstrumentOrder(ins.getInstrumentID(), ord.getOrderID());
+    				
     			}
     			//MAQUINARIAS
     			ArrayList<Machinery> machListIns = (ArrayList<Machinery>)ins.getMachineryList();
@@ -730,9 +733,11 @@ public class UserInterface
     				if(!jdbcManager.valExist(queryMach,mach.getMachineryID(),null))
     				{
     					jdbcManager.insert(mach);
+    					mach = jdbcManager.setMachineryID(mach);
+    					jdbcManager.setRelationInstrumentMachinery(ins.getInstrumentID(), mach.getMachineryID());
     				}
     				
-    				jdbcManager.setRelationInstrumentMachinery(ins.getInstrumentID(), mach.getMachineryID());
+    				
     			}
     			//WAREHOUSES
     			Warehouse ware = ins.getWarehouse();
@@ -740,6 +745,7 @@ public class UserInterface
     			{
     				//Introduce is relate
     				jdbcManager.insert(ware);
+    				ware = jdbcManager.setWarehouseID(ware);
     			}
     			
     		}
@@ -752,10 +758,11 @@ public class UserInterface
     			if(!jdbcManager.valExist(queryMach,mach.getMachineryID(),null))
     			{
     				jdbcManager.insert(mach);
+    				mach = jdbcManager.setMachineryID(mach);
     			}
     			
     			//EMPLEADOS
-    			ArrayList<Employee> empArray = (ArrayList<Employee>)mach.getEmployeeList();
+    			ArrayList<Employee> empArray = (ArrayList<Employee>) mach.getEmployeeList();
     			Iterator<Employee> empIter = empArray.iterator();
     			while(empIter.hasNext())
     			{
@@ -763,6 +770,7 @@ public class UserInterface
     				if(jdbcManager.valExist(queryEmp,emp.getEmployeeID(), null))
     				{
     					jdbcManager.insert(emp);
+    					
     				}
     				
     			}
@@ -778,6 +786,7 @@ public class UserInterface
         			if(!jdbcManager.valExist(queryMat, mat.getMaterialID(), null))
         			{
         				jdbcManager.insert(mat);
+        				
         			}
         		}
     			
@@ -798,12 +807,14 @@ public class UserInterface
     			if(!jdbcManager.valExist(queryComp, mat.getMaterialID(), null))
     			{
     				jdbcManager.insert(comp);
+    				comp = jdbcManager.setCompanyID(comp);
     			}
     			
     			Warehouse war = mat.getWarehouse();
     			if(!jdbcManager.valExist(queryWare, war.getWarehouseID(),null))
     			{
     				jdbcManager.insert(war);
+    				war = jdbcManager.setWarehouseID(war);
     			}
     		}
     		

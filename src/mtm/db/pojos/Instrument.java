@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
 @Table(name = "instrument")
 @XmlAccessorType(XmlAccessType.FIELD) //Be able to use XML
 @XmlRootElement(name = "Instrument")
-@XmlType(propOrder = { "instrumentID", "name", "model", "purpose", "amount", "numberUses","bodyLocation","price","warehouse" })//Set the attributes in the XML
+@XmlType(propOrder = { "instrumentID", "name", "model", "purpose", "amount", "numberUses","bodyLocation","price","warehouse","orderList","machineryList" })//Set the attributes in the XML
 
 public class Instrument implements Serializable {
 	
@@ -55,7 +55,6 @@ public class Instrument implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "warehouseID")
 	@XmlElement(name = "Warehouse")
-	@XmlElementWrapper(name = "Warehouses")
 	private Warehouse warehouse;
 	
 	@ManyToMany // the mappedBy is in the pojo Order only

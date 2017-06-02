@@ -31,7 +31,7 @@
 				<xsl:for-each select="Hospital/Orders/Order">
 				<xsl:sort select="@orderID" data-type="number"/>
 					<tr>
-           	 			<td><xsl:value-of select = "@orderID"/></td>
+           	 			<td><i><xsl:value-of select = "@orderID"/></i></td>
             			<td><xsl:value-of select = "totalAmountInstruments"/></td>
 						<td><xsl:value-of select = "orderDate"/></td>
 	 					<td><xsl:value-of select = "deliveryDate"/></td>
