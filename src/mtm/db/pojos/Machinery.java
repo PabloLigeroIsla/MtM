@@ -271,7 +271,7 @@ public class Machinery implements Serializable {
 			{
 				Employee emp  = iter.next();
 				System.out.printf("Employees Related:\n"
-						+ "Id: %d\n"+"Name: %s",emp.getEmployeeID(),emp.getName());
+						+ "Id: %d\n"+"Name: %s\n",emp.getEmployeeID(),emp.getName());
 			}
 			
 			Iterator <Material> iter2 = this.getMaterialList().iterator();
@@ -279,7 +279,7 @@ public class Machinery implements Serializable {
 			{
 				Material mat  = iter2.next();
 				System.out.printf("Materials Related:\n"
-						+ "Id: %d\n"+"Type: %s",mat.getMaterialID(),mat.getType());
+						+ "Id: %d\n"+"Type: %s\n",mat.getMaterialID(),mat.getType());
 			}
 			
 			Iterator <Instrument> iter3 = this.getInstrumentList().iterator();
@@ -287,7 +287,7 @@ public class Machinery implements Serializable {
 			{
 				Instrument inst  = iter3.next();
 				System.out.printf("Instruments Related:\n"
-						+ "Id: %d\n"+"Name: %s",inst.getInstrumentID(),inst.getName());
+						+ "Id: %d\n"+"Name: %s\n",inst.getInstrumentID(),inst.getName());
 			}
 			
 		}

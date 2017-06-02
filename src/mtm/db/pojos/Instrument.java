@@ -177,14 +177,15 @@ public class Instrument implements Serializable {
 
 
 	public void printInstrument(){
-		System.out.printf("the instrument ID is: %d\n", this.instrumentID);
-		System.out.printf("the name of the instrument is: %s\n", this.name);
-		System.out.printf("the model of the instrument is: %s\n", this.model);
-		System.out.printf("the purpose of the instrument is: %s\n", this.purpose);
-		System.out.printf("the amount of instruments is: %d\n", this.amount);
-		System.out.printf("the number of uses of the instrument is: %d\n", this.numberUses);
-		System.out.printf("the body location of the instrument is: %s\n", this.bodyLocation);
-		System.out.printf("the price of the instrument is: %d\n", this.price);
+		System.out.printf("\n");		
+		System.out.printf("Instrument ID: %d\n", this.instrumentID);
+		System.out.printf("Name of the instrument: %s\n", this.name);
+		System.out.printf("Model of the instrument: %s\n", this.model);
+		System.out.printf("Purpose of the instrument: %s\n", this.purpose);
+		System.out.printf("Amount of instruments: %d\n", this.amount);
+		System.out.printf("Number of uses: %d\n", this.numberUses);
+		System.out.printf("Body location of the instrument: %s\n", this.bodyLocation);
+		System.out.printf("Price of the instrument: %d\n", this.price);
 
 
 	}
