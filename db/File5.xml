@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Hospital hospitalID="3" name="gregorio">
-    <location>madrid</location>
-    <medicalSpecialization>jejeje</medicalSpecialization>
-    <Orders/>
-</Hospital>
