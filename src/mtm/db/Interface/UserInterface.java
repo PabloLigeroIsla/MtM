@@ -2,9 +2,15 @@ package mtm.db.Interface;
 
 import static mtm.db.Interface.Validator.*;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import java.util.Iterator;
+
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 
 import mtm.db.jdbc.JDBCManager;
 import mtm.db.jpa.JPAManager;
@@ -72,12 +78,17 @@ public class UserInterface
 					waitEnter();
 					break;
 				case 8:
+					createHTML();
+					waitEnter();
+					break;
+				case 9:
+					
 					jdbcManager.closeConnection();
 					jpaManager.closeJPAConnection();
 					waitEnter();
 					break;
 				}
-		}while(option!=8);
+		}while(option!=9);
 	}
 
 	// Menu
@@ -85,7 +96,7 @@ public class UserInterface
 	public static int openMenu(boolean dbCreated)
 	{
 		int option;
-		int numOptions = 8; //Number of options
+		int numOptions = 9; //Numero de opciones que podemos seleccionar con esta funci�n
 		printMenu(dbCreated);
 		option = writeNumber(numOptions);
 		
@@ -144,7 +155,8 @@ public class UserInterface
 						// update
 					+ "Option 6.- Create XML of the Pojos \n"
 					+ "Option 7.- Open the XML of the pojos\n"
-					+ "Option 8.- Exit \n");
+					+ "Option 8.- html creation\n"
+					+ "Option 9.- Exit \n");
 
 	}
 	
@@ -213,8 +225,7 @@ public class UserInterface
     				+ "2:WareHouse\n");
     		break;
     	case 7:
-    		//Exit
-    		System.out.println("Are you Sure?\n");
+    		System.out.println("\nThe \n");
     		break;
     	}
     	
@@ -1361,4 +1372,32 @@ public class UserInterface
     	op = jdbcManager.createTables();
     	return op;
     }
+    
+    public static void createHTML()
+    {
+    	System.out.println("\nIntroduce the xml Path with her name:\n");
+    	String sourcePath = writeString();
+
+    	String xsltPath = "C:/Users/Pablo/git/MtM/db/HospitalStyle.xslt";
+    	
+    	System.out.println("\nInsert the path where the link will be saved:\n");
+    	String resultDir = writeString();
+    	
+    	simpleTransform(sourcePath,xsltPath,resultDir);
+    	
+    	System.out.println("\nDone\n");
+    }
+    
+	public static void simpleTransform(String sourcePath, String xsltPath,String resultDir) 
+	{
+		TransformerFactory tFactory = TransformerFactory.newInstance();
+		try {
+			Transformer transformer = tFactory.newTransformer(new StreamSource(new File(xsltPath)));
+			transformer.transform(new StreamSource(new File(sourcePath)),new StreamResult(new File(resultDir)));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 }
