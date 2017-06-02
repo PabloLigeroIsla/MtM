@@ -21,14 +21,16 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import mtm.db.pojos.Employee;
+import mtm.db.xmls.SQLDateAdapter;
 
 @Entity
 @Table(name = "machinery") //sql table name  (Compatible with JDBC)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Machinery")
-@XmlType(propOrder = { "machineryID", "machineryType", "stateofMachinery", "dateofInstallation", "sizeofMachinery" })
+@XmlType(propOrder = { "machineryID", "machineryType", "stateofMachinery", "dateofInstallation", "sizeofMachinery","materialList","employeeList" })
 
 public class Machinery implements Serializable {
 	/**
@@ -49,6 +51,7 @@ public class Machinery implements Serializable {
 	@XmlAttribute
 	private String stateofMachinery;
 	@XmlAttribute
+	@XmlJavaTypeAdapter(SQLDateAdapter.class)
 	private Date dateofInstallation;
 	@XmlAttribute
 	private int sizeofMachinery;

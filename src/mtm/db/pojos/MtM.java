@@ -1,12 +1,13 @@
 package mtm.db.pojos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD) //Be able to use XML
 @XmlRootElement(name = "MtM")
-@XmlType(propOrder = { "matpList", "hospList", "machList", "instList" })//Set the order of the attributes in the XML
+@XmlType(propOrder = { "matList", "hospList", "machList", "instList" })//Set the order of the attributes in the XML
 public class MtM 
 {
 	//This class is created to save the Data Base as a XML
@@ -74,7 +75,14 @@ public class MtM
 		this.instList = instList;
 	}
 
-	
+	public MtM()
+	{
+		super();
+		this.matList = new ArrayList<Material>();
+		this.hospList = new ArrayList<Hospital>();
+		this.machList = new ArrayList<Machinery>();
+		this.instList = new ArrayList<Instrument>();
+	}
 
 
 	
