@@ -1332,6 +1332,7 @@ public class UserInterface
     	Employee emp;
     	ArrayList<Employee> empList = new ArrayList<Employee>();
     	empList = jdbcManager.selectAllEmployees();
+    	
 		System.out.printf("Employee\n");
 
     	int count = 0;
@@ -1341,7 +1342,7 @@ public class UserInterface
 			int id = emp.getEmployeeID();
     		emp = empList.get(count);
     		if(relation){
-        		System.out.printf("id: %d, \nMachinery id: %d\n",id,emp.getMachineryID());
+        		System.out.printf("id: %d, \nMachinery id: %s\n",id,emp.getMachineryID());
             	
     		}
     		else{
@@ -1364,7 +1365,6 @@ public class UserInterface
     		mach = machIter.next();
     		
     		int id = mach.getMachineryID();    		
-    		System.out.printf("id: %d\n",id);
     		
     		if(relation)
     		{
