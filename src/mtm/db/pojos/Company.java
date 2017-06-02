@@ -77,6 +77,10 @@ public class Company implements Serializable {
 		this.materialList = materialList;
 	}
 
+	public Company()
+	{
+		super();
+	}
 	
 	public Company(int company_id, String location, String companyName){
 		this.companyID = company_id;
