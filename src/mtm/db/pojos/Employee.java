@@ -15,7 +15,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -27,7 +26,7 @@ import javax.xml.bind.annotation.XmlType;
 
 public class Employee implements Serializable {
 
-	private static final long serialVersionUID = -8477517713230030048L;
+	private static final long serialVersionUID = -1627046126906334608L;
 	
 	//Atributes
 	

@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlType;
 public class Material implements Serializable {
 	
 
-	private static final long serialVersionUID = -5060012550789129173L;
+	private static final long serialVersionUID = -8114612240247882836L;
 	
 	@Id 
 	@GeneratedValue(generator="material")

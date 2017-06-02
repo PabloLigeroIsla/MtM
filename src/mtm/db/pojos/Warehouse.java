@@ -26,14 +26,9 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = { "warehouseID", "warehouseLocation", "capacity", "filledSpace" })//Set the attributes in the XML
 
 public class Warehouse implements Serializable {
-/**
-	 * 
-	 */
-	private static final long serialVersionUID = -554480961908721094L;
-//
-	/**
-	 * 
-	 */
+
+
+	private static final long serialVersionUID = -6847830457965370365L;
 	
 	@Id 
 	@GeneratedValue(generator="warehouse")

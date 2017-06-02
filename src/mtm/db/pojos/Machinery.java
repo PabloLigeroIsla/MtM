@@ -33,10 +33,9 @@ import mtm.db.xmls.SQLDateAdapter;
 @XmlType(propOrder = { "machineryID", "machineryType", "stateofMachinery", "dateofInstallation", "sizeofMachinery","materialList","employeeList" })
 
 public class Machinery implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5275135022867594008L;
+
+	private static final long serialVersionUID = -1275456134440121763L;
+
 	//Attributes
 	
 	@Id 

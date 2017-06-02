@@ -34,8 +34,8 @@ import java.time.LocalDate;
 public class Order implements Serializable
 {
 
-	private static final long serialVersionUID = -1476135363454640411L;
-	 
+	private static final long serialVersionUID = 8191365479553579412L;
+	
 	@Id 
 	@GeneratedValue(generator="orders")
 	@TableGenerator(name="orders", table="sqlite_sequence",

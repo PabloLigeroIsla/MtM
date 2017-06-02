@@ -22,13 +22,7 @@ import javax.xml.bind.annotation.XmlType;
 
 public class Instrument implements Serializable {
 	
-
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1514530835720427306L;
-	
+	private static final long serialVersionUID = 4167427706774204170L;
 	
 	@Id 
 	@GeneratedValue(generator="instrument")
