@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Hospital hospitalID="3" name="asdf">
-    <location>wer</location>
-    <medicalSpecialization>ert</medicalSpecialization>
+<Hospital hospitalID="2" name="f">
+    <location>sd</location>
+    <medicalSpecialization>rr</medicalSpecialization>
     <Orders>
         <Order orderID="2">
-            <totalAmountInstruments>345</totalAmountInstruments>
-            <orderDate>2000-10-05</orderDate>
-            <deliveryDate>2000-10-05</deliveryDate>
+            <totalAmountInstruments>234</totalAmountInstruments>
+            <orderDate>2000-03-03</orderDate>
+            <deliveryDate>2000-02-02</deliveryDate>
+        </Order>
+        <Order orderID="3">
+            <totalAmountInstruments>2222</totalAmountInstruments>
+            <orderDate>2000-05-22</orderDate>
+            <deliveryDate>2000-07-03</deliveryDate>
         </Order>
     </Orders>
 </Hospital>
