@@ -360,7 +360,7 @@ public class UserInterface
 			if(writeOption(option))
 			{
 				ArrayList<Instrument> instList = jdbcManager.selectAllInstruments();
-				if(instList.size()<=0)
+				if(instList.size()>0)
 				{
 					boolean keepRelating = true;
 					listOrders(false);
