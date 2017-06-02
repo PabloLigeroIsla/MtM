@@ -8,7 +8,7 @@ public abstract class Validator
 {
 	//This class contains some functions that we should use in order to know if the user is
 	//introducing the type of value we are storing in the variable.
-	 
+ 
 	static BufferedReader c = new BufferedReader(new InputStreamReader(System.in));
 	
 	// Writing Methods
