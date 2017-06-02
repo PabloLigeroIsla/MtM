@@ -48,13 +48,13 @@ public class JDBCCreate
 			
 			Statement fCht = c.createStatement();
 			String sqlch1 = "CREATE TABLE instrument("
-					+ "instrument_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ "instrumentID INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ "name TEXT NOT NULL,"
 					+ "model TEXT NOT NULL,"
 					+ "purpose TEXT NOT NULL,"
 					+ "amount INTEGER NOT NULL,"
-					+ "number_uses INTEGER NOT NULL,"
-					+ "body_location TEXT NOT NULL,"
+					+ "numberUses INTEGER NOT NULL,"
+					+ "bodyLocation TEXT NOT NULL,"
 					+ "price INTEGER NOT NULL,"
 					+ "warehouseID INTEGER REFERENCES warehouse(warehouseID))";
 			fCht.executeUpdate(sqlch1);
@@ -72,7 +72,7 @@ public class JDBCCreate
 			//Celia
 			Statement fCt = c.createStatement();
 			String sqlc1= "CREATE TABLE employee("
-					+ "employee_ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ "employeeID INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ "name TEXT NOT NULL,"
 					+ "typeofContract TEXT NOT NULL,"
 					+ "specializationType TEXT NOT NULL,"
@@ -109,17 +109,17 @@ public class JDBCCreate
 				
 			Statement rCht = c.createStatement();
 			String sqlch3 = "CREATE TABLE instrument_machinery("
-					+ "instrument_ID INTEGER REFERENCES instrument(instrument_ID),"
+					+ "instrumentID INTEGER REFERENCES instrument(instrumentID),"
 					+ "machineryID INTEGER REFERENCES machinery(machineryID),"
-					+ "PRIMARY KEY (instrument_ID,machineryID))";
+					+ "PRIMARY KEY (instrumentID,machineryID))";
 			rCht.executeUpdate(sqlch3);
 			rCht.close();
 			
 			Statement fPt2 = c.createStatement();
 			String sqlp4 = "CREATE TABLE instrument_orders("
 					+ "orderID INTEGER REFERENCES orders(orderID),"
-					+ "instrument_ID INTEGER REFERENCES instrument(instrument_ID),"
-					+ "PRIMARY KEY(orderID,instrument_ID))";
+					+ "instrumentID INTEGER REFERENCES instrument(instrumentID),"
+					+ "PRIMARY KEY(orderID,instrumentID))";
 			fPt2.executeUpdate(sqlp4);
 			fPt2.close();
 			

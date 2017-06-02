@@ -60,10 +60,10 @@ public class Machinery implements Serializable {
 	private List <Material> materialList;
 
 	@XmlTransient //POSIBLE ERROR
-	@ManyToMany(mappedBy = "machineryTypeList")
+	@ManyToMany(mappedBy = "machineryList")
 	private List <Instrument> instrumentList; 
 	
-	@OneToMany(mappedBy="machineryType")
+	@OneToMany(mappedBy="machineryID")
 	@XmlElement(name = "Employee")
 	@XmlElementWrapper(name = "Employees")
 	private List <Employee> employeeList;	

@@ -48,7 +48,7 @@ public class Employee implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "machineryID")//Variable in jdbc that makes reference
 	@XmlTransient
-	private Machinery machineryType; //FOREIGN KEY
+	private Machinery machineryID; //FOREIGN KEY
 
 	
 	//Gets and Sets
@@ -85,12 +85,12 @@ public class Employee implements Serializable {
 		this.typeofContract = typeofContract;
 	}
 
-	public Machinery getMachineryType() {
-		return machineryType;
+	public Machinery getMachineryID() {
+		return machineryID;
 	}
 	
-	public void setMachineryType(Machinery machineryType) {
-		this.machineryType = machineryType;
+	public void setMachineryID(Machinery machineryID) {
+		this.machineryID = machineryID;
 	}
 	
 	// Constructors	
@@ -99,23 +99,23 @@ public class Employee implements Serializable {
 
 	}
 	
-	public Employee(String name, String specializationType, String typeofContract, Machinery machineryType) 
+	public Employee(String name, String specializationType, String typeofContract, Machinery machineryID) 
 	{
 		super();
 		this.name = name;
 		this.specializationType = specializationType;
 		this.typeofContract = typeofContract;
-		this.machineryType = machineryType;
+		this.machineryID = machineryID;
 	}
 	
 	public Employee(int employeeID, String name, String specializationType, String typeofContract,
-			Machinery machineryType) {
+			Machinery machineryID) {
 		super();
 		this.employeeID=employeeID;
 		this.name = name;
 		this.specializationType = specializationType;
 		this.typeofContract = typeofContract;
-		this.machineryType = machineryType;
+		this.machineryID = machineryID;
 	}
 	
 
@@ -133,7 +133,7 @@ public class Employee implements Serializable {
 	public void printEmployee(boolean relate)
 	{
 			System.out.printf("\nid: %d, name: %s, Type of contract: %s\n",getEmployeeID(),getName(),getSpecializationType());
-			System.out.printf("\nRelated Machinery id: %d\n",getMachineryType().getMachineryID());
+			System.out.printf("\nRelated Machinery id: %d\n",getMachineryID().getMachineryID());
 		
 	}
 	
@@ -141,7 +141,7 @@ public class Employee implements Serializable {
 	public String toString() 
 	{
 		return "Emplyee [employeeID=" + employeeID + ", name=" + name + ", specializationType=" 
-		+ specializationType + ", typeofContract=" + typeofContract + ", machineryType=" + machineryType + "]";
+		+ specializationType + ", typeofContract=" + typeofContract + ", machineryID=" + machineryID + "]";
 	}
 
 	@Override

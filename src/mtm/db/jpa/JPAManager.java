@@ -29,11 +29,11 @@ public class JPAManager implements DBInterface
 	//Company
 	
 	public Company selectCompany(int primaryKey){
-		Company com = new Company();
+
 		Query sql = em.createNativeQuery("SELECT * FROM company WHERE companyID = ?",Company.class);
 		sql.setParameter(1, primaryKey);
 		
-		com = (Company) sql.getSingleResult();
+		Company com = (Company) sql.getSingleResult();
 		
 		return com;
 	}
@@ -50,7 +50,7 @@ public class JPAManager implements DBInterface
 	public Employee selectEmployee(int primaryKey)
 	{
 		
-		Query sql = em.createNativeQuery("SELECT * FROM employee WHERE employee_ID = ?",Employee.class);
+		Query sql = em.createNativeQuery("SELECT * FROM employee WHERE employeeID = ?",Employee.class);
 		sql.setParameter(1, primaryKey);
 		
 		Employee emp = (Employee) sql.getSingleResult();
@@ -157,7 +157,7 @@ public class JPAManager implements DBInterface
 	
 	public Instrument selectInstrument(int primaryKey)
 	{
-		Query sql = em.createNativeQuery("SELECT * FROM instruments WHERE instrument_ID = ?",Order.class);
+		Query sql = em.createNativeQuery("SELECT * FROM instruments WHERE instrumentID = ?",Order.class);
 		sql.setParameter(1, primaryKey);
 		
 		Instrument inst = (Instrument) sql.getSingleResult();

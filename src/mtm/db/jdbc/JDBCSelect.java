@@ -158,13 +158,13 @@ public class JDBCSelect
 			
 			while (rs.next()) 
 			{
-				instrumentID = rs.getInt("instrument_ID");
+				instrumentID = rs.getInt("instrumentID");
 				name = rs.getString("name");
 				model = rs.getString("model");
 				purpose = rs.getString("purpose");
 				amount = rs.getInt("amount");
-				numberUses = rs.getInt("number_uses");
-				bodyLocation = rs.getString("body_location");
+				numberUses = rs.getInt("numberUses");
+				bodyLocation = rs.getString("bodyLocation");
 				price = rs.getInt("price");
 				int idW = rs.getInt("warehouseID");
 
@@ -241,7 +241,7 @@ public class JDBCSelect
 			
 			while (rs.next()) 
 			{
-				employeeID = rs.getInt("employee_ID");
+				employeeID = rs.getInt("employeeID");
 				name = rs.getString("name");
 				specializationType = rs.getString("specializationType");
 				typeofContract = rs.getString("typeofContract");
@@ -277,7 +277,7 @@ public class JDBCSelect
 			
 			while (rs.next()) 
 			{
-				employeeID = rs.getInt("employee_ID");
+				employeeID = rs.getInt("employeeID");
 				name = rs.getString("name");
 				specializationType = rs.getString("specializationType");
 				typeofContract = rs.getString("typeofContract");
@@ -527,13 +527,13 @@ public class JDBCSelect
 
 			while(rs.next())
 			{
-				int instrumentID = rs.getInt("instrument_ID");
+				int instrumentID = rs.getInt("instrumentID");
 				String name = rs.getString("name");
 				String model = rs.getString("model");
 				String purpose = rs.getString("purpose");
 				int amount = rs.getInt("amount");
-				int numberUses = rs.getInt("number_uses");
-				String bodyLocation = rs.getString("body_location");
+				int numberUses = rs.getInt("numberUses");
+				String bodyLocation = rs.getString("bodyLocation");
 				int price = rs.getInt("price");
 				int wID = rs.getInt("warehouseID");
 				Warehouse war = new Warehouse(wID);
@@ -592,7 +592,7 @@ public class JDBCSelect
 			
 			while(rs.next())
 			{
-				int employeeID = rs.getInt("employee_ID");
+				int employeeID = rs.getInt("employeeID");
 				String name = rs.getString("name");
 				String typeofContract = rs.getString("typeofContract");
 				String specializationType = rs.getString("specializationType");

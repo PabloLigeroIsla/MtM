@@ -209,7 +209,7 @@ public class Order implements Serializable
 		LocalDate locDelivery = SqltoLocalDate(this.getDeliveryDate());
 		System.out.printf("Order Information:\n Id: %d\n"
 				+ "Total Amount Instruments: %d\n"
-				+ "Order Date: %d\n"
+				+ "Order Date: %s\n"
 				+ "Delivery Date: %d\n"
 				+ "",this.getOrderID(),this.getTotalAmountInstruments(),locOrder,locDelivery);
 		

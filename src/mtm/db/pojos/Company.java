@@ -2,6 +2,7 @@ package mtm.db.pojos;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.*;
@@ -47,8 +48,25 @@ public class Company implements Serializable {
 
 	
 	//methods
-	public void printCompany() {
-		System.out.println("Company [companyID=" + companyID + ", companyName=" + location + ",location= " + companyName);
+	public void printCompany(boolean relate) 
+	{
+		System.out.println("Company [companyID=" + companyID + ", companyName=" + location + ",location= " + companyName);	
+
+		if(relate){
+			
+			Iterator <Material> iterMat = this.getMaterialList().iterator();
+			Material mat;
+			
+			while(iterMat.hasNext())
+			{
+				mat = iterMat.next();
+				System.out.printf("Material %d\n"
+						+ "ID: %d\n"
+						+ "Type: %s",mat.getMaterialID(),mat.getType());
+			}		
+			
+		}
+
 	}
 
 	public List<Material> getMaterialList() {
@@ -59,9 +77,6 @@ public class Company implements Serializable {
 		this.materialList = materialList;
 	}
 
-	public Company(){
-
-	}
 	
 	public Company(int company_id, String location, String companyName){
 		this.companyID = company_id;

@@ -60,7 +60,7 @@ public class Instrument implements Serializable {
 	
 	@ManyToMany // the mappedBy is in the pojo Order only
 	@JoinTable(name="instrument_orders",
-	joinColumns={@JoinColumn(name="instrument_ID", referencedColumnName="instrumentID")},
+	joinColumns={@JoinColumn(name="instrumentID", referencedColumnName="instrumentID")},
     inverseJoinColumns={@JoinColumn(name="orderID", referencedColumnName="orderID")})
 	@XmlElement(name = "Order")
 	@XmlElementWrapper(name = "Orders")
@@ -68,11 +68,11 @@ public class Instrument implements Serializable {
 	
 	@ManyToMany // the mappedBy is in the pojo Machinery
 	@JoinTable(name="instrument_machinery",
-	joinColumns={@JoinColumn(name="instrument_ID", referencedColumnName="instrumentID")},
+	joinColumns={@JoinColumn(name="instrumentID", referencedColumnName="instrumentID")},
     inverseJoinColumns={@JoinColumn(name="machineryID", referencedColumnName="machineryID")})
 	@XmlElement(name = "Machinery")
 	@XmlElementWrapper(name = "Machineries")
-	private List<Machinery> machineryTypeList;
+	private List<Machinery> machineryList;
 
 
 		
@@ -90,7 +90,7 @@ public class Instrument implements Serializable {
 		this.setPrice(price);
 		this.warehouse = warehouse;
 		this.orderList = new ArrayList<Order>();
-		this.machineryTypeList = new ArrayList<Machinery>();
+		this.machineryList = new ArrayList<Machinery>();
 		
 	}
 
@@ -106,7 +106,7 @@ public class Instrument implements Serializable {
 		this.bodyLocation = bodyL;
 		this.setPrice(price);
 		this.orderList = new ArrayList<Order>();
-		this.machineryTypeList = new ArrayList<Machinery>();
+		this.machineryList = new ArrayList<Machinery>();
 	}
 
 	
@@ -116,7 +116,7 @@ public class Instrument implements Serializable {
 	public Instrument() {
 		super();
 		this.orderList = new ArrayList<Order>();
-		this.machineryTypeList = new ArrayList<Machinery>();
+		this.machineryList = new ArrayList<Machinery>();
 	}
 
 
@@ -133,14 +133,14 @@ public class Instrument implements Serializable {
 	}
 	
 	public void addMachinery(Machinery machinery){
-		if (!machineryTypeList.contains(machinery)) {
-			this.machineryTypeList.add(machinery);
+		if (!machineryList.contains(machinery)) {
+			this.machineryList.add(machinery);
 		}
 	}
 	
 	public void removeMachinery(Machinery machinery){
-		if (machineryTypeList.contains(machinery)) {
-			this.machineryTypeList.remove(machinery);
+		if (machineryList.contains(machinery)) {
+			this.machineryList.remove(machinery);
 		}
 	}
 
@@ -215,12 +215,6 @@ public class Instrument implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-
-
-
-
-
 
 
 	public Warehouse getWarehouse() {
@@ -305,13 +299,9 @@ public class Instrument implements Serializable {
 	}
 
 
-
-
 	public Integer getPrice() {
 		return price;
 	}
-
-
 
 
 	public void setPrice(Integer price) {
@@ -319,25 +309,9 @@ public class Instrument implements Serializable {
 	}
 
 
-
-
-	
-
-
-
-
-	
-
-
-
-
-
-
 	public List<Order> getOrderList() {
 		return orderList;
 	}
-
-
 
 
 	public void setOrderList(List<Order> orderList) {
@@ -345,32 +319,14 @@ public class Instrument implements Serializable {
 	}
 
 
-
-
-	public List<Machinery> getMachineryTypeList() {
-		return machineryTypeList;
+	public List<Machinery> getMachineryList() {
+		return machineryList;
 	}
 
 
-
-
-	public void setMachineryTypeList(List<Machinery> machineryTypeList) {
-		this.machineryTypeList = machineryTypeList;
+	public void setMachineryList(List<Machinery> machineryList) {
+		this.machineryList = machineryList;
 	}
-
-
-
-
-
-
-	
-
-
 
 
 }
-
-
-
-
-

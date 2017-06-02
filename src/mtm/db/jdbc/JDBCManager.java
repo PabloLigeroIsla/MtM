@@ -245,7 +245,7 @@ public class JDBCManager implements DBInterface
 	public void deleteEmployee(int primaryKey)
 	{
 		
-		String sqlQuery = "SELECT * FROM employee WHERE employee_ID = ?";
+		String sqlQuery = "SELECT * FROM employee WHERE employeeID = ?";
 		if(valExist(sqlQuery,primaryKey,null))
 		{
 			JDBCDelete sql = new JDBCDelete(c);
@@ -275,7 +275,7 @@ public class JDBCManager implements DBInterface
 	public void deleteInstrument(int primaryKeyInstrument)
 	{
 		
-		String sqlQuery = "SELECT * FROM instrument WHERE instrument_ID = ?";
+		String sqlQuery = "SELECT * FROM instrument WHERE instrumentID = ?";
 		if(valExist(sqlQuery,primaryKeyInstrument,null))
 		{
 			JDBCDelete sqlDelete = new JDBCDelete(c);
@@ -287,13 +287,13 @@ public class JDBCManager implements DBInterface
 			
 			String table = "instruments_order";
 			String pk1AtSearch = "orderID";
-			String pk1Compare = "instrument_ID";
+			String pk1Compare = "instrumentID";
 			int pkValueCompare = primaryKeyInstrument;
 			if(!sharedRelation(table, pk1AtSearch, pk1Compare, pkValueCompare))
 			{
 				sqlDelete.deleteInstrument(primaryKeyInstrument);
 				
-				String colPk = "instrument_ID";
+				String colPk = "instrumentID";
 				deleteRelationInstrumentOrder(primaryKeyInstrument,colPk);
 			}			
 
@@ -389,7 +389,7 @@ public class JDBCManager implements DBInterface
 		while(iter.hasNext())
 		{
 			Employee emp = iter.next();
-			if(emp.getMachineryType().getMachineryID() == pkMachinery)
+			if(emp.getMachineryID().getMachineryID() == pkMachinery)
 			{
 				deleteEmployee(pkMachinery);
 			}
@@ -399,7 +399,7 @@ public class JDBCManager implements DBInterface
  	public void deleteRelationInstrumentWarehouse(int instID, int warID){
 		try {
 		String table = "instrument_warehouse";
-		String sql = "DELETE FROM"+table+"WHERE instrument_ID="+instID;
+		String sql = "DELETE FROM"+table+"WHERE instrumentID="+instID;
 		PreparedStatement prep = c.prepareStatement(sql);
 		prep.setInt(1, warID);
 		prep.executeUpdate();
@@ -486,9 +486,8 @@ public class JDBCManager implements DBInterface
 		if(valExist(selQuery,primaryKey,null))
 		{
 			JDBCSelect sqlSelect = new JDBCSelect(c);
-	 		Company comp = new Company();
 	 	
-			comp= sqlSelect.selectCompany(selQuery,primaryKey);
+	 		Company comp= sqlSelect.selectCompany(selQuery,primaryKey);
 			
 			return comp;
 		}else
@@ -528,7 +527,7 @@ public class JDBCManager implements DBInterface
  	public Employee selectEmployee(int primaryKey)
  	{
  		
- 		String selQuery = "SELECT * FROM employee WHERE employee_ID = ?";
+ 		String selQuery = "SELECT * FROM employee WHERE employeeID = ?";
  		
  		
  		if(valExist(selQuery,primaryKey,null))
@@ -537,8 +536,8 @@ public class JDBCManager implements DBInterface
  	 		Employee emp = new Employee();
  	 		
  			emp = sqlSelect.selectEmployee(selQuery,primaryKey);
- 			int machID = emp.getMachineryType().getMachineryID();
- 			emp.setMachineryType(selectMachinery(machID));
+ 			int machID = emp.getMachineryID().getMachineryID();
+ 			emp.setMachineryID(selectMachinery(machID));
  			return emp;
  		}else
  		{
@@ -616,7 +615,7 @@ public class JDBCManager implements DBInterface
 
  	public Instrument selectInstrument(int primaryKey)
  	{
- 		String selQuery = "SELECT * FROM instrument WHERE instrument_ID=?";
+ 		String selQuery = "SELECT * FROM instrument WHERE instrumentID=?";
  		
  		
  		if(valExist(selQuery,primaryKey,null))
@@ -731,8 +730,8 @@ public class JDBCManager implements DBInterface
 		while(empIter.hasNext())
 		{
 			Employee empObj = empIter.next();
-			int machID = empObj.getMachineryType().getMachineryID();
-			empObj.setMachineryType(selectMachinery(machID));
+			int machID = empObj.getMachineryID().getMachineryID();
+			empObj.setMachineryID(selectMachinery(machID));
 			empFinal.add(empObj);
 		}
 		
@@ -1020,7 +1019,7 @@ public class JDBCManager implements DBInterface
 		//Instrument List
 		
 		relationalTable = "instrument_orders";
-		pk1AtributeSearch = "instrument_ID";
+		pk1AtributeSearch = "instrumentID";
 		
 		ArrayList<Integer> instrumentPkRelationFound = new ArrayList<Integer>();
 		instrumentPkRelationFound = foundRelation(relationalTable,pk1AtributeSearch,pkAtributeCompere,pkValueCompere);
@@ -1039,7 +1038,7 @@ public class JDBCManager implements DBInterface
 		
 		String relationalTable = "instrument_orders";
 		String pk1AttSearchOrder = "orderID";
-		String pkAttCompareInst = "instrument_ID";
+		String pkAttCompareInst = "instrumentID";
 		int pkValueCompare = inst.getInstrumentID();
 		
 		ArrayList<Integer> instPkRelationFound1 = new ArrayList<Integer>();
@@ -1057,7 +1056,7 @@ public class JDBCManager implements DBInterface
 		//relation instrument-machinery
 		relationalTable = "instrument_machinery";
 		String pkAttSearchMach = "machineryID";
-		pkAttCompareInst = "instrument_ID";
+		pkAttCompareInst = "instrumentID";
 		
 		
 		ArrayList<Integer> instPkRelationFound2 = new ArrayList<Integer>();
@@ -1113,7 +1112,7 @@ public class JDBCManager implements DBInterface
 		while(iter1.hasNext())
 		{
 			Employee a = iter1.next();
-			if(a.getMachineryType().getMachineryID() == mach.getMachineryID())
+			if(a.getMachineryID().getMachineryID() == mach.getMachineryID())
 			{
 				mach.addEmployee(a);
 			}
@@ -1133,7 +1132,7 @@ public class JDBCManager implements DBInterface
 		}	
 		//Instrument List
 		String relationalTable = "instrument_machinery";
-		String pkAtributeS = "instrument_ID";
+		String pkAtributeS = "instrumentID";
 		
 		String pkAttCompare = "machineryID";
 		int pkValueCompare = mach.getMachineryID();

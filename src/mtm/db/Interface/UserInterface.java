@@ -635,12 +635,12 @@ public class UserInterface
     	{
     		MtM mtm = xmlManager.unmarshallMtM(path);
     		
-    		String queryIns = "SELECT * FROM instrument WHERE instrument_ID = ?";
+    		String queryIns = "SELECT * FROM instrument WHERE instrumentID = ?";
     		String queryHosp = "SELECT * FROM hospital WHERE hospitalID = ?";
     		String queryOrd = "SELECT * FROM orders WHERE orderID = ?";
     		String queryMach = "SELECT * FROM machinery WHERE machineryID = ?";
     		String queryMat = "SELECT * FROM material WHERE materialID = ?";
-    		String queryEmp = "SELECT * FROM employee WHERE employee_ID = ?";
+    		String queryEmp = "SELECT * FROM employee WHERE employeeID = ?";
     		String queryComp = "SELECT * FROM company WHERE companyID = ?";
     		String queryWare = "SELECT * FROM warehouse WHERE warehouseID = ?";
     		
@@ -710,7 +710,7 @@ public class UserInterface
     				jdbcManager.setRelationInstrumentOrder(ins.getInstrumentID(), ord.getOrderID());
     			}
     			//MAQUINARIAS
-    			ArrayList<Machinery> machListIns = (ArrayList<Machinery>)ins.getMachineryTypeList();
+    			ArrayList<Machinery> machListIns = (ArrayList<Machinery>)ins.getMachineryList();
     			Iterator <Machinery> machInsIter = machListIns.iterator();
     			
     			while(machInsIter.hasNext())
@@ -1073,7 +1073,8 @@ public class UserInterface
     public static void showCompany(int pk){
     	Company com;
 		com = jdbcManager.selectCompany(pk);
-		com.printCompany();
+		jdbcManager.setCompanyRelations(com);
+		com.printCompany(true);
     }
     
     public static void showMaterial(int pk){
@@ -1272,7 +1273,7 @@ public class UserInterface
     		if(relation){
     			jdbcManager.setInstrumentRelations(inst);
     			System.out.printf("id of instrument: %d, relation with order: %d\n",inst.getInstrumentID(),inst.getOrderList().toString());
-    			System.out.printf("id of instrument: %d, relation with machinery: %d\n",inst.getInstrumentID(),inst.getMachineryTypeList().toString());
+    			System.out.printf("id of instrument: %d, relation with machinery: %d\n",inst.getInstrumentID(),inst.getMachineryList().toString());
     			System.out.printf("id of instrument: %d, relation with warehouse: %d\n",inst.getInstrumentID(),inst.getWarehouse().toString());	
     		}else{
     			System.out.printf("id: %d\n",inst.getInstrumentID());
@@ -1313,7 +1314,7 @@ public class UserInterface
 			int id = emp.getEmployeeID();
     		emp = empList.get(count);
     		if(relation){
-        		System.out.printf("id: %d, mach: %s\n",id,emp.getMachineryType());
+        		System.out.printf("id: %d, mach: %s\n",id,emp.getMachineryID());
             	
     		}
     		else{

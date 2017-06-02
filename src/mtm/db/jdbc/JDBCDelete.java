@@ -18,7 +18,7 @@ public class JDBCDelete
 	{
 		try
 		{
-			String sql = "DELETE FROM instrument WHERE instrument_ID = ?";
+			String sql = "DELETE FROM instrument WHERE instrumentID = ?";
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setInt(1, pkInstrument);
 			prep.executeUpdate();
@@ -54,7 +54,7 @@ public class JDBCDelete
 	{
 		try
 		{
-			String sql = "DELETE FROM employee WHERE employee_ID = ?";
+			String sql = "DELETE FROM employee WHERE employeeID = ?";
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setInt(1, pk);
 			prep.executeUpdate();

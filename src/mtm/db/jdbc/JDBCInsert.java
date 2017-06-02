@@ -75,7 +75,7 @@ public class JDBCInsert
 		{
 			
 
-			String sql = "INSERT INTO instrument(name,model,purpose,amount,number_uses,body_location,price,warehouseID)"
+			String sql = "INSERT INTO instrument(name,model,purpose,amount,numberUses,bodyLocation,price,warehouseID)"
 					+ "VALUES(?,?,?,?,?,?,?,?);";
 
 			PreparedStatement prep = c.prepareStatement(sql);
@@ -129,7 +129,7 @@ public class JDBCInsert
 			prep.setString(1,emp.getName());
 			prep.setString(2,emp.getTypeofContract());
 			prep.setString(3,emp.getSpecializationType());
-			prep.setInt(4,emp.getMachineryType().getMachineryID());
+			prep.setInt(4,emp.getMachineryID().getMachineryID());
 			
 			prep.executeUpdate();
 			prep.close();
@@ -241,7 +241,7 @@ public class JDBCInsert
 		
 		try
 		{
-			String sql = "INSERT INTO instrument_orders(instrument_ID,orderID)"
+			String sql = "INSERT INTO instrument_orders(instrumentID,orderID)"
 					+"VALUES(?,?)";
 			
 			PreparedStatement prep = c.prepareStatement(sql);
@@ -263,7 +263,7 @@ public class JDBCInsert
 	try
 	{
 		
-		String sql = "INSERT INTO instrument_machinery(instrument_ID, machineryID)"
+		String sql = "INSERT INTO instrument_machinery(instrumentID, machineryID)"
 				+ "VALUES(?,?)";
 		
 		PreparedStatement prep = c.prepareStatement(sql);
