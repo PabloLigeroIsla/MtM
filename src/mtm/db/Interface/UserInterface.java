@@ -1386,7 +1386,8 @@ public class UserInterface
     				 id = inst.getInstrumentID();
     	    		System.out.printf("%d\n",inst.getInstrumentID());
     	    		count ++;
-    	    	}     			
+    	    	} 
+    	    	
     			//Employee
     			System.out.println("Employee\n");
     			
