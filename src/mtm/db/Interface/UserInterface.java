@@ -1008,12 +1008,13 @@ public class UserInterface
     			System.out.println("Type the PK of the machinery:\n");
     			int pk = writeNumber();
     			Machinery mach = jpaManager.selectMachinery(pk);
-    			if(mach != null){
+    			if(mach != null)
+    			{
     				mat.setMachineryID(mach);
     				aux2 = false;
     			}
     		
-    		}else if(writeOption(answ))
+    		}else
     		{
     			System.out.println("\n Therefore, a Machinery must be created\n");
     			Machinery mach = createMachinery();
@@ -1021,9 +1022,6 @@ public class UserInterface
     			
     			mat.setMachineryID(mach);
     			aux2 = false;
-    		}else
-    		{
-    			System.out.println("Please type YES or NO\n");
     		}
     		
     		
@@ -1062,10 +1060,8 @@ public class UserInterface
     		}
     	
     	}
-    	mat.printMaterial();
 		
     	return mat;
-    	
     }
 
     
@@ -1139,33 +1135,27 @@ public class UserInterface
 		ArrayList<Company> comList = new ArrayList<Company>();
 		comList = jdbcManager.selectAllCompanies();
 			
-		int count= 0;
+		Iterator<Company> compIter = comList.iterator(); 
 			
-		while(count < comList.size())
+		
+		while(compIter.hasNext())
 		{
-			com = comList.get(count);
+			com = compIter.next();
 			String name = com.getCompanyName();
 			int id = com.getCompanyID();
+			
+			System.out.printf("id: %d,name: %s\n",id,name);
 			
 			if(relation)
 			{
 				ArrayList<Material> matList = (ArrayList<Material>)com.getMaterialList();
 				Iterator<Material> iter = matList.iterator();
 				while(iter.hasNext())
-			{
-				Material mat = iter.next();
-				System.out.printf("\nmat id:%d\n",mat.getMaterialID());
-			}
-			}
-			else
-			{
-				System.out.printf("id: %d,name: %s\n",id,name);
-			}
-			
-			
-			count++;
-			
-			
+				{
+					Material mat = iter.next();
+					System.out.printf("\nmat id:%d\n",mat.getMaterialID());
+				}
+			}			
 		}
 	}
   
@@ -1342,7 +1332,7 @@ public class UserInterface
     		{
     			jdbcManager.setMachineryRelations(mach);
     			System.out.printf("id: %d, relation Instrument: %s, relation employee: %s, relation materials: %s\n"
-    					,mach.getMachineryID(),mach.getInstrumentList().toString(),mach.getEmployeeList().toString(),mach.getMaterialList().toString());
+    					,mach.getMachineryID(),mach.getInstrumentList(),mach.getEmployeeList(),mach.getMaterialList());
        
     		}else
     		{
