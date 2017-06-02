@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Hospital hospitalID="2" name="princesa">
+    <location>madrid</location>
+    <medicalSpecialization>heart</medicalSpecialization>
+    <Orders>
+        <Order orderID="2">
+            <totalAmountInstruments>30</totalAmountInstruments>
+            <orderDate>2000-04-20</orderDate>
+            <deliveryDate>2000-07-23</deliveryDate>
+        </Order>
+    </Orders>
+</Hospital>
