@@ -500,7 +500,6 @@ public class UserInterface
 	
 	public static void delValTable()
 	{
-		System.out.println("What table do you want to delete a value from? \n");
 		selectionMenu(5);
 		int op=writeNumber(2);
 		
